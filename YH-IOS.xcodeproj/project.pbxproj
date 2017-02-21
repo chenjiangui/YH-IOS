@@ -72,7 +72,6 @@
 		C4DB7D811C02EC0500DA534E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DB7D7F1C02EC0500DA534E /* Main.storyboard */; };
 		C4DB7D831C02EC0500DA534E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DB7D821C02EC0500DA534E /* Assets.xcassets */; };
 		C4DB7D861C02EC0500DA534E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DB7D841C02EC0500DA534E /* LaunchScreen.storyboard */; };
-		C4DB7D911C02EC0600DA534E /* YH_IOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB7D901C02EC0600DA534E /* YH_IOSTests.m */; };
 		C4DB7D9C1C02EC0600DA534E /* YH_IOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB7D9B1C02EC0600DA534E /* YH_IOSUITests.m */; };
 		C4DB7DB01C02EC3D00DA534E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB7DAE1C02EC3D00DA534E /* AppDelegate.m */; };
 		C4DB7DC11C02EE3800DA534E /* DateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DB7DB81C02EE3800DA534E /* DateUtils.m */; };
@@ -102,6 +101,7 @@
 		F68EB9E91DB74CB40020DD17 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F68EB9E81DB74CB40020DD17 /* LoadingView.m */; };
 		F691E5E41E28835C00BDC73E /* FindPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F691E5E31E28835C00BDC73E /* FindPasswordViewController.m */; };
 		F6D749EA1DCC767300921C76 /* PcmPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D749E81DCC767300921C76 /* PcmPlayer.m */; };
+		F6EC68D01E53F560008E0B5F /* ManualInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6EC68CF1E53F560008E0B5F /* ManualInputViewController.m */; };
 		F6F5CBC51D7C157100A1E779 /* UIButton+SettingBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F5CBC41D7C157100A1E779 /* UIButton+SettingBadge.m */; };
 /* End PBXBuildFile section */
 
@@ -232,7 +232,6 @@
 		C4DB7D851C02EC0500DA534E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4DB7D871C02EC0500DA534E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4DB7D8C1C02EC0600DA534E /* YH-IOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YH-IOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4DB7D901C02EC0600DA534E /* YH_IOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YH_IOSTests.m; sourceTree = "<group>"; };
 		C4DB7D921C02EC0600DA534E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4DB7D971C02EC0600DA534E /* YH-IOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YH-IOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DB7D9B1C02EC0600DA534E /* YH_IOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YH_IOSUITests.m; sourceTree = "<group>"; };
@@ -289,6 +288,8 @@
 		F6D749E71DCC767300921C76 /* PcmPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PcmPlayer.h; sourceTree = "<group>"; };
 		F6D749E81DCC767300921C76 /* PcmPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PcmPlayer.m; sourceTree = "<group>"; };
 		F6D749E91DCC767300921C76 /* PcmPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PcmPlayerDelegate.h; sourceTree = "<group>"; };
+		F6EC68CE1E53F560008E0B5F /* ManualInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManualInputViewController.h; sourceTree = "<group>"; };
+		F6EC68CF1E53F560008E0B5F /* ManualInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManualInputViewController.m; sourceTree = "<group>"; };
 		F6F5CBC31D7C157100A1E779 /* UIButton+SettingBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SettingBadge.h"; sourceTree = "<group>"; };
 		F6F5CBC41D7C157100A1E779 /* UIButton+SettingBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SettingBadge.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -407,6 +408,8 @@
 				C46F6A9A1D0673AB00C561CE /* MyQRViewController.m */,
 				C46F6A941D0671C900C561CE /* SubLBXScanViewController.h */,
 				C46F6A951D0671C900C561CE /* SubLBXScanViewController.m */,
+				F6EC68CE1E53F560008E0B5F /* ManualInputViewController.h */,
+				F6EC68CF1E53F560008E0B5F /* ManualInputViewController.m */,
 			);
 			name = BarCodeScan;
 			path = LBXScan;
@@ -671,7 +674,6 @@
 		C4DB7D8F1C02EC0600DA534E /* YH-IOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				C4DB7D901C02EC0600DA534E /* YH_IOSTests.m */,
 				C4DB7D921C02EC0600DA534E /* Info.plist */,
 			);
 			path = "YH-IOSTests";
@@ -975,7 +977,7 @@
 					C4DB7D8B1C02EC0600DA534E = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = WV94P663S4;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = C4DB7D721C02EC0500DA534E;
 					};
 					C4DB7D961C02EC0600DA534E = {
@@ -1141,6 +1143,7 @@
 				C4DEBB5A1D3CD22D00EEBC29 /* FileUtils+Report.m in Sources */,
 				C4272CC81C5C752B00E6971B /* README.md in Sources */,
 				C46903971D5CC81A00233D05 /* SelectStoreViewController.m in Sources */,
+				F6EC68D01E53F560008E0B5F /* ManualInputViewController.m in Sources */,
 				F691E5E41E28835C00BDC73E /* FindPasswordViewController.m in Sources */,
 				C46F6A9B1D0673AB00C561CE /* MyQRViewController.m in Sources */,
 				C4C284E61D06BB1A009458E6 /* ScanResultViewController.m in Sources */,
@@ -1162,7 +1165,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4DB7D911C02EC0600DA534E /* YH_IOSTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,7 +1326,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/UMessage_Sdk_1.2.6",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.YongHuiChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1358,7 +1360,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/UMessage_Sdk_1.2.6",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.YongHuiChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1369,40 +1371,44 @@
 		C4DB7DA41C02EC0600DA534E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = WV94P663S4;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "YH-IOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-ObjC",
 					"-framework",
 					XCTest,
+					"i'kiwi'",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.intfocus.YH-IOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YH-IOS.app/YH-IOS";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
 		C4DB7DA51C02EC0600DA534E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = WV94P663S4;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "YH-IOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-ObjC",
 					"-framework",
 					XCTest,
+					"i'kiwi'",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.intfocus.YH-IOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YH-IOS.app/YH-IOS";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
