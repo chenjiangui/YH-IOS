@@ -425,7 +425,7 @@
 }
 
 - (JYNotifyView *)notifyView {
-    if (!_notifyView) {
+   // if (!_notifyView) {
         NSMutableArray* noticearray = [[NSMutableArray alloc]init];
         _notifyView = [[JYNotifyView alloc] initWithFrame:CGRectMake(0, 0, JYVCWidth, kJYNotifyHeight)];
         if (_noticeArray.count >=2) {
@@ -444,20 +444,20 @@
         _notifyView.userInteractionEnabled = NO;
         _notifyView.notifyColor = [UIColor colorWithHexString:@"#999"];
         _notifyView.closeBtnColor = [UIColor colorWithRed:0.84 green:0.30 blue:0.19 alpha:1.00];
-    }
+   // }
     return _notifyView;
 }
 
 // ************************************ 滚动部分 **************************************
 - (JYPagedFlowView *)pageView {
-    if (!_pageView) {
+   // if (!_pageView) {
         _pageView = [[JYPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, JYVCWidth, kJYPageHeight)];
         _pageView.delegate = self;
         _pageView.dataSource = self;
         _pageView.backgroundColor = JYColor_LightGray_White;
         _pageView.minimumPageAlpha = 0.8;
         _pageView.minimumPageScale = 0.87;
-    }
+    //}
     return _pageView;
 }
 
