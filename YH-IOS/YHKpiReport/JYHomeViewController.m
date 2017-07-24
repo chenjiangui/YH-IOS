@@ -82,7 +82,8 @@
     [self.view addSubview:self.rootSCView];
     
     _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    _header.lastUpdatedTimeLabel.hidden = YES;
+   // [_header setTitle:@"下拉刷新" forState:forState:MJRefreshStateIdle];
+    _header.lastUpdatedTimeLabel.hidden = NO;
    self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
     self.rootTBView.mj_header = _header;
