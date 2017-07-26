@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeScrollHeaderCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIButton *scanBtn;
+@property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (weak, nonatomic) IBOutlet UILabel *yestodayLab;
+@property (weak, nonatomic) IBOutlet UILabel *priceNumLab;
+@property (weak, nonatomic) IBOutlet UILabel *priceDesLab;
+@property (nonatomic, strong) CommonBack scanBlock;
 @end

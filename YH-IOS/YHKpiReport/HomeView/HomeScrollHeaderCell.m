@@ -7,6 +7,13 @@
 //
 
 #import "HomeScrollHeaderCell.h"
+#import "SDCycleScrollView.h"
+
+@interface HomeScrollHeaderCell ()
+
+@property (nonatomic, strong) SDCycleScrollView* cycleView;
+
+@end
 
 @implementation HomeScrollHeaderCell
 
@@ -19,6 +26,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (SDCycleScrollView *)cycleView{
+    if (!_cycleView) {
+        _cycleView = [SDCycleScrollView alloc] ini
+    }
 }
 
 @end
