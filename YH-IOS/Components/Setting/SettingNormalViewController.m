@@ -250,8 +250,6 @@
                  //            make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
                  make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
              }];
-             
-             
              cell.userInteractionEnabled = YES;
          }
          else if ([key isEqualToString:@"修改密码"]) {

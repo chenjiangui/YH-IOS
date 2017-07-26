@@ -9,9 +9,12 @@
 #import "MineInfoViewController.h"
 #import "MineHeadView.h"
 #import "MineInfoTableViewCell.h"
-#import "MineResetPwdViewController.h"
+
+//#import "MineResetPwdViewController.h"
+//use new ResetPwdViewController
+#import "NewMineResetPwdController.h"
+
 #import "MineQuestionViewController.h"
-#import "MineRequestListViewController.h"
 #import "FileUtils.h"
 #import "HttpUtils.h"
 #import "User.h"
@@ -304,8 +307,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ((indexPath.section == 3 ) && (indexPath.row == 1)) {
+//        MineResetPwdViewController *mineResetPwdCtrl = [[MineResetPwdViewController alloc]init];
+        
         NewMineResetPwdController *mineResetPwdCtrl = [[NewMineResetPwdController alloc]init];
-        mineResetPwdCtrl.title = @"密码修改";
+        mineResetPwdCtrl.title = @"修改密码";
+
         [RootNavigationController pushViewController:mineResetPwdCtrl animated:YES hideBottom:YES];
     }
     else if ((indexPath.section == 3)&&(indexPath.row == 2)){
@@ -315,7 +321,7 @@
     }
     else if ((indexPath.section ==3)&&(indexPath.row ==0)){
         MineSingleSettingViewController *settingCtrl = [[MineSingleSettingViewController alloc]init];
-        settingCtrl.title = @"我的设置";
+        settingCtrl.title = @"设置";
         [RootNavigationController pushViewController:settingCtrl animated:YES hideBottom:YES];
     }
 }

@@ -67,9 +67,10 @@
     [RMessage setDelegate:self];
     
     
+
     
     [self startLocation];
-    
+
     UIImageView *Logo =[[UIImageView alloc] init];
     
     [self.view addSubview:Logo];
@@ -85,18 +86,15 @@
         make.size.mas_equalTo(CGSizeMake(100, 100));
         
     }];
-    
+
     UITextField *peopleNumber=[[UITextField alloc] init];
     
     [self.view addSubview:peopleNumber];
-    
-    
     
     peopleNumber.font=[UIFont systemFontOfSize:15];
     
     peopleNumber.textAlignment=NSTextAlignmentLeft;
     
-    // peopleNumber.textColor=[UIColor colorWithHexString:@"#bcbcbc"];
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
@@ -110,7 +108,10 @@
     }
     
     peopleNumber.borderStyle = UITextBorderStyleNone;
+
     
+     peopleNumber.borderStyle = UITextBorderStyleNone;
+
     [peopleNumber addTarget:self action:@selector(peopleNumberChange:) forControlEvents:UIControlEventEditingChanged];
     
     
@@ -166,7 +167,6 @@
         
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
-    
     _passwordNumber=[[UITextField alloc] init];
     
     [self.view addSubview:_passwordNumber];
@@ -199,7 +199,7 @@
         
     }];
     _PasswordUnderLine = [[UIView alloc]init];
-    
+
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
     

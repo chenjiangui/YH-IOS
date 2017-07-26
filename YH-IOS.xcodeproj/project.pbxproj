@@ -122,13 +122,11 @@
 		9169BC631F00FB9A00419E52 /* GuidePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9169BC621F00FB9A00419E52 /* GuidePageViewController.m */; };
 		918302631F1B98690039B8CD /* SubjectOutterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918302621F1B98690039B8CD /* SubjectOutterViewController.m */; };
 		91A751A81EFF953500D1037E /* JYCollectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A751A71EFF953500D1037E /* JYCollectionFooterView.m */; };
-		91AB668D1F2894EE0077A0CF /* MineQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66801F2894EE0077A0CF /* MineQuestionViewController.m */; };
-		91AB668E1F2894EE0077A0CF /* MineRequestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66821F2894EE0077A0CF /* MineRequestListViewController.m */; };
-		91AB668F1F2894EE0077A0CF /* MineResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66841F2894EE0077A0CF /* MineResetPwdViewController.m */; };
-		91AB66901F2894EE0077A0CF /* MineSingleSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66861F2894EE0077A0CF /* MineSingleSettingViewController.m */; };
-		91AB66911F2894EE0077A0CF /* MyRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66881F2894EE0077A0CF /* MyRequestDetailViewController.m */; };
-		91AB66921F2894EE0077A0CF /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB668A1F2894EE0077A0CF /* NewMineResetPwdController.m */; };
-		91AB66931F2894EE0077A0CF /* ThurSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB668C1F2894EE0077A0CF /* ThurSayViewController.m */; };
+		91AB66A31F28A1F60077A0CF /* MineResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66A21F28A1F60077A0CF /* MineResetPwdViewController.m */; };
+		91AB66A61F28A20F0077A0CF /* MineQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66A41F28A20F0077A0CF /* MineQuestionViewController.m */; };
+		91AB66AA1F28A2830077A0CF /* MyRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66A91F28A2830077A0CF /* MyRequestDetailViewController.m */; };
+		91AB66AD1F28A28E0077A0CF /* MineSingleSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66AC1F28A28E0077A0CF /* MineSingleSettingViewController.m */; };
+		91AB66B01F28A2DB0077A0CF /* ThurSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66AF1F28A2DB0077A0CF /* ThurSayViewController.m */; };
 		91B70D5F1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */; };
 		91B70D601EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91B70D5E1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib */; };
 		91B70D681EF8C84600C02F16 /* JYSigleValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D671EF8C84600C02F16 /* JYSigleValueView.m */; };
@@ -240,6 +238,7 @@
 		91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */; };
 		91EF8DEC1EF3DB1200333746 /* YHMutileveHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
+		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
 		C403433C1D6ADEAB00625D53 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = C40343371D6ADEAB00625D53 /* UIButton+Badge.m */; };
 		C403433D1D6ADEAB00625D53 /* UILabel+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = C40343391D6ADEAB00625D53 /* UILabel+Badge.m */; };
 		C403433E1D6ADEAB00625D53 /* UITabBar+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = C403433B1D6ADEAB00625D53 /* UITabBar+Badge.m */; };
@@ -881,20 +880,16 @@
 		918302621F1B98690039B8CD /* SubjectOutterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectOutterViewController.m; sourceTree = "<group>"; };
 		91A751A61EFF953500D1037E /* JYCollectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYCollectionFooterView.h; sourceTree = "<group>"; };
 		91A751A71EFF953500D1037E /* JYCollectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYCollectionFooterView.m; sourceTree = "<group>"; };
-		91AB667F1F2894EE0077A0CF /* MineQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineQuestionViewController.h; sourceTree = "<group>"; };
-		91AB66801F2894EE0077A0CF /* MineQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineQuestionViewController.m; sourceTree = "<group>"; };
-		91AB66811F2894EE0077A0CF /* MineRequestListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineRequestListViewController.h; sourceTree = "<group>"; };
-		91AB66821F2894EE0077A0CF /* MineRequestListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineRequestListViewController.m; sourceTree = "<group>"; };
-		91AB66831F2894EE0077A0CF /* MineResetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineResetPwdViewController.h; sourceTree = "<group>"; };
-		91AB66841F2894EE0077A0CF /* MineResetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineResetPwdViewController.m; sourceTree = "<group>"; };
-		91AB66851F2894EE0077A0CF /* MineSingleSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineSingleSettingViewController.h; sourceTree = "<group>"; };
-		91AB66861F2894EE0077A0CF /* MineSingleSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineSingleSettingViewController.m; sourceTree = "<group>"; };
-		91AB66871F2894EE0077A0CF /* MyRequestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRequestDetailViewController.h; sourceTree = "<group>"; };
-		91AB66881F2894EE0077A0CF /* MyRequestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRequestDetailViewController.m; sourceTree = "<group>"; };
-		91AB66891F2894EE0077A0CF /* NewMineResetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineResetPwdController.h; sourceTree = "<group>"; };
-		91AB668A1F2894EE0077A0CF /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
-		91AB668B1F2894EE0077A0CF /* ThurSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThurSayViewController.h; sourceTree = "<group>"; };
-		91AB668C1F2894EE0077A0CF /* ThurSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThurSayViewController.m; sourceTree = "<group>"; };
+		91AB66A11F28A1F60077A0CF /* MineResetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineResetPwdViewController.h; sourceTree = "<group>"; };
+		91AB66A21F28A1F60077A0CF /* MineResetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineResetPwdViewController.m; sourceTree = "<group>"; };
+		91AB66A41F28A20F0077A0CF /* MineQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineQuestionViewController.m; sourceTree = "<group>"; };
+		91AB66A71F28A2750077A0CF /* MineQuestionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineQuestionViewController.h; sourceTree = "<group>"; };
+		91AB66A81F28A2830077A0CF /* MyRequestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRequestDetailViewController.h; sourceTree = "<group>"; };
+		91AB66A91F28A2830077A0CF /* MyRequestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRequestDetailViewController.m; sourceTree = "<group>"; };
+		91AB66AB1F28A28E0077A0CF /* MineSingleSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineSingleSettingViewController.h; sourceTree = "<group>"; };
+		91AB66AC1F28A28E0077A0CF /* MineSingleSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineSingleSettingViewController.m; sourceTree = "<group>"; };
+		91AB66AE1F28A2DB0077A0CF /* ThurSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThurSayViewController.h; sourceTree = "<group>"; };
+		91AB66AF1F28A2DB0077A0CF /* ThurSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThurSayViewController.m; sourceTree = "<group>"; };
 		91B70D5C1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHReportLeftTextTableViewCell.h; sourceTree = "<group>"; };
 		91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHReportLeftTextTableViewCell.m; sourceTree = "<group>"; };
 		91B70D5E1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHReportLeftTextTableViewCell.xib; sourceTree = "<group>"; };
@@ -1093,6 +1088,8 @@
 		91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMutileveHeaderView.h; sourceTree = "<group>"; };
 		91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveHeaderView.m; sourceTree = "<group>"; };
 		91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHMutileveHeaderView.xib; sourceTree = "<group>"; };
+		B676BB3C1F282AD700AF363A /* NewMineResetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineResetPwdController.h; sourceTree = "<group>"; };
+		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
 		C40343361D6ADEAB00625D53 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		C40343371D6ADEAB00625D53 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		C40343381D6ADEAB00625D53 /* UILabel+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Badge.h"; sourceTree = "<group>"; };
@@ -2351,6 +2348,16 @@
 		91D77F281EEA9CC7007405A0 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				91AB66A11F28A1F60077A0CF /* MineResetPwdViewController.h */,
+				91AB66A21F28A1F60077A0CF /* MineResetPwdViewController.m */,
+				91AB66A71F28A2750077A0CF /* MineQuestionViewController.h */,
+				91AB66A41F28A20F0077A0CF /* MineQuestionViewController.m */,
+				91AB66A81F28A2830077A0CF /* MyRequestDetailViewController.h */,
+				91AB66A91F28A2830077A0CF /* MyRequestDetailViewController.m */,
+				91AB66AB1F28A28E0077A0CF /* MineSingleSettingViewController.h */,
+				91AB66AC1F28A28E0077A0CF /* MineSingleSettingViewController.m */,
+				B676BB3C1F282AD700AF363A /* NewMineResetPwdController.h */,
+				B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2731,13 +2738,6 @@
 			path = SettingTableViewCell;
 			sourceTree = "<group>";
 		};
-		C48924E21D858F0A00859411 /* ThursdaySay */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ThursdaySay;
-			sourceTree = "<group>";
-		};
 		C48C03C71CABB27B000D9D22 /* UMessage_Sdk_1.2.6 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2774,11 +2774,12 @@
 				F65548381E8CDF3600B4048C /* Controller */,
 				C48924D01D858F0A00859411 /* ResetPassword */,
 				C48924D31D858F0A00859411 /* SettingTableViewCell */,
-				C48924E21D858F0A00859411 /* ThursdaySay */,
 				C49E1AB11C19632000CFFE3C /* SettingViewController.h */,
 				C49E1AB21C19632000CFFE3C /* SettingViewController.m */,
 				F64903BA1DB5CD9B0001DD2B /* UserInfoViewController.h */,
 				F64903BB1DB5CD9B0001DD2B /* UserInfoViewController.m */,
+				91AB66AE1F28A2DB0077A0CF /* ThurSayViewController.h */,
+				91AB66AF1F28A2DB0077A0CF /* ThurSayViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -3696,20 +3697,6 @@
 		F65548381E8CDF3600B4048C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				91AB667F1F2894EE0077A0CF /* MineQuestionViewController.h */,
-				91AB66801F2894EE0077A0CF /* MineQuestionViewController.m */,
-				91AB66811F2894EE0077A0CF /* MineRequestListViewController.h */,
-				91AB66821F2894EE0077A0CF /* MineRequestListViewController.m */,
-				91AB66831F2894EE0077A0CF /* MineResetPwdViewController.h */,
-				91AB66841F2894EE0077A0CF /* MineResetPwdViewController.m */,
-				91AB66851F2894EE0077A0CF /* MineSingleSettingViewController.h */,
-				91AB66861F2894EE0077A0CF /* MineSingleSettingViewController.m */,
-				91AB66871F2894EE0077A0CF /* MyRequestDetailViewController.h */,
-				91AB66881F2894EE0077A0CF /* MyRequestDetailViewController.m */,
-				91AB66891F2894EE0077A0CF /* NewMineResetPwdController.h */,
-				91AB668A1F2894EE0077A0CF /* NewMineResetPwdController.m */,
-				91AB668B1F2894EE0077A0CF /* ThurSayViewController.h */,
-				91AB668C1F2894EE0077A0CF /* ThurSayViewController.m */,
 				F65548391E8CDF5600B4048C /* NewSettingViewController.h */,
 				F655483A1E8CDF5600B4048C /* NewSettingViewController.m */,
 				F655483C1E8CDF7C00B4048C /* OptionConfigViewController.h */,
@@ -4206,7 +4193,7 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = WV94P663S4;
+						DevelopmentTeam = LS69CLN4M7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -4470,7 +4457,6 @@
 				91E6CFA81EFB6B8C00507B7E /* TAAnimatedDotView.m in Sources */,
 				3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */,
 				91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */,
-				91AB66931F2894EE0077A0CF /* ThurSayViewController.m in Sources */,
 				F62457E51EA5FD01006834D2 /* DataManager.m in Sources */,
 				91BA005D1F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */,
 				C4DB7DC21C02EE3800DA534E /* ExtendNSLogFunctionality.m in Sources */,
@@ -4521,7 +4507,6 @@
 				91BA005B1F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */,
 				F62457401EA5FBB2006834D2 /* LineChart2ViewController.m in Sources */,
 				91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */,
-				91AB66921F2894EE0077A0CF /* NewMineResetPwdController.m in Sources */,
 				F64903BC1DB5CD9B0001DD2B /* UserInfoViewController.m in Sources */,
 				91DB24571EEE698700FC8413 /* zoomPopup.m in Sources */,
 				F655483B1E8CDF5600B4048C /* NewSettingViewController.m in Sources */,
@@ -4556,7 +4541,6 @@
 				C4DB7DC11C02EE3800DA534E /* DateUtils.m in Sources */,
 				F68C258C1EC2D44F0069C041 /* JYFallsView.m in Sources */,
 				C40D06B41C917BF80029D142 /* XPathQuery.m in Sources */,
-				91AB668E1F2894EE0077A0CF /* MineRequestListViewController.m in Sources */,
 				F68C258B1EC2D44F0069C041 /* JYFallsLayout.m in Sources */,
 				914465641F04BFB900795E54 /* TopHeaderCollectionReusableView.m in Sources */,
 				91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */,
@@ -4593,7 +4577,6 @@
 				F62456C81EA5FB21006834D2 /* HomeIndexDetailListVC.m in Sources */,
 				915A8CE71F1E0B9400262311 /* JYHelpInfoView.m in Sources */,
 				C48924EB1D858F0A00859411 /* ThurSayTableViewCell.m in Sources */,
-				91AB66911F2894EE0077A0CF /* MyRequestDetailViewController.m in Sources */,
 				F68C25E31EC2D4790069C041 /* JYRowViewCell.m in Sources */,
 				F62457E81EA5FD01006834D2 /* NSArray+PureLayout.m in Sources */,
 				915A8CE81F1E0B9400262311 /* JYInfoView.m in Sources */,
@@ -4650,8 +4633,8 @@
 				3B30EEEA1F25F63200A702EC /* YHWarningNoticeController.m in Sources */,
 				C4C628451C0C1ED6000AD5D8 /* LoginViewController.m in Sources */,
 				C4E93F0F1D38C01D00DBEC90 /* ReportSelectorViewController.m in Sources */,
-				91AB668D1F2894EE0077A0CF /* MineQuestionViewController.m in Sources */,
 				9118AE981F26FF1500DD3FD3 /* UserMessageTableViewCell.m in Sources */,
+				91AB66A61F28A20F0077A0CF /* MineQuestionViewController.m in Sources */,
 				C4ECB2801C3119E900F7947B /* NSString+MD5.m in Sources */,
 				F62456CC1EA5FB21006834D2 /* HomeIndexVC.m in Sources */,
 				9118AEA01F26FF1F00DD3FD3 /* MineDetailTableViewCell.m in Sources */,
@@ -4659,7 +4642,6 @@
 				F62457A41EA5FBE1006834D2 /* UITextField+Additionals.m in Sources */,
 				F63D4A161EB32A200004BCC8 /* MenuTableViewCell.m in Sources */,
 				F62457A71EA5FBE1006834D2 /* UIView+MJExtension.m in Sources */,
-				91AB66901F2894EE0077A0CF /* MineSingleSettingViewController.m in Sources */,
 				915A8D2A1F1E0C7000262311 /* JYHudView.m in Sources */,
 				C4448C6C1C0AE3030053B431 /* HttpUtils.m in Sources */,
 				F63D49FD1EB329A20004BCC8 /* DoubleClickSuperChartVc.m in Sources */,
@@ -4752,6 +4734,7 @@
 				F62457EE1EA5FD01006834D2 /* TPKeyboardAvoidingTableView.m in Sources */,
 				F624563E1EA5FACD006834D2 /* IQUITextFieldView+Additions.m in Sources */,
 				F62457A21EA5FBE1006834D2 /* UITabBarControllerAdditionals.m in Sources */,
+				91AB66AA1F28A2830077A0CF /* MyRequestDetailViewController.m in Sources */,
 				F624574C1EA5FBB2006834D2 /* PieChartViewController.m in Sources */,
 				F6F1C85B1E88BFB000754034 /* ApplicationViewController.m in Sources */,
 				F62456561EA5FACD006834D2 /* BHInfiniteScrollViewCell.m in Sources */,
@@ -4777,6 +4760,7 @@
 				915A8D0C1F1E0BA500262311 /* JYExcelModel.m in Sources */,
 				F68C258A1EC2D44F0069C041 /* JYFallsCell.m in Sources */,
 				F62456481EA5FACD006834D2 /* IQToolbar.m in Sources */,
+				B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */,
 				915A8CE61F1E0B9400262311 /* JYExcelView.m in Sources */,
 				F624563F1EA5FACD006834D2 /* IQUIView+Hierarchy.m in Sources */,
 				91D364111F1F220400CD7159 /* JYSortItemView.m in Sources */,
@@ -4799,8 +4783,10 @@
 				F62456BC1EA5FB21006834D2 /* ChartHeaderViewCell.m in Sources */,
 				915A8CF01F1E0B9400262311 /* JYSubSheetView.m in Sources */,
 				91BA005C1F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */,
+				91AB66A31F28A1F60077A0CF /* MineResetPwdViewController.m in Sources */,
 				91D364101F1F220400CD7159 /* JYSortButton.m in Sources */,
 				91EF8DD01EF38A1700333746 /* YHTopicViewController.m in Sources */,
+				91AB66B01F28A2DB0077A0CF /* ThurSayViewController.m in Sources */,
 				F68C25AB1EC2D4670069C041 /* JYComponentModel.m in Sources */,
 				F62456451EA5FACD006834D2 /* IQBarButtonItem.m in Sources */,
 				3B763B191F27154D00D5E965 /* YHInstituteListCell.m in Sources */,
@@ -4815,6 +4801,7 @@
 				91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */,
 				915A8D131F1E0BA500262311 /* JYStatementModel.m in Sources */,
 				C45D27111C23FC490087C6F2 /* OpenUDID.m in Sources */,
+				91AB66AD1F28A28E0077A0CF /* MineSingleSettingViewController.m in Sources */,
 				F6F1C85F1E88C03900754034 /* MianTabBarViewController.m in Sources */,
 				F6F1C8581E88BFA100754034 /* MessageViewController.m in Sources */,
 				91D4D6921F08C0360087783C /* MyModel.m in Sources */,
@@ -4839,7 +4826,6 @@
 				91E6CFA71EFB6B8C00507B7E /* TAAbstractDotView.m in Sources */,
 				F63D4A021EB329A20004BCC8 /* FilterSuperChartVc.m in Sources */,
 				F62456441EA5FACD006834D2 /* IQTextView.m in Sources */,
-				91AB668F1F2894EE0077A0CF /* MineResetPwdViewController.m in Sources */,
 				F624564E1EA5FACD006834D2 /* GUATool.m in Sources */,
 				F62456421EA5FACD006834D2 /* IQKeyboardManager.m in Sources */,
 				F62456571EA5FACD006834D2 /* BHInfiniteScrollViewTitleView.m in Sources */,
@@ -5051,7 +5037,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LS69CLN4M7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5091,7 +5077,7 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xyj.YH;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5114,7 +5100,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LS69CLN4M7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5154,7 +5140,7 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xyj.YH;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
