@@ -24,6 +24,7 @@
 #import "MineTwoLabelTableViewCell.h"
 #import "MineDetailTableViewCell.h"
 #import "LogoutTableViewCell.h"
+#import "NewMineResetPwdController.h"
 
 
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
@@ -303,7 +304,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ((indexPath.section == 3 ) && (indexPath.row == 1)) {
-        MineResetPwdViewController *mineResetPwdCtrl = [[MineResetPwdViewController alloc]init];
+        NewMineResetPwdController *mineResetPwdCtrl = [[NewMineResetPwdController alloc]init];
         mineResetPwdCtrl.title = @"密码修改";
         [RootNavigationController pushViewController:mineResetPwdCtrl animated:YES hideBottom:YES];
     }

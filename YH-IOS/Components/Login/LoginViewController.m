@@ -63,9 +63,12 @@
     [super viewDidLoad];
     
     
-    [RMessage setDefaultViewController:self];
+    [RMessage setDefaultViewController:self.navigationController];
     [RMessage setDelegate:self];
     
+    
+    
+    [self startLocation];
     
     UIImageView *Logo =[[UIImageView alloc] init];
     
@@ -83,51 +86,30 @@
         
     }];
     
-    
-    //    UILabel *APPName=[[UILabel alloc] init];
-    //
-    //    [self.view addSubview:APPName];
-    //
-    ////    APPName.text=@"永辉生意人";
-    //
-    //    APPName.textColor=[UIColor colorWithHexString:@"bcbcbc"];
-    //
-    //    //设置字间距 NSKernAttributeName:@1.0f
-    //    NSDictionary *dic = @{NSKernAttributeName:@1.0f};
-    //
-    //    APPName.font=[UIFont systemFontOfSize:15];
-    //
-    //    NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString:@"永辉生意人" attributes:dic];
-    //
-    //    APPName.attributedText = attributeStr;
-    //
-    //
-    //    [APPName mas_makeConstraints:^(MASConstraintMaker *make) {
-    //
-    //
-    ////        make.left.mas_equalTo(self.view.mas_left).offset(141);
-    //
-    //        make.top.mas_equalTo(Logo.mas_bottom).offset(14);
-    //
-    //        make.centerX.mas_equalTo(self.view.mas_centerX);
-    //
-    //        make.size.mas_equalTo(CGSizeMake(94, 15));
-    //    }];
-    //
-    
-    
-    
     UITextField *peopleNumber=[[UITextField alloc] init];
     
     [self.view addSubview:peopleNumber];
     
-    peopleNumber.placeholder=@"员工号";
+    
     
     peopleNumber.font=[UIFont systemFontOfSize:15];
     
     peopleNumber.textAlignment=NSTextAlignmentLeft;
     
-   // peopleNumber.textColor=[UIColor colorWithHexString:@"#bcbcbc"];
+    // peopleNumber.textColor=[UIColor colorWithHexString:@"#bcbcbc"];
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    
+    if (![userDict[@"user_name"] isEqualToString:@""] && userDict[@"user_name"]) {
+        peopleNumber.text = userDict[@"user_num"];
+        _peopleNumString=userDict[@"user_num"];
+    }
+    else
+    {
+        peopleNumber.placeholder=@"员工号";
+    }
+    
+    peopleNumber.borderStyle = UITextBorderStyleNone;
     
     [peopleNumber addTarget:self action:@selector(peopleNumberChange:) forControlEvents:UIControlEventEditingChanged];
     
@@ -173,7 +155,9 @@
     [self.view addSubview:PeopleUnderLine];
     
     [PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
+        
+        
         make.left.mas_equalTo(peopleLogo.mas_left);
         
         make.top.mas_equalTo(peopleLogo.mas_bottom).offset(8);
@@ -183,7 +167,6 @@
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
     
-
     _passwordNumber=[[UITextField alloc] init];
     
     [self.view addSubview:_passwordNumber];
@@ -215,9 +198,8 @@
         make.size.mas_equalTo(CGSizeMake(245, 30));
         
     }];
-
     _PasswordUnderLine = [[UIView alloc]init];
-
+    
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
     
@@ -276,7 +258,10 @@
         make.size.mas_equalTo(CGSizeMake(10, 10));
         
     }];
-
+    
+    
+    
+    
     UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     
     
@@ -308,7 +293,9 @@
         
         make.size.mas_equalTo(CGSizeMake(245, 52));
     }];
-
+    
+    
+    
     
     UIButton *forGotPwd=[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -325,6 +312,8 @@
     
     
     [self.view addSubview:forGotPwd];
+    
+    
     
     UIView *line=[[UIView alloc] init];
     
@@ -349,7 +338,7 @@
         
         make.right.mas_equalTo(line.mas_left).offset(-16);
         
-       // make.size.mas_equalTo(CGSizeMake(55,13));
+        // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     
     
@@ -373,10 +362,10 @@
         
         make.left.mas_equalTo(line.mas_right).offset(16);
         
-       // make.size.mas_equalTo(CGSizeMake(55,13));
+        // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     
-    [self startLocation];
+    
     
     //    self.bgView = [[UIImageView alloc] initWithFrame:self.view.frame];
     //    self.bgView.image = [UIImage imageNamed:@"login-bg"];
@@ -407,9 +396,11 @@
     //    self.userNameText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"帐户" attributes:@{NSForegroundColorAttributeName:placeHoderColor}];
     //    self.userNameText.borderStyle = UITextBorderStyleNone;
     //    self.userNameText.delegate = self;
+    
     //    if (![userDict[@"user_name"] isEqualToString:@""] && userDict[@"user_name"]) {
     //        self.userNameText.text = userDict[@"user_num"];
     //    }
+    
     //    self.userNameText.textColor = [UIColor blackColor];
     //    self.userNameText.userInteractionEnabled = YES;
     //    self.userNameText.returnKeyType = UIReturnKeyDone;
@@ -482,12 +473,12 @@
     //                                             selector:@selector(userinfomoveToTop:)
     //                                                 name:UIKeyboardWillShowNotification
     //                                               object:nil];
-    //    
+    //
     //    [[NSNotificationCenter defaultCenter] addObserver:self
     //                                             selector:@selector(userinfoMoveToBottom:)
     //                                                 name:UIKeyboardWillHideNotification
     //                                               object:nil];
-    //    
+    //
     //    isPad ? [self layoutWithIpad] : [self layoutView];
     
     
@@ -495,21 +486,21 @@
 
 -(void)peopleNumberChange:(UITextField*)PeopleNumber
 {
-// NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
+    // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
     
     _peopleNumString=PeopleNumber.text;
-
+    
 }
 
 -(void)PasswordDidChange:(UITextField*)PasswordNumber
 {
     
-//    NSLog(@"PhoneNumberDidChange===%@",PasswordNumber.text);
-
+    //    NSLog(@"PhoneNumberDidChange===%@",PasswordNumber.text);
+    
     _passwordNumString=PasswordNumber.text;
     
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
-
+    
 }
 
 -(void)changePwdLine:(UITextField*)PasswordNumber
@@ -517,15 +508,16 @@
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
 }
 
+
+
 -(void)deleteOldPassword
 {
-
+    
     _passwordNumber.text=@"";
     
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
     
 }
-
 
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
@@ -577,6 +569,63 @@
 }
 
 
+//布局视图
+- (void)layoutView {
+    for (UIView *view in [self.bgView subviews]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    self.sideblank = (self.view.frame.size.width - 40) / 2;
+    
+    NSDictionary *ViewDict = NSDictionaryOfVariableBindings(_logoView, _sloganLabel, _loginButton, _loginPasswordImage, _loginUserImage, _seperateView1, _seperateView2, _userNameText, _userPasswordText,_versionLabel,_findPassword,_registerBtn);
+    // [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_logoView]-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_logoView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
+    NSString *strl =[NSString stringWithFormat: @"V:|-100-[_logoView(58)]-20-[_sloganLabel(20)]-%f-[_userNameText(30)]-8-[_seperateView1(1)]-20-[_userPasswordText(30)]-8-[_seperateView2(1)]-10-[_findPassword]-30-[_loginButton(40)]-(>=50)-[_versionLabel(20)]-10-|", kSloganHeight];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:strl options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-80-[_sloganLabel]-80-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_seperateView1]-40-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_seperateView2]-40-|" options:0 metrics:nil views:ViewDict]];
+    //[_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-200-[_logoView(50)]-20-[_sloganLabel]-80-[_loginUserView]-1-[_seperateView1(2)]-20-[_loginPassword]-1-[_seperateView2(2)]-16-[_LoginButton]-200-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_loginUserImage(30)]-10-[_userNameText]-80-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_versionLabel]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_loginPasswordImage(30)]-10-[_userPasswordText]-80-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_loginButton]-40-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_registerBtn(70)]-(>=50)-[_findPassword(70)]-40-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginUserImage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_userNameText attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginUserImage attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_userNameText attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginPasswordImage attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_userPasswordText attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginPasswordImage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_userPasswordText attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_registerBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_findPassword attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_registerBtn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_findPassword attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+}
+
+- (void)layoutWithIpad {
+    for (UIView *view in [self.bgView subviews]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    self.sideblank = (self.view.frame.size.width - 40) / 2;
+    
+    NSDictionary *ViewDict = NSDictionaryOfVariableBindings(_logoView, _sloganLabel, _loginButton, _loginPasswordImage, _loginUserImage, _seperateView1, _seperateView2, _userNameText, _userPasswordText,_versionLabel,_findPassword,_registerBtn);
+    // [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_logoView]-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_logoView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
+    NSString *strl =[NSString stringWithFormat: @"V:|-100-[_logoView(58)]-20-[_sloganLabel(20)]-%f-[_userNameText(30)]-2-[_seperateView1(2)]-20-[_userPasswordText(30)]-2-[_seperateView2(2)]-10-[_findPassword]-10-[_loginButton(40)]-(>=50)-[_versionLabel(20)]-10-|", [[UIScreen mainScreen] bounds].size.height / 5];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:strl options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_sloganLabel]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_seperateView1]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_seperateView2]-120-|" options:0 metrics:nil views:ViewDict]];
+    //[_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-200-[_logoView(50)]-20-[_sloganLabel]-80-[_loginUserView]-1-[_seperateView1(2)]-20-[_loginPassword]-1-[_seperateView2(2)]-16-[_LoginButton]-200-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_loginUserImage(30)]-10-[_userNameText]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_versionLabel]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_loginPasswordImage(30)]-10-[_userPasswordText]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_loginButton]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-120-[_registerBtn(70)]-(>=50)-[_findPassword(70)]-120-|" options:0 metrics:nil views:ViewDict]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginUserImage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_userNameText attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginUserImage attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_userNameText attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginPasswordImage attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_userPasswordText attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_loginPasswordImage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_userPasswordText attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_registerBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_findPassword attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_registerBtn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_findPassword attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+}
+
 - (void)userinfomoveToTop:(NSNotification *)aNotification {
     NSDictionary *userInfo = [aNotification userInfo];
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -596,7 +645,7 @@
     FindPasswordViewController *findPwdViewController = [[FindPasswordViewController alloc]init];
     UINavigationController *findPwdCtrl = [[UINavigationController alloc]initWithRootViewController:findPwdViewController];
     [self presentViewController:findPwdCtrl animated:YES completion:nil];
-
+    
     
 }
 
@@ -629,7 +678,11 @@
     [self showProgressHUD:@"验证中"];
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
+    
     NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
+    
+    
+    
     [self.progressHUD hide:YES];
     
     if (!(msg.length == 0)) {
@@ -637,7 +690,7 @@
             [self.navigationController setNavigationBarHidden:NO];
         }
         
-        [RMessage showNotificationInViewController:self
+        [RMessage showNotificationInViewController:self.navigationController
                                              title:msg
                                           subtitle:nil
                                          iconImage:nil
@@ -697,7 +750,7 @@
     LoginViewController *previousRootViewController = (LoginViewController *)window.rootViewController;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-   // DashboardViewController *dashboardViewController = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
+    // DashboardViewController *dashboardViewController = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
     //dashboardViewController.fromViewController = @"LoginViewController";
     MianTabBarViewController *mainTabbar = [[MianTabBarViewController alloc]init];
     window.rootViewController = mainTabbar;
