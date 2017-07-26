@@ -21,6 +21,8 @@
 
 #define DEFAULT_IMAGE @"默认图_".imageFromSelf
 
+#define CustomFontName @"AlternateGothicNo2BT-Regular"
+
 //屏幕大小宏定义
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
