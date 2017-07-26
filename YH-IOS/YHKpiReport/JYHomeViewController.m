@@ -90,7 +90,7 @@
     //UIView *topIamgeView = [self addHeaderView];
     //[self.view addSubview:topIamgeView];
     //[self.view addSubview:self.notifyView];
-    [self.view addSubview:self.rootSCView];
+    [self.view addSubview:self.rootTBView];
     
 //    _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
 //    _header.lastUpdatedTimeLabel.hidden = YES;
@@ -103,6 +103,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"receiveRemote"];
     }*/
     [self noteToChangePwd];
+    [self reTool];
     
 }
 
@@ -157,6 +158,7 @@
 - (void)getData{
     [dataListButtom removeAllObjects];
     [YHHttpRequestAPI yh_getHomeDashboardFinish:^(BOOL success, NSArray<YHKPIModel *>* demolArray, NSString *jsonObjc) {
+        [self.reTool endDownPullWithReload:NO];
         if (success && demolArray && jsonObjc) {
             for (int i=0; i<demolArray.count; i++) {
                 if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
@@ -351,7 +353,7 @@
     [self jumpToDetailView:targetString viewTitle:item.title];
 }
 
-- (UIScrollView *)rootSCView {
+- (UIScrollView *)rootTBView {
     
     if (!_rootTBView) {
         //给通知视图预留40height

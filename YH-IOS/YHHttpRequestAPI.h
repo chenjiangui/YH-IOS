@@ -55,6 +55,11 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
                                  isFav:(BOOL)isFav
                               finish:(YHHttpRequestBlock)finish;
 
+/**
+ 获取首页数组
+
+ @param finish finish description
+ */
 + (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish;
 
 @end
