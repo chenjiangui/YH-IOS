@@ -35,6 +35,7 @@
     [self.logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.mas_centerX);
         make.centerY.mas_equalTo(self.mas_centerY);
+        make.size.mas_equalTo(self.size);
     }];
 }
 

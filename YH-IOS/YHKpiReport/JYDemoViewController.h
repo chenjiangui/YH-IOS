@@ -10,4 +10,6 @@
 
 @interface JYDemoViewController : UIViewController
 
+@property (nonatomic, copy) NSString *urlLink;
+
 @end
