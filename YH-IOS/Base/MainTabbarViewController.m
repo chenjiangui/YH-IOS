@@ -98,7 +98,7 @@
                                                 NSForegroundColorAttributeName:[AppColor textColor]
                                                 } forState:UIControlStateNormal];
         [vc.tabBarItem setTitleTextAttributes:@{
-                                                NSForegroundColorAttributeName:[AppColor oneColor]
+                                                NSForegroundColorAttributeName:UIColorHex(00a4e9)
                                                 } forState:UIControlStateSelected];
     }
 
@@ -125,7 +125,7 @@
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    _isShouldSelected = 0;
+    _isShouldSelected = YES;
 //    self.tabBar.hidden = NO;
 //    BaseNavigationController *nav = (BaseNavigationController*)viewController;
 //    if ([nav.topViewController isKindOfClass:NSClassFromString(@"PersonCenterController")]||[nav.topViewController isKindOfClass:NSClassFromString(@"CartViewController")] || [nav.topViewController isKindOfClass:NSClassFromString(@"EnterpriseCategoryVc")]) {
@@ -154,10 +154,10 @@
 - (NSArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSArray arrayWithObjects:
-                    @"订单中心,PersonCenterController,1_02,1_01",
-                    @"结算中心,PersonCenterController,2_02,2_01",
-                    @"我的,PersonCenterController,3_02,3_01",
-                    @"设置,SettingVc,4_02,4_01",
+                    @"概况,JYHomeViewController,tab_overview2,tab_overview1",
+                    @"报表,YHReportViewController,tab_form2,tab_form1",
+                    @"工具箱,YHTopicViewController,tab_special2,tab_special1",
+                    @"我的,MineController,tab_my2,tab_my1",
                     nil];
     }
     return _dataArr;

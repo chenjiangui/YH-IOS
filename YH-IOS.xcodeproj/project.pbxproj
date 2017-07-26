@@ -17,6 +17,8 @@
 		3B717DA91F285DA300858E0E /* HomeScrollHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */; };
 		3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */; };
 		3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */; };
+		3B717DB01F287A8800858E0E /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DAF1F287A8800858E0E /* UIView+SDExtension.m */; };
+		3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DB21F28918D00858E0E /* HomeNavBarView.m */; };
 		3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763AE41F26108C00D5E965 /* YHHttpRequestAPI.m */; };
 		3B763AEA1F26109F00D5E965 /* NoticeWarningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763AE91F26109F00D5E965 /* NoticeWarningModel.m */; };
 		3B763AED1F262CF700D5E965 /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B763AEC1F262CF700D5E965 /* Test.plist */; };
@@ -221,10 +223,8 @@
 		91E6CFA81EFB6B8C00507B7E /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF991EFB6B8C00507B7E /* TAAnimatedDotView.m */; };
 		91E6CFA91EFB6B8C00507B7E /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF9B1EFB6B8C00507B7E /* TADotView.m */; };
 		91E6CFAA1EFB6B8C00507B7E /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF9D1EFB6B8C00507B7E /* TAPageControl.m */; };
-		91E6CFAB1EFB6B8C00507B7E /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF9F1EFB6B8C00507B7E /* UIView+SDExtension.m */; };
 		91E6CFAC1EFB6B8C00507B7E /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CFA11EFB6B8C00507B7E /* SDCollectionViewCell.m */; };
 		91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CFA31EFB6B8C00507B7E /* SDCycleScrollView.m */; };
-		91E6CFAE1EFB6B8C00507B7E /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CFA51EFB6B8C00507B7E /* UIView+SDExtension.m */; };
 		91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CFB01EFB89A400507B7E /* YHKPIModel.m */; };
 		91EF8DD01EF38A1700333746 /* YHTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DCF1EF38A1700333746 /* YHTopicViewController.m */; };
 		91EF8DD41EF38AFB00333746 /* YHTopicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DD31EF38AFB00333746 /* YHTopicCollectionView.m */; };
@@ -657,6 +657,10 @@
 		3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScrollHeaderCell.m; sourceTree = "<group>"; };
 		3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeScrollHeaderCell.xib; sourceTree = "<group>"; };
 		3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = ALTGOT2N.TTF; sourceTree = "<group>"; };
+		3B717DAE1F287A8800858E0E /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		3B717DAF1F287A8800858E0E /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		3B717DB11F28918D00858E0E /* HomeNavBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNavBarView.h; sourceTree = "<group>"; };
+		3B717DB21F28918D00858E0E /* HomeNavBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNavBarView.m; sourceTree = "<group>"; };
 		3B763AE31F26108C00D5E965 /* YHHttpRequestAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHHttpRequestAPI.h; sourceTree = "<group>"; };
 		3B763AE41F26108C00D5E965 /* YHHttpRequestAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHHttpRequestAPI.m; sourceTree = "<group>"; };
 		3B763AE81F26109F00D5E965 /* NoticeWarningModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeWarningModel.h; sourceTree = "<group>"; };
@@ -1060,14 +1064,10 @@
 		91E6CF9B1EFB6B8C00507B7E /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
 		91E6CF9C1EFB6B8C00507B7E /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
 		91E6CF9D1EFB6B8C00507B7E /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
-		91E6CF9E1EFB6B8C00507B7E /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
-		91E6CF9F1EFB6B8C00507B7E /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		91E6CFA01EFB6B8C00507B7E /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
 		91E6CFA11EFB6B8C00507B7E /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
 		91E6CFA21EFB6B8C00507B7E /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
 		91E6CFA31EFB6B8C00507B7E /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
-		91E6CFA41EFB6B8C00507B7E /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
-		91E6CFA51EFB6B8C00507B7E /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		91E6CFAF1EFB89A400507B7E /* YHKPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHKPIModel.h; sourceTree = "<group>"; };
 		91E6CFB01EFB89A400507B7E /* YHKPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHKPIModel.m; sourceTree = "<group>"; };
 		91EF8DCE1EF38A1700333746 /* YHTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHTopicViewController.h; sourceTree = "<group>"; };
@@ -1796,6 +1796,8 @@
 				3B717DA61F285DA300858E0E /* HomeScrollHeaderCell.h */,
 				3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */,
 				3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */,
+				3B717DB11F28918D00858E0E /* HomeNavBarView.h */,
+				3B717DB21F28918D00858E0E /* HomeNavBarView.m */,
 			);
 			name = HomeView;
 			path = YHKpiReport/HomeView;
@@ -2546,6 +2548,8 @@
 		91E6CF921EFB6B8C00507B7E /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				3B717DAE1F287A8800858E0E /* UIView+SDExtension.h */,
+				3B717DAF1F287A8800858E0E /* UIView+SDExtension.m */,
 				91E6CF931EFB6B8C00507B7E /* NSData+SDDataCache.h */,
 				91E6CF941EFB6B8C00507B7E /* NSData+SDDataCache.m */,
 				91E6CF951EFB6B8C00507B7E /* PageControl */,
@@ -2553,8 +2557,6 @@
 				91E6CFA11EFB6B8C00507B7E /* SDCollectionViewCell.m */,
 				91E6CFA21EFB6B8C00507B7E /* SDCycleScrollView.h */,
 				91E6CFA31EFB6B8C00507B7E /* SDCycleScrollView.m */,
-				91E6CFA41EFB6B8C00507B7E /* UIView+SDExtension.h */,
-				91E6CFA51EFB6B8C00507B7E /* UIView+SDExtension.m */,
 			);
 			name = SDCycleScrollView;
 			path = Components/SDCycleScrollView;
@@ -2571,8 +2573,6 @@
 				91E6CF9B1EFB6B8C00507B7E /* TADotView.m */,
 				91E6CF9C1EFB6B8C00507B7E /* TAPageControl.h */,
 				91E6CF9D1EFB6B8C00507B7E /* TAPageControl.m */,
-				91E6CF9E1EFB6B8C00507B7E /* UIView+SDExtension.h */,
-				91E6CF9F1EFB6B8C00507B7E /* UIView+SDExtension.m */,
 			);
 			path = PageControl;
 			sourceTree = "<group>";
@@ -4465,6 +4465,7 @@
 				91D3640D1F1F220400CD7159 /* JYRootScrollViewCell.m in Sources */,
 				F630499B1E9CAFB000831413 /* MainViewController.m in Sources */,
 				F62456D21EA5FB21006834D2 /* YH_BarView.m in Sources */,
+				3B717DB01F287A8800858E0E /* UIView+SDExtension.m in Sources */,
 				F62456411EA5FACD006834D2 /* IQUIWindow+Hierarchy.m in Sources */,
 				91BA00651F2721A500943596 /* RMessageView.m in Sources */,
 				F62456C61EA5FB21006834D2 /* HomeIndexDetailListCell.m in Sources */,
@@ -4533,7 +4534,6 @@
 				91DB244B1EED7CA700FC8413 /* PhotoRevealCell.m in Sources */,
 				F624563D1EA5FACD006834D2 /* IQUIScrollView+Additions.m in Sources */,
 				F68C25961EC2D44F0069C041 /* JYTopSinglePage.m in Sources */,
-				91E6CFAE1EFB6B8C00507B7E /* UIView+SDExtension.m in Sources */,
 				F63A5BC71DCB17980092FC24 /* VoiceSpeechView.m in Sources */,
 				91A751A81EFF953500D1037E /* JYCollectionFooterView.m in Sources */,
 				F624574A1EA5FBB2006834D2 /* NegativeStackedBarChartViewController.m in Sources */,
@@ -4663,6 +4663,7 @@
 				3B30EEE81F25F63200A702EC /* YHWarningNoticeCell.m in Sources */,
 				91DB24461EED7A3000FC8413 /* PhotoNavigationController.m in Sources */,
 				91DB24401EED7A3000FC8413 /* UIView+leoAdd.m in Sources */,
+				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
@@ -4675,7 +4676,6 @@
 				914509781F02247D00ED82D6 /* Node.m in Sources */,
 				F68C25A11EC2D45D0069C041 /* UIColor+Utility.m in Sources */,
 				F62456501EA5FACD006834D2 /* UpdateVersionAlertView.m in Sources */,
-				91E6CFAB1EFB6B8C00507B7E /* UIView+SDExtension.m in Sources */,
 				914F3F301EE93C78004B2C25 /* MineHeadView.m in Sources */,
 				F660A3EC1EBAD69B00C6C510 /* SuperChartMainModel.m in Sources */,
 				91DB247B1EEFA24A00FC8413 /* MineRequestListCell.m in Sources */,

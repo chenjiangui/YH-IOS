@@ -27,6 +27,8 @@
 #import "SubjectOutterViewController.h"
 #import "YHHttpRequestAPI.h"
 #import "RefreshTool.h"
+#import "HomeScrollHeaderCell.h"
+#import "HomeNavBarView.h"
 
 
 #define kJYNotifyHeight 40
@@ -58,6 +60,10 @@
 
 @property (nonatomic, strong) RefreshTool* reTool;
 
+@property (nonatomic, strong) NSArray* dataList;
+
+@property (nonatomic, strong) HomeNavBarView* navBarView;
+
 @end
 
 @implementation JYHomeViewController
@@ -69,63 +75,34 @@
     return _reTool;
 }
 
+- (HomeNavBarView *)navBarView{
+    if (!_navBarView) {
+        _navBarView = [[HomeNavBarView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    }
+    return _navBarView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fd_prefersNavigationBarHidden = YES;
+    [self.view sd_addSubviews:@[self.rootTBView,self.navBarView]];
+    [self.rootTBView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
     _user = [[User alloc]init];
-    // Do any additional setup after loading the view.
-    //self.automaticallyAdjustsScrollViewInsets = YES;
-     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
     _noticeArray = [[NSMutableArray alloc]init];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     dataListButtom = [NSMutableArray new];
-    self.tabBarController.tabBar.backgroundColor = [UIColor colorWithHexString:@"#f9f9f9f"];
-    self.navigationController.navigationBar.backgroundColor =[UIColor colorWithHexString:@"#f9f9f9f"];
-    [self loadData];
+//    [self loadData];
     [self getData];
-   // self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self idColor];
-    bottomViewHeight = JYVCHeight;
-    
-    //UIView *topIamgeView = [self addHeaderView];
-    //[self.view addSubview:topIamgeView];
-    //[self.view addSubview:self.notifyView];
-    [self.view addSubview:self.rootTBView];
-    
-//    _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-//    _header.lastUpdatedTimeLabel.hidden = YES;
-   self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.translucent = NO;
-//    self.rootTBView.mj_header = _header;
-    //原始推送跳转
-    /*if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"receiveRemote"] boolValue]) {
-        self.tabBarController.selectedIndex = 3;
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"receiveRemote"];
-    }*/
-    [self noteToChangePwd];
+//    [self idColor];
+//    bottomViewHeight = JYVCHeight;
     [self reTool];
-    
 }
+
 
 - (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
     [self getData];
 }
-
--(void)loadNewData{
-    [self.rootTBView.mj_header beginRefreshing];
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-          [self getData];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-            [_rootTBView.mj_header endRefreshing];
-//        });
-//    });
-  
-   // [self.rootTBView reloadData];
-   // _rootTBView = [[UITableView alloc] initWithFrame:CGRectMake(0, kJYNotifyHeight, JYVCWidth, JYVCHeight - (kJYNotifyHeight)) style:UITableViewStylePlain];
-//    [_rootTBView.mj_header endRefreshing];
-}
-
-
 
 - (void)loadData {
     NSString *messageUrl = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
@@ -168,6 +145,7 @@
                     [dataListButtom addObject:demolArray[i]];
                 }
             }
+            self.dataList = demolArray;
             [self.rootTBView reloadData];
         }else{
             SCLAlertView *alert = [[SCLAlertView alloc] init];
@@ -225,7 +203,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.tabBarController.tabBar.translucent = NO;
 }
 
 //标识点
@@ -324,7 +301,7 @@
     
     // 网络加载 --- 创建不带标题的图片轮播器
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, 150) imageURLStringsGroup:nil];
-    _cycleScrollView.model = self.modeltop;
+//    _cycleScrollView.model = self.modeltop;
     _cycleScrollView.infiniteLoop = YES;
     _cycleScrollView.delegate = self;
     _cycleScrollView.placeholderImage=[UIImage imageNamed:@"banner-bg"];
@@ -363,9 +340,8 @@
         _rootTBView.dataSource = self;
         _rootTBView.delegate = self;
         _rootTBView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        _rootTBView.tableHeaderView = [self addHeaderView];
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        _rootTBView.tableFooterView = [self footerView];
+//        _rootTBView.tableHeaderView = [self addHeaderView];
+//        _rootTBView.tableFooterView = [self footerView];
         _rootTBView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _rootTBView.backgroundColor = [UIColor whiteColor];
     }
@@ -437,8 +413,23 @@
 }
 
 #pragma mark - < UITableViewDataSource>
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat mj_offsetY = self.rootTBView.mj_offsetY;
+    if (mj_offsetY<=0) {
+        self.navBarView.top = -mj_offsetY;
+        self.navBarView.backColorAlpha = 0;
+    }else{
+        if (mj_offsetY<=30) {
+            self.navBarView.backColorAlpha = mj_offsetY/30.0;
+        }else{
+            self.navBarView.backColorAlpha = 1;
+        }
+    }
+
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return self.dataList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -446,6 +437,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
+    }
     if ([dataListTop count] >0 && dataListTop != nil) {
        return indexPath.section == 0 ? JYVCHeight : bottomViewHeight;
     }
@@ -456,6 +450,12 @@
 
 #pragma mark - <UITableViewDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) { // top 轮播
+        HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
+        [cell setItem:[NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"]];
+        return cell;
+    }
     
     UITableViewCell*  cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
