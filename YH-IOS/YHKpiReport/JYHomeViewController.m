@@ -324,7 +324,7 @@
     
     // 网络加载 --- 创建不带标题的图片轮播器
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, 150) imageURLStringsGroup:nil];
-    _cycleScrollView.model = self.modeltop;
+//    _cycleScrollView.model = self.modeltop;
     _cycleScrollView.infiniteLoop = YES;
     _cycleScrollView.delegate = self;
     _cycleScrollView.placeholderImage=[UIImage imageNamed:@"banner-bg"];

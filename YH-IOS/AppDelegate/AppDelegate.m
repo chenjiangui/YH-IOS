@@ -87,18 +87,6 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    for(NSString *fontfamilyname in [UIFont familyNames])
-    {
-        NSLog(@"family:'%@'",fontfamilyname);
-        for(NSString *fontName in [UIFont fontNamesForFamilyName:fontfamilyname])
-        {
-            NSLog(@"\tfont:'%@'",fontName);
-        }
-        NSLog(@"-------------");
-    }
-
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _isReApp = YES;
     // [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"receiveRemote"];

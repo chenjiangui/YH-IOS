@@ -28,10 +28,10 @@
     // Configure the view for the selected state
 }
 
-- (SDCycleScrollView *)cycleView{
-    if (!_cycleView) {
-        _cycleView = [SDCycleScrollView alloc] ini
-    }
-}
+//- (SDCycleScrollView *)cycleView{
+//    if (!_cycleView) {
+//        _cycleView = [SDCycleScrollView alloc] ini
+//    }
+//}
 
 @end
