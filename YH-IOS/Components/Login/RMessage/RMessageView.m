@@ -618,25 +618,12 @@ static NSMutableDictionary *globalDesignDictionary;
   } else if (titleFontSize) {
     _titleLabel.font = [UIFont boldSystemFontOfSize:titleFontSize];
   }
-
-//  self.titleLabel.textAlignment =
-//    [self textAlignmentForString:[_messageViewDesignDictionary valueForKey:@"titleTextAlignment"]];
-    //new
     self.titleLabel.textAlignment =NSTextAlignmentCenter;
-    
-    
     self.titleLabel.textColor=[UIColor colorWithHexString:@"#ffffff"];
-    
-    
     self.titleLabel.font=[UIFont systemFontOfSize:15];
-    
-    
-    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.centerX.mas_equalTo(self.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(63, 16));
-        
+       // make.size.mas_equalTo(CGSizeMake(63, 16));
     }];
     
   UIColor *titleTextColor = [self colorForString:[_messageViewDesignDictionary valueForKey:@"titleTextColor"]];

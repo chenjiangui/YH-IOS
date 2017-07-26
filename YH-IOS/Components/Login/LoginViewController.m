@@ -63,10 +63,8 @@
     [super viewDidLoad];
     
     
-    [RMessage setDefaultViewController:self.navigationController];
+    [RMessage setDefaultViewController:self];
     [RMessage setDelegate:self];
-    
-    
     
     
     UIImageView *Logo =[[UIImageView alloc] init];
@@ -175,9 +173,7 @@
     [self.view addSubview:PeopleUnderLine];
     
     [PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
-        
+
         make.left.mas_equalTo(peopleLogo.mas_left);
         
         make.top.mas_equalTo(peopleLogo.mas_bottom).offset(8);
@@ -187,10 +183,7 @@
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
     
-    
-    
-    
-    
+
     _passwordNumber=[[UITextField alloc] init];
     
     [self.view addSubview:_passwordNumber];
@@ -222,13 +215,9 @@
         make.size.mas_equalTo(CGSizeMake(245, 30));
         
     }];
-    
-    
-    
+
     _PasswordUnderLine = [[UIView alloc]init];
-    
-    
-    
+
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
     
@@ -287,10 +276,7 @@
         make.size.mas_equalTo(CGSizeMake(10, 10));
         
     }];
-    
-    
-    
-    
+
     UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     
     
@@ -322,9 +308,7 @@
         
         make.size.mas_equalTo(CGSizeMake(245, 52));
     }];
-    
-    
-    
+
     
     UIButton *forGotPwd=[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -341,8 +325,6 @@
     
     
     [self.view addSubview:forGotPwd];
-    
-    
     
     UIView *line=[[UIView alloc] init];
     
@@ -535,8 +517,6 @@
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
 }
 
-
-
 -(void)deleteOldPassword
 {
 
@@ -545,19 +525,6 @@
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // 支持设备自动旋转
@@ -727,7 +694,7 @@
             [self.navigationController setNavigationBarHidden:NO];
         }
         
-        [RMessage showNotificationInViewController:self.navigationController
+        [RMessage showNotificationInViewController:self
                                              title:msg
                                           subtitle:nil
                                          iconImage:nil
