@@ -10,6 +10,7 @@
 #import "User.h"
 #import "NoticeWarningModel.h"
 #import "ArticlesModel.h"
+#import "YHKPIModel.h"
 
 @implementation YHHttpRequestAPI
 
@@ -64,6 +65,15 @@
     [BaseRequest postRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
+    }];
+}
+
++ (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish{
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, NSData* response, NSString *responseJson) {
+        NSDictionary* dic = [response mj_JSONObject];
+        NSArray<YHKPIModel *> *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:dic[@"data"] error:nil];
+        finish(requestSuccess,demolArray,responseJson);
     }];
 }
 

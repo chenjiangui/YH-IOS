@@ -25,11 +25,13 @@
 #import "SDCycleScrollView.h"
 #import "YHKPIModel.h"
 #import "SubjectOutterViewController.h"
+#import "YHHttpRequestAPI.h"
+#import "RefreshTool.h"
 
 
 #define kJYNotifyHeight 40
 
-@interface JYHomeViewController () <UITableViewDelegate, UITableViewDataSource, PagedFlowViewDelegate, PagedFlowViewDataSource, JYNotifyDelegate, JYFallsViewDelegate,SDCycleScrollViewDelegate> {
+@interface JYHomeViewController () <UITableViewDelegate, UITableViewDataSource, PagedFlowViewDelegate, PagedFlowViewDataSource, JYNotifyDelegate, JYFallsViewDelegate,SDCycleScrollViewDelegate,RefreshToolDelegate> {
     
     CGFloat bottomViewHeight;
     NSArray *dataListTop;
@@ -44,7 +46,7 @@
 @property (nonatomic, copy) NSArray *pages;
 @property (nonatomic, strong) JYPagedFlowView *pageView;
 @property (nonatomic, strong) JYFallsView *fallsView;
-@property (nonatomic, strong) MJRefreshGifHeader *header;
+//@property (nonatomic, strong) MJRefreshGifHeader *header;
 @property (nonatomic, strong) User* user;
 @property (nonatomic, strong) NSMutableArray* noticeArray;
 @property (nonatomic, strong) NSArray *dropMenuTitles;
@@ -54,9 +56,18 @@
 @property (nonatomic, strong) NSArray<YHKPIModel *> * modelKpiArray;
 @property (nonatomic, strong) YHKPIModel* modeltop;
 
+@property (nonatomic, strong) RefreshTool* reTool;
+
 @end
 
 @implementation JYHomeViewController
+
+- (RefreshTool *)reTool{
+    if (!_reTool) {
+        _reTool = [[RefreshTool alloc] initWithScrollView:self.rootTBView delegate:self down:YES top:NO];
+    }
+    return _reTool;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,11 +92,11 @@
     //[self.view addSubview:self.notifyView];
     [self.view addSubview:self.rootSCView];
     
-    _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    _header.lastUpdatedTimeLabel.hidden = YES;
+//    _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+//    _header.lastUpdatedTimeLabel.hidden = YES;
    self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
-    self.rootTBView.mj_header = _header;
+//    self.rootTBView.mj_header = _header;
     //原始推送跳转
     /*if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"receiveRemote"] boolValue]) {
         self.tabBarController.selectedIndex = 3;
@@ -95,93 +106,27 @@
     
 }
 
+- (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
+    [self getData];
+}
+
 -(void)loadNewData{
     [self.rootTBView.mj_header beginRefreshing];
-    [self getData];
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+          [self getData];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            [_rootTBView.mj_header endRefreshing];
+//        });
+//    });
+  
    // [self.rootTBView reloadData];
    // _rootTBView = [[UITableView alloc] initWithFrame:CGRectMake(0, kJYNotifyHeight, JYVCWidth, JYVCHeight - (kJYNotifyHeight)) style:UITableViewStylePlain];
-    [_rootTBView.mj_header endRefreshing];
+//    [_rootTBView.mj_header endRefreshing];
 }
 
 
 
 - (void)loadData {
-    // 数据准备
-   /* _user = [[User alloc]init];
-    _titleArray = [[NSMutableArray alloc]init];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl2,self.user.groupID,self.user.roleID];
-   // NSString *kpiUrl = @"http://yonghui-test.idata.mobi/api/v1/group/165/role/7/kpi";
-    NSData *data;
-     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
-     NSString*fileName =  [HttpUtils urlTofilename:kpiUrl suffix:@".kpi"][0];
-     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
-     
-     if ([HttpUtils isNetworkAvailable2]) {
-        HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
-        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-            [FileUtils removeFile:javascriptPath];
-        }
-         data = reponse.received;
-         [reponse.received writeToFile:javascriptPath atomically:YES];
-       }
-    else{
-        data= [NSData dataWithContentsOfFile:javascriptPath];
-     }
-    
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
-  //  NSData *data = [NSData dataWithContentsOfFile:path];
-    NSArray *arraySource = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-    NSArray *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:arraySource error:nil];
-    self.modelKpiArray = [demolArray copy];
-    NSArray *arraySource1 = arraySource[1][@"data"];
-    NSMutableArray<JYDashboardModel *> *arr = [NSMutableArray arrayWithCapacity:arraySource.count];
-    [arraySource1 enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        JYDashboardModel *model = [JYDashboardModel modelWithParams:obj];
-        [arr addObject:model];
-       // [_titleArray addObject:model.groupName];
-    }];
-      dataList = [NSMutableArray new];
-    [dataList arrayByAddingObjectsFromArray:arr];
-    
-    NSArray *arraySource2 = arraySource[2][@"data"];
-    NSMutableArray<JYDashboardModel *> *arr1 = [NSMutableArray arrayWithCapacity:arraySource.count];
-    [arraySource2 enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        JYDashboardModel *model = [JYDashboardModel modelWithParams:obj];
-        [arr1 addObject:model];
-        // [_titleArray addObject:model.groupName];
-    }];
-    
-    [dataList arrayByAddingObjectsFromArray:arr1];
-    
-    // NSArray *arraySource2 = arraySource[0][@"data"];
-    NSMutableArray<JYDashboardModel *> *topList = [NSMutableArray array];
-    NSMutableArray<JYDashboardModel *> *buttomList = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(JYDashboardModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.stick) {
-            [topList addObject:obj];
-        }
-        else {
-            [buttomList addObject:obj];
-            if (![_titleArray containsObject:obj.groupName]) {
-          //      [_titleArray addObject:obj.groupName];
-            }
-        }
-    }];
-    dataListTop = [topList copy];
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];// 数据分组
-    for (int i = 0; i < buttomList.count; i++) {
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[dic objectForKey:buttomList[i].groupName]];
-        [arr addObject:buttomList[i]];
-        [dic setObject:arr forKey:buttomList[i].groupName];
-    }
-    NSMutableArray* dicArray = [[NSMutableArray alloc]init];
-    for (int i = 0; i<_titleArray.count;i++) {
-        NSString* keyString = _titleArray[i];
-        [dicArray addObject:dic[keyString]];
-    }
-   // dataListButtom = @[arr,arr1];
-    */
     NSString *messageUrl = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
     HttpResponse *responsemessage = [HttpUtils httpGet:messageUrl header:nil timeoutInterval:10];
     if ([responsemessage.statusCode isEqualToNumber:@(200)]) {
@@ -211,72 +156,74 @@
 
 - (void)getData{
     [dataListButtom removeAllObjects];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
-    // NSString *kpiUrl = @"http://yonghui-test.idata.mobi/api/v1/group/165/role/7/kpi";
-    NSData *data;
-    NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
-    NSString*fileName =  [HttpUtils urlTofilename:kpiUrl suffix:@".kpi"][0];
-    javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
-    
-    if ([HttpUtils isNetworkAvailable3]) {
-        HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
-        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-            [FileUtils removeFile:javascriptPath];
+    [YHHttpRequestAPI yh_getHomeDashboardFinish:^(BOOL success, NSArray<YHKPIModel *>* demolArray, NSString *jsonObjc) {
+        if (success && demolArray && jsonObjc) {
+            for (int i=0; i<demolArray.count; i++) {
+                if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
+                    self.modeltop = demolArray[i];
+                }
+                else{
+                    [dataListButtom addObject:demolArray[i]];
+                }
+            }
+            [self.rootTBView reloadData];
+        }else{
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert addButton:@"重新加载" actionBlock:^(void) {
+                [self getData];
+            }];
+            [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
+            return;
         }
-        data = reponse.received;
-        [reponse.received writeToFile:javascriptPath atomically:YES];
-    }
-    else{
-        data= [NSData dataWithContentsOfFile:javascriptPath];
-    }
-    
-    if (!data) {
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        [alert addButton:@"重新加载" actionBlock:^(void) {
-            [self getData];
-        }];
-        [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
-        return;
-    }
-    else {
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
-    //  NSData *data = [NSData dataWithContentsOfFile:path];
-    NSArray *arraySource = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-    NSArray<YHKPIModel *> *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:arraySource error:nil];
-    for (int i=0; i<demolArray.count; i++) {
-        if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
-            self.modeltop = demolArray[i];
-        }
-        else{
-            [dataListButtom addObject:demolArray[i]];
-        }
-    }
-    }
-    [self.rootTBView reloadData];
+    }];
+//    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
+//    // NSString *kpiUrl = @"http://yonghui-test.idata.mobi/api/v1/group/165/role/7/kpi";
+//    NSData *data;
+//    NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
+//    NSString*fileName =  [HttpUtils urlTofilename:kpiUrl suffix:@".kpi"][0];
+//    javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
+//    
+//    if ([HttpUtils isNetworkAvailable3]) {
+//        HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
+//        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
+//            [FileUtils removeFile:javascriptPath];
+//        }
+//        data = reponse.received;
+//        [reponse.received writeToFile:javascriptPath atomically:YES];
+//    }
+//    else{
+//        data= [NSData dataWithContentsOfFile:javascriptPath];
+//    }
+//    
+//    if (!data) {
+//        SCLAlertView *alert = [[SCLAlertView alloc] init];
+//        [alert addButton:@"重新加载" actionBlock:^(void) {
+//            [self getData];
+//        }];
+//        [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
+//        return;
+//    }
+//    else {
+//    //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
+//    //  NSData *data = [NSData dataWithContentsOfFile:path];
+//    NSArray *arraySource = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
+//    NSArray<YHKPIModel *> *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:arraySource error:nil];
+//    for (int i=0; i<demolArray.count; i++) {
+//        if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
+//            self.modeltop = demolArray[i];
+//        }
+//        else{
+//            [dataListButtom addObject:demolArray[i]];
+//        }
+//    }
+//    }
+//    [self.rootTBView reloadData];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-      self.tabBarController.tabBar.translucent = NO;
-    
-  /*  self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:kThemeColor];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(2, 0, 70, 40)];
-    UIImage *imageback = [UIImage imageNamed:@"Banner-Back"];
-    UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 7, 15, 25)];
-    bakImage.image = imageback;
-    [bakImage setContentMode:UIViewContentModeScaleAspectFit];
-    [backBtn addSubview:bakImage];
-    UILabel *backLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 7, 50, 25)];
-    backLabel.text = @"返回";
-    backLabel.textColor = [UIColor whiteColor];
-    [backBtn addSubview:backLabel];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-  //  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"Subject-Refresh"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(refreshView)];
-    self.title =self.bannerTitle;*/
-    
-
+    self.tabBarController.tabBar.translucent = NO;
 }
 
 //标识点

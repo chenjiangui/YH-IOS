@@ -44,8 +44,17 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
                                 page:(NSInteger)page
                               finish:(YHHttpRequestBlock)finish;
 
+/**
+ 取消或收藏文章
+
+ @param identifier 文章id
+ @param isFav 是否收藏
+ @param finish finish description
+ */
 + (void)yh_collectArticleWithArticleId:(NSString*)identifier
                                  isFav:(BOOL)isFav
                               finish:(YHHttpRequestBlock)finish;
+
++ (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish;
 
 @end
