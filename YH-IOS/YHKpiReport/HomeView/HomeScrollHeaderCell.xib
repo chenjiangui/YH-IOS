@@ -23,28 +23,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="362" height="192.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="生意概况" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnF-Jd-Mei">
-                        <rect key="frame" x="146.5" y="32" width="69.5" height="21"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkC-iM-evz">
-                        <rect key="frame" x="318" y="21" width="44" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="44" id="0tb-lC-KqV"/>
-                            <constraint firstAttribute="width" constant="44" id="QVo-SU-xhT"/>
-                        </constraints>
-                        <state key="normal" image="nav_scan"/>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨日销售额xxxxxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOF-kH-zSx">
-                        <rect key="frame" x="227" y="80" width="107" height="16"/>
+                        <rect key="frame" x="227" y="72" width="107" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2637,637" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yt4-jp-AVb">
-                        <rect key="frame" x="28" y="106" width="140" height="45"/>
+                        <rect key="frame" x="28" y="98" width="140" height="45"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="45" id="dgd-Uh-OmN"/>
                         </constraints>
@@ -53,29 +39,25 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="万元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z76-Fr-st2">
-                        <rect key="frame" x="171" y="133.5" width="25" height="14.5"/>
+                        <rect key="frame" x="171" y="125.5" width="25" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oje-x3-Tdj">
-                        <rect key="frame" x="28" y="161" width="40.5" height="19.5"/>
+                        <rect key="frame" x="28" y="153" width="40.5" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="lkC-iM-evz" firstAttribute="centerY" secondItem="TnF-Jd-Mei" secondAttribute="centerY" id="4pq-Gp-IkO"/>
-                    <constraint firstItem="oOF-kH-zSx" firstAttribute="top" secondItem="lkC-iM-evz" secondAttribute="bottom" constant="15" id="7d8-yR-Bm6"/>
                     <constraint firstItem="Z76-Fr-st2" firstAttribute="leading" secondItem="Yt4-jp-AVb" secondAttribute="trailing" constant="3" id="F5h-E0-3LE"/>
-                    <constraint firstItem="TnF-Jd-Mei" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="Grd-wB-tic"/>
+                    <constraint firstItem="oOF-kH-zSx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="72" id="IeN-5F-Olm"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Yt4-jp-AVb" secondAttribute="trailing" constant="50" id="L0l-WU-kuZ"/>
                     <constraint firstItem="Oje-x3-Tdj" firstAttribute="top" secondItem="Yt4-jp-AVb" secondAttribute="bottom" constant="10" id="L8n-ri-7W8"/>
                     <constraint firstItem="Yt4-jp-AVb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="WiS-Uo-ddI"/>
-                    <constraint firstAttribute="trailing" secondItem="lkC-iM-evz" secondAttribute="trailing" id="ko9-MQ-DlI"/>
-                    <constraint firstItem="TnF-Jd-Mei" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lTz-Rj-Hf3"/>
                     <constraint firstAttribute="trailing" secondItem="oOF-kH-zSx" secondAttribute="trailing" constant="28" id="qrQ-Vi-Ih6"/>
                     <constraint firstItem="Yt4-jp-AVb" firstAttribute="top" secondItem="oOF-kH-zSx" secondAttribute="bottom" constant="10" id="ufc-uO-bju"/>
                     <constraint firstItem="Z76-Fr-st2" firstAttribute="bottom" secondItem="Yt4-jp-AVb" secondAttribute="bottom" constant="-3" id="vyh-ta-SNX"/>
@@ -85,14 +67,10 @@
             <connections>
                 <outlet property="priceDesLab" destination="Oje-x3-Tdj" id="beW-ZJ-vF2"/>
                 <outlet property="priceNumLab" destination="Yt4-jp-AVb" id="8tX-Es-LTf"/>
-                <outlet property="scanBtn" destination="lkC-iM-evz" id="cYg-zN-U9T"/>
-                <outlet property="titleLab" destination="TnF-Jd-Mei" id="d7P-Pd-EZt"/>
+                <outlet property="unitLab" destination="Z76-Fr-st2" id="k2P-10-3Ng"/>
                 <outlet property="yestodayLab" destination="oOF-kH-zSx" id="TMs-qZ-qIu"/>
             </connections>
-            <point key="canvasLocation" x="-318" y="7"/>
+            <point key="canvasLocation" x="-619" y="10"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="nav_scan" width="44" height="44"/>
-    </resources>
 </document>

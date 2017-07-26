@@ -789,7 +789,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
    // DashboardViewController *dashboardViewController = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
     //dashboardViewController.fromViewController = @"LoginViewController";
-    MianTabBarViewController *mainTabbar = [[MianTabBarViewController alloc]init];
+    MainTabbarViewController *mainTabbar = [MainTabbarViewController instance];
     window.rootViewController = mainTabbar;
     // Nasty hack to fix http://stackoverflow.com/questions/26763020/leaking-views-when-changing-rootviewcontroller-inside-transitionwithview
     // The presenting view controllers view doesn't get removed from the window as its currently transistioning and presenting a view controller

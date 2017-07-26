@@ -18,6 +18,7 @@
 		3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */; };
 		3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */; };
 		3B717DB01F287A8800858E0E /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DAF1F287A8800858E0E /* UIView+SDExtension.m */; };
+		3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DB21F28918D00858E0E /* HomeNavBarView.m */; };
 		3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763AE41F26108C00D5E965 /* YHHttpRequestAPI.m */; };
 		3B763AEA1F26109F00D5E965 /* NoticeWarningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763AE91F26109F00D5E965 /* NoticeWarningModel.m */; };
 		3B763AED1F262CF700D5E965 /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B763AEC1F262CF700D5E965 /* Test.plist */; };
@@ -658,6 +659,8 @@
 		3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = ALTGOT2N.TTF; sourceTree = "<group>"; };
 		3B717DAE1F287A8800858E0E /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		3B717DAF1F287A8800858E0E /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		3B717DB11F28918D00858E0E /* HomeNavBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNavBarView.h; sourceTree = "<group>"; };
+		3B717DB21F28918D00858E0E /* HomeNavBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNavBarView.m; sourceTree = "<group>"; };
 		3B763AE31F26108C00D5E965 /* YHHttpRequestAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHHttpRequestAPI.h; sourceTree = "<group>"; };
 		3B763AE41F26108C00D5E965 /* YHHttpRequestAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHHttpRequestAPI.m; sourceTree = "<group>"; };
 		3B763AE81F26109F00D5E965 /* NoticeWarningModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeWarningModel.h; sourceTree = "<group>"; };
@@ -1793,6 +1796,8 @@
 				3B717DA61F285DA300858E0E /* HomeScrollHeaderCell.h */,
 				3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */,
 				3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */,
+				3B717DB11F28918D00858E0E /* HomeNavBarView.h */,
+				3B717DB21F28918D00858E0E /* HomeNavBarView.m */,
 			);
 			name = HomeView;
 			path = YHKpiReport/HomeView;
@@ -4668,6 +4673,7 @@
 				3B30EEE81F25F63200A702EC /* YHWarningNoticeCell.m in Sources */,
 				91DB24461EED7A3000FC8413 /* PhotoNavigationController.m in Sources */,
 				91DB24401EED7A3000FC8413 /* UIView+leoAdd.m in Sources */,
+				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
