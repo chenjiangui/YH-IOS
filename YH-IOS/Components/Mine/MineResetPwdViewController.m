@@ -37,7 +37,7 @@
     [super viewDidLoad];
     self.user = [[User alloc]init];
     [self.navigationController.navigationBar setHidden:NO];
-    [self.tabBarController.tabBar setHidden:YES];
+    //[self.tabBarController.tabBar setHidden:YES];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:@"#000"]];
     self.view.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64);
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH-30, SCREEN_HEIGHT- 30) style:UITableViewStylePlain];
@@ -158,6 +158,7 @@
 -(void)submitTochangePwdwithPwd:(NSString *)oldPassword withNewPwd: (NSString *)newPassword{
     oldPassword = self.oldpassword;
     newPassword = self.newpassword;
+    
     if (![oldPassword.md5 isEqualToString:self.user.password]) {
         [ViewUtils showPopupView:self.view Info:@"密码输入错误"];
         return;
