@@ -35,7 +35,11 @@
     [self.logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.mas_centerX);
         make.centerY.mas_equalTo(self.mas_centerY);
+<<<<<<< HEAD
         make.size.mas_equalTo(self.size);
+=======
+        make.size.mas_equalTo(CGSizeMake(self.contentView.bounds.size.width, self.contentView.bounds.size.height));
+>>>>>>> 984a26d9e41dd871f441813af354726205d75909
     }];
 }
 
