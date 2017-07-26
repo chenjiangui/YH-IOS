@@ -10,6 +10,8 @@
 #import "HttpResponse.h"
 
 @interface APIHelper : NSObject
+
++(NSString*)getJsonDataWithZip:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 + (NSString *)reportDataUrlString:(NSNumber *)groupID templateID:(NSString *)tempalteID reportID:(NSString *)reportID ;
 + (void)reportData:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 
@@ -22,9 +24,14 @@
  *  @return error msg when authentication failed
  */
 
++ (NSString *)userAuthentication:(NSString *)username password:(NSString *)password coordinate:(NSString *)coordinate;
+
 + (NSString *)userAuthentication:(NSString *)username password:(NSString *)password;
 
-
+/**
+ * 删除用户和设备的关联
+ */
++ (void)deleteUserDevice:(NSString *)platform withDeviceID:(NSString*)deviceid;
 /**
  *  创建评论
  *
@@ -93,5 +100,7 @@
 + (BOOL)barCodeScan:(NSString *)userNum group:(NSNumber *)groupID  role:(NSNumber *)roleID store:(NSString *)storeID code:(NSString *)codeInfo type:(NSString *)codeType;
 
 + (HttpResponse *)findPassword:(NSString *)userNum withMobile:(NSString *)moblieNum;
+
++ (void)reportScodeData:(NSNumber *)storeID barcodeID:(NSString *)barcodeID;
 
 @end

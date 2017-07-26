@@ -94,7 +94,7 @@
     NSError *error;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:3.0];
+                                                           timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
@@ -141,16 +141,33 @@
  */
 + (BOOL) isNetworkAvailable2 {
     BOOL isExistenceNetwork = NO;
-    Reachability *reach = [Reachability reachabilityWithHostName:@"www.apple.com"];
+    Reachability *reach = [Reachability reachabilityWithHostName:kBaseUrl];
     switch ([reach currentReachabilityStatus]) {
         case NotReachable:
+            isExistenceNetwork = NO;
             break;
         case ReachableViaWiFi:
+            isExistenceNetwork = YES;
+            break;
         case ReachableViaWWAN:
             isExistenceNetwork = YES;
             break;
     }
     
+    return isExistenceNetwork;
+}
+
++ (BOOL) isNetworkAvailable3 {
+  __block  BOOL isExistenceNetwork = YES;
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
+            isExistenceNetwork = YES;
+        }
+        else{
+            isExistenceNetwork = NO;
+        }
+    }];
     return isExistenceNetwork;
 }
 /**
@@ -644,10 +661,13 @@
     NSString *gravatarConfigPath = [FileUtils dirPath:kConfigDirName FileName:kGravatarConfigFileName];
     [FileUtils writeJSON:gravatarDict Into:gravatarConfigPath];
 
+    // 测试用 url
+ //   NSURL *imageurl = [NSURL URLWithString:@"http:192.168.0.137:3000/api/v1/user/1/render/program"];
     NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
+ //  AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:imageurl];
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     AFHTTPRequestOperation *op = [manager POST:uploadPath parameters:@{} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"gravatar" fileName:imageName mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"gravatar" fileName:imageName mimeType:@"image/jpg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         NSString *gravatarConfigPath = [FileUtils dirPath:kConfigDirName FileName:kGravatarConfigFileName];
@@ -680,5 +700,7 @@
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileUrl]];
     [imageData writeToFile:savePath atomically:YES];
 }
+
+
 
 @end

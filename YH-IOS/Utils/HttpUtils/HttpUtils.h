@@ -37,6 +37,7 @@
  */
 + (HttpResponse *)httpGet:(NSString *)urlString;
 
+
 /**
  *  Http#Post功能代码封装
  *
@@ -62,6 +63,7 @@
  *  @return 有网络则为true
  */
 + (BOOL)isNetworkAvailable2;
++ (BOOL)isNetworkAvailable3;
 + (NSString *) networkType;
 /**
  *  网页链接转换成本地html
@@ -119,6 +121,9 @@
 
 + (void)uploadImage :(NSString *)uploadPath withImagePath:(NSString *)imagePath withImageName: (NSString *)imageName;
 + (void)downLoadFile:(NSString *)fileUrl withSavePath:(NSString *)savePath;
+
+// 测试是否有网络
+
 @end
 
 #endif

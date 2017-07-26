@@ -47,6 +47,71 @@
     }
 }
 
+//扫一扫获取数据
+#pragma todo: pass assetsPath as parameter
++ (void)reportScodeData:(NSNumber *)storeID barcodeID:(NSString *)barcodeID {
+    NSString *urlString = [NSString stringWithFormat:@"%@/mobile/v2/store/%@/barcode/%@/attachment",kBaseUrl,storeID,barcodeID];
+    
+    NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
+    NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+    
+    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath];
+    if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
+        NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
+        NSString *disposition = httpHeader[@"Content-Disposition"];
+        NSArray *array = [disposition componentsSeparatedByString:@"\""];
+        NSString *cacheFilePath = array[1];
+        NSString *cachePath = [FileUtils dirPath:kCachedDirName];
+        NSString *fullFileCachePath = [cachePath stringByAppendingPathComponent:cacheFilePath];
+        javascriptPath = [javascriptPath stringByAppendingPathComponent:cacheFilePath];
+        [httpResponse.received writeToFile:fullFileCachePath atomically:YES];
+        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
+            [FileUtils removeFile:javascriptPath];
+        }
+        [[NSFileManager defaultManager] copyItemAtPath:fullFileCachePath toPath:javascriptPath error:nil];
+        [FileUtils removeFile:[cachePath stringByAppendingPathComponent:fullFileCachePath]];
+    }
+}
+
+
+
++(NSString*)getJsonDataWithZip:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID{
+    
+   NSString* jsonString = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/%@/report/%@/jzip",kBaseUrl,groupID,templateID,reportID];
+    
+   // NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
+    NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
+    HttpResponse *httpResponse = [HttpUtils httpGet:jsonString];
+    if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
+        NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
+        NSString *disposition = httpHeader[@"Content-Disposition"];
+        NSArray *array = [disposition componentsSeparatedByString:@"\""];
+        NSString *cacheFilePath = array[1];
+        NSString *reportFileName = [cacheFilePath stringByReplacingOccurrencesOfString:@"json.zip" withString:@"json"];
+        NSString *cachePath = [FileUtils dirPath:kCachedDirName];
+        NSString *fullFileCachePath = [cachePath stringByAppendingPathComponent:cacheFilePath];
+        javascriptPath = [javascriptPath stringByAppendingPathComponent:reportFileName];
+        [httpResponse.received writeToFile:fullFileCachePath atomically:YES];
+        [SSZipArchive unzipFileAtPath:fullFileCachePath toDestination: cachePath];
+        [FileUtils removeFile:fullFileCachePath];
+        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
+            [FileUtils removeFile:javascriptPath];
+        }
+        [[NSFileManager defaultManager] copyItemAtPath:[cachePath stringByAppendingPathComponent:reportFileName] toPath:javascriptPath error:nil];
+        [FileUtils removeFile:[cachePath stringByAppendingPathComponent:reportFileName]];
+    }
+    else{
+        NSString *htmlName = [HttpUtils urlTofilename:jsonString suffix:@".json"][0];
+        htmlName = [htmlName stringByReplacingOccurrencesOfString:@"_jzip.json" withString:@".json"];
+        htmlName = [htmlName stringByReplacingOccurrencesOfString:@"api_v1_group" withString:@"group"];
+        javascriptPath = [[FileUtils dirPath:kHTMLDirName] stringByAppendingPathComponent:htmlName];
+    }
+    return javascriptPath;
+}
+
++ (NSString *)userAuthentication:(NSString *)username password:(NSString *)password {
+   return  [self userAuthentication:username password:password coordinate:nil];
+}
 /**
  *  登录验证
  *
@@ -55,7 +120,7 @@
  *
  *  @return error msg when authentication failed
  */
-+ (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password {
++ (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password coordinate:(NSString *)coordinate{
     NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
     NSString *alertMsg = @"";
     
@@ -65,9 +130,10 @@
         @"platform": @"ios",
         @"os": [Version machineHuman],
         @"os_version": [[UIDevice currentDevice] systemVersion],
-        @"uuid": [OpenUDID value]
+        @"uuid": [OpenUDID value],
     };
     deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+    deviceDict[@"coordinate"] = coordinate;
 
     HttpResponse *response = [HttpUtils httpPost:urlString Params:deviceDict];
     
@@ -100,6 +166,8 @@
         userDict[@"images_md5"]      = response.data[@"assets"][@"images_md5"];
         userDict[@"stylesheets_md5"] = response.data[@"assets"][@"stylesheets_md5"];
         userDict[@"javascripts_md5"] = response.data[@"assets"][@"javascripts_md5"];
+        userDict[@"icons_md5"] = response.data[@"assets"][@"icons_md5"];
+        userDict[@"password_md5"]  = password;
         
         /**
          *  rewrite screen lock info into
@@ -158,6 +226,15 @@
     HttpResponse *httpResponse = [HttpUtils httpPost:urlString Params:params];
     
     return [httpResponse.statusCode isEqual:@(201)];
+}
+
++ (void)deleteUserDevice:(NSString *)platform withDeviceID:(NSString*)deviceid {
+    NSString *deleteString = [NSString  stringWithFormat:@"%@/api/v1/%@/%@/logout",kBaseUrl,platform,deviceid];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:deleteString]];
+    [request setHTTPMethod:@"POST"];
+    NSError *error;
+    NSURLResponse *response;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 }
 
 /**
@@ -268,9 +345,11 @@
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
+    NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
     param[kUserIDCUName]       = userDict[kUserIDCUName];
     param[kUserNameCUName]     = userDict[kUserNameCUName];
     param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
+    param[kUserLocationName] = userlocation;
     param[kAppVersionCUName]   = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     
     

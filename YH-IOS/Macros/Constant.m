@@ -11,8 +11,10 @@
 /**
  *  Config#Color
  */
-NSString *const kThemeColor       = @"#53a93f"; //31809f
-NSString *const kBannerBgColor    = @"#53a93f";
+NSString *const kThemeColor       = @"#51aa33"; //31809f
+NSString *const kBannerBgColor    = @"#51aa33";
+NSString *const kDropViewColor    = @"#434a4d"; //弹出框颜色
+NSString *const kDropClickColor   = @"#393f42"; //弹出框点击颜色
 NSString *const kBannerTextColor  = @"#ffffff";
 NSString *const kIsUrlWrite2Local = @"1";
 NSInteger const kTimerInterval    = 30;
@@ -139,6 +141,7 @@ NSString *const kDropSearchText  = @"筛选";
 NSString *const kDropShareText   = @"分享";
 NSString *const kDropCommentText = @"评论";
 NSString *const kDropRefreshText = @"刷新";
+NSString *const kDropCopyLinkText = @"拷贝链接";
 
 /**
  * Assets file name
@@ -151,6 +154,7 @@ NSString *const kStylesheetsAssetsName   = @"stylesheets";
 NSString *const kJavascriptsAssetsName   = @"javascripts";
 NSString *const kBarCodeScanAssetsName   = @"BarCodeScan";
 NSString *const kAdvertisementAssetsName = @"advertisement";
+NSString *const kIconsAssetsName         = @"icons";
 
 NSString *const kLoadingPopupText        = @"加载库";
 NSString *const kFontsPopupText          = @"字体库";
@@ -169,6 +173,7 @@ NSString *const kUserNameCUName          = @"user_name";
 NSString *const kUserNumCUName           = @"user_num";
 NSString *const kPasswordCUName          = @"user_md5";
 NSString *const kUserDeviceIDCUName      = @"user_device_id";
+NSString *const kUserLocationName        = @"coordinate";
 NSString *const kGesturePasswordCUName   = @"gesture_password";
 NSString *const kIsUseGesturePasswordCUName = @"use_gesture_password";
 NSString *const kAppVersionCUName        = @"app_version";
@@ -203,6 +208,7 @@ NSString *const kScreenshotType      = @"Screenshort-type";
 NSString *const kObjTitleAPCCName    = @"object_title";
 NSString *const kUserNameAPCCName    = @"user_name";
 NSString *const kContentAPCCName     = @"content";
+
 
 /**
  *  LocalNotification#TabItems/BannerBtn/ThursdaySay/ModifiedPassword/PgyerUpgrade

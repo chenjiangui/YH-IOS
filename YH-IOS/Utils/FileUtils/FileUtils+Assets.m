@@ -47,12 +47,21 @@
     if([userDict.allKeys containsObject:keyName] && [userDict[keyName] isEqualToString:md5String]) {
         isShouldUnZip = NO;
     }
+    if ([fileName isEqualToString:@"dist.zip"]) {
+        isShouldUnZip = YES;
+    }
     
     if(isShouldUnZip) {
         NSString *assetsPath = sharedPath;
         if(isInAssets) {
-            assetsPath = [sharedPath stringByAppendingPathComponent:@"assets"];
-            assetsPath = [assetsPath stringByAppendingPathComponent:fileName];
+            if ([fileName isEqualToString:@"icons"]) {
+                assetsPath = [sharedPath stringByAppendingPathComponent:@"assets"];
+                assetsPath = [assetsPath stringByAppendingPathComponent:@"images"];
+            }
+            else{
+                assetsPath = [sharedPath stringByAppendingPathComponent:@"assets"];
+                assetsPath = [assetsPath stringByAppendingPathComponent:fileName];
+            }
         }
         else {
             NSString *assetFolderPath = [assetsPath stringByAppendingPathComponent:fileName];

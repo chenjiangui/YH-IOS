@@ -1,0 +1,106 @@
+//
+//  PrefixHeader.pch
+//  YH-IOS
+//
+//  Created by li hao on 17/4/18.
+//  Copyright © 2017年 com.intfocus. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "YHConstant.h"
+#import "UITableViewCell+Category.h"
+#import "UICollectionViewCell+Category.h"
+#import "AppColor.h"
+#import "GUATool.h"
+#import "AppDelegate.h"
+#import "Constant.h"
+#import "YHBaseViewController.h"
+#import "BaseNavigationController.h"
+#import "EnumConstant.h"
+#import "MainTabbarViewController.h"
+
+#pragma mark - 分类
+#import "NSString+Category.h"
+#import "UIView+MJExtension.h"
+#import "UIColor+Utilities.h"
+#import "NSString+Category.h"
+#import "UITableViewCell+Category.h"
+#import "UICollectionViewCell+Category.h"
+#import "UINavigationBar+Awesome.h"
+#import "UIView+MJExtension.h"
+#import "UIBarButtonItem+Category.h"
+#import "UIButton+FillColor.h"
+#import "UILabel+ContentSize.h"
+#import "UIBarButtonItem+Category.h"
+#import "UIImage+Category.h"
+#import "NSObject+NSObject.h"
+
+#pragma mark - 第三方库
+#import <MJExtension/MJExtension.h>
+#import <Masonry/Masonry.h>
+#import <MJRefresh/MJRefresh.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import "UIImageView+WebCache.h"
+#import <YYKit/YYKit.h>
+#import <Mantle/Mantle.h>
+#import "Charts/Charts.h"
+#import "MRProgress.h"
+#import <AFNetworking/AFNetworking.h>
+#import <ReactiveObjC/ReactiveObjC.h>
+#import "ViewUtils.h"
+#import "SDAutoLayout.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+
+#pragma mark -  仪表盘
+
+#import "UIColor+Utility.h"
+
+#define kSUnit @"unit"
+#define kSGroupName @"group_name"
+#define KSStick @"is_stick"
+#define kSNumber @"number"
+
+
+#define JYScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define JYScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define JYViewWidth CGRectGetWidth(self.bounds)
+#define JYViewHeight CGRectGetHeight(self.bounds)
+#define JYVCWidth CGRectGetWidth(self.view.bounds)
+#define JYVCHeight CGRectGetHeight(self.view.bounds)
+#define JYColor_TextColor_Chief ([UIColor colorWithHexString:@"#595b57"]) // co3
+#define JYColor_TextColor_Minor ([UIColor colorWithHexString:@"#bcbcbc"]) // co4
+// 自适应设备宽度
+#define adaptWidth(w) (SCREEN_WIDTH / 375 * (w))
+
+// 自适应设备高度
+#define adaptHeight(h) (SCREEN_HEIGHT / 667 * (h))
+
+
+#define JYDefaultMargin (8.0)
+#define kBarHeight (JYDefaultMargin * 3)
+
+
+#define JYColor_LightGray_White ([UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1.0])
+#define JYColor_TextColor_Gray ([UIColor colorWithHexString:@"#999999"])
+#define JYColor_ArrowColor_Red ([UIColor colorWithHexString:@"F57658"])
+#define JYColor_ArrowColor_Yellow ([UIColor colorWithHexString:@"f4bc45"])
+#define JYColor_ArrowColor_Green ([UIColor colorWithHexString:@"91c941"])
+#define JYColor_AlertBackgroudColor_BlackGray ([UIColor colorWithHexString:@"434a4d"]) // co6
+#define JYColor_LineColor_LightOrange ([UIColor colorWithHexString:@"f57658"]) //co5
+#define JYColor_BackgroudColor_SubWhite ([UIColor colorWithHexString:@"f8f8f8"]) // co8
+#define JYColor_BackgroudColor_Main ([UIColor colorWithHexString:@"eeeff1"]) // co7
+#define JYColor_LineColor_LightBlue ([UIColor colorWithHexString:@"71a3ed"]) // co14
+#define JYColor_LineColor_LightPurple ([UIColor colorWithHexString:@"a984d3"]) //co16
+#define JYColor_BackgroudColor_White ([UIColor colorWithHexString:@"ffffff"]) //co10
+#define JYColor_LineColor_LightOrange ([UIColor colorWithHexString:@"f57658"]) //co5
+
+#define JYColor_BackgroudColor_SubWhite ([UIColor colorWithHexString:@"f8f8f8"]) // co8
+#define JYColor_BackgroudColor_Main ([UIColor colorWithHexString:@"eeeff1"]) // co
+#define JYColor_ThemeColor_LightGreen ([UIColor colorWithHexString:@"51aa38"]) //co1
+#define JYColor_SubColor_LightGreen ([UIColor colorWithHexString:@"91c941"]) //co2
+#define JYColor_ArrowColor_Unkown (JYColor_TextColor_Minor)
+#endif /* PrefixHeader_pch */
