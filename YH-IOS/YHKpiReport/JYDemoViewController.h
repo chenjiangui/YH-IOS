@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JYDemoViewController : UIViewController
+@interface JYDemoViewController : YHBaseViewController
 
 @property (nonatomic, copy) NSString *urlLink;
 

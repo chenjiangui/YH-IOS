@@ -29,7 +29,7 @@
         _cursor.titles = self.moduleTwoModel.statementTitleList;
         _cursor.pageViews = self.statementView;
         //设置根滚动视图的高度
-        _cursor.rootScrollViewHeight = self.frame.size.height - (40 + 64);
+        _cursor.rootScrollViewHeight = self.frame.size.height - 40;
         //默认值是白色
         _cursor.titleNormalColor = [UIColor blackColor];
         //默认值是白色
