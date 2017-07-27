@@ -22,6 +22,7 @@
 		3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */; };
 		3B4F9C671F29D1230096256D /* CommonSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C661F29D1230096256D /* CommonSheetView.m */; };
 		3B4F9C6B1F29D1670096256D /* SnailPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C6A1F29D1670096256D /* SnailPopupController.m */; };
+		3B4F9C6D1F29E1CE0096256D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4F9C6C1F29E1CE0096256D /* libc++.tbd */; };
 		3B717DA91F285DA300858E0E /* HomeScrollHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */; };
 		3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */; };
 		3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */; };
@@ -675,6 +676,7 @@
 		3B4F9C661F29D1230096256D /* CommonSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonSheetView.m; sourceTree = "<group>"; };
 		3B4F9C691F29D1670096256D /* SnailPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnailPopupController.h; sourceTree = "<group>"; };
 		3B4F9C6A1F29D1670096256D /* SnailPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnailPopupController.m; sourceTree = "<group>"; };
+		3B4F9C6C1F29E1CE0096256D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		3B717DA61F285DA300858E0E /* HomeScrollHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScrollHeaderCell.h; sourceTree = "<group>"; };
 		3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScrollHeaderCell.m; sourceTree = "<group>"; };
 		3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeScrollHeaderCell.xib; sourceTree = "<group>"; };
@@ -1728,6 +1730,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B4F9C6D1F29E1CE0096256D /* libc++.tbd in Frameworks */,
 				3BAC8EA81F284A8A00A01A12 /* libSocialQQ.a in Frameworks */,
 				3BAC8EB91F284A8A00A01A12 /* libYixinSDK_V2.2.a in Frameworks */,
 				3BAC8EA21F284A8A00A01A12 /* libSocialLine.a in Frameworks */,
@@ -3191,6 +3194,7 @@
 		E7359AA6518F9148E9F7A313 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B4F9C6C1F29E1CE0096256D /* libc++.tbd */,
 				F63A5BC21DCAE6BF0092FC24 /* iflyMSC.framework */,
 				F63A5BC01DCAE3520092FC24 /* AddressBook.framework */,
 				F63A5BBE1DCAE2CB0092FC24 /* libz.1.1.3.tbd */,
@@ -4248,7 +4252,6 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 3V3LN88X9L;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
