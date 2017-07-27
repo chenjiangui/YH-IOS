@@ -83,6 +83,10 @@
     if (!_navBarView) {
         _navBarView = [[HomeNavBarView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
         _navBarView.hidden = YES;
+        MJWeakSelf;
+        _navBarView.scanBlock = ^(id item) {
+            [weakSelf scanAction];
+        };
     }
     return _navBarView;
 }
@@ -275,9 +279,6 @@
         HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
         YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"];
         [cell setItem:model];
-        cell.scanBlock = ^(UIButton* item) {
-            [weakSelf scanAction];
-        };
         cell.clickBlock = ^(NSNumber* item) {
             [weakSelf scrollImageAction:model.data[item.integerValue]];
         };
