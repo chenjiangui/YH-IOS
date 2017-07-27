@@ -54,7 +54,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.leftTable.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:self.leftTable];
-        self.leftTable.backgroundColor = self.leftBgColor;
+        self.leftTable.backgroundColor = [NewAppColor yhapp_8color];
         if ([self.leftTable respondsToSelector:@selector(setLayoutMargins:)]) {
             self.leftTable.layoutMargins=UIEdgeInsetsZero;
         }
@@ -84,7 +84,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         self.rightCollection.alwaysBounceVertical = YES;
         
         self.isReturnLastOffset = YES;
-        self.rightCollection.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
+        self.rightCollection.backgroundColor = [UIColor whiteColor];
         //self.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
         
     }
@@ -223,7 +223,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [cell.imageView sd_setImageWithURL:imageurl placeholderImage:[UIImage imageNamed:@"icon-default"]];
     UIImageView *bgImageView;
-    if (_allData[_selectIndex].listpage[indexPath.section].listData.count == 1) {
+   /* if (_allData[_selectIndex].listpage[indexPath.section].listData.count == 1) {
       bgImageView  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"btn_bg_ab"]];
     }
     else if (_allData[_selectIndex].listpage[indexPath.section].listData.count ==2){
@@ -247,7 +247,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         else{
             bgImageView  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"btn_bg_aa"]];
         }
-    }
+    }*/
     cell.titleLabel.text = _allData[_selectIndex].listpage[indexPath.section].listData[indexPath.row].listName;
     cell.backgroundView = bgImageView;
     return cell;

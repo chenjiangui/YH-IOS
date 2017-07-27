@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
+   // self.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
     // Initialization code
 }
 
