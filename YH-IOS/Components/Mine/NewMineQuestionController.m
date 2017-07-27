@@ -24,7 +24,7 @@
     UIButton *saveBtn;
     NSInteger  clickImageNumber;
     User *user;
-    
+    NSString *questionProblemText;
     
     NSString *pushImageName;
 
@@ -63,6 +63,8 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    user = [[User alloc]init];
+    self.version = [[Version alloc] init];
     
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -213,46 +215,29 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 
 
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-            
-            
-            
             layout.scrollDirection = UICollectionViewScrollDirectionVertical;
             
-          
+            layout.itemSize = CGSizeMake(40,40);
+//            layout.minimumInteritemSpacing = (SCREEN_WIDTH-16-64*4-56)/3;
             layout.minimumLineSpacing = 20;
-            layout.sectionInset = UIEdgeInsetsMake(16, 255,self.view.bounds.size.width, 40);
             
-            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+            layout.sectionInset = UIEdgeInsetsMake(51,20,20,20);
 
-//            self.pickerCollectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(16, 300, self.view.bounds.size.width, 40) collectionViewLayout:layout];
+//            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:cell.contentView.frame collectionViewLayout:layout];
             
-            
-            // 确定是水平滚动，还是垂直滚动
+        self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(16, 206, cell.bounds.size.width, 50) collectionViewLayout:layout];
 
-            
-//            self.pickerCollectionView= [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-//            
+
             if (_showInView) {
                 [_showInView addSubview:self.pickerCollectionView];
             }else{
-                [cell addSubview:self.pickerCollectionView];
+                [cell.contentView addSubview:self.pickerCollectionView];
             }
-            
-            
-//            [self.pickerCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.mas_equalTo(oscreenshotLabel.mas_top).offset(20);
-//                make.left.mas_equalTo(cell.mas_left).offset(16);
-//            }];
-            
-            
-            
              [self initPickerView];
-            
         }
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
-
     }
     else if (indexPath.row==2)
     {
@@ -261,23 +246,16 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
         if (cell == nil) {//重新实例化对象的时候才添加button，队列中已有的cell上面是有button的
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             //添加按钮（或者其它控件）也可以写在继承自UITableViewCell的子类中,然后用子类来实例化这里的cell，将button作为子类的属性，这样添加button的触发事件的响应可以写在这里，target就是本类，方法也在本类中实现
-            
             UILabel *stimulateLabel=[[UILabel alloc] init];
-            
             stimulateLabel.text=@"您的鞭策是我们进步的源泉，感谢您的宝贵意见！";
-            
-            
             stimulateLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-            
             stimulateLabel.font=[UIFont systemFontOfSize:13];
-            
             [cell.contentView addSubview:stimulateLabel];
             [stimulateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.mas_equalTo(cell.contentView.mas_centerX);
                  make.centerY.mas_equalTo(cell.contentView.mas_centerY);
             }];
             [cell setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"]];
-
         }
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -306,7 +284,6 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
             }];
         }
         return cell;
-
     }
 }
 
@@ -336,14 +313,88 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-        NSLog(@"%@",textView.text);
+//        NSLog(@"%@",textView.text);
+    
+    
+    questionProblemText=textView.text;
+    
 }
 
 
 -(void)saveBtn
 {
-    NSLog(@"13");
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    
+    
+    NSLog(@"%@,%@,%@",user.userNum,self.version.current,self.version.platform);
+    
+    NSDictionary *parames = @{
+                              @"content":questionProblemText,
+                              @"title":@"生意人问题反馈",
+                              @"user_num":user.userNum,
+                              @"app_version":self.version.current,
+                              @"platform":@"ios",
+                              @"platform_version":self.version.platform
+                              };
+    
+    NSLog(@"%@",parames);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:postString parameters:parames constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i < self.imageArray.count; i++) {
+            UIImage *image = self.imageArray[i];
+            NSData *data = UIImagePNGRepresentation(image);
+            [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"image%d",i] fileName:[NSString stringWithFormat:@"image%d.png",i] mimeType:@"multipart/form-data"];
+        }
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"%@",dic);
+        [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+        if ([dic[@"code"] isEqualToNumber:@(201)]) {
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert addButton:@"确定" actionBlock:^(void) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            [alert addButton:@"取消" actionBlock:^(void) {
+            }];
+            [alert showSuccess:self title:@"温馨提示" subTitle:@"提交成功" closeButtonTitle:nil duration:0.0f];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                /*
+                 * 用户行为记录, 单独异常处理，不可影响用户体验
+                 */
+                NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                logParams[kActionALCName] = @"点击/问题反馈成功";
+                [APIHelper actionLog:logParams];
+            });
+        }
+        else{
+            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert addButton:@"重试" actionBlock:^(void) {
+                [self saveBtn];
+            }];
+            [alert addButton:@"取消" actionBlock:^(void) {
+            }];
+            [alert showSuccess:self title:@"温馨提示" subTitle:@"上传失败" closeButtonTitle:nil duration:0.0f];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@",@"上传失败了");
+        [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+        [ViewUtils showPopupView:self.view Info:@"上传失败，请重试"];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            /*
+             * 用户行为记录, 单独异常处理，不可影响用户体验
+             */
+            NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+            logParams[kActionALCName] = @"点击/问题反馈失败";
+            [APIHelper actionLog:logParams];
+        });
+    }];
+    
 
+    
+    
 }
 
 
@@ -351,21 +402,19 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 /** 初始化collectionView */
 -(void)initPickerView{
     _showActionSheetViewController = self;
-    
 
-    
-
-    
-    
     
     self.pickerCollectionView.delegate=self;
     self.pickerCollectionView.dataSource=self;
-    self.pickerCollectionView.backgroundColor = [UIColor whiteColor];
+    self.pickerCollectionView.backgroundColor = [UIColor blueColor];
     
     pushImageName = @"plus.png";
     
     _pickerCollectionView.scrollEnabled = NO;
     
+    
+    
+  
     
 }
 #pragma mark <UICollectionViewDataSource>
@@ -415,6 +464,7 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(([UIScreen mainScreen].bounds.size.width-64) /4 ,([UIScreen mainScreen].bounds.size.width-64) /4);
+//    return CGSizeMake(60, 60);
 }
 
 //定义每个UICollectionView 的 margin
@@ -458,6 +508,7 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
     NSData *imageData = UIImageJPEGRepresentation(img, 0.5);
     [_bigImgDataArray addObject:imageData];
     
+      NSLog(@"%f,%f",_pickerCollectionView.bounds.size.width,_pickerCollectionView.bounds.size.height);
     return [UIImage imageWithData:imageData];
 }
 #pragma mark - 选择图片
