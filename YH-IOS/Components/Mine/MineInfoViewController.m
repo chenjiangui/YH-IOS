@@ -15,7 +15,6 @@
 #import "NewMineResetPwdController.h"
 
 #import "MineQuestionViewController.h"
-#import "MineRequestListViewController.h"
 #import "FileUtils.h"
 #import "HttpUtils.h"
 #import "User.h"
@@ -28,6 +27,7 @@
 #import "MineTwoLabelTableViewCell.h"
 #import "MineDetailTableViewCell.h"
 #import "LogoutTableViewCell.h"
+#import "NewMineResetPwdController.h"
 
 
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
@@ -311,6 +311,7 @@
         
         NewMineResetPwdController *mineResetPwdCtrl = [[NewMineResetPwdController alloc]init];
         mineResetPwdCtrl.title = @"修改密码";
+
         [RootNavigationController pushViewController:mineResetPwdCtrl animated:YES hideBottom:YES];
     }
     else if ((indexPath.section == 3)&&(indexPath.row == 2)){

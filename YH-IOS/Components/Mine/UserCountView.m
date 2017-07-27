@@ -24,6 +24,7 @@
     _dataLable = [[UILabel alloc]init];
     _dataLable.font = [UIFont systemFontOfSize:40];
     _dataLable.textAlignment= NSTextAlignmentRight;
+    _dataLable.font = [UIFont fontWithName:CustomFontName size:40];
     _dataLable.text = @"0";
     [self addSubview:_dataLable];
     

@@ -67,9 +67,10 @@
     [RMessage setDelegate:self];
     
     
+
     
     [self startLocation];
-    
+
     UIImageView *Logo =[[UIImageView alloc] init];
     
     [self.view addSubview:Logo];
@@ -90,13 +91,10 @@
     
     [self.view addSubview:peopleNumber];
     
-  
-    
     peopleNumber.font=[UIFont systemFontOfSize:15];
     
     peopleNumber.textAlignment=NSTextAlignmentLeft;
     
-   // peopleNumber.textColor=[UIColor colorWithHexString:@"#bcbcbc"];
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
@@ -106,8 +104,11 @@
     }
     else
     {
-      peopleNumber.placeholder=@"员工号";
+        peopleNumber.placeholder=@"员工号";
     }
+    
+    peopleNumber.borderStyle = UITextBorderStyleNone;
+
     
      peopleNumber.borderStyle = UITextBorderStyleNone;
 
@@ -166,7 +167,6 @@
         
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
-
     _passwordNumber=[[UITextField alloc] init];
     
     [self.view addSubview:_passwordNumber];
@@ -199,7 +199,7 @@
         
     }];
     _PasswordUnderLine = [[UIView alloc]init];
- 
+
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
     
@@ -338,7 +338,7 @@
         
         make.right.mas_equalTo(line.mas_left).offset(-16);
         
-       // make.size.mas_equalTo(CGSizeMake(55,13));
+        // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     
     
@@ -362,7 +362,7 @@
         
         make.left.mas_equalTo(line.mas_right).offset(16);
         
-       // make.size.mas_equalTo(CGSizeMake(55,13));
+        // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     
     
@@ -473,12 +473,12 @@
     //                                             selector:@selector(userinfomoveToTop:)
     //                                                 name:UIKeyboardWillShowNotification
     //                                               object:nil];
-    //    
+    //
     //    [[NSNotificationCenter defaultCenter] addObserver:self
     //                                             selector:@selector(userinfoMoveToBottom:)
     //                                                 name:UIKeyboardWillHideNotification
     //                                               object:nil];
-    //    
+    //
     //    isPad ? [self layoutWithIpad] : [self layoutView];
     
     
@@ -486,21 +486,21 @@
 
 -(void)peopleNumberChange:(UITextField*)PeopleNumber
 {
-// NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
+    // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
     
     _peopleNumString=PeopleNumber.text;
-
+    
 }
 
 -(void)PasswordDidChange:(UITextField*)PasswordNumber
 {
     
-//    NSLog(@"PhoneNumberDidChange===%@",PasswordNumber.text);
-
+    //    NSLog(@"PhoneNumberDidChange===%@",PasswordNumber.text);
+    
     _passwordNumString=PasswordNumber.text;
     
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
-
+    
 }
 
 -(void)changePwdLine:(UITextField*)PasswordNumber
@@ -512,26 +512,12 @@
 
 -(void)deleteOldPassword
 {
-
+    
     _passwordNumber.text=@"";
     
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
@@ -659,7 +645,7 @@
     FindPasswordViewController *findPwdViewController = [[FindPasswordViewController alloc]init];
     UINavigationController *findPwdCtrl = [[UINavigationController alloc]initWithRootViewController:findPwdViewController];
     [self presentViewController:findPwdCtrl animated:YES completion:nil];
-
+    
     
 }
 
@@ -764,9 +750,9 @@
     LoginViewController *previousRootViewController = (LoginViewController *)window.rootViewController;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-   // DashboardViewController *dashboardViewController = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
+    // DashboardViewController *dashboardViewController = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
     //dashboardViewController.fromViewController = @"LoginViewController";
-    MianTabBarViewController *mainTabbar = [[MianTabBarViewController alloc]init];
+    MainTabbarViewController *mainTabbar = [MainTabbarViewController instance];
     window.rootViewController = mainTabbar;
     // Nasty hack to fix http://stackoverflow.com/questions/26763020/leaking-views-when-changing-rootviewcontroller-inside-transitionwithview
     // The presenting view controllers view doesn't get removed from the window as its currently transistioning and presenting a view controller

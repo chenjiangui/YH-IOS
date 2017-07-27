@@ -68,7 +68,6 @@ PODS:
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - SSZipArchive (0.3.3)
-  - UMengSocialCOM (5.2.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -93,7 +92,6 @@ DEPENDENCIES:
   - SCLAlertView-Objective-C (~> 0.7.9)
   - SDWebImage
   - SSZipArchive (~> 0.3.2)
-  - UMengSocialCOM (~> 5.2.1)
   - YYKit
   - ZYCornerRadius (from `https://github.com/liuzhiyi1992/ZYCornerRadius.git`, tag `0.9.1`)
 
@@ -128,11 +126,10 @@ SPEC CHECKSUMS:
   SCLAlertView-Objective-C: e36ab12dc1ec4ff6f932888083b21d71a3a1ad23
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SSZipArchive: 2cf2a6d3ac9f03252b7d96f93728b9b983be9afb
-  UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
   ZYCornerRadius: 485a8e9304d16d1620641054a08b9c0f55dd512c
 
-PODFILE CHECKSUM: 3cec58c8f0a0e1238ca88f9409e4ed1da41e34b3
+PODFILE CHECKSUM: 63abe2c257810079a39b8bb43a6be8493975a7f3
 
 COCOAPODS: 1.2.1

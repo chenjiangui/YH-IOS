@@ -33,9 +33,7 @@
 
 - (void) layoutUI {
     [self.logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.mas_centerX);
-        make.centerY.mas_equalTo(self.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(self.contentView.bounds.size.width, self.contentView.bounds.size.height));
+        make.edges.mas_equalTo(self);
     }];
 }
 

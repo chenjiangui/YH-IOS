@@ -7,12 +7,36 @@
 //
 
 
+/*
+ 
+ *********************************************************************************
+ *
+ * 🌟🌟🌟 新建SDCycleScrollView交流QQ群：185534916 🌟🌟🌟
+ *
+ * 在您使用此自动轮播库的过程中如果出现bug请及时以以下任意一种方式联系我们，我们会及时修复bug并
+ * 帮您解决问题。
+ * 新浪微博:GSD_iOS
+ * Email : gsdios@126.com
+ * GitHub: https://github.com/gsdios
+ *
+ * 另（我的自动布局库SDAutoLayout）：
+ *  一行代码搞定自动布局！支持Cell和Tableview高度自适应，Label和ScrollView内容自适应，致力于
+ *  做最简单易用的AutoLayout库。
+ * 视频教程：http://www.letv.com/ptv/vplay/24038772.html
+ * 用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
+ * GitHub：https://github.com/gsdios/SDAutoLayout
+ *********************************************************************************
+ 
+ */
+
 
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 
 @implementation SDCollectionViewCell
-
+{
+    __weak UILabel *_titleLabel;
+}
 
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -25,109 +49,68 @@
     return self;
 }
 
+- (void)setTitleLabelBackgroundColor:(UIColor *)titleLabelBackgroundColor
+{
+    _titleLabelBackgroundColor = titleLabelBackgroundColor;
+    _titleLabel.backgroundColor = titleLabelBackgroundColor;
+}
+
+- (void)setTitleLabelTextColor:(UIColor *)titleLabelTextColor
+{
+    _titleLabelTextColor = titleLabelTextColor;
+    _titleLabel.textColor = titleLabelTextColor;
+}
+
+- (void)setTitleLabelTextFont:(UIFont *)titleLabelTextFont
+{
+    _titleLabelTextFont = titleLabelTextFont;
+    _titleLabel.font = titleLabelTextFont;
+}
+
 - (void)setupImageView
 {
     UIImageView *imageView = [[UIImageView alloc] init];
     _imageView = imageView;
-    [self addSubview:imageView];
+    [self.contentView addSubview:imageView];
 }
 
 - (void)setupTitleLabel
 {
-    
-    
     UILabel *titleLabel = [[UILabel alloc] init];
     _titleLabel = titleLabel;
-    _titleLabel.font = [UIFont systemFontOfSize:18];
-    _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = [UIColor whiteColor];
-    _titleLabel.text = @"好人一生平安";
-    _titleLabel.hidden = NO;
-    _titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:titleLabel];
-    
-    
-    self.valueLable = [UILabel new];
-    self.valueLable.backgroundColor = [UIColor clearColor];
-    self.valueLable.textColor = [UIColor whiteColor];
-    self.valueLable.font = [UIFont systemFontOfSize:51.5];
-    self.valueLable.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:self.valueLable];
-    
-    self.numberTitleLabel = [UILabel new];
-    self.numberTitleLabel.backgroundColor = [UIColor clearColor];
-    self.numberTitleLabel.textColor = [UIColor whiteColor];
-    self.numberTitleLabel.font = [UIFont systemFontOfSize:15];
-    self.numberTitleLabel.textAlignment = NSTextAlignmentRight;
-    [self addSubview:self.numberTitleLabel];
-    
-    self.numberValueLable = [UILabel new];
-    self.numberValueLable.backgroundColor = [UIColor clearColor];
-    self.numberValueLable.textColor  = [UIColor whiteColor];
-    self.numberValueLable.font  = [UIFont systemFontOfSize:15];
-    self.numberValueLable.textAlignment  = NSTextAlignmentLeft;
-    [self addSubview:self.numberValueLable];
-    
-    self.unitLabel = [UILabel new];
-    self.unitLabel.backgroundColor = [UIColor clearColor];
-    self.unitLabel.textColor = [UIColor whiteColor];
-    self.unitLabel.font  = [UIFont systemFontOfSize:14];
-    self.unitLabel.textAlignment = NSTextAlignmentLeft;
-    [self addSubview:self.unitLabel];
-
-    
-    
-    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).mas_offset(14);
-        make.bottom.equalTo(self.valueLable.mas_top).mas_offset(-14);
-        make.centerX.equalTo(self.mas_centerX).mas_offset(0);
-    }];
-    
-    [_unitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).mas_offset(20);
-        make.bottom.equalTo(_titleLabel.mas_bottom).mas_offset(0);
-        make.left.equalTo(_titleLabel.mas_right).mas_offset(5);
-        make.width.equalTo(@50);
-    }];
-    
-    [_valueLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_titleLabel.mas_bottom).mas_offset(14);
-        make.bottom.equalTo(_numberTitleLabel.mas_top).mas_offset(-5);
-        make.left.equalTo(self.mas_left).mas_offset(5);
-        make.right.equalTo(self.mas_right).mas_offset(-5);
-        make.height.equalTo(@53);
-    }];
-    
-    [_numberValueLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_valueLable.mas_bottom).mas_offset(5);
-        make.bottom.equalTo(self.mas_bottom).mas_offset(-25);
-        make.left.equalTo(self.numberTitleLabel.mas_right).mas_offset(10);
-        make.right.equalTo(self.mas_right).mas_offset(-20);
-    }];
-    
-    [_numberTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_numberValueLable.mas_top).mas_offset(0);
-        make.bottom.equalTo(self.numberValueLable.mas_bottom).mas_offset(0);
-        make.left.equalTo(self.mas_left).mas_offset(5);
-        make.right.equalTo(self.mas_centerX).mas_offset(20);
-    }];
-    
+    _titleLabel.hidden = YES;
+    [self.contentView addSubview:titleLabel];
 }
 
+- (void)setTitle:(NSString *)title
+{
+    _title = [title copy];
+    _titleLabel.text = [NSString stringWithFormat:@"   %@", title];
+    if (_titleLabel.hidden) {
+        _titleLabel.hidden = NO;
+    }
+}
 
+-(void)setTitleLabelTextAlignment:(NSTextAlignment)titleLabelTextAlignment
+{
+    _titleLabelTextAlignment = titleLabelTextAlignment;
+    _titleLabel.textAlignment = titleLabelTextAlignment;
+}
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    _imageView.frame = self.bounds;
-    
-  /*  CGFloat titleLabelW = self.sd_width;
-    CGFloat titleLabelH = _titleLabelHeight;
-    CGFloat titleLabelX = 0;
-    CGFloat titleLabelY = self.sd_height - titleLabelH;
-    _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
-    _titleLabel.hidden = !_titleLabel.text;*/
+    if (self.onlyDisplayText) {
+        _titleLabel.frame = self.bounds;
+    } else {
+        _imageView.frame = self.bounds;
+        CGFloat titleLabelW = self.sd_width;
+        CGFloat titleLabelH = _titleLabelHeight;
+        CGFloat titleLabelX = 0;
+        CGFloat titleLabelY = self.sd_height - titleLabelH;
+        _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
+    }
 }
 
 @end

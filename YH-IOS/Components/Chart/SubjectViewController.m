@@ -641,7 +641,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      *  only inner link clean browser cache
      */
     [self clearBrowserCache];
-    //  [self showLoading:LoadingLoad];
+     // [self showLoading:LoadingLoad];
     
     /*
      * format: /mobile/v1/group/:group_id/template/:template_id/report/:report_id

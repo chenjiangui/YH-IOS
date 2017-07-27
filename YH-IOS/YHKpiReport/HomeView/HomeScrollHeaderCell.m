@@ -1,0 +1,78 @@
+//
+//  HomeScrollHeaderCell.m
+//  YH-IOS
+//
+//  Created by cjg on 2017/7/26.
+//  Copyright © 2017年 com.intfocus. All rights reserved.
+//
+
+#import "HomeScrollHeaderCell.h"
+#import "SDCycleScrollView.h"
+#import "YHKPIModel.h"
+
+@interface HomeScrollHeaderCell () <SDCycleScrollViewDelegate>
+
+@property (nonatomic, strong) SDCycleScrollView* cycleView;
+
+@property (nonatomic, strong) YHKPIModel* kpiModel;
+
+@end
+
+@implementation HomeScrollHeaderCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self.contentView insertSubview:self.cycleView atIndex:0];
+    [_cycleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.mas_equalTo(self);
+        make.height.mas_equalTo(194);
+    }];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+}
+
+- (void)setItem:(YHKPIModel*)item{
+    _kpiModel = item;
+    if (item.data.count) {
+        NSMutableArray* images = [NSMutableArray array];
+        for (int i = 0; i<item.data.count; i++) {
+            [images addObject:item.data[i].title];
+        }
+        _cycleView.imageURLStringsGroup = images;
+    }else{
+        self.hidden = YES;
+    }
+    [self setupAutoHeightWithBottomView:self.cycleView bottomMargin:0];
+}
+
+/** 点击图片回调 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    
+}
+
+/** 图片滚动回调 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
+    YHKPIDetailModel* detail = _kpiModel.data[index];
+//    detail.hightLightData.number
+    _yestodayLab.text = [NSString stringWithFormat:@"%@%@",detail.memo1,detail.hightLightData.compare];
+    _priceNumLab.text = [NSString stringWithFormat:@"%@",detail.hightLightData.number];
+    _unitLab.text = detail.unit;
+    _priceDesLab.text = detail.memo2;
+
+}
+
+- (SDCycleScrollView *)cycleView{
+    if (!_cycleView) {
+        _cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 194) delegate:self placeholderImage:@"banner".imageFromSelf];
+        _cycleView.autoScrollTimeInterval = 3;
+        _cycleView.pageDotColor = [[UIColor whiteColor] appendAlpha:0.5];
+        _cycleView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+        _cycleView.pageControlDotSize = CGSizeMake(5, 5);
+        _cycleView.pageControlRightOffset = 20;
+    }
+    return _cycleView;
+}
+
+@end
