@@ -79,7 +79,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)addWebViewJavascriptBridge {
-    
+    __weak typeof(*&self) weakSelf = self;
     [self.bridge registerHandler:@"pageTabIndex" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *behaviorPath = [FileUtils dirPath:kConfigDirName FileName:kBehaviorConfigFileName];
         NSMutableDictionary *behaviorDict = [FileUtils readConfigFile:behaviorPath];
@@ -120,10 +120,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
 
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:@"store_%@_barcode_%@_attachment", self.storeID, self.codeInfo];
+        NSString *reportDataFileName = [NSString stringWithFormat:@"store_%@_barcode_%@_attachment", weakSelf.storeID, weakSelf.codeInfo];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
-        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
         
@@ -136,10 +136,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
     
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:@"store_%@_barcode_%@_attachment", self.storeID, self.codeInfo];
+        NSString *reportDataFileName = [NSString stringWithFormat:@"store_%@_barcode_%@_attachment", weakSelf.storeID, weakSelf.codeInfo];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
-        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", self.javascriptPath];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", weakSelf.javascriptPath];
         NSString *selectedItem = NULL;
         if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
