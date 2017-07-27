@@ -99,8 +99,11 @@
     dataListButtom = [NSMutableArray new];
 //    [self loadData];
 //    [self idColor];
-//    bottomViewHeight = JYVCHeight;
     [self.reTool beginDownPull];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
 }
 
 
@@ -124,16 +127,36 @@
     
     //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
     //  NSData *data = [NSData dataWithContentsOfFile:path];
-    
 }
 
--(UIView*)footerView{
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-11, 7, 22, 22)];
-    imageView.image = [UIImage imageNamed:@"refresh-footer"];
-    [footerView addSubview:imageView];
-    return footerView;
+#pragma mark - 首页点击事件
+//轮播图点击事件
+- (void)scrollImageAction:(YHKPIDetailModel*)model{
+
 }
+//经营预警事件
+- (void)manageWarningAction:(YHKPIDetailModel*)model{
+
+}
+//生意概况点击事件
+- (void)businessAction:(YHKPIDetailModel*)model{
+
+}
+//扫描事件
+- (void)scanAction{
+
+}
+
+
+
+//
+//-(UIView*)footerView{
+//    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-11, 7, 22, 22)];
+//    imageView.image = [UIImage imageNamed:@"refresh-footer"];
+//    [footerView addSubview:imageView];
+//    return footerView;
+//}
 
 
 - (void)getData{
@@ -206,61 +229,159 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-}
-
-//标识点
-- (void)idColor {
-    UIView* idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
-    //idView.backgroundColor = [UIColor redColor];
-    //[self.navigationController.navigationBar addSubview:idView];
-    
-    UIImageView* idColor0 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 4, 4)];
-    idColor0.layer.cornerRadius = 2;
-    [idView addSubview:idColor0];
-    
-    UIImageView* idColor1 = [[UIImageView alloc]initWithFrame:CGRectMake(6, 1, 4, 4)];
-    idColor1.layer.cornerRadius = 1;
-    [idView addSubview:idColor1];
-    
-    UIImageView* idColor2 = [[UIImageView alloc]initWithFrame:CGRectMake(12, 1, 4, 4)];
-    idColor2.layer.cornerRadius = 1;
-    [idView addSubview:idColor2];
-    
-    UIImageView* idColor3 = [[UIImageView alloc]initWithFrame:CGRectMake(18, 1, 4, 4)];
-    idColor3.layer.cornerRadius = 1;
-    [idView addSubview:idColor3];
-    
-    UIImageView* idColor4 = [[UIImageView alloc]initWithFrame:CGRectMake(24, 1, 4, 4)];
-    idColor4.layer.cornerRadius = 1;
-    [idView addSubview:idColor4];
-    
-    
-    NSArray *colors = @[@"00ffff", @"ffcd0a", @"fd9053", @"dd0929", @"016a43", @"9d203c", @"093db5", @"6a3906", @"192162", @"000000"];
-    
-    NSArray *colorViews = @[idColor0, idColor1, idColor2, idColor3, idColor4];
-    NSString *userID = [NSString stringWithFormat:@"%@", self.user.userID];
-    
-    NSString *color;
-    NSInteger userIDIndex, numDiff = colorViews.count - userID.length;
-    UIImageView *imageView;
-    
-    numDiff = numDiff < 0 ? 0 : numDiff;
-    for(NSInteger i = 0; i < colorViews.count; i++) {
-        color = colors[0];
-        if(i >= numDiff) {
-            userIDIndex = [[NSString stringWithFormat:@"%c", [userID characterAtIndex:i-numDiff]] integerValue];
-            color = colors[userIDIndex];
+#pragma mark - < UITableViewDataSource>
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat mj_offsetY = self.rootTBView.mj_offsetY;
+    if (mj_offsetY<=0) {
+        self.navBarView.top = -mj_offsetY;
+        self.navBarView.backColorAlpha = 0;
+    }else{
+        self.navBarView.top = 0;
+        if (mj_offsetY<=30) {
+            self.navBarView.backColorAlpha = mj_offsetY/30.0;
+        }else{
+            self.navBarView.backColorAlpha = 1;
         }
-        imageView = colorViews[i];
-        imageView.image = [self imageWithColor:[UIColor colorWithHexString:color] size:CGSizeMake(5.0, 5.0)];
-        imageView.layer.cornerRadius = 2.5f;
-        imageView.layer.masksToBounds = YES;
-        imageView.hidden = NO;
     }
     
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataList.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 2) {
+        YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
+        return model.data.count ? model.data.count+1:0;
+    }
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            return 55;
+        }
+        return [BusinessGeneralCell heightForSelf];
+    }
+    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
+}
+
+#pragma mark - <UITableViewDelegate>
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MJWeakSelf;
+    if (indexPath.section == 0) { // top 轮播
+        HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
+        YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"];
+        [cell setItem:model];
+        cell.scanBlock = ^(UIButton* item) {
+            [weakSelf scanAction];
+        };
+        cell.clickBlock = ^(NSNumber* item) {
+            [weakSelf scrollImageAction:model.data[item.integerValue]];
+        };
+        return cell;
+    }
+    if (indexPath.section == 1) {
+        ManageWarningCell* cell = [ManageWarningCell cellWithTableView:tableView needXib:YES];
+        YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"经营预警"];
+        [cell setItem:model];
+        cell.clickBlock = ^(YHKPIDetailModel* item) {
+            [weakSelf manageWarningAction:item];
+        };
+        return cell;
+    }
+    
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            CommonTableViewCell* cell = [CommonTableViewCell cellWithTableView:tableView needXib:NO];
+            [cell setTitleStyle:YES];
+            cell.leftLab.font = [UIFont boldSystemFontOfSize:16];
+            cell.leftLab.text = @"生意概况";
+            return cell;
+        }else{
+            BusinessGeneralCell* cell = [BusinessGeneralCell cellWithTableView:tableView needXib:YES];
+            YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
+            YHKPIDetailModel* detail = model.data[indexPath.row-1];
+            [cell setItem:detail];
+            return cell;
+        }
+    }
+    return [UITableViewCell new];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        if (indexPath.row != 0) {
+            YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
+            YHKPIDetailModel* detail = model.data[indexPath.row-1];
+            [self businessAction:detail];
+        }
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 10;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
+}
+
+
+////标识点
+//- (void)idColor {
+//    UIView* idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
+//    //idView.backgroundColor = [UIColor redColor];
+//    //[self.navigationController.navigationBar addSubview:idView];
+//    
+//    UIImageView* idColor0 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 4, 4)];
+//    idColor0.layer.cornerRadius = 2;
+//    [idView addSubview:idColor0];
+//    
+//    UIImageView* idColor1 = [[UIImageView alloc]initWithFrame:CGRectMake(6, 1, 4, 4)];
+//    idColor1.layer.cornerRadius = 1;
+//    [idView addSubview:idColor1];
+//    
+//    UIImageView* idColor2 = [[UIImageView alloc]initWithFrame:CGRectMake(12, 1, 4, 4)];
+//    idColor2.layer.cornerRadius = 1;
+//    [idView addSubview:idColor2];
+//    
+//    UIImageView* idColor3 = [[UIImageView alloc]initWithFrame:CGRectMake(18, 1, 4, 4)];
+//    idColor3.layer.cornerRadius = 1;
+//    [idView addSubview:idColor3];
+//    
+//    UIImageView* idColor4 = [[UIImageView alloc]initWithFrame:CGRectMake(24, 1, 4, 4)];
+//    idColor4.layer.cornerRadius = 1;
+//    [idView addSubview:idColor4];
+//    
+//    
+//    NSArray *colors = @[@"00ffff", @"ffcd0a", @"fd9053", @"dd0929", @"016a43", @"9d203c", @"093db5", @"6a3906", @"192162", @"000000"];
+//    
+//    NSArray *colorViews = @[idColor0, idColor1, idColor2, idColor3, idColor4];
+//    NSString *userID = [NSString stringWithFormat:@"%@", self.user.userID];
+//    
+//    NSString *color;
+//    NSInteger userIDIndex, numDiff = colorViews.count - userID.length;
+//    UIImageView *imageView;
+//    
+//    numDiff = numDiff < 0 ? 0 : numDiff;
+//    for(NSInteger i = 0; i < colorViews.count; i++) {
+//        color = colors[0];
+//        if(i >= numDiff) {
+//            userIDIndex = [[NSString stringWithFormat:@"%c", [userID characterAtIndex:i-numDiff]] integerValue];
+//            color = colors[userIDIndex];
+//        }
+//        imageView = colorViews[i];
+//        imageView.image = [self imageWithColor:[UIColor colorWithHexString:color] size:CGSizeMake(5.0, 5.0)];
+//        imageView.layer.cornerRadius = 2.5f;
+//        imageView.layer.masksToBounds = YES;
+//        imageView.hidden = NO;
+//    }
+//    
+//}
 
 - (UIImage*)imageWithColor:(UIColor*)color size:(CGSize)size {
     UIGraphicsBeginImageContext(size);
@@ -282,58 +403,58 @@
 }
 
 
-// 添加顶部轮播图
-
-- (UIView*)addHeaderView{
-    
-    UIView *header=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
-   // NSArray *imagesURLStrings = @[
-     //                             @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t1402/221/421883372/88115/8cc2231a/55815835N35a44559.jpg",
-       //                           @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t976/208/1221678737/91179/5d7143d5/5588e849Na2c20c1a.jpg",
-         //                         @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t805/241/1199341035/289354/8648fe55/5581211eN7a2ebb8a.jpg",
-           //                       @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t1606/199/444346922/48930/355f9ef/55841cd0N92d9fa7c.jpg",
-             //                     @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t1609/58/409100493/49144/7055bec5/557e76bfNc065aeaf.jpg",
-               //                   @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t895/234/1192509025/111466/512174ab/557fed56N3e023b70.jpg",
-                 //                 @"http://img30.360buyimg.com/mobilecms/sc480x180_jfs/t835/313/1196724882/359493/b53c7b70/5581392cNa08ff0a9.jpg",
-                   //               @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t898/15//1262262696/95281/57d1f12f/558baeb4Nbfd44d3a.jpg"
-                                  //];
-    
-    NSMutableArray *imagesURLStrings = [[NSMutableArray alloc]init];
-    [imagesURLStrings removeAllObjects];
-    for (int i =0 ;i<self.modeltop.data.count; i++) {
-        [imagesURLStrings addObject:@"banner-bg"];
-    }
-    
-    // 网络加载 --- 创建不带标题的图片轮播器
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, 150) imageURLStringsGroup:nil];
-//    _cycleScrollView.model = self.modeltop;
-    _cycleScrollView.infiniteLoop = YES;
-    _cycleScrollView.delegate = self;
-    _cycleScrollView.placeholderImage=[UIImage imageNamed:@"banner-bg"];
-    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
-    _cycleScrollView.autoScrollTimeInterval = 9.0; // 轮播时间间隔，默认1.0秒，可自定义
-    
-    
-    //模拟加载延迟
-    //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _cycleScrollView.imageURLStringsGroup = [imagesURLStrings copy];
-   // });
-    
-    [header addSubview:_cycleScrollView];
-    
-    
-    return header;
-}
-
-
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    YHKPIDetailModel *item = self.modeltop.data[index];
-    NSString *targetString = [NSString stringWithFormat:@"%@",item.targeturl];
-    if (![item.targeturl hasPrefix:@"http"]) {
-        targetString = [NSString stringWithFormat:@"/%@",item.targeturl];
-    }
-    [self jumpToDetailView:targetString viewTitle:item.title];
-}
+//// 添加顶部轮播图
+//
+//- (UIView*)addHeaderView{
+//    
+//    UIView *header=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
+//   // NSArray *imagesURLStrings = @[
+//     //                             @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t1402/221/421883372/88115/8cc2231a/55815835N35a44559.jpg",
+//       //                           @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t976/208/1221678737/91179/5d7143d5/5588e849Na2c20c1a.jpg",
+//         //                         @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t805/241/1199341035/289354/8648fe55/5581211eN7a2ebb8a.jpg",
+//           //                       @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t1606/199/444346922/48930/355f9ef/55841cd0N92d9fa7c.jpg",
+//             //                     @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t1609/58/409100493/49144/7055bec5/557e76bfNc065aeaf.jpg",
+//               //                   @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t895/234/1192509025/111466/512174ab/557fed56N3e023b70.jpg",
+//                 //                 @"http://img30.360buyimg.com/mobilecms/sc480x180_jfs/t835/313/1196724882/359493/b53c7b70/5581392cNa08ff0a9.jpg",
+//                   //               @"http://img30.360buyimg.com/mobilecms/s480x180_jfs/t898/15//1262262696/95281/57d1f12f/558baeb4Nbfd44d3a.jpg"
+//                                  //];
+//    
+//    NSMutableArray *imagesURLStrings = [[NSMutableArray alloc]init];
+//    [imagesURLStrings removeAllObjects];
+//    for (int i =0 ;i<self.modeltop.data.count; i++) {
+//        [imagesURLStrings addObject:@"banner-bg"];
+//    }
+//    
+//    // 网络加载 --- 创建不带标题的图片轮播器
+//    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, 150) imageURLStringsGroup:nil];
+////    _cycleScrollView.model = self.modeltop;
+//    _cycleScrollView.infiniteLoop = YES;
+//    _cycleScrollView.delegate = self;
+//    _cycleScrollView.placeholderImage=[UIImage imageNamed:@"banner-bg"];
+//    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
+//    _cycleScrollView.autoScrollTimeInterval = 9.0; // 轮播时间间隔，默认1.0秒，可自定义
+//    
+//    
+//    //模拟加载延迟
+//    //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        _cycleScrollView.imageURLStringsGroup = [imagesURLStrings copy];
+//   // });
+//    
+//    [header addSubview:_cycleScrollView];
+//    
+//    
+//    return header;
+//}
+//
+//
+//- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+//    YHKPIDetailModel *item = self.modeltop.data[index];
+//    NSString *targetString = [NSString stringWithFormat:@"%@",item.targeturl];
+//    if (![item.targeturl hasPrefix:@"http"]) {
+//        targetString = [NSString stringWithFormat:@"/%@",item.targeturl];
+//    }
+//    [self jumpToDetailView:targetString viewTitle:item.title];
+//}
 
 - (UIScrollView *)rootTBView {
     
@@ -353,235 +474,131 @@
     return _rootTBView;
 }
 
-- (JYNotifyView *)notifyView {
-    if (!_notifyView) {
-        NSMutableArray* noticearray = [[NSMutableArray alloc]init];
-        _notifyView = [[JYNotifyView alloc] initWithFrame:CGRectMake(0, 0, JYVCWidth, kJYNotifyHeight)];
-        if (_noticeArray.count >=2) {
-            [noticearray addObject:[NSString stringWithFormat:@"%@", _noticeArray[0]]];
-             [noticearray addObject:[NSString stringWithFormat:@"%@",_noticeArray[1]]];
-        }
-        else if (_noticeArray.count ==1){
-             [noticearray addObject:[NSString stringWithFormat:@"%@",_noticeArray[0]]];
-        }
-        else{
-            [noticearray addObject:@"暂无消息"];
-        }
-        _notifyView.notifications = noticearray;
-        _notifyView.delegate = self;
-        _notifyView.interval = 9.0;
-        _notifyView.userInteractionEnabled = NO;
-        _notifyView.notifyColor = [UIColor colorWithHexString:@"#999"];
-        _notifyView.closeBtnColor = [UIColor colorWithRed:0.84 green:0.30 blue:0.19 alpha:1.00];
-    }
-    return _notifyView;
-}
-
-// ************************************ 滚动部分 **************************************
-- (JYPagedFlowView *)pageView {
-    if (!_pageView) {
-        _pageView = [[JYPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, JYVCWidth, kJYPageHeight)];
-        _pageView.delegate = self;
-        _pageView.dataSource = self;
-        _pageView.backgroundColor = JYColor_LightGray_White;
-        _pageView.minimumPageAlpha = 0.8;
-        _pageView.minimumPageScale = 0.87;
-    }
-    return _pageView;
-}
-
-- (NSArray *)pages {
-    NSMutableArray *temp = [NSMutableArray array];
-    if (!_pages) {
-        for (int i = 0; i < dataListTop.count; i++) {
-            JYTopSinglePage *singlePage = [[JYTopSinglePage alloc] init];
-            singlePage.backgroundColor = [UIColor whiteColor];
-            singlePage.layer.cornerRadius = JYDefaultMargin;
-            singlePage.model = dataListTop[i];
-            [temp addObject:singlePage];
-        }
-        _pages = [temp copy];
-    }
-    return _pages;
-}
-
-// ************************************ 平铺部分 **************************************
-
-- (JYFallsView *)fallsView {
-    //if (!_fallsView) {
-        
-        _fallsView = [[JYFallsView alloc] initWithFrame:CGRectMake(5, 5, JYVCWidth-10, JYVCHeight-10)];
-        _fallsView.dataSource = dataListButtom;
-        _fallsView.delegate = self;
-   // }
-    return _fallsView;
-}
-
-#pragma mark - < UITableViewDataSource>
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat mj_offsetY = self.rootTBView.mj_offsetY;
-    if (mj_offsetY<=0) {
-        self.navBarView.top = -mj_offsetY;
-        self.navBarView.backColorAlpha = 0;
-    }else{
-        self.navBarView.top = 0;
-        if (mj_offsetY<=30) {
-            self.navBarView.backColorAlpha = mj_offsetY/30.0;
-        }else{
-            self.navBarView.backColorAlpha = 1;
-        }
-    }
-
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataList.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 2) {
-        YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
-        return model.data.count ? model.data.count+1:0;
-    }
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-             return 55;
-        }
-        return [BusinessGeneralCell heightForSelf];
-    }
-    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
-}
-
-#pragma mark - <UITableViewDelegate>
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) { // top 轮播
-        HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
-        [cell setItem:[NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"]];
-        return cell;
-    }
-    if (indexPath.section == 1) {
-        ManageWarningCell* cell = [ManageWarningCell cellWithTableView:tableView needXib:YES];
-        [cell setItem:[NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"经营预警"]];
-        return cell;
-    }
-    
-    if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            CommonTableViewCell* cell = [CommonTableViewCell cellWithTableView:tableView needXib:NO];
-            [cell setTitleStyle:YES];
-            cell.leftLab.font = [UIFont boldSystemFontOfSize:16];
-            cell.leftLab.text = @"生意概况";
-            return cell;
-        }else{
-            BusinessGeneralCell* cell = [BusinessGeneralCell cellWithTableView:tableView needXib:YES];
-            YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
-            YHKPIDetailModel* detail = model.data[indexPath.row-1];
-            [cell setItem:detail];
-            return cell;
-        }
-    }
-    
-//    UITableViewCell*  cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.contentView.backgroundColor = JYColor_LightGray_White;
-//    if (indexPath.section == 0) {
-//        //if ([dataListTop count] >0 && dataListTop != nil){
-//          [cell.contentView addSubview:self.notifyView];
-//      //  }
-//       /* else{
-//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//            cell.height = 0;
-//        }*/
-//       // [cell.contentView addSubview:_notifyView];
+//- (JYNotifyView *)notifyView {
+//    if (!_notifyView) {
+//        NSMutableArray* noticearray = [[NSMutableArray alloc]init];
+//        _notifyView = [[JYNotifyView alloc] initWithFrame:CGRectMake(0, 0, JYVCWidth, kJYNotifyHeight)];
+//        if (_noticeArray.count >=2) {
+//            [noticearray addObject:[NSString stringWithFormat:@"%@", _noticeArray[0]]];
+//             [noticearray addObject:[NSString stringWithFormat:@"%@",_noticeArray[1]]];
+//        }
+//        else if (_noticeArray.count ==1){
+//             [noticearray addObject:[NSString stringWithFormat:@"%@",_noticeArray[0]]];
+//        }
+//        else{
+//            [noticearray addObject:@"暂无消息"];
+//        }
+//        _notifyView.notifications = noticearray;
+//        _notifyView.delegate = self;
+//        _notifyView.interval = 9.0;
+//        _notifyView.userInteractionEnabled = NO;
+//        _notifyView.notifyColor = [UIColor colorWithHexString:@"#999"];
+//        _notifyView.closeBtnColor = [UIColor colorWithRed:0.84 green:0.30 blue:0.19 alpha:1.00];
 //    }
-//    else{
-//        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
-//        [cell.contentView addSubview:self.fallsView];
+//    return _notifyView;
+//}
+//
+//// ************************************ 滚动部分 **************************************
+//- (JYPagedFlowView *)pageView {
+//    if (!_pageView) {
+//        _pageView = [[JYPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, JYVCWidth, kJYPageHeight)];
+//        _pageView.delegate = self;
+//        _pageView.dataSource = self;
+//        _pageView.backgroundColor = JYColor_LightGray_White;
+//        _pageView.minimumPageAlpha = 0.8;
+//        _pageView.minimumPageScale = 0.87;
 //    }
+//    return _pageView;
+//}
+//
+//- (NSArray *)pages {
+//    NSMutableArray *temp = [NSMutableArray array];
+//    if (!_pages) {
+//        for (int i = 0; i < dataListTop.count; i++) {
+//            JYTopSinglePage *singlePage = [[JYTopSinglePage alloc] init];
+//            singlePage.backgroundColor = [UIColor whiteColor];
+//            singlePage.layer.cornerRadius = JYDefaultMargin;
+//            singlePage.model = dataListTop[i];
+//            [temp addObject:singlePage];
+//        }
+//        _pages = [temp copy];
+//    }
+//    return _pages;
+//}
+//
+//// ************************************ 平铺部分 **************************************
+//
+//- (JYFallsView *)fallsView {
+//    //if (!_fallsView) {
+//        
+//        _fallsView = [[JYFallsView alloc] initWithFrame:CGRectMake(5, 5, JYVCWidth-10, JYVCHeight-10)];
+//        _fallsView.dataSource = dataListButtom;
+//        _fallsView.delegate = self;
+//   // }
+//    return _fallsView;
+//}
+
+//#pragma mark - <PagedFlowViewDataSource>
+//- (NSInteger)numberOfPagesInFlowView:(JYPagedFlowView *)flowView {
+//    return dataListTop.count;
+//}
+//
+//- (UIView *)flowView:(JYPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index {
+//    return self.pages[index];
+//}
+//
+//#pragma mark - <PagedFlowViewDelegate>
+//- (CGSize)sizeForPageInFlowView:(JYPagedFlowView *)flowView {
+//    return CGSizeMake(JYVCWidth - JYDefaultMargin * 6, kJYPageHeight - JYDefaultMargin);
+//}
+//
+//- (void)flowView:(JYPagedFlowView *)flowView didTapPageAtIndex:(NSInteger)index {
+//    NSLog(@"seleted index:%zi", index);
+//    JYDashboardModel *model = dataListTop[index];
+//    NSLog(@"%@",model.targeturl);
+//    NSString *targetString = [NSString stringWithFormat:@"%@",model.targeturl];
+//    if (![model.targeturl hasPrefix:@"http"]) {
+//        targetString = [NSString stringWithFormat:@"/%@",model.targeturl];
+//    }
+//    [self jumpToDetailView:targetString viewTitle:model.title];
 //    
-    return [UITableViewCell new];
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        self.tabBarController.selectedIndex = 3;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return [UIView new];
-}
-
-#pragma mark - <PagedFlowViewDataSource>
-- (NSInteger)numberOfPagesInFlowView:(JYPagedFlowView *)flowView {
-    return dataListTop.count;
-}
-
-- (UIView *)flowView:(JYPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index {
-    return self.pages[index];
-}
-
-#pragma mark - <PagedFlowViewDelegate>
-- (CGSize)sizeForPageInFlowView:(JYPagedFlowView *)flowView {
-    return CGSizeMake(JYVCWidth - JYDefaultMargin * 6, kJYPageHeight - JYDefaultMargin);
-}
-
-- (void)flowView:(JYPagedFlowView *)flowView didTapPageAtIndex:(NSInteger)index {
-    NSLog(@"seleted index:%zi", index);
-    JYDashboardModel *model = dataListTop[index];
-    NSLog(@"%@",model.targeturl);
-    NSString *targetString = [NSString stringWithFormat:@"%@",model.targeturl];
-    if (![model.targeturl hasPrefix:@"http"]) {
-        targetString = [NSString stringWithFormat:@"/%@",model.targeturl];
-    }
-    [self jumpToDetailView:targetString viewTitle:model.title];
-    
-}
+//}
 
 #pragma mark - <JYNotifyDelegate>
-- (void)notifyView:(JYNotifyView *)notify didSelected:(NSInteger)idx selectedData:(id)data {
-    NSLog(@"seleted index:%zi data:%@", idx, data);
-    self.tabBarController.selectedIndex = 3;
-}
+//- (void)notifyView:(JYNotifyView *)notify didSelected:(NSInteger)idx selectedData:(id)data {
+//    NSLog(@"seleted index:%zi data:%@", idx, data);
+//    self.tabBarController.selectedIndex = 3;
+//}
 
-- (void)closeNotifyView:(JYNotifyView *)notify {
-    CGRect frame = self.rootTBView.frame;
-    frame.origin.y = 64;
-    frame.size.height += 40;
-    [UIView animateWithDuration:0.5 animations:^{
-        self.rootTBView.frame = frame;
-    }];
-}
+//- (void)closeNotifyView:(JYNotifyView *)notify {
+//    CGRect frame = self.rootTBView.frame;
+//    frame.origin.y = 64;
+//    frame.size.height += 40;
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.rootTBView.frame = frame;
+//    }];
+//}
 
-#pragma mark - <JYFallsViewDelegate>
-- (void)fallsView:(JYFallsView *)fallsView refreshHeight:(CGFloat)height {
-    bottomViewHeight = height;
-    CGRect frame = self.fallsView.frame;
-    frame.size.height = height;
-    self.fallsView.frame = frame;
-    [self.rootTBView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    
-}
-
-- (void)fallsView:(JYFallsView *)fallsView didSelectedItemAtIndex:(NSInteger)idx data:(id)data{
-    NSLog(@"seleted index:%zi data:%@", idx, data);
-    YHKPIDetailModel *model = data;
-    NSLog(@"%@",model.targeturl);
-     NSString *targetString = [NSString stringWithFormat:@"%@",model.targeturl];
-    if (![model.targeturl hasPrefix:@"http"]) {
-      targetString = [NSString stringWithFormat:@"/%@",model.targeturl];
-    }
-    [self jumpToDetailView:targetString viewTitle:model.title];
-}
+//#pragma mark - <JYFallsViewDelegate>
+//- (void)fallsView:(JYFallsView *)fallsView refreshHeight:(CGFloat)height {
+//    bottomViewHeight = height;
+//    CGRect frame = self.fallsView.frame;
+//    frame.size.height = height;
+//    self.fallsView.frame = frame;
+//    [self.rootTBView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+//    
+//}
+//
+//- (void)fallsView:(JYFallsView *)fallsView didSelectedItemAtIndex:(NSInteger)idx data:(id)data{
+//    NSLog(@"seleted index:%zi data:%@", idx, data);
+//    YHKPIDetailModel *model = data;
+//    NSLog(@"%@",model.targeturl);
+//     NSString *targetString = [NSString stringWithFormat:@"%@",model.targeturl];
+//    if (![model.targeturl hasPrefix:@"http"]) {
+//      targetString = [NSString stringWithFormat:@"/%@",model.targeturl];
+//    }
+//    [self jumpToDetailView:targetString viewTitle:model.title];
+//}
 
 -(void)noteToChangePwd{
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];

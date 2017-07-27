@@ -64,7 +64,9 @@
 
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    
+    if (self.clickBlock) {
+        self.clickBlock(@(index));
+    }
 }
 
 /** 图片滚动回调 */

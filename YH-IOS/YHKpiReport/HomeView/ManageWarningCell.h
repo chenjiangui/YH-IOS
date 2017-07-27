@@ -12,4 +12,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collection;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
+
+@property (nonatomic, strong) CommonBack clickBlock;
 @end
