@@ -30,6 +30,8 @@
 @property (copy, nonatomic) NSString *pgyLinkString;
 @property (strong, nonatomic) NSMutableDictionary *noticeDict;
 @property (strong, nonnull) Version *version;
+@property (strong, nonatomic)UIImageView *inspectVersionCell;
+
 
 
 @end
@@ -204,13 +206,15 @@
          if ([key isEqualToString:@"检查新版本"]) {
              
 
-             UIImageView *cellImage=[[UIImageView alloc] init];
+             _inspectVersionCell=[[UIImageView alloc] init];
              
-             [cell.contentView addSubview:cellImage];
+             [cell.contentView addSubview:_inspectVersionCell];
              
-             [cellImage setImage:[UIImage imageNamed:@"btn_more"]];
+             _inspectVersionCell.tag=100;
              
-             [cellImage mas_makeConstraints:^(MASConstraintMaker *make) {
+             [_inspectVersionCell setImage:[UIImage imageNamed:@"btn_more"]];
+             
+             [_inspectVersionCell mas_makeConstraints:^(MASConstraintMaker *make) {
                  make.centerY.mas_equalTo(cell.contentView.mas_centerY);
                  //            make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
                  make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
@@ -220,25 +224,8 @@
 
          }
          else if ([key isEqualToString:@"蒲公英下载"]) {
+             
 //             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-             
-             
-//             UILabel *detailLabel=[[UILabel alloc] init];
-//             
-//             [cell.contentView addSubview:detailLabel];
-//             
-//             detailLabel.textColor=[UIColor colorWithRed:0.21 green:0.25 blue:0.29 alpha:1];
-//             
-//             detailLabel.font=[UIFont systemFontOfSize:15];
-//             
-//             detailLabel.text=_infodict[key];
-//             
-//             [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//                 make.right.mas_equalTo(cell.contentView.mas_right).offset(-32);
-//                 make.centerY.mas_equalTo(cell.contentView.mas_centerY);
-//             }];
-
-        
              UIImageView *cellImage=[[UIImageView alloc] init];
              
              [cell.contentView addSubview:cellImage];
@@ -250,8 +237,6 @@
                  //            make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
                  make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
              }];
-             
-             
              cell.userInteractionEnabled = YES;
          }
          else if ([key isEqualToString:@"修改密码"]) {
@@ -543,8 +528,12 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 - (void)actionCheckUpgrade {
+    
     [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:kPgyerAppId];
     [[PgyUpdateManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(appUpgradeMethod:)];
+ 
+//    [_inspectVersionCell setImage:[UIImage imageNamed:@""]];
+    
 }
 
 - (void)checkPgyerVersionLabel:(Version *)version pgyerResponse:(NSDictionary *)pgyerResponse {
