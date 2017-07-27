@@ -154,6 +154,7 @@
 		91BA00661F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004A1F2721A500943596 /* UINavigationController+PPTopMostController.m */; };
 		91BA00671F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */; };
 		91BA00681F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */; };
+		91BB7B861F29B592001934FA /* NewAppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B851F29B592001934FA /* NewAppColor.m */; };
 		91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F41F1F220400CD7159 /* JYAnimationTool.m */; };
 		91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F61F1F220400CD7159 /* JYCursor.m */; };
 		91D3640B1F1F220400CD7159 /* JYItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F81F1F220400CD7159 /* JYItemManager.m */; };
@@ -940,6 +941,8 @@
 		91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+PPTopMostController.m"; sourceTree = "<group>"; };
 		91BA004D1F2721A500943596 /* UIViewController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PPTopMostController.h"; sourceTree = "<group>"; };
 		91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PPTopMostController.m"; sourceTree = "<group>"; };
+		91BB7B841F29B592001934FA /* NewAppColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAppColor.h; sourceTree = "<group>"; };
+		91BB7B851F29B592001934FA /* NewAppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAppColor.m; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -1498,8 +1501,8 @@
 		F62457BC1EA5FC48006834D2 /* YHConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHConstant.h; sourceTree = "<group>"; };
 		F62457C01EA5FD01006834D2 /* AppCacheManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCacheManger.h; sourceTree = "<group>"; };
 		F62457C11EA5FD01006834D2 /* AppCacheManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCacheManger.m; sourceTree = "<group>"; };
-		F62457C21EA5FD01006834D2 /* AppColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppColor.h; sourceTree = "<group>"; };
-		F62457C31EA5FD01006834D2 /* AppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppColor.m; sourceTree = "<group>"; };
+		F62457C21EA5FD01006834D2 /* AppColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppColor.h; path = ../Common/AppColor.h; sourceTree = "<group>"; };
+		F62457C31EA5FD01006834D2 /* AppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppColor.m; path = ../Common/AppColor.m; sourceTree = "<group>"; };
 		F62457C41EA5FD01006834D2 /* CommonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableViewCell.h; sourceTree = "<group>"; };
 		F62457C51EA5FD01006834D2 /* CommonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableViewCell.m; sourceTree = "<group>"; };
 		F62457C71EA5FD01006834D2 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -2784,6 +2787,10 @@
 		C49BB9A81D8C24F4004C9F70 /* Macros */ = {
 			isa = PBXGroup;
 			children = (
+				F62457C21EA5FD01006834D2 /* AppColor.h */,
+				F62457C31EA5FD01006834D2 /* AppColor.m */,
+				91BB7B841F29B592001934FA /* NewAppColor.h */,
+				91BB7B851F29B592001934FA /* NewAppColor.m */,
 				C49BB9AB1D8C2548004C9F70 /* Constant.h */,
 				912833001EE85A830071CE69 /* PrivateConstants.h */,
 				C49BB9A91D8C2538004C9F70 /* Constant.m */,
@@ -3608,8 +3615,6 @@
 			children = (
 				F62457C01EA5FD01006834D2 /* AppCacheManger.h */,
 				F62457C11EA5FD01006834D2 /* AppCacheManger.m */,
-				F62457C21EA5FD01006834D2 /* AppColor.h */,
-				F62457C31EA5FD01006834D2 /* AppColor.m */,
 				F62457C41EA5FD01006834D2 /* CommonTableViewCell.h */,
 				F62457C51EA5FD01006834D2 /* CommonTableViewCell.m */,
 				F62457C71EA5FD01006834D2 /* DataManager.h */,
@@ -4722,6 +4727,7 @@
 				C4DB7DB01C02EC3D00DA534E /* AppDelegate.m in Sources */,
 				C4CF3B581C1AC75C00F58E1E /* CommentViewController.m in Sources */,
 				914F3F211EE92BCE004B2C25 /* MineController.m in Sources */,
+				91BB7B861F29B592001934FA /* NewAppColor.m in Sources */,
 				915A8CD81F1E0B9400262311 /* JYBannerView.m in Sources */,
 				91BA00671F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */,
 				F62457B91EA5FC24006834D2 /* TCBaseAppDelegate.mm in Sources */,

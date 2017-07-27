@@ -54,7 +54,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.leftTable.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:self.leftTable];
-        self.leftTable.backgroundColor = self.leftBgColor;
+        self.leftTable.backgroundColor = [NewAppColor yhapp_8color];
         if ([self.leftTable respondsToSelector:@selector(setLayoutMargins:)]) {
             self.leftTable.layoutMargins=UIEdgeInsetsZero;
         }
