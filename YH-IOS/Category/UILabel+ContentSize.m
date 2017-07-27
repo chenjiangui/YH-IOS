@@ -73,7 +73,7 @@
 }
 
 - (void)style1{
-    self.textColor =UIColorHex(333333);
+    self.textColor =UIColorHex(32414b);
     self.textAlignment = NSTextAlignmentLeft;
     self.font = [UIFont systemFontOfSize:12];
 }

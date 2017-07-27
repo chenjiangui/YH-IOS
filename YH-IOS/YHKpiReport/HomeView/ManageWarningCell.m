@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    _titleLab.font = [UIFont boldSystemFontOfSize:16];
     _collection.delegate = self;
     _collection.dataSource = self;
     _collection.showsHorizontalScrollIndicator = NO;

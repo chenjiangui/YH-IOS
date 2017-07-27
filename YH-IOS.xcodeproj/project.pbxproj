@@ -18,6 +18,8 @@
 		3B4F9C4A1F298B470096256D /* ManageWarningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C481F298B470096256D /* ManageWarningCell.xib */; };
 		3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */; };
 		3B4F9C511F298E150096256D /* ManageWarningItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */; };
+		3B4F9C581F29B24E0096256D /* BusinessGeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */; };
+		3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */; };
 		3B717DA91F285DA300858E0E /* HomeScrollHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */; };
 		3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */; };
 		3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */; };
@@ -663,6 +665,9 @@
 		3B4F9C4D1F298E150096256D /* ManageWarningItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageWarningItemCell.h; sourceTree = "<group>"; };
 		3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageWarningItemCell.m; sourceTree = "<group>"; };
 		3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageWarningItemCell.xib; sourceTree = "<group>"; };
+		3B4F9C551F29B24E0096256D /* BusinessGeneralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessGeneralCell.h; sourceTree = "<group>"; };
+		3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessGeneralCell.m; sourceTree = "<group>"; };
+		3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessGeneralCell.xib; sourceTree = "<group>"; };
 		3B717DA61F285DA300858E0E /* HomeScrollHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScrollHeaderCell.h; sourceTree = "<group>"; };
 		3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScrollHeaderCell.m; sourceTree = "<group>"; };
 		3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeScrollHeaderCell.xib; sourceTree = "<group>"; };
@@ -1814,6 +1819,9 @@
 				3B4F9C4D1F298E150096256D /* ManageWarningItemCell.h */,
 				3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */,
 				3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */,
+				3B4F9C551F29B24E0096256D /* BusinessGeneralCell.h */,
+				3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */,
+				3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */,
 			);
 			name = HomeView;
 			path = YHKpiReport/HomeView;
@@ -4329,6 +4337,7 @@
 				3BAC8E901F284A8900A01A12 /* UMSCommentDetailController.xib in Resources */,
 				F624574F1EA5FBB2006834D2 /* PiePolylineChartViewController.xib in Resources */,
 				3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */,
+				3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */,
 				F62457391EA5FBB2006834D2 /* CubicLineChartViewController.xib in Resources */,
 				915A8D351F1E106000262311 /* report_v24.json in Resources */,
 				91BA005E1F2721A500943596 /* NotificationBackgroundWarningIcon.png in Resources */,
@@ -4590,6 +4599,7 @@
 				F68C25AA1EC2D4670069C041 /* JYBaseModel.m in Sources */,
 				F62457541EA5FBB2006834D2 /* ScatterChartViewController.m in Sources */,
 				91BA00661F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */,
+				3B4F9C581F29B24E0096256D /* BusinessGeneralCell.m in Sources */,
 				C4DB7D781C02EC0500DA534E /* main.m in Sources */,
 				F63D4A1A1EB32A3F0004BCC8 /* RTDragCellTableView.m in Sources */,
 				91DB24661EEE99C600FC8413 /* UIView+Category.m in Sources */,

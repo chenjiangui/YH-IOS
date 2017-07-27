@@ -31,6 +31,8 @@
 #import "HomeScrollHeaderCell.h"
 #import "HomeNavBarView.h"
 #import "ManageWarningCell.h"
+#import "CommonTableViewCell.h"
+#import "BusinessGeneralCell.h"
 
 
 #define kJYNotifyHeight 40
@@ -80,6 +82,7 @@
 - (HomeNavBarView *)navBarView{
     if (!_navBarView) {
         _navBarView = [[HomeNavBarView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+        _navBarView.hidden = YES;
     }
     return _navBarView;
 }
@@ -95,10 +98,9 @@
     _noticeArray = [[NSMutableArray alloc]init];
     dataListButtom = [NSMutableArray new];
 //    [self loadData];
-    [self getData];
 //    [self idColor];
 //    bottomViewHeight = JYVCHeight;
-    [self reTool];
+    [self.reTool beginDownPull];
 }
 
 
@@ -149,6 +151,7 @@
             }
             self.dataList = demolArray;
             [self.rootTBView reloadData];
+            self.navBarView.hidden = NO;
         }else{
             SCLAlertView *alert = [[SCLAlertView alloc] init];
             [alert addButton:@"重新加载" actionBlock:^(void) {
@@ -345,7 +348,7 @@
 //        _rootTBView.tableHeaderView = [self addHeaderView];
 //        _rootTBView.tableFooterView = [self footerView];
         _rootTBView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _rootTBView.backgroundColor = [UIColor whiteColor];
+        _rootTBView.backgroundColor = self.view.backgroundColor;
     }
     return _rootTBView;
 }
@@ -435,19 +438,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 2) {
+        YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
+        return model.data.count ? model.data.count+1:0;
+    }
     return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section < 2) {
-        return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+             return 55;
+        }
+        return [BusinessGeneralCell heightForSelf];
     }
-    if ([dataListTop count] >0 && dataListTop != nil) {
-       return indexPath.section == 0 ? JYVCHeight : bottomViewHeight;
-    }
-    else{
-        return indexPath.section == 0 ? kJYNotifyHeight: bottomViewHeight;
-    }
+    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
 }
 
 #pragma mark - <UITableViewDelegate>
@@ -464,35 +469,55 @@
         return cell;
     }
     
-    UITableViewCell*  cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.contentView.backgroundColor = JYColor_LightGray_White;
-    if (indexPath.section == 0) {
-        //if ([dataListTop count] >0 && dataListTop != nil){
-          [cell.contentView addSubview:self.notifyView];
-      //  }
-       /* else{
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            cell.height = 0;
-        }*/
-       // [cell.contentView addSubview:_notifyView];
-    }
-    else{
-        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
-        [cell.contentView addSubview:self.fallsView];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            CommonTableViewCell* cell = [CommonTableViewCell cellWithTableView:tableView needXib:NO];
+            [cell setTitleStyle:YES];
+            cell.leftLab.font = [UIFont boldSystemFontOfSize:16];
+            cell.leftLab.text = @"生意概况";
+            return cell;
+        }else{
+            BusinessGeneralCell* cell = [BusinessGeneralCell cellWithTableView:tableView needXib:YES];
+            YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
+            YHKPIDetailModel* detail = model.data[indexPath.row-1];
+            [cell setItem:detail];
+            return cell;
+        }
     }
     
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0;
+//    UITableViewCell*  cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.contentView.backgroundColor = JYColor_LightGray_White;
+//    if (indexPath.section == 0) {
+//        //if ([dataListTop count] >0 && dataListTop != nil){
+//          [cell.contentView addSubview:self.notifyView];
+//      //  }
+//       /* else{
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//            cell.height = 0;
+//        }*/
+//       // [cell.contentView addSubview:_notifyView];
+//    }
+//    else{
+//        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
+//        [cell.contentView addSubview:self.fallsView];
+//    }
+//    
+    return [UITableViewCell new];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         self.tabBarController.selectedIndex = 3;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 10;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
 }
 
 #pragma mark - <PagedFlowViewDataSource>
