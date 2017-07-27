@@ -424,6 +424,7 @@
         self.navBarView.top = -mj_offsetY;
         self.navBarView.backColorAlpha = 0;
     }else{
+        self.navBarView.top = 0;
         if (mj_offsetY<=30) {
             self.navBarView.backColorAlpha = mj_offsetY/30.0;
         }else{
