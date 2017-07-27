@@ -16,12 +16,24 @@
 
 @property (nonatomic, strong) YHKPIModel* kpiModel;
 
+@property (nonatomic, assign) NSInteger index;
+
 @end
 
 @implementation HomeScrollHeaderCell
 
+- (void)setIndex:(NSInteger)index{
+    _index = index;
+    YHKPIDetailModel* detail = _kpiModel.data[index];
+    _yestodayLab.text = [NSString stringWithFormat:@"%@%@",detail.memo1,detail.hightLightData.compare];
+    _priceNumLab.text = [NSString stringWithFormat:@"%@",detail.hightLightData.number];
+    _unitLab.text = detail.unit;
+    _priceDesLab.text = detail.memo2;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView insertSubview:self.cycleView atIndex:0];
     [_cycleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.mas_equalTo(self);
@@ -41,6 +53,9 @@
             [images addObject:item.data[i].title];
         }
         _cycleView.imageURLStringsGroup = images;
+        if (self.index == 0) {
+            self.index = 0;
+        }
     }else{
         self.hidden = YES;
     }
@@ -54,12 +69,9 @@
 
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
-    YHKPIDetailModel* detail = _kpiModel.data[index];
+    
 //    detail.hightLightData.number
-    _yestodayLab.text = [NSString stringWithFormat:@"%@%@",detail.memo1,detail.hightLightData.compare];
-    _priceNumLab.text = [NSString stringWithFormat:@"%@",detail.hightLightData.number];
-    _unitLab.text = detail.unit;
-    _priceDesLab.text = detail.memo2;
+    self.index = index;
 
 }
 
