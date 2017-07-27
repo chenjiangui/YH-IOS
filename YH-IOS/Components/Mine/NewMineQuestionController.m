@@ -18,15 +18,47 @@
 #import "Version.h"
 #import "APIHelper.h"
 
-@interface NewMineQuestionController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface NewMineQuestionController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JJPhotoDelegate,HWImagePickerSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     UITableView *QuestionTableView;
     UIButton *saveBtn;
+    NSInteger  clickImageNumber;
+    User *user;
+    
+    
+    NSString *pushImageName;
+
 }
+//@property (nonatomic, strong) UICollectionView *collectionView;
+//@property (nonatomic, strong) NSArray <ALAsset *>*dataArray;
+//@property (nonatomic, strong) UILabel *imageNotelabel;
+//@property (nonatomic, strong) NSMutableArray<UIImage *> * imageArray;
+//@property (nonatomic, strong) NSMutableArray<UIImage *> * imageArrayorigin;
+
+@property (nonatomic, strong) Version *version;
+
+@property (nonatomic, strong) HWImagePickerSheet *imgPickerActionSheet;
+
 
 @end
 
+
+
+
 @implementation NewMineQuestionController
+
+
+static NSString * const reuseIdentifier = @"HWCollectionViewCell";
+
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        if (!_showActionSheetViewController) {
+            _showActionSheetViewController = self;
+        }
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -178,6 +210,44 @@
                 make.top.mas_equalTo(cell.mas_top).offset(16);
                 make.left.mas_equalTo(cell.mas_left).offset(16);
             }];
+
+
+            UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+            
+            
+            
+            layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+            
+          
+            layout.minimumLineSpacing = 20;
+            layout.sectionInset = UIEdgeInsetsMake(16, 255,self.view.bounds.size.width, 40);
+            
+            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+
+//            self.pickerCollectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(16, 300, self.view.bounds.size.width, 40) collectionViewLayout:layout];
+            
+            
+            // 确定是水平滚动，还是垂直滚动
+
+            
+//            self.pickerCollectionView= [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+//            
+            if (_showInView) {
+                [_showInView addSubview:self.pickerCollectionView];
+            }else{
+                [cell addSubview:self.pickerCollectionView];
+            }
+            
+            
+//            [self.pickerCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.top.mas_equalTo(oscreenshotLabel.mas_top).offset(20);
+//                make.left.mas_equalTo(cell.mas_left).offset(16);
+//            }];
+            
+            
+            
+             [self initPickerView];
+            
         }
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -221,7 +291,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             //添加按钮（或者其它控件）也可以写在继承自UITableViewCell的子类中,然后用子类来实例化这里的cell，将button作为子类的属性，这样添加button的触发事件的响应可以写在这里，target就是本类，方法也在本类中实现
             saveBtn=[[UIButton alloc]init];
-            [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+            [saveBtn setTitle:@"提交" forState:UIControlStateNormal];
             saveBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
             [saveBtn addTarget:self action:@selector(saveBtn) forControlEvents:UIControlEventTouchUpInside];
             [saveBtn setTitleColor:[UIColor colorWithHexString:@"#00a4e9"] forState:UIControlStateNormal];
@@ -242,11 +312,8 @@
 
 
 
-//- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-//{
-//    return YES;
-//    
-//}
+
+
 /**
  开始编辑
  @param textView textView
@@ -281,6 +348,227 @@
 
 
 
+/** 初始化collectionView */
+-(void)initPickerView{
+    _showActionSheetViewController = self;
+    
+
+    
+
+    
+    
+    
+    self.pickerCollectionView.delegate=self;
+    self.pickerCollectionView.dataSource=self;
+    self.pickerCollectionView.backgroundColor = [UIColor whiteColor];
+    
+    pushImageName = @"plus.png";
+    
+    _pickerCollectionView.scrollEnabled = NO;
+    
+    
+}
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _imageArray.count+1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // Register nib file for the cell
+    UINib *nib = [UINib nibWithNibName:@"HWCollectionViewCell" bundle: [NSBundle mainBundle]];
+    [collectionView registerNib:nib forCellWithReuseIdentifier:@"HWCollectionViewCell"];
+    // Set up the reuse identifier
+    HWCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"HWCollectionViewCell" forIndexPath:indexPath];
+    
+    if (indexPath.row == _imageArray.count) {
+        [cell.profilePhoto setImage:[UIImage imageNamed:pushImageName]];
+        cell.closeButton.hidden = YES;
+        
+    }
+    else{
+        [cell.profilePhoto setImage:_imageArray[indexPath.item]];
+        cell.closeButton.hidden = NO;
+    }
+    [cell setBigImageViewWithImage:nil];
+    cell.profilePhoto.tag = [indexPath item];
+    
+    //添加图片cell点击事件
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProfileImage:)];
+    singleTap.numberOfTapsRequired = 1;
+    cell.profilePhoto .userInteractionEnabled = YES;
+    [cell.profilePhoto  addGestureRecognizer:singleTap];
+    cell.closeButton.tag = [indexPath item];
+    [cell.closeButton addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self changeCollectionViewHeight];
+    return cell;
+}
+#pragma mark <UICollectionViewDelegate>
+//定义每个UICollectionView 的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(([UIScreen mainScreen].bounds.size.width-64) /4 ,([UIScreen mainScreen].bounds.size.width-64) /4);
+}
+
+//定义每个UICollectionView 的 margin
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(20, 8, 20, 8);
+}
+
+#pragma mark - 图片cell点击事件
+//点击图片看大图
+- (void) tapProfileImage:(UITapGestureRecognizer *)gestureRecognizer{
+    [self.view endEditing:YES];
+    
+    UIImageView *tableGridImage = (UIImageView*)gestureRecognizer.view;
+    NSInteger index = tableGridImage.tag;
+    
+    if (index == (_imageArray.count)) {
+        [self.view endEditing:YES];
+        //添加新图片
+        [self addNewImg];
+    }
+    else{
+        //点击放大查看
+        HWCollectionViewCell *cell = (HWCollectionViewCell*)[_pickerCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        if (!cell.BigImageView || !cell.BigImageView.image) {
+            
+            [cell setBigImageViewWithImage:[self getBigIamgeWithALAsset:_arrSelected[index]]];
+        }
+        
+        JJPhotoManeger *mg = [JJPhotoManeger maneger];
+        mg.delegate = self;
+        [mg showLocalPhotoViewer:@[cell.BigImageView] selecImageindex:0];
+    }
+}
+- (UIImage*)getBigIamgeWithALAsset:(ALAsset*)set{
+    //压缩
+    // 需传入方向和缩放比例，否则方向和尺寸都不对
+    UIImage *img = [UIImage imageWithCGImage:set.defaultRepresentation.fullResolutionImage
+                                       scale:set.defaultRepresentation.scale
+                                 orientation:(UIImageOrientation)set.defaultRepresentation.orientation];
+    NSData *imageData = UIImageJPEGRepresentation(img, 0.5);
+    [_bigImgDataArray addObject:imageData];
+    
+    return [UIImage imageWithData:imageData];
+}
+#pragma mark - 选择图片
+- (void)addNewImg{
+    if (!_imgPickerActionSheet) {
+        _imgPickerActionSheet = [[HWImagePickerSheet alloc] init];
+        _imgPickerActionSheet.delegate = self;
+    }
+    if (_arrSelected) {
+        _imgPickerActionSheet.arrSelected = _arrSelected;
+    }
+    _imgPickerActionSheet.maxCount = 3;
+    
+    [_imgPickerActionSheet showImgPickerActionSheetInView:_showActionSheetViewController];
+}
+
+#pragma mark - 删除照片
+- (void)deletePhoto:(UIButton *)sender{
+    
+    [_imageArray removeObjectAtIndex:sender.tag];
+    [_arrSelected removeObjectAtIndex:sender.tag];
+    
+    
+    [self.pickerCollectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:sender.tag inSection:0]]];
+    
+    for (NSInteger item = sender.tag; item <= _imageArray.count; item++) {
+        HWCollectionViewCell *cell = (HWCollectionViewCell*)[self.pickerCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0]];
+        cell.closeButton.tag--;
+        cell.profilePhoto.tag--;
+    }
+    
+    [self changeCollectionViewHeight];
+}
+
+#pragma mark - 改变view，collectionView高度
+- (void)changeCollectionViewHeight{
+    
+    if (_collectionFrameY) {
+        _pickerCollectionView.frame = CGRectMake(0, _collectionFrameY, [UIScreen mainScreen].bounds.size.width, (((float)[UIScreen mainScreen].bounds.size.width-64.0) /4.0 +20.0)* ((int)(_arrSelected.count)/4 +1)+20.0);
+    }
+    else{
+        _pickerCollectionView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, (((float)[UIScreen mainScreen].bounds.size.width-64.0) /4.0 +20.0)* ((int)(_arrSelected.count)/4 +1)+20.0);
+    }
+    [self pickerViewFrameChanged];
+    
+}
+/**
+ *  相册完成选择得到图片
+ */
+-(void)getSelectImageWithALAssetArray:(NSArray *)ALAssetArray thumbnailImageArray:(NSArray *)thumbnailImgArray{
+    //（ALAsset）类型 Array
+    _arrSelected = [NSMutableArray arrayWithArray:ALAssetArray];
+    //正方形缩略图 Array
+    _imageArray = [NSMutableArray arrayWithArray:thumbnailImgArray] ;
+    
+    [self.pickerCollectionView reloadData];
+}
+- (void)pickerViewFrameChanged{
+    
+}
+- (void)updatePickerViewFrameY:(CGFloat)Y{
+    
+    _collectionFrameY = Y;
+    _pickerCollectionView.frame = CGRectMake(0, Y, [UIScreen mainScreen].bounds.size.width, (((float)[UIScreen mainScreen].bounds.size.width-64.0) /4.0 +20.0)* ((int)(_arrSelected.count)/4 +1)+20.0);
+}
+
+#pragma mark - 防止奔溃处理
+-(void)photoViwerWilldealloc:(NSInteger)selecedImageViewIndex
+{
+    NSLog(@"最后一张观看的图片的index是:%zd",selecedImageViewIndex);
+}
+
+- (UIImage *)compressImage:(UIImage *)image toMaxFileSize:(NSInteger)maxFileSize {
+    CGFloat compression = 0.9f;
+    CGFloat maxCompression = 0.1f;
+    NSData *imageData = UIImageJPEGRepresentation(image, compression);
+    while ([imageData length] > maxFileSize && compression > maxCompression) {
+        compression -= 0.1;
+        imageData = UIImageJPEGRepresentation(image, compression);
+    }
+    
+    UIImage *compressedImage = [UIImage imageWithData:imageData];
+    return compressedImage;
+}
+//获得大图
+- (NSArray*)getBigImageArrayWithALAssetArray:(NSArray*)ALAssetArray{
+    _bigImgDataArray = [NSMutableArray array];
+    NSMutableArray *bigImgArr = [NSMutableArray array];
+    for (ALAsset *set in ALAssetArray) {
+        [bigImgArr addObject:[self getBigIamgeWithALAsset:set]];
+    }
+    _bigImageArray = bigImgArr;
+    return _bigImageArray;
+}
+#pragma mark - 获得选中图片各个尺寸
+- (NSArray*)getALAssetArray{
+    return _arrSelected;
+}
+
+- (NSArray*)getBigImageArray{
+    
+    return [self getBigImageArrayWithALAssetArray:_arrSelected];
+}
+
+- (NSArray*)getSmallImageArray{
+    return _imageArray;
+}
+
+- (CGRect)getPickerViewFrame{
+    return self.pickerCollectionView.frame;
+}
 
 
 
