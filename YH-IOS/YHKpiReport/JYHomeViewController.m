@@ -25,10 +25,12 @@
 #import "SDCycleScrollView.h"
 #import "YHKPIModel.h"
 #import "SubjectOutterViewController.h"
+
 #import "YHHttpRequestAPI.h"
 #import "RefreshTool.h"
 #import "HomeScrollHeaderCell.h"
 #import "HomeNavBarView.h"
+#import "ManageWarningCell.h"
 
 
 #define kJYNotifyHeight 40
@@ -437,7 +439,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section < 2) {
         return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
     }
     if ([dataListTop count] >0 && dataListTop != nil) {
@@ -454,6 +456,11 @@
     if (indexPath.section == 0) { // top 轮播
         HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
         [cell setItem:[NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"]];
+        return cell;
+    }
+    if (indexPath.section == 1) {
+        ManageWarningCell* cell = [ManageWarningCell cellWithTableView:tableView needXib:YES];
+        [cell setItem:[NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"经营预警"]];
         return cell;
     }
     
@@ -479,7 +486,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 1;
+    return 0;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
