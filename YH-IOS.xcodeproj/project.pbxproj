@@ -20,6 +20,8 @@
 		3B4F9C511F298E150096256D /* ManageWarningItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */; };
 		3B4F9C581F29B24E0096256D /* BusinessGeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */; };
 		3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */; };
+		3B4F9C671F29D1230096256D /* CommonSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C661F29D1230096256D /* CommonSheetView.m */; };
+		3B4F9C6B1F29D1670096256D /* SnailPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C6A1F29D1670096256D /* SnailPopupController.m */; };
 		3B717DA91F285DA300858E0E /* HomeScrollHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */; };
 		3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */; };
 		3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */; };
@@ -669,6 +671,10 @@
 		3B4F9C551F29B24E0096256D /* BusinessGeneralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessGeneralCell.h; sourceTree = "<group>"; };
 		3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessGeneralCell.m; sourceTree = "<group>"; };
 		3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessGeneralCell.xib; sourceTree = "<group>"; };
+		3B4F9C651F29D1230096256D /* CommonSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonSheetView.h; sourceTree = "<group>"; };
+		3B4F9C661F29D1230096256D /* CommonSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonSheetView.m; sourceTree = "<group>"; };
+		3B4F9C691F29D1670096256D /* SnailPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnailPopupController.h; sourceTree = "<group>"; };
+		3B4F9C6A1F29D1670096256D /* SnailPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnailPopupController.m; sourceTree = "<group>"; };
 		3B717DA61F285DA300858E0E /* HomeScrollHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScrollHeaderCell.h; sourceTree = "<group>"; };
 		3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScrollHeaderCell.m; sourceTree = "<group>"; };
 		3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeScrollHeaderCell.xib; sourceTree = "<group>"; };
@@ -1808,6 +1814,24 @@
 			path = ScrollControllerVc;
 			sourceTree = "<group>";
 		};
+		3B4F9C641F29D1120096256D /* CommonSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F9C651F29D1230096256D /* CommonSheetView.h */,
+				3B4F9C661F29D1230096256D /* CommonSheetView.m */,
+			);
+			path = CommonSheetView;
+			sourceTree = "<group>";
+		};
+		3B4F9C681F29D1670096256D /* SnailPopupController */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F9C691F29D1670096256D /* SnailPopupController.h */,
+				3B4F9C6A1F29D1670096256D /* SnailPopupController.m */,
+			);
+			path = SnailPopupController;
+			sourceTree = "<group>";
+		};
 		3B717DA51F285D7A00858E0E /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2713,6 +2737,7 @@
 		C4771B881C05871300AAF44F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				3B4F9C681F29D1670096256D /* SnailPopupController */,
 				3BAC8E161F284A8900A01A12 /* UMSocial_Sdk_5.2.1 */,
 				3BAC8E321F284A8900A01A12 /* UMSocial_Sdk_Extra_Frameworks */,
 				3B763AF01F2637CC00D5E965 /* FDFullscreenPopGesture */,
@@ -3028,6 +3053,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3B4F9C641F29D1120096256D /* CommonSheetView */,
 				3B30EEDE1F25F60F00A702EC /* ScrollControllerVc */,
 				3BEBB36A1F2597EE007FB66D /* RefreshTool */,
 				91E65A061F1737340046B615 /* Location */,
@@ -4222,12 +4248,15 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = LS69CLN4M7;
+						DevelopmentTeam = 3V3LN88X9L;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
+							};
+							com.apple.Wallet = {
+								enabled = 0;
 							};
 						};
 					};
@@ -4621,6 +4650,7 @@
 				F68C25D71EC2D4790069C041 /* JYClickableLine.m in Sources */,
 				915A8D0A1F1E0BA500262311 /* JYBargraphModel.m in Sources */,
 				91DB243B1EED7A3000FC8413 /* PhotoSelectManager.m in Sources */,
+				3B4F9C6B1F29D1670096256D /* SnailPopupController.m in Sources */,
 				F62456521EA5FACD006834D2 /* WynCountDownView.m in Sources */,
 				F655484A1E8CE04200B4048C /* PushDevice.m in Sources */,
 				91DB243D1EED7A3000FC8413 /* ScaleAnimation.m in Sources */,
@@ -4653,6 +4683,7 @@
 				9145097B1F0224C100ED82D6 /* TreeTableView.m in Sources */,
 				F62457E91EA5FD01006834D2 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				C403433C1D6ADEAB00625D53 /* UIButton+Badge.m in Sources */,
+				3B4F9C671F29D1230096256D /* CommonSheetView.m in Sources */,
 				F68C25871EC2D44F0069C041 /* JYCollectionHeader.m in Sources */,
 				915A8CED1F1E0B9400262311 /* JYPortraitBarView.m in Sources */,
 				F6F1C84F1E88BD8C00754034 /* KPIViewController.m in Sources */,
@@ -5069,11 +5100,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LS69CLN4M7;
+				DEVELOPMENT_TEAM = 3V3LN88X9L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5115,8 +5145,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyj.YH;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b23e37da-754a-439e-913e-b0cdfcb7581a";
+				PROVISIONING_PROFILE_SPECIFIER = Common_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -5132,11 +5162,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LS69CLN4M7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
