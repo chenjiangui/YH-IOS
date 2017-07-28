@@ -196,8 +196,8 @@ static NSString *headerViewIdentifier = @"hederview";
             [opinionTextview mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(cell.mas_top).offset(44);
                 make.left.mas_equalTo(cell.mas_left).offset(16);
-                make.right.mas_equalTo(cell.mas_right).offset(-16);
-                make.size.mas_equalTo(CGSizeMake(cell.bounds.size.width, cell.bounds.size.height));
+//                make.right.mas_equalTo(cell.mas_right).offset(-16);
+                make.size.mas_equalTo(CGSizeMake(self.view.bounds.size.width-32, 111));
             }];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -210,6 +210,7 @@ static NSString *headerViewIdentifier = @"hederview";
         if (cell == nil) {//重新实例化对象的时候才添加button，队列中已有的cell上面是有button的
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             //添加按钮（或者其它控件）也可以写在继承自UITableViewCell的子类中,然后用子类来实例化这里的cell，将button作为子类的属性，这样添加button的触发事件的响应可以写在这里，target就是本类，方法也在本类中实现
+            //此部分 需要宝峰技术支持
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
             layout.scrollDirection = UICollectionViewScrollDirectionVertical;
             layout.headerReferenceSize=CGSizeMake(cell.contentView.frame.size.width,15);
@@ -275,11 +276,6 @@ static NSString *headerViewIdentifier = @"hederview";
         return cell;
     }
 }
-
-
-
-
-
 /**
  开始编辑
  @param textView textView
@@ -298,15 +294,11 @@ static NSString *headerViewIdentifier = @"hederview";
         textView.textColor=[UIColor colorWithHexString:@"bcbcbc"];
     }
 }
-
-
 -(void)textViewDidChange:(UITextView *)textView
 {
 //        NSLog(@"%@",textView.text);
     textView.textColor=[UIColor colorWithHexString:@"#32414b"];
-    
     questionProblemText=textView.text;
-    
 }
 
 
@@ -335,8 +327,8 @@ static NSString *headerViewIdentifier = @"hederview";
     NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:postString parameters:parames constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        for (int i = 0; i < self.imageArray.count; i++) {
-            UIImage *image = self.imageArray[i];
+        for (int i = 0; i < self.bigImageArray.count; i++) {
+            UIImage *image = self.bigImageArray[i];
             NSData *data = UIImagePNGRepresentation(image);
             [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"image%d",i] fileName:[NSString stringWithFormat:@"image%d.png",i] mimeType:@"multipart/form-data"];
         }
@@ -630,9 +622,11 @@ return 1;
     return self.pickerCollectionView.frame;
 }
 
+
 -(void)NewQuestionViewBack
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [super didReceiveMemoryWarning];
 }
 
 
@@ -640,6 +634,7 @@ return 1;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

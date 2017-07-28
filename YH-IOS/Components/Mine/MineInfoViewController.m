@@ -9,6 +9,7 @@
 #import "MineInfoViewController.h"
 #import "MineHeadView.h"
 #import "MineInfoTableViewCell.h"
+#import "CommonSheetView.h"
 
 //#import "MineResetPwdViewController.h"
 //use new ResetPwdViewController
@@ -47,6 +48,7 @@
 @property (nonatomic, strong) NSArray *leftImageArray;
 @property (nonatomic, strong) UIImage *userAvaImage;
 @property (nonatomic, strong) NSDictionary *userDict;
+@property (nonatomic, strong) CommonSheetView* favSheetView;
 
 @end
 
@@ -80,6 +82,19 @@
     }];
 }
 
+- (CommonSheetView *)favSheetView{
+        _favSheetView = [[CommonSheetView alloc] initWithDataList:@[@"确认退出"]];
+        _favSheetView.lastString = @"取消";
+        _favSheetView.colors = @[[NewAppColor yhapp_17color]];
+        MJWeakSelf;
+        _favSheetView.selectBlock = ^(NSNumber* item) {
+            [weakSelf.favSheetView hide];
+            if (item.integerValue == 0) {
+               [weakSelf jumpToLogin];
+            }
+        };
+    return _favSheetView;
+}
 
 - (void)BindDate {
     _requestCommane = [[RACCommand  alloc]initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
@@ -259,8 +274,9 @@
     }
     else if (indexPath.section == 4){
         LogoutTableViewCell *Cell = [[LogoutTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"logoutCell"];
+        MJWeakSelf;
         [[Cell.logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            [self logoutButtonClick:Cell.logoutButton];
+            [weakSelf.favSheetView show];
         }];
         return Cell;
     }
@@ -288,7 +304,7 @@
     logoutButton.layer.borderColor = [UIColor colorWithHexString:@"#d2d2d2"].CGColor;
     [logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
     [[logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        [self logoutButtonClick:logoutButton];
+       // [self logoutButtonClick:logoutButton];
     }];
     //[logoutButton addTarget:self action:@selector(logoutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [logoutButton setTitleColor:[UIColor colorWithHexString:@"#010101"] forState:UIControlStateNormal];
@@ -331,7 +347,7 @@
     }
 }
 
-- (void)logoutButtonClick:(UIButton*) button {
+- (void)logoutButtonClick {
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认退出" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction *action) {

@@ -60,7 +60,7 @@
 
 -(void)addMuneView {
      __weak typeof(*&self) weakSelf = self;
-    _menuView  = [[YHMutileveMenu alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) WithData:_listArray withSelectIndex:^(NSInteger left, NSInteger right, ListItem* info) {
+    _menuView  = [[YHMutileveMenu alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) WithData:_listArray withSelectIndex:^(NSInteger left, NSInteger right, ListItem* info) {
         // NSLog(@"%@",info);
         
         [weakSelf jumpToSubjectView:info];

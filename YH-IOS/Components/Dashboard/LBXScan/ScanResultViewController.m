@@ -59,10 +59,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     //@{}代表Dictionary
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:kThemeColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[NewAppColor yhapp_6color]}];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 40)];
-    UIImage *imageback = [[UIImage imageNamed:@"Banner-Back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imageback = [[UIImage imageNamed:@"newnav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     bakImage.image = imageback;
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
@@ -73,7 +73,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"Banner-Setting"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
     [self clearBrowserCache];
     [self loadHtml];
 }

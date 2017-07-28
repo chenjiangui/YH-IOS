@@ -28,6 +28,7 @@
     //左侧 label
     self.leftLabel = [[UILabel alloc]init];
     [self addSubview:_leftLabel];
+    self.leftLabel.textAlignment = NSTextAlignmentLeft;
     self.leftLabel.font = [UIFont systemFontOfSize:15];
     self.leftLabel.textColor = [UIColor colorWithHexString:@"#666666"];
     
@@ -35,6 +36,8 @@
     self.rightLabel = [[UILabel alloc]init];
     [self addSubview:_rightLabel];
     self.rightLabel.font = [UIFont systemFontOfSize:16];
+    self.rightLabel.textAlignment = NSTextAlignmentRight;
+     self.rightLabel.adjustsFontSizeToFitWidth = YES;
     self.rightLabel.textColor = [UIColor colorWithHexString:@"#32414b"];
     
     [self layoutUI];
@@ -47,8 +50,8 @@
         make.left.mas_equalTo(self.mas_left).mas_offset(20);
         make.right.mas_equalTo(self.leftLabel.mas_left).mas_offset(-10);
         make.top.mas_equalTo(self.mas_top).mas_offset(17);
-        make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-17);
         make.height.mas_equalTo(@16);
+        make.width.mas_equalTo(@16);
     }];
     
     [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -63,6 +66,7 @@
         make.top.mas_equalTo(self.mas_top).mas_offset(16);
         make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-16);
         make.height.mas_equalTo(@18);
+        make.left.mas_equalTo(self.leftLabel.mas_right).mas_offset(10);
     }];
     
 }

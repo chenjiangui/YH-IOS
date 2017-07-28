@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugI-Q1-mVM">
-                    <rect key="frame" x="10" y="30" width="310" height="20"/>
+                    <rect key="frame" x="15" y="30" width="305" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="SZB-Ru-tts"/>
                     </constraints>
@@ -28,7 +28,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ugI-Q1-mVM" secondAttribute="trailing" id="0zn-Uj-c7O"/>
                 <constraint firstAttribute="bottom" secondItem="ugI-Q1-mVM" secondAttribute="bottom" id="MVh-Js-apj"/>
-                <constraint firstItem="ugI-Q1-mVM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="n0y-Es-Cum"/>
+                <constraint firstItem="ugI-Q1-mVM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="n0y-Es-Cum"/>
             </constraints>
             <connections>
                 <outlet property="titleLabel" destination="ugI-Q1-mVM" id="I6o-N5-2Fl"/>

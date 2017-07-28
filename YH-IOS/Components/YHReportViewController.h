@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YHReportViewController : UIViewController
+@interface YHReportViewController : YHBaseViewController
 
 @end

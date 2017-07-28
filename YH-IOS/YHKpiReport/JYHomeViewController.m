@@ -142,14 +142,19 @@
 #pragma mark - 首页点击事件
 //轮播图点击事件
 - (void)scrollImageAction:(YHKPIDetailModel*)model{
-
+    NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
+    [self jumpToDetailView:targetUrl viewTitle:model.title];
 }
 //经营预警事件
 - (void)manageWarningAction:(YHKPIDetailModel*)model{
-
+    NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
+    [self jumpToDetailView:targetUrl viewTitle:model.title];
 }
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
+    
+    NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
+    [self jumpToDetailView:targetUrl viewTitle:model.title];
 
 }
 //扫描事件

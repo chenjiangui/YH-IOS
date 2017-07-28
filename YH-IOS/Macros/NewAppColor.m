@@ -85,4 +85,7 @@
     return UIColorHex(72b54d);
 }
 
++(UIColor*)yhapp_clearcolor{
+    return [UIColor clearColor];
+}
 @end

@@ -146,7 +146,6 @@
 		91AB66AD1F28A28E0077A0CF /* MineSingleSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66AC1F28A28E0077A0CF /* MineSingleSettingViewController.m */; };
 		91AB66B01F28A2DB0077A0CF /* ThurSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66AF1F28A2DB0077A0CF /* ThurSayViewController.m */; };
 		91B70D5F1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */; };
-		91B70D601EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91B70D5E1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib */; };
 		91B70D681EF8C84600C02F16 /* JYSigleValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D671EF8C84600C02F16 /* JYSigleValueView.m */; };
 		91BA00511F2721A500943596 /* AlternativeDesigns.json in Resources */ = {isa = PBXBuildFile; fileRef = 91BA00241F2721A500943596 /* AlternativeDesigns.json */; };
 		91BA00521F2721A500943596 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA00261F2721A500943596 /* HexColors.m */; };
@@ -232,7 +231,6 @@
 		91DB24A51EF25D6100FC8413 /* YHReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DB24A41EF25D6100FC8413 /* YHReportViewController.m */; };
 		91DB24A91EF25D8500FC8413 /* YHMutileveMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DB24A81EF25D8500FC8413 /* YHMutileveMenu.m */; };
 		91DB24AD1EF2840400FC8413 /* YHTopImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DB24AB1EF2840400FC8413 /* YHTopImageCollectionViewCell.m */; };
-		91DB24AE1EF2840400FC8413 /* YHTopImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91DB24AC1EF2840400FC8413 /* YHTopImageCollectionViewCell.xib */; };
 		91E65A0B1F17374E0046B615 /* YHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E65A0A1F17374E0046B615 /* YHLocation.m */; };
 		91E65A1C1F18979B0046B615 /* YHScanStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E65A1B1F18979B0046B615 /* YHScanStoreViewController.m */; };
 		91E6CFA71EFB6B8C00507B7E /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF971EFB6B8C00507B7E /* TAAbstractDotView.m */; };
@@ -261,7 +259,6 @@
 		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
 		B6E7B3521F29D2CE008B48BF /* MFlowLayOut.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */; };
 		B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3371F29D2CE008B48BF /* MHeaderImaCell.m */; };
-		B6E7B3541F29D2CE008B48BF /* MHeadImaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3391F29D2CE008B48BF /* MHeadImaView.m */; };
 		B6E7B3551F29D2CE008B48BF /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B33C1F29D2CE008B48BF /* JJMainScrollView.m */; };
 		B6E7B3561F29D2CE008B48BF /* JJOneScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B33E1F29D2CE008B48BF /* JJOneScrollView.m */; };
 		B6E7B3571F29D2CE008B48BF /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3401F29D2CE008B48BF /* JJPhoto.m */; };
@@ -961,7 +958,6 @@
 		91AB66AF1F28A2DB0077A0CF /* ThurSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThurSayViewController.m; sourceTree = "<group>"; };
 		91B70D5C1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHReportLeftTextTableViewCell.h; sourceTree = "<group>"; };
 		91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHReportLeftTextTableViewCell.m; sourceTree = "<group>"; };
-		91B70D5E1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHReportLeftTextTableViewCell.xib; sourceTree = "<group>"; };
 		91B70D661EF8C84600C02F16 /* JYSigleValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSigleValueView.h; sourceTree = "<group>"; };
 		91B70D671EF8C84600C02F16 /* JYSigleValueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSigleValueView.m; sourceTree = "<group>"; };
 		91BA00241F2721A500943596 /* AlternativeDesigns.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesigns.json; sourceTree = "<group>"; };
@@ -994,6 +990,7 @@
 		91BB7B851F29B592001934FA /* NewAppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAppColor.m; sourceTree = "<group>"; };
 		91BB7B901F29C606001934FA /* UIWebView+CleanLayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+CleanLayerDelegate.h"; sourceTree = "<group>"; };
 		91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+CleanLayerDelegate.m"; sourceTree = "<group>"; };
+		91BB7BAC1F2B23C6001934FA /* YHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAPI.h; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -1118,7 +1115,6 @@
 		91DB24A81EF25D8500FC8413 /* YHMutileveMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveMenu.m; sourceTree = "<group>"; };
 		91DB24AA1EF2840400FC8413 /* YHTopImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHTopImageCollectionViewCell.h; sourceTree = "<group>"; };
 		91DB24AB1EF2840400FC8413 /* YHTopImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHTopImageCollectionViewCell.m; sourceTree = "<group>"; };
-		91DB24AC1EF2840400FC8413 /* YHTopImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHTopImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		91E65A091F17374E0046B615 /* YHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHLocation.h; sourceTree = "<group>"; };
 		91E65A0A1F17374E0046B615 /* YHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHLocation.m; sourceTree = "<group>"; };
 		91E65A1A1F18979B0046B615 /* YHScanStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHScanStoreViewController.h; sourceTree = "<group>"; };
@@ -2676,10 +2672,8 @@
 				91DB24A81EF25D8500FC8413 /* YHMutileveMenu.m */,
 				91B70D5C1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.h */,
 				91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */,
-				91B70D5E1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib */,
 				91DB24AA1EF2840400FC8413 /* YHTopImageCollectionViewCell.h */,
 				91DB24AB1EF2840400FC8413 /* YHTopImageCollectionViewCell.m */,
-				91DB24AC1EF2840400FC8413 /* YHTopImageCollectionViewCell.xib */,
 				91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */,
 				91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */,
 				91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */,
@@ -3028,6 +3022,7 @@
 				C49BB9AB1D8C2548004C9F70 /* Constant.h */,
 				912833001EE85A830071CE69 /* PrivateConstants.h */,
 				C49BB9A91D8C2538004C9F70 /* Constant.m */,
+				91BB7BAC1F2B23C6001934FA /* YHAPI.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -4462,7 +4457,7 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 3V3LN88X9L;
+						DevelopmentTeam = LY7F59PHE8;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -4569,7 +4564,6 @@
 				F62456D81EA5FB21006834D2 /* YHMarkerV.xib in Resources */,
 				91BA00631F2721A500943596 /* RMessageView.xib in Resources */,
 				C46903941D5CC75F00233D05 /* BarCodeScan.zip in Resources */,
-				91B70D601EF79D4100C02F16 /* YHReportLeftTextTableViewCell.xib in Resources */,
 				3B30EEE91F25F63200A702EC /* YHWarningNoticeCell.xib in Resources */,
 				91BA00621F2721A500943596 /* RMessageDefaultDesign.json in Resources */,
 				F62456BF1EA5FB21006834D2 /* ChartHudView.xib in Resources */,
@@ -4655,7 +4649,6 @@
 				3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */,
 				F656DF791EC016C400DECD7F /* kpi_data.json in Resources */,
 				F62457351EA5FBB1006834D2 /* ColoredLineChartViewController.xib in Resources */,
-				91DB24AE1EF2840400FC8413 /* YHTopImageCollectionViewCell.xib in Resources */,
 				F63D4A011EB329A20004BCC8 /* FilterSuperChartHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4956,6 +4949,7 @@
 				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
 				B6E7B3541F29D2CE008B48BF /* MHeadImaView.m in Sources */,
 				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
+				91BB7B921F29C606001934FA /* UIWebView+CleanLayerDelegate.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
@@ -5342,7 +5336,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 3V3LN88X9L;
+				DEVELOPMENT_TEAM = LY7F59PHE8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5384,8 +5378,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b23e37da-754a-439e-913e-b0cdfcb7581a";
-				PROVISIONING_PROFILE_SPECIFIER = Common_Dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -5404,7 +5398,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LY7F59PHE8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
