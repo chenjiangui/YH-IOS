@@ -19,7 +19,7 @@
 /** APP版本号 */
 #define APPVERSION 1
 
-#define DEFAULT_IMAGE @"默认图_".imageFromSelf
+#define DEFAULT_IMAGE [UIImage imageWithColor:UIColorHex(f3f3f3)]
 
 #define CustomFontName @"AlternateGothicNo2BT-Regular"
 

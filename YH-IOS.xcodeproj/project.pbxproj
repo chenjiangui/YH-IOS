@@ -14,10 +14,19 @@
 		3B30EEE91F25F63200A702EC /* YHWarningNoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B30EEE41F25F63200A702EC /* YHWarningNoticeCell.xib */; };
 		3B30EEEA1F25F63200A702EC /* YHWarningNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */; };
 		3B30EEEB1F25F63200A702EC /* YHWarningNoticeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */; };
+		3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */; };
+		3B4868E71F2ADEF5003AF8D8 /* OneImageAndLabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */; };
+		3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */; };
+		3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */; };
 		3B4F9C491F298B470096256D /* ManageWarningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C471F298B470096256D /* ManageWarningCell.m */; };
 		3B4F9C4A1F298B470096256D /* ManageWarningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C481F298B470096256D /* ManageWarningCell.xib */; };
 		3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */; };
 		3B4F9C511F298E150096256D /* ManageWarningItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */; };
+		3B4F9C581F29B24E0096256D /* BusinessGeneralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */; };
+		3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */; };
+		3B4F9C671F29D1230096256D /* CommonSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C661F29D1230096256D /* CommonSheetView.m */; };
+		3B4F9C6B1F29D1670096256D /* SnailPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C6A1F29D1670096256D /* SnailPopupController.m */; };
+		3B4F9C6D1F29E1CE0096256D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4F9C6C1F29E1CE0096256D /* libc++.tbd */; };
 		3B717DA91F285DA300858E0E /* HomeScrollHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */; };
 		3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */; };
 		3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 3B717DAC1F28717F00858E0E /* ALTGOT2N.TTF */; };
@@ -153,6 +162,7 @@
 		91BA00671F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */; };
 		91BA00681F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */; };
 		91BB7B861F29B592001934FA /* NewAppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B851F29B592001934FA /* NewAppColor.m */; };
+		91BB7B921F29C606001934FA /* UIWebView+CleanLayerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */; };
 		91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F41F1F220400CD7159 /* JYAnimationTool.m */; };
 		91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F61F1F220400CD7159 /* JYCursor.m */; };
 		91D3640B1F1F220400CD7159 /* JYItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F81F1F220400CD7159 /* JYItemManager.m */; };
@@ -680,12 +690,27 @@
 		3B30EEE51F25F63200A702EC /* YHWarningNoticeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWarningNoticeController.h; sourceTree = "<group>"; };
 		3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWarningNoticeController.m; sourceTree = "<group>"; };
 		3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHWarningNoticeController.xib; sourceTree = "<group>"; };
+		3B4868DF1F2ADB96003AF8D8 /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
+		3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
+		3B4868E41F2ADEF5003AF8D8 /* OneImageAndLabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneImageAndLabCell.h; sourceTree = "<group>"; };
+		3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneImageAndLabCell.m; sourceTree = "<group>"; };
+		3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneImageAndLabCell.xib; sourceTree = "<group>"; };
+		3B4868E91F2AECE5003AF8D8 /* ToolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolModel.h; sourceTree = "<group>"; };
+		3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolModel.m; sourceTree = "<group>"; };
 		3B4F9C461F298B470096256D /* ManageWarningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageWarningCell.h; sourceTree = "<group>"; };
 		3B4F9C471F298B470096256D /* ManageWarningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageWarningCell.m; sourceTree = "<group>"; };
 		3B4F9C481F298B470096256D /* ManageWarningCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageWarningCell.xib; sourceTree = "<group>"; };
 		3B4F9C4D1F298E150096256D /* ManageWarningItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageWarningItemCell.h; sourceTree = "<group>"; };
 		3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageWarningItemCell.m; sourceTree = "<group>"; };
 		3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageWarningItemCell.xib; sourceTree = "<group>"; };
+		3B4F9C551F29B24E0096256D /* BusinessGeneralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessGeneralCell.h; sourceTree = "<group>"; };
+		3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessGeneralCell.m; sourceTree = "<group>"; };
+		3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessGeneralCell.xib; sourceTree = "<group>"; };
+		3B4F9C651F29D1230096256D /* CommonSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonSheetView.h; sourceTree = "<group>"; };
+		3B4F9C661F29D1230096256D /* CommonSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonSheetView.m; sourceTree = "<group>"; };
+		3B4F9C691F29D1670096256D /* SnailPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnailPopupController.h; sourceTree = "<group>"; };
+		3B4F9C6A1F29D1670096256D /* SnailPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnailPopupController.m; sourceTree = "<group>"; };
+		3B4F9C6C1F29E1CE0096256D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		3B717DA61F285DA300858E0E /* HomeScrollHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScrollHeaderCell.h; sourceTree = "<group>"; };
 		3B717DA71F285DA300858E0E /* HomeScrollHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScrollHeaderCell.m; sourceTree = "<group>"; };
 		3B717DA81F285DA300858E0E /* HomeScrollHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeScrollHeaderCell.xib; sourceTree = "<group>"; };
@@ -960,6 +985,8 @@
 		91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PPTopMostController.m"; sourceTree = "<group>"; };
 		91BB7B841F29B592001934FA /* NewAppColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAppColor.h; sourceTree = "<group>"; };
 		91BB7B851F29B592001934FA /* NewAppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAppColor.m; sourceTree = "<group>"; };
+		91BB7B901F29C606001934FA /* UIWebView+CleanLayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+CleanLayerDelegate.h"; sourceTree = "<group>"; };
+		91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+CleanLayerDelegate.m"; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -1781,6 +1808,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B4F9C6D1F29E1CE0096256D /* libc++.tbd in Frameworks */,
 				3BAC8EA81F284A8A00A01A12 /* libSocialQQ.a in Frameworks */,
 				3BAC8EB91F284A8A00A01A12 /* libYixinSDK_V2.2.a in Frameworks */,
 				3BAC8EA21F284A8A00A01A12 /* libSocialLine.a in Frameworks */,
@@ -1867,6 +1895,24 @@
 			path = ScrollControllerVc;
 			sourceTree = "<group>";
 		};
+		3B4F9C641F29D1120096256D /* CommonSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F9C651F29D1230096256D /* CommonSheetView.h */,
+				3B4F9C661F29D1230096256D /* CommonSheetView.m */,
+			);
+			path = CommonSheetView;
+			sourceTree = "<group>";
+		};
+		3B4F9C681F29D1670096256D /* SnailPopupController */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F9C691F29D1670096256D /* SnailPopupController.h */,
+				3B4F9C6A1F29D1670096256D /* SnailPopupController.m */,
+			);
+			path = SnailPopupController;
+			sourceTree = "<group>";
+		};
 		3B717DA51F285D7A00858E0E /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1881,6 +1927,9 @@
 				3B4F9C4D1F298E150096256D /* ManageWarningItemCell.h */,
 				3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */,
 				3B4F9C4F1F298E150096256D /* ManageWarningItemCell.xib */,
+				3B4F9C551F29B24E0096256D /* BusinessGeneralCell.h */,
+				3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */,
+				3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */,
 			);
 			name = HomeView;
 			path = YHKpiReport/HomeView;
@@ -2366,6 +2415,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		91BB7B8C1F29C4F6001934FA /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				91BB7B901F29C606001934FA /* UIWebView+CleanLayerDelegate.h */,
+				91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		91D4D6821F08BF970087783C /* NewSelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2670,6 +2728,8 @@
 				91EF8DD11EF38AD100333746 /* View */,
 				91EF8DCE1EF38A1700333746 /* YHTopicViewController.h */,
 				91EF8DCF1EF38A1700333746 /* YHTopicViewController.m */,
+				3B4868DF1F2ADB96003AF8D8 /* ToolViewController.h */,
+				3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */,
 			);
 			name = Topic;
 			sourceTree = "<group>";
@@ -2691,6 +2751,9 @@
 				914465651F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.h */,
 				914465661F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m */,
 				914465671F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib */,
+				3B4868E41F2ADEF5003AF8D8 /* OneImageAndLabCell.h */,
+				3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */,
+				3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2867,6 +2930,7 @@
 		C4771B881C05871300AAF44F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				3B4F9C681F29D1670096256D /* SnailPopupController */,
 				3BAC8E161F284A8900A01A12 /* UMSocial_Sdk_5.2.1 */,
 				3BAC8E321F284A8900A01A12 /* UMSocial_Sdk_Extra_Frameworks */,
 				3B763AF01F2637CC00D5E965 /* FDFullscreenPopGesture */,
@@ -3008,6 +3072,7 @@
 		C4C628381C0C1ED6000AD5D8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				91BB7B8C1F29C4F6001934FA /* Category */,
 				91E65A171F1897710046B615 /* 门店巡检 */,
 				9169BC5E1F00FB8700419E52 /* GuideView */,
 				9129DD321EF4D5F000900611 /* CollectionLayout */,
@@ -3182,6 +3247,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3B4F9C641F29D1120096256D /* CommonSheetView */,
 				3B30EEDE1F25F60F00A702EC /* ScrollControllerVc */,
 				3BEBB36A1F2597EE007FB66D /* RefreshTool */,
 				91E65A061F1737340046B615 /* Location */,
@@ -3260,6 +3326,8 @@
 				C4DB7DCB1C02EE8E00DA534E /* HttpResponse */,
 				3B763B1B1F2724F400D5E965 /* ArticlesModel.h */,
 				3B763B1C1F2724F400D5E965 /* ArticlesModel.m */,
+				3B4868E91F2AECE5003AF8D8 /* ToolModel.h */,
+				3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3319,6 +3387,7 @@
 		E7359AA6518F9148E9F7A313 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B4F9C6C1F29E1CE0096256D /* libc++.tbd */,
 				F63A5BC21DCAE6BF0092FC24 /* iflyMSC.framework */,
 				F63A5BC01DCAE3520092FC24 /* AddressBook.framework */,
 				F63A5BBE1DCAE2CB0092FC24 /* libz.1.1.3.tbd */,
@@ -4376,7 +4445,7 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = LS69CLN4M7;
+						DevelopmentTeam = 3V3LN88X9L;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -4496,6 +4565,7 @@
 				3BAC8E901F284A8900A01A12 /* UMSCommentDetailController.xib in Resources */,
 				F624574F1EA5FBB2006834D2 /* PiePolylineChartViewController.xib in Resources */,
 				3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */,
+				3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */,
 				F62457391EA5FBB2006834D2 /* CubicLineChartViewController.xib in Resources */,
 				915A8D351F1E106000262311 /* report_v24.json in Resources */,
 				91BA005E1F2721A500943596 /* NotificationBackgroundWarningIcon.png in Resources */,
@@ -4516,6 +4586,7 @@
 				3BAC8E981F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				3B30EEEB1F25F63200A702EC /* YHWarningNoticeController.xib in Resources */,
 				C4EFE4B11C98F60A0009411A /* javascripts.zip in Resources */,
+				3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */,
 				F63D4A0B1EB329A20004BCC8 /* SuperChartVc.xib in Resources */,
 				91DB242E1EED7A3000FC8413 /* unSelect@3x.png in Resources */,
 				F62457471EA5FBB2006834D2 /* MultipleBarChartViewController.xib in Resources */,
@@ -4765,12 +4836,14 @@
 				F68C25AA1EC2D4670069C041 /* JYBaseModel.m in Sources */,
 				F62457541EA5FBB2006834D2 /* ScatterChartViewController.m in Sources */,
 				91BA00661F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */,
+				3B4F9C581F29B24E0096256D /* BusinessGeneralCell.m in Sources */,
 				C4DB7D781C02EC0500DA534E /* main.m in Sources */,
 				F63D4A1A1EB32A3F0004BCC8 /* RTDragCellTableView.m in Sources */,
 				91DB24661EEE99C600FC8413 /* UIView+Category.m in Sources */,
 				B6E7B35A1F29D2CE008B48BF /* MGroupCell.m in Sources */,
 				F62456C81EA5FB21006834D2 /* HomeIndexDetailListVC.m in Sources */,
 				915A8CE71F1E0B9400262311 /* JYHelpInfoView.m in Sources */,
+				3B4868E71F2ADEF5003AF8D8 /* OneImageAndLabCell.m in Sources */,
 				C48924EB1D858F0A00859411 /* ThurSayTableViewCell.m in Sources */,
 				F68C25E31EC2D4790069C041 /* JYRowViewCell.m in Sources */,
 				F62457E81EA5FD01006834D2 /* NSArray+PureLayout.m in Sources */,
@@ -4782,6 +4855,7 @@
 				F68C25D71EC2D4790069C041 /* JYClickableLine.m in Sources */,
 				915A8D0A1F1E0BA500262311 /* JYBargraphModel.m in Sources */,
 				91DB243B1EED7A3000FC8413 /* PhotoSelectManager.m in Sources */,
+				3B4F9C6B1F29D1670096256D /* SnailPopupController.m in Sources */,
 				F62456521EA5FACD006834D2 /* WynCountDownView.m in Sources */,
 				F655484A1E8CE04200B4048C /* PushDevice.m in Sources */,
 				91DB243D1EED7A3000FC8413 /* ScaleAnimation.m in Sources */,
@@ -4815,6 +4889,7 @@
 				9145097B1F0224C100ED82D6 /* TreeTableView.m in Sources */,
 				F62457E91EA5FD01006834D2 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				C403433C1D6ADEAB00625D53 /* UIButton+Badge.m in Sources */,
+				3B4F9C671F29D1230096256D /* CommonSheetView.m in Sources */,
 				F68C25871EC2D44F0069C041 /* JYCollectionHeader.m in Sources */,
 				915A8CED1F1E0B9400262311 /* JYPortraitBarView.m in Sources */,
 				F6F1C84F1E88BD8C00754034 /* KPIViewController.m in Sources */,
@@ -4852,6 +4927,7 @@
 				91DB24411EED7A3000FC8413 /* BottomToolbar.m in Sources */,
 				91DB24421EED7A3000FC8413 /* PhotoSelectButton.m in Sources */,
 				F655484B1E8CE04200B4048C /* UserInfoModel.m in Sources */,
+				3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */,
 				F62457E71EA5FD01006834D2 /* ALView+PureLayout.m in Sources */,
 				F68C25DE1EC2D4790069C041 /* JYLineChartView.m in Sources */,
 				F62457501EA5FBB2006834D2 /* PositiveNegativeBarChartViewController.m in Sources */,
@@ -5076,6 +5152,7 @@
 				F63D4A071EB329A20004BCC8 /* SelectListVc.m in Sources */,
 				C4A564E31C2CECC10067516F /* NSData+MD5.m in Sources */,
 				9129DD3B1EF4D60600900611 /* JHCollectionReusableView.m in Sources */,
+				3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */,
 				F62457EC1EA5FD01006834D2 /* GifRefreshHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5243,11 +5320,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LS69CLN4M7;
+				DEVELOPMENT_TEAM = 3V3LN88X9L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5289,8 +5365,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b23e37da-754a-439e-913e-b0cdfcb7581a";
+				PROVISIONING_PROFILE_SPECIFIER = Common_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -5306,11 +5382,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LS69CLN4M7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

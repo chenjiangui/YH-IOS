@@ -59,19 +59,20 @@
 }
 
 -(void)addMuneView {
+     __weak typeof(*&self) weakSelf = self;
     _menuView  = [[YHMutileveMenu alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) WithData:_listArray withSelectIndex:^(NSInteger left, NSInteger right, ListItem* info) {
         // NSLog(@"%@",info);
         
-        [self jumpToSubjectView:info];
+        [weakSelf jumpToSubjectView:info];
     }];
     _menuView.needToScorllerIndex = 0;
     _menuView.leftSelectBgColor = [UIColor whiteColor];
     _menuView.isRecordLastScroll = NO;
-    [self.view addSubview:_menuView];
+    [weakSelf.view addSubview:_menuView];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     
-    [_refreshControl addTarget:self
+    [_refreshControl addTarget:weakSelf
      
                         action:@selector(getSomeThingNewRefresh)
      
@@ -79,7 +80,7 @@
     
     [_refreshControl setAttributedTitle:[[NSAttributedString alloc] init]];
     
-    [self.menuView.rightCollection addSubview:_refreshControl];
+    [weakSelf.menuView.rightCollection addSubview:_refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -102,6 +103,7 @@
 
 
 -(void)jumpToSubjectView:(ListItem *)item {
+    __weak typeof(*&self) weakSelf = self;
     NSString *targeturl = item.linkPath;
        NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
   //  NSArray *urlArray = [targeturl componentsSeparatedByString:@"/"];
@@ -114,7 +116,7 @@
                                                               handler:^(UIAlertAction * action) {}];
         
         [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        [weakSelf presentViewController:alert animated:YES completion:nil];
     }
     else{
         BOOL isInnerLink = !([targeturl hasPrefix:@"http://"] || [targeturl hasPrefix:@"https://"]);
@@ -140,7 +142,7 @@
                     NSLog(@"%@", exception);
                 }
             });
-            [self presentViewController:rootchatNav animated:YES completion:nil];
+            [weakSelf presentViewController:rootchatNav animated:YES completion:nil];
             
         }
         else if ([targeturl rangeOfString:@"template/5/"].location != NSNotFound) {
@@ -166,7 +168,7 @@
                 }
             });
 
-            [self presentViewController:superChartNavCtrl animated:YES completion:nil];
+            [weakSelf presentViewController:superChartNavCtrl animated:YES completion:nil];
         }
         /* else if ([data[@"link"] rangeOfString:@"template/"].location != NSNotFound){
          if ([data[@"link"] rangeOfString:@"template/5/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/1/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/2/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/3/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/4/"].location == NSNotFound) {
@@ -211,7 +213,7 @@
                 subjectView.commentObjectType = ObjectTypeAnalyse;
                 subjectView.objectID = @(item.itemID);
                 UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-                [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
             }
             else{
                 
@@ -222,7 +224,7 @@
                 subjectView.objectID = @(item.itemID);
                 //UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
                 
-                [self.navigationController presentViewController:subjectView animated:YES completion:nil];
+                [weakSelf.navigationController presentViewController:subjectView animated:YES completion:nil];
             }
         }
     }
@@ -315,6 +317,7 @@
 
 
 -(void)getdata{
+    __weak typeof(*&self) weakSelf = self;
     user = [[User alloc]init];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:[NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,user.groupID,user.roleID]
@@ -322,8 +325,8 @@
           NSLog(@"下载成功");
           NSArray *dic = responseObject[@"data"];
           NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-          self.listArray = [array copy];
-          [self initCategoryMenu];
+          weakSelf.listArray = [array copy];
+          [weakSelf initCategoryMenu];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           NSLog(@"Error: %@", error);
       }];
@@ -335,6 +338,7 @@
     NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,user.groupID,user.roleID];
     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
     NSString*fileName =  @"home_report";
+    
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
     if ([HttpUtils isNetworkAvailable3]) {
         HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];

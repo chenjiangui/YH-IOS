@@ -11,6 +11,7 @@
 #import "YHInstituteListCell.h"
 #import "YHHttpRequestAPI.h"
 #import "ArticlesModel.h"
+#import "CommonSheetView.h"
 
 @interface YHInstituteController () <UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate,UISearchBarDelegate>
 
@@ -25,6 +26,8 @@
 @property (nonatomic, strong) NSString* keyword;
 
 @property (nonatomic, strong) UISearchBar* searchBar;
+
+@property (nonatomic, strong) CommonSheetView* favSheetView;
 
 @end
 
@@ -74,7 +77,6 @@
 
 - (void)collecArticle:(NSString*)identifier isFav:(BOOL)isFav{
     // to do show loading
-    
     [YHHttpRequestAPI yh_collectArticleWithArticleId:identifier isFav:isFav finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
         if ([model.code isEqualToString:@"201"]) {
             [self.reTool beginDownPull];
@@ -103,7 +105,12 @@
     [cell setWithArticle:model];
     MJWeakSelf;
     cell.favBack = ^(UIButton* item) {
-        [weakSelf collecArticle:model.identifier isFav:!item.selected];
+        if (item.selected) {
+            [weakSelf.favSheetView show];
+            weakSelf.favSheetView.model = model;
+        }else{
+            [weakSelf collecArticle:model.identifier isFav:!item.selected];
+        }
     };
     [cell setupAutoHeightWithBottomView:cell.iconImageV bottomMargin:15];
     return cell;
@@ -147,12 +154,29 @@
     return _reTool;
 }
 
+- (CommonSheetView *)favSheetView{
+    if (!_favSheetView) {
+        _favSheetView = [[CommonSheetView alloc] initWithDataList:@[@"取消收藏"]];
+        _favSheetView.lastString = @"继续收藏";
+        _favSheetView.colors = @[[NewAppColor yhapp_17color]];
+        MJWeakSelf;
+        _favSheetView.selectBlock = ^(NSNumber* item) {
+            [weakSelf.favSheetView hide];
+            if (item.integerValue == 0) {
+                ArticlesModel* model = weakSelf.favSheetView.model;
+                [weakSelf collecArticle:model.identifier isFav:NO];
+            }
+        };
+    }
+    return _favSheetView;
+}
+
 - (UISearchBar *)searchBar{
     if (!_searchBar) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
         _searchBar.backgroundColor = self.view.backgroundColor;
         _searchBar.showsCancelButton = NO;
-        _searchBar.tintColor = [UIColor orangeColor];
+        _searchBar.tintColor = [NewAppColor yhapp_1color];
         _searchBar.placeholder = @"搜索关键字";
         _searchBar.delegate = self;
         for (UIView *subView in _searchBar.subviews) {

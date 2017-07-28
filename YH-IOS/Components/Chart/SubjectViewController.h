@@ -9,7 +9,8 @@
 
 #import "UMSocialControllerService.h"
 #import "BaseWebViewController.h"
-#import "BaseViewController.h"
+
+#define WeakSelf  __weak typeof(*&self) weakSelf = self;
 
 @interface SubjectViewController: BaseWebViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UMSocialUIDelegate>
 

@@ -51,9 +51,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
    // [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(320, 3)]];
-    [LTHPasscodeViewController sharedUser].delegate = self;
+   /* [LTHPasscodeViewController sharedUser].delegate = self;
     [LTHPasscodeViewController useKeychain:NO];
-    [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
+    [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;*/
 }
 
 
@@ -229,9 +229,14 @@
     return op;
 }
 
+-(void)dealloc{
+    NSLog(@"%@",[NSString stringWithFormat:@"%@----->%@---->%@",self.title,NSStringFromClass(self.class),@"销毁了"]);
+}
+
 #pragma mark - LTHPasscodeViewControllerDelegate methods
 
 - (void)passcodeWasEnteredSuccessfully {
+    __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         /*
          * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -254,7 +259,7 @@
             NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
             if(msg.length > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self jumpToLogin];
+                    [weakSelf jumpToLogin];
                 });
             }
         }

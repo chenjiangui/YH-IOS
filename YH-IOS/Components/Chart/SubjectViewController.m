@@ -23,7 +23,7 @@
 #import "RootTableController.h"
 #import "SelectDataModel.h"
 #import <CoreLocation/CoreLocation.h>
-
+#define WeakSelf __weak typeof(*&self) weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
@@ -31,7 +31,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 {
     NSMutableDictionary *betaDict;
     UIImageView *navBarHairlineImageView;
-    
 }
 
 @property (assign, nonatomic) BOOL isInnerLink;
@@ -106,7 +105,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 -(void)awakeFromNib{
     [super awakeFromNib];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -367,13 +365,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)dealloc {
-    [self.browser cleanForDealloc];
+    
+    NSLog(@"%@",[NSString stringWithFormat:@"%@---->%@--->%@",self.title,NSStringFromClass(self.class),@"销毁了"]);
+    /*[self.browser cleanForDealloc];
     [self.browser stopLoading];
     self.browser.delegate = nil;
     self.browser = nil;
     [self.progressHUD hide:YES];
     self.progressHUD = nil;
-    self.bridge = nil;
+    self.bridge = nil;*/
 }
 
 #pragma mark - UIWebview pull down to refresh
@@ -418,6 +418,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)addWebViewJavascriptBridge {
+    __weak typeof(*&self) weakSelf = self;
     [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
         // [self showLoading:LoadingRefresh];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -427,9 +428,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             @try {
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
                 logParams[kActionALCName]   = @"JS异常";
-                logParams[kObjIDALCName]    = self.objectID;
-                logParams[kObjTypeALCName]  = @(self.commentObjectType);
-                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"主题页面/%@/%@", self.bannerName, data[@"ex"]];
+                logParams[kObjIDALCName]    = weakSelf.objectID;
+                logParams[kObjTypeALCName]  = @(weakSelf.commentObjectType);
+                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"主题页面/%@/%@", weakSelf.bannerName, data[@"ex"]];
                 [APIHelper actionLog:logParams];
             }
             @catch (NSException *exception) {
@@ -439,9 +440,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
+        [HttpUtils clearHttpResponeHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
         
-        [self handleRefresh];
+        [weakSelf handleRefresh];
     }];
     
     [self.bridge registerHandler:@"pageTabIndex" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -466,9 +467,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
@@ -477,9 +478,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        self.isSupportSearch = [FileUtils reportIsSupportSearch:self.user.groupID templateID:self.templateID reportID:self.reportID];
-        if(self.isSupportSearch) {
-            [self displayBannerTitleAndSearchIcon];
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        if(weakSelf.isSupportSearch) {
+            [weakSelf displayBannerTitleAndSearchIcon];
         }
     }];
      /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
@@ -534,10 +535,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     */
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
-        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", self.javascriptPath];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", weakSelf.javascriptPath];
         NSString *selectedItem = NULL;
         if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
@@ -557,7 +558,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         
         [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        [weakSelf presentViewController:alert animated:YES completion:nil];
     }];
     
     // UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -664,27 +665,27 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if(self.isSupportSearch) {
         [self displayBannerTitleAndSearchIcon];
     }
-    
+    __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [APIHelper reportData:self.user.groupID templateID:self.templateID reportID:self.reportID];
+        [APIHelper reportData:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         
-        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:self.urlString assetsPath:self.assetsPath];
+        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
         
         __block NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
-            htmlPath = [HttpUtils urlConvertToLocal:self.urlString content:httpResponse.string assetsPath:self.assetsPath writeToLocal:kIsUrlWrite2Local];
+            htmlPath = [HttpUtils urlConvertToLocal:weakSelf.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];
         }
         else {
-            NSString *htmlName = [HttpUtils urlTofilename:self.urlString suffix:@".html"][0];
-            htmlPath = [self.assetsPath stringByAppendingPathComponent:htmlName];
+            NSString *htmlName = [HttpUtils urlTofilename:weakSelf.urlString suffix:@".html"][0];
+            htmlPath = [weakSelf.assetsPath stringByAppendingPathComponent:htmlName];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self clearBrowserCache];
+            [weakSelf clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
+            [weakSelf.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-            self.isLoadFinish = !self.browser.isLoading;
+            weakSelf.isLoadFinish = !weakSelf.browser.isLoading;
         });
     });
 }

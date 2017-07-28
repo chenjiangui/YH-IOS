@@ -385,6 +385,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)dealloc {
+    NSLog(@"%@",[NSString stringWithFormat:@"%@------>%@", NSStringFromClass(self.class),@"销毁了"]);
     [self.browser cleanForDealloc];
     [self.browser stopLoading];
     self.browser.delegate = nil;
@@ -436,6 +437,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)addWebViewJavascriptBridge {
+     __weak typeof(*&self) weakSelf = self;
     [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
         // [self showLoading:LoadingRefresh];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -445,9 +447,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             @try {
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
                 logParams[kActionALCName]   = @"JS异常";
-                logParams[kObjIDALCName]    = self.objectID;
-                logParams[kObjTypeALCName]  = @(self.commentObjectType);
-                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"主题页面/%@/%@", self.bannerName, data[@"ex"]];
+                logParams[kObjIDALCName]    = weakSelf.objectID;
+                logParams[kObjTypeALCName]  = @(weakSelf.commentObjectType);
+                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"主题页面/%@/%@", weakSelf.bannerName, data[@"ex"]];
                 [APIHelper actionLog:logParams];
             }
             @catch (NSException *exception) {
@@ -457,7 +459,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
+        [HttpUtils clearHttpResponeHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
         
         [self handleRefresh];
     }];
@@ -484,10 +486,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
-        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
         
@@ -495,19 +497,19 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        self.isSupportSearch = [FileUtils reportIsSupportSearch:self.user.groupID templateID:self.templateID reportID:self.reportID];
-        if(self.isSupportSearch) {
-            [self displayBannerTitleAndSearchIcon];
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        if(weakSelf.isSupportSearch) {
+            [weakSelf displayBannerTitleAndSearchIcon];
         }
     }];
     [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
         if ([data[@"state"] isEqualToString:@"show"]) {
-            [self.navigationBar setHidden:NO];
-            self.browser.frame = CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-64);
+            [weakSelf.navigationBar setHidden:NO];
+            weakSelf.browser.frame = CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-64);
         }
         else {
-            [self.navigationBar setHidden:YES];
-            self.browser.frame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-20);
+            [weakSelf.navigationBar setHidden:YES];
+            weakSelf.browser.frame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-20);
         }
     }];
     
@@ -515,10 +517,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self.bridge registerHandler:@"toggleShowBannerBack" handler:^(id data, WVJBResponseCallback responseCallback){
         if ([data[@"state"] isEqualToString:@"show"]) {
             //[self.navigationItem.rightBarButtonItem seth]
-            [self.backBtn setHidden:NO];
+            [weakSelf.backBtn setHidden:NO];
         }
         else {
-            [self.backBtn setHidden:YES];
+            [weakSelf.backBtn setHidden:YES];
         }
     }];
     
@@ -526,32 +528,32 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         if ([data[@"state"] isEqualToString:@"show"]) {
             //[self.navigationItem.rightBarButtonItem seth]
           //  [self.rightItem.customView setHidden:NO];
-            self.navigationBarTitle.rightBarButtonItem =  [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];;
+            weakSelf.navigationBarTitle.rightBarButtonItem =  [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];;
                // self.rightItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"Banner-Setting"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
         }
         else {
            // [self.rightItem.customView setHidden:YES];
-        self.navigationBarTitle.rightBarButtonItem =  [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@""]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];;
+        weakSelf.navigationBarTitle.rightBarButtonItem =  [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@""]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];;
                // self.rightItem = [[UIBarButtonItem alloc]init];
         }
     }];
-    [self.bridge registerHandler:@"setBannerTitle" handler:^(id data, WVJBResponseCallback responseCallback){
-        [self.navigationBarTitle setTitle:data[@"title"]];
+    [weakSelf.bridge registerHandler:@"setBannerTitle" handler:^(id data, WVJBResponseCallback responseCallback){
+        [weakSelf.navigationBarTitle setTitle:data[@"title"]];
        // self.title = data[@"title"];
     }];
     
-    NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
-    if (self.userlatitude == nil || [self.userlatitude isEqualToString:@""]) {
+    NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",weakSelf.userLongitude,weakSelf.userlatitude];
+    if (weakSelf.userlatitude == nil || [weakSelf.userlatitude isEqualToString:@""]) {
         coordianteString = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
     }
     else {
         [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     }
-    [self.bridge registerHandler:@"closeSubjectView" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [weakSelf.bridge registerHandler:@"closeSubjectView" handler:^(id data, WVJBResponseCallback responseCallback) {
         [super dismissViewControllerAnimated:YES completion:nil];
     }];
     
-    [self.bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [weakSelf.bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",coordianteString);
         responseCallback(coordianteString);
     }];
@@ -559,7 +561,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", self.javascriptPath];
         NSString *selectedItem = NULL;
         if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
@@ -580,7 +582,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         
         [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        [weakSelf presentViewController:alert animated:YES completion:nil];
     }];
     
     // UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
