@@ -102,16 +102,7 @@
     self.navigationController.navigationBar.translucent = NO;
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
-    
-    
-    
-    
-    
-    
-    
     [self setTableView];
-    
-    
 //    
     
 //    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60)];

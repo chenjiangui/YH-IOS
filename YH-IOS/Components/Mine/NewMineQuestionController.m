@@ -28,6 +28,7 @@
     
     NSString *pushImageName;
 
+    UILabel *headerLaber;
 }
 //@property (nonatomic, strong) UICollectionView *collectionView;
 //@property (nonatomic, strong) NSArray <ALAsset *>*dataArray;
@@ -40,6 +41,7 @@
 @property (nonatomic, strong) HWImagePickerSheet *imgPickerActionSheet;
 
 
+
 @end
 
 
@@ -49,7 +51,7 @@
 
 
 static NSString * const reuseIdentifier = @"HWCollectionViewCell";
-
+static NSString *headerViewIdentifier = @"hederview";
 -(instancetype)init{
     self = [super init];
     if (self) {
@@ -168,12 +170,21 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
             opinionLabel.textAlignment=NSTextAlignmentLeft;
             [cell addSubview:opinionLabel];
             UITextView *opinionTextview=[[UITextView alloc] init];
-            opinionTextview.text=@"请描述您遇到的问题(1-500字)";
-            opinionTextview.textColor=[UIColor colorWithHexString:@"bcbcbc"];
-            opinionTextview.font=[UIFont systemFontOfSize:15];
+//            opinionTextview.text=@"请描述您遇到的问题(1-500字)";
+            
+//            opinionTextview.font=[UIFont systemFontOfSize:15];
             opinionTextview.textAlignment=NSTextAlignmentLeft;
             opinionTextview.userInteractionEnabled=YES;
-
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 8;// 字体的行间距
+            NSDictionary *attributes = @{
+                                         NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                         NSParagraphStyleAttributeName:paragraphStyle
+                                         };
+                opinionTextview.attributedText = [[NSAttributedString alloc] initWithString:@"请描述您遇到的问题(1-500字)" attributes:attributes];
+            
+            opinionTextview.textColor=[UIColor colorWithHexString:@"bcbcbc"];
+            
             opinionTextview.delegate=self;
             opinionTextview.autoresizingMask = UIViewAutoresizingFlexibleHeight;
             opinionTextview.keyboardType = UIKeyboardTypeDefault;
@@ -199,35 +210,13 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
         if (cell == nil) {//重新实例化对象的时候才添加button，队列中已有的cell上面是有button的
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             //添加按钮（或者其它控件）也可以写在继承自UITableViewCell的子类中,然后用子类来实例化这里的cell，将button作为子类的属性，这样添加button的触发事件的响应可以写在这里，target就是本类，方法也在本类中实现
-            UILabel *oscreenshotLabel=[[UILabel alloc] init];
-            oscreenshotLabel.text=@"页面截图(最多3张)：";
-            
-            oscreenshotLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-            
-            oscreenshotLabel.font=[UIFont systemFontOfSize:15];
-            
-             [cell addSubview:oscreenshotLabel];
-            
-            [oscreenshotLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(cell.mas_top).offset(16);
-                make.left.mas_equalTo(cell.mas_left).offset(16);
-            }];
-
-
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
             layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-            
+            layout.headerReferenceSize=CGSizeMake(cell.contentView.frame.size.width,15);
             layout.itemSize = CGSizeMake(40,40);
-//            layout.minimumInteritemSpacing = (SCREEN_WIDTH-16-64*4-56)/3;
             layout.minimumLineSpacing = 20;
-            
-            layout.sectionInset = UIEdgeInsetsMake(51,20,20,20);
-
-//            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:cell.contentView.frame collectionViewLayout:layout];
-            
-        self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(16, 206, cell.bounds.size.width, 50) collectionViewLayout:layout];
-
-
+            layout.sectionInset=  UIEdgeInsetsMake(20, 16,20, 20);
+            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width,cell.contentView.frame.size.height) collectionViewLayout:layout];
             if (_showInView) {
                 [_showInView addSubview:self.pickerCollectionView];
             }else{
@@ -300,13 +289,13 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
     if ([textView.text isEqualToString:@"请描述您遇到的问题(1-500字)"]) {
         
         textView.text = @"";
-        
     }
 }
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if ([textView.text length]==0) {
         textView.text = @"请描述您遇到的问题(1-500字)";
+        textView.textColor=[UIColor colorWithHexString:@"bcbcbc"];
     }
 }
 
@@ -314,7 +303,7 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 -(void)textViewDidChange:(UITextView *)textView
 {
 //        NSLog(@"%@",textView.text);
-    
+    textView.textColor=[UIColor colorWithHexString:@"#32414b"];
     
     questionProblemText=textView.text;
     
@@ -323,10 +312,16 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
 
 -(void)saveBtn
 {
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
+    if ([questionProblemText length]==0) {
+         [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见为空" closeButtonTitle:nil duration:1.0f];
+        return;
+    }
+    else{
+    
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     
-    
-    NSLog(@"%@,%@,%@",user.userNum,self.version.current,self.version.platform);
     
     NSDictionary *parames = @{
                               @"content":questionProblemText,
@@ -336,8 +331,6 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
                               @"platform":@"ios",
                               @"platform_version":self.version.platform
                               };
-    
-    NSLog(@"%@",parames);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -352,7 +345,7 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
         NSLog(@"%@",dic);
         [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
         if ([dic[@"code"] isEqualToNumber:@(201)]) {
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            
             [alert addButton:@"确定" actionBlock:^(void) {
                 [self.navigationController popViewControllerAnimated:YES];
             }];
@@ -392,42 +385,32 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
         });
     }];
     
-
-    
-    
+    }
 }
-
 
 
 /** 初始化collectionView */
 -(void)initPickerView{
     _showActionSheetViewController = self;
-
-    
     self.pickerCollectionView.delegate=self;
     self.pickerCollectionView.dataSource=self;
-    self.pickerCollectionView.backgroundColor = [UIColor blueColor];
-    
+    self.pickerCollectionView.backgroundColor = [UIColor whiteColor];
     pushImageName = @"plus.png";
-    
     _pickerCollectionView.scrollEnabled = NO;
-    
-    
-    
-  
-    
+    [self.pickerCollectionView  registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
 }
+
 #pragma mark <UICollectionViewDataSource>
 
+
+
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+return 1;
 }
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _imageArray.count+1;
 }
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     // Register nib file for the cell
@@ -459,19 +442,44 @@ static NSString * const reuseIdentifier = @"HWCollectionViewCell";
     [self changeCollectionViewHeight];
     return cell;
 }
-#pragma mark <UICollectionViewDelegate>
-//定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+
+//  返回头视图
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(([UIScreen mainScreen].bounds.size.width-64) /4 ,([UIScreen mainScreen].bounds.size.width-64) /4);
-//    return CGSizeMake(60, 60);
+    //如果是头视图
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        UICollectionReusableView *header=[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerViewIdentifier forIndexPath:indexPath];
+        
+        //头视图添加view
+        [header addSubview:[self addContent]];
+        return header;
+    }
+    return nil;
+}  
+-(UILabel*)addContent
+{
+    UILabel *oscreenshotLabel=[[UILabel alloc] init];
+    oscreenshotLabel.text=@"页面截图(最多3张)：";
+    oscreenshotLabel.textColor=[UIColor colorWithHexString:@"#666666"];
+    oscreenshotLabel.font=[UIFont systemFontOfSize:15];
+    oscreenshotLabel.frame=CGRectMake(16,16, self.view.frame.size.width, 15);
+    return oscreenshotLabel;
+        //headerLaber=oscreenshotLabel;
 }
 
-//定义每个UICollectionView 的 margin
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(20, 8, 20, 8);
-}
+#pragma mark <UICollectionViewDelegate>
+////定义每个UICollectionView 的大小
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return CGSizeMake(([UIScreen mainScreen].bounds.size.width-64) /4 ,([UIScreen mainScreen].bounds.size.width-64) /4);
+////    return CGSizeMake(60, 60);
+//}
+//
+////定义每个UICollectionView 的 margin
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(20, 8, 20, 8);
+//}
 
 #pragma mark - 图片cell点击事件
 //点击图片看大图
