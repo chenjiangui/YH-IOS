@@ -986,7 +986,6 @@
 		91BB7B851F29B592001934FA /* NewAppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAppColor.m; sourceTree = "<group>"; };
 		91BB7B901F29C606001934FA /* UIWebView+CleanLayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+CleanLayerDelegate.h"; sourceTree = "<group>"; };
 		91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+CleanLayerDelegate.m"; sourceTree = "<group>"; };
-		91BB7BAC1F2B23C6001934FA /* YHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAPI.h; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -3018,7 +3017,6 @@
 				C49BB9AB1D8C2548004C9F70 /* Constant.h */,
 				912833001EE85A830071CE69 /* PrivateConstants.h */,
 				C49BB9A91D8C2538004C9F70 /* Constant.m */,
-				91BB7BAC1F2B23C6001934FA /* YHAPI.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -4453,7 +4451,7 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = LY7F59PHE8;
+						DevelopmentTeam = WV94P663S4;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -5330,7 +5328,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LY7F59PHE8;
+				DEVELOPMENT_TEAM = WV94P663S4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5392,7 +5390,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LY7F59PHE8;
+				DEVELOPMENT_TEAM = WV94P663S4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

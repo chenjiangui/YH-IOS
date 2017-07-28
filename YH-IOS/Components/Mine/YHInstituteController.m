@@ -12,8 +12,13 @@
 #import "YHHttpRequestAPI.h"
 #import "ArticlesModel.h"
 #import "CommonSheetView.h"
+#import "YHInstituteDetailViewController.h"
+#import "User.h"
 
 @interface YHInstituteController () <UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate,UISearchBarDelegate>
+{
+    User *user;
+}
 
 @property (nonatomic, strong) UITableView* tableView;
 
@@ -127,6 +132,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YHInstituteDetailViewController *instiDetail = [[YHInstituteDetailViewController alloc]init];
+    ArticlesModel* model = _dataList[indexPath.row];
+    user = [[User alloc]init];
+    instiDetail.userId = [NSString stringWithFormat:@"%@",user.userID];
+    instiDetail.dataId = model.identifier;
+    [RootNavigationController pushViewController:instiDetail animated:YES hideBottom:YES];
+    
+
     
 }
 #pragma mark - lazy init

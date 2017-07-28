@@ -19,7 +19,7 @@
     [super viewDidLoad];
     NSString *kpiString = [NSString stringWithFormat:@"%@/mobile/v2/user/%@/article/%@",kBaseUrl,self.userId,self.dataId];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kpiString]];
-    self.webView = [[UIWebView alloc]initWithFrame:self.view.frame];
+    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webView.delegate = self;
     [MRProgressOverlayView showOverlayAddedTo:_webView title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     [_webView loadRequest:request];
@@ -63,7 +63,7 @@
 }
 
 -(void)backAction {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
