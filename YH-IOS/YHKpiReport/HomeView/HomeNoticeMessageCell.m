@@ -67,7 +67,9 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    
+    if (self.selectBlock) {
+        self.selectBlock(self.dataList[index]);
+    }
 }
 
 - (SDCycleScrollView *)cycleScrollView{

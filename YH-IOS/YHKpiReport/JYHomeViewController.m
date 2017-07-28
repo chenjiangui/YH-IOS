@@ -121,23 +121,6 @@
     [self getData:false];
 }
 
-- (void)loadData {
-    NSString *messageUrl = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
-    HttpResponse *responsemessage = [HttpUtils httpGet:messageUrl header:nil timeoutInterval:10];
-    if ([responsemessage.statusCode isEqualToNumber:@(200)]) {
-        [_noticeArray removeAllObjects];
-        NSData *data = responsemessage.received;
-         NSArray *arraySource = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-        for (NSDictionary* dict in arraySource) {
-            if(![dict[@"title"] isEqual:nil] && ![dict[@"title"] isEqualToString:@""]){
-                [_noticeArray addObject:dict[@"title"]];
-            }
-        }
-    }
-    
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
-    //  NSData *data = [NSData dataWithContentsOfFile:path];
-}
 
 #pragma mark - 首页点击事件
 //轮播图点击事件
@@ -152,11 +135,15 @@
 }
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
-    
     NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 
 }
+//消息公告点击事件
+- (void)messageAction:(ToolModel*)model{
+
+}
+
 //扫描事件
 - (void)scanAction{
     [[PermissionManager shareInstance] verifyCanPhoto:^(BOOL canPhoto) {
@@ -201,7 +188,7 @@
             self.noticeMessageModel = model;
             dispatch_async_on_main_queue(^{
                 if (self.rootTBView.numberOfSections > 0) {
-                    [self.rootTBView reloadSection:0 withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.rootTBView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
                 }
                 
             });
@@ -343,6 +330,9 @@
         }else{
             HomeNoticeMessageCell* cell = [HomeNoticeMessageCell cellWithTableView:tableView needXib:NO];
             [cell setItem:self.noticeMessageModel];
+            cell.selectBlock = ^(id item) {
+                [weakSelf messageAction:item];
+            };
             return cell;
         }
     }

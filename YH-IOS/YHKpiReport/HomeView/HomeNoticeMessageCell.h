@@ -10,7 +10,6 @@
 
 @interface HomeNoticeMessageCell : UITableViewCell
 
-
-
+@property (nonatomic, strong) CommonBack selectBlock;
 
 @end

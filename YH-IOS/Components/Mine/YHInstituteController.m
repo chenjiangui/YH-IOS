@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
-    [self.reTool beginDownPull];
+    [self getData:YES isDownPull:YES];
 }
 
 
