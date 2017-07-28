@@ -629,11 +629,6 @@ return 1;
     return self.pickerCollectionView.frame;
 }
 
-
-
-
-
-
 -(void)NewQuestionViewBack
 {
     [self.navigationController popViewControllerAnimated:YES];
