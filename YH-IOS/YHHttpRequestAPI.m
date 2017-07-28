@@ -11,6 +11,7 @@
 #import "NoticeWarningModel.h"
 #import "ArticlesModel.h"
 #import "YHKPIModel.h"
+#import "ToolModel.h"
 
 @implementation YHHttpRequestAPI
 
@@ -74,6 +75,14 @@
         NSDictionary* dic = [response mj_JSONObject];
         NSArray<YHKPIModel *> *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:dic[@"data"] error:nil];
         finish(requestSuccess,demolArray,responseJson);
+    }];
+}
+
++ (void)yh_getToolListFinish:(YHHttpRequestBlock)finish{
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/app_covers",kBaseUrl,self.user.groupID,self.user.roleID];
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
+        finish(requestSuccess,model,responseJson);
     }];
 }
 
