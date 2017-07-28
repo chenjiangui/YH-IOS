@@ -52,7 +52,7 @@
 @property (nonatomic, copy)NSString *passwordNumString;
 
 @property (nonatomic, strong)UIView *PasswordUnderLine;
-
+@property (nonatomic, strong)UIView *PeopleUnderLine;
 
 
 @end
@@ -102,10 +102,10 @@
         make.left.mas_equalTo(self.view.mas_left).offset(65);
         make.size.mas_equalTo(CGSizeMake(14, 18));
     }];
-    UIView * PeopleUnderLine = [[UIView alloc]init];
-    PeopleUnderLine.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-    [self.view addSubview:PeopleUnderLine];
-    [PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
+   _PeopleUnderLine = [[UIView alloc]init];
+    _PeopleUnderLine.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
+    [self.view addSubview:_PeopleUnderLine];
+    [_PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(peopleLogo.mas_left);
         make.top.mas_equalTo(peopleLogo.mas_bottom).offset(8);
         make.centerX.mas_equalTo(self.view.mas_centerX);
@@ -128,15 +128,16 @@
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
     [_PasswordUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(peopleLogo.mas_left);
-        make.top.mas_equalTo(PeopleUnderLine.mas_bottom).offset(47);
+        make.left.mas_equalTo(_PeopleUnderLine.mas_left);
+        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(47);
+        make.centerX.mas_equalTo(self.view.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
     UIImageView *PasswordLogo=[[UIImageView alloc] init];
     [PasswordLogo setImage:[UIImage imageNamed:@"login_password"]];
     [self.view addSubview:PasswordLogo];
     [PasswordLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(PeopleUnderLine.mas_bottom).offset(20);
+        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(20);
         make.left.mas_equalTo(self.view.mas_left).offset(65);
         make.size.mas_equalTo(CGSizeMake(14, 18));
     }];
@@ -145,7 +146,7 @@
     [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:deleteLogo];
     [deleteLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(PeopleUnderLine.mas_bottom).offset(25);
+        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(25);
         make.right.mas_equalTo(self.view.mas_right).offset(-74);
         make.size.mas_equalTo(CGSizeMake(10, 10));
     }];
@@ -319,36 +320,25 @@
 -(void)peopleNumberChange:(UITextField*)PeopleNumber
 {
     // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
-    
     _peopleNumString=PeopleNumber.text;
-    
+    _PeopleUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
 }
+
+
 
 -(void)PasswordDidChange:(UITextField*)PasswordNumber
 {
-    
-    //    NSLog(@"PhoneNumberDidChange===%@",PasswordNumber.text);
-    
     _passwordNumString=PasswordNumber.text;
-    
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
-    
 }
-
 -(void)changePwdLine:(UITextField*)PasswordNumber
 {
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
 }
-
-
-
 -(void)deleteOldPassword
 {
-    
     _passwordNumber.text=@"";
-    
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
-    
 }
 
 // 支持设备自动旋转
