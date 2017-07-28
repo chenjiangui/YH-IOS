@@ -64,4 +64,7 @@
 // 深绿文字
 +(UIColor*)yhapp_18color;
 
+//透明
++(UIColor*)yhapp_clearcolor;
+
 @end

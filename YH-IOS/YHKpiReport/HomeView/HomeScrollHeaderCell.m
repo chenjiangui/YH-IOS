@@ -37,7 +37,7 @@
     [self.contentView insertSubview:self.cycleView atIndex:0];
     [_cycleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.mas_equalTo(self);
-        make.height.mas_equalTo(194);
+        make.height.mas_equalTo(self.mas_height);
     }];
 }
 

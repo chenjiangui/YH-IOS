@@ -29,6 +29,7 @@
     titleLable.font = [UIFont systemFontOfSize:10];
     titleLable.textColor = [NewAppColor yhapp_3color];
     titleLable.numberOfLines = 2;
+    titleLable.textAlignment = NSTextAlignmentCenter;
     self.titleLabel = titleLable;
     [self addSubview:self.titleLabel];
     

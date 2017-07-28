@@ -94,7 +94,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.browser.scalesPageToFit = YES;
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
-    [self idColor];
+    //[self idColor];
     [WebViewJavascriptBridge enableLogging];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
@@ -109,16 +109,16 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
-        [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     // self.bannerView.height = 0;
    // self.browser.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
     [self.navigationController setNavigationBarHidden:false];
    // [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     //@{}代表Dictionary
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:kThemeColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[NewAppColor yhapp_6color]}];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 40)];
-    UIImage *imageback = [[UIImage imageNamed:@"Banner-Back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imageback = [[UIImage imageNamed:@"newnav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     bakImage.image = imageback;
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
@@ -129,7 +129,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"Banner-Setting"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
     
     self.title =self.bannerName;
   //  navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];

@@ -99,7 +99,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.browser.scalesPageToFit = YES;
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
-    [self idColor];
+    //[self idColor];
     [WebViewJavascriptBridge enableLogging];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
@@ -150,7 +150,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self.view addSubview: self.navigationBar];
     //创建UIBarButton 可根据需要选择适合自己的样式
     //设置barbutton
-    UIImage *imageback = [[UIImage imageNamed:@"list_ic_arroow.png-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *imageback = [[UIImage imageNamed:@"newnav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(-10, 0, 44, 44)];
     bakImage.image = imageback;
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
