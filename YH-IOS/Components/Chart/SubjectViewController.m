@@ -325,20 +325,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         url = parts[0];
         timestamp = parts[1];
     }
-    
-    
     if([url hasSuffix:suffix]) {
         url = [url stringByDeletingPathExtension];
     }
-    
     while([url hasPrefix:@"/"]) {
         url = [url substringWithRange:NSMakeRange(1,url.length-1)];
     }
-    
     for(NSString *str in blackList) {
         url = [url stringByReplacingOccurrencesOfString:str withString:@"_"];
     }
-    
     if(![url hasSuffix:suffix]) {
         url = [NSString stringWithFormat:@"%@%@", url, suffix];
     }

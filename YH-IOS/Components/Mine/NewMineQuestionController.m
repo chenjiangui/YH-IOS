@@ -310,11 +310,12 @@ static NSString *headerViewIdentifier = @"hederview";
          [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见为空" closeButtonTitle:nil duration:1.0f];
         return;
     }
+    else if ([questionProblemText length]>=500) {
+        [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见长度超长" closeButtonTitle:nil duration:1.0f];
+        return;
+    }
     else{
-    
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
-    
-    
     NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
