@@ -28,7 +28,7 @@
 #import "MineDetailTableViewCell.h"
 #import "LogoutTableViewCell.h"
 #import "NewMineResetPwdController.h"
-
+#import "NewMineQuestionController.h"
 
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
 {
@@ -315,9 +315,14 @@
         [RootNavigationController pushViewController:mineResetPwdCtrl animated:YES hideBottom:YES];
     }
     else if ((indexPath.section == 3)&&(indexPath.row == 2)){
-        MineQuestionViewController *mineQuestionCtrl = [[MineQuestionViewController  alloc]init];
-        mineQuestionCtrl.title = @"生意人反馈收集";
+//        MineQuestionViewController *mineQuestionCtrl = [[MineQuestionViewController  alloc]init];
+//        mineQuestionCtrl.title = @"生意人反馈收集";
+//        [RootNavigationController pushViewController:mineQuestionCtrl animated:YES hideBottom:YES];
+
+        NewMineQuestionController *mineQuestionCtrl = [[NewMineQuestionController  alloc]init];
+        mineQuestionCtrl.title = @"问题反馈";
         [RootNavigationController pushViewController:mineQuestionCtrl animated:YES hideBottom:YES];
+        
     }
     else if ((indexPath.section ==3)&&(indexPath.row ==0)){
         MineSingleSettingViewController *settingCtrl = [[MineSingleSettingViewController alloc]init];

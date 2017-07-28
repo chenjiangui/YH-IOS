@@ -75,7 +75,8 @@ static NSString *const reUse = @"reUse";
     // 描述头
     UILabel *titleLable = [[UILabel alloc]init];
     titleLable.backgroundColor = [UIColor clearColor];
-    titleLable.text = @"生意人反馈收集";
+//    titleLable.text = @"生意人反馈收集";
+    titleLable.text=@"问题反馈";
     titleLable.textColor = [UIColor colorWithHexString:@"#000"];
     titleLable.font = [UIFont systemFontOfSize:16];
     [bgView addSubview:titleLable];
