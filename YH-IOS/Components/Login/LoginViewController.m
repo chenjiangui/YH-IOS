@@ -61,43 +61,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     [RMessage setDefaultViewController:self.navigationController];
     [RMessage setDelegate:self];
-    
-    
-
-    
     [self startLocation];
-
     UIImageView *Logo =[[UIImageView alloc] init];
-    
     [self.view addSubview:Logo];
-    
     [Logo setImage:[UIImage imageNamed:@"logo"]];
-    
     [Logo mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.top.mas_equalTo(self.view.mas_topMargin).offset(adaptHeight(132));
-        
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        
         make.size.mas_equalTo(CGSizeMake(100, 100));
-        
     }];
-
     UITextField *peopleNumber=[[UITextField alloc] init];
-    
     [self.view addSubview:peopleNumber];
-    
     peopleNumber.font=[UIFont systemFontOfSize:15];
-    
     peopleNumber.textAlignment=NSTextAlignmentLeft;
-    
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-    
     if (![userDict[@"user_name"] isEqualToString:@""] && userDict[@"user_name"]) {
         peopleNumber.text = userDict[@"user_num"];
         _peopleNumString=userDict[@"user_num"];
@@ -106,262 +86,114 @@
     {
         peopleNumber.placeholder=@"员工号";
     }
-    
     peopleNumber.borderStyle = UITextBorderStyleNone;
-
-    
-     peopleNumber.borderStyle = UITextBorderStyleNone;
-
     [peopleNumber addTarget:self action:@selector(peopleNumberChange:) forControlEvents:UIControlEventEditingChanged];
-    
-    
     [peopleNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.top.mas_equalTo(Logo.mas_bottom).offset(76);
-        
         make.left.mas_equalTo(self.view.mas_left).offset(94);
-        
-        make.centerX.mas_equalTo(self.view.mas_centerX);
-        
         make.size.mas_equalTo(CGSizeMake(245, 30));
-        
     }];
-    
-    
     UIImageView *peopleLogo=[[UIImageView alloc] init];
-    
     [peopleLogo setImage:[UIImage imageNamed:@"login_name"]];
-    
-    
     [self.view addSubview:peopleLogo];
-    
     [peopleLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(Logo.mas_bottom).offset(76);
-        
-        make.centerY.mas_equalTo(peopleNumber.mas_centerY);
-        
+//        make.top.mas_equalTo(Logo.mas_bottom).offset(76);
+       make.centerY.mas_equalTo(peopleNumber.mas_centerY);
         make.left.mas_equalTo(self.view.mas_left).offset(65);
-        
         make.size.mas_equalTo(CGSizeMake(14, 18));
-        
     }];
-    
-    
-    
     UIView * PeopleUnderLine = [[UIView alloc]init];
-    
     PeopleUnderLine.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-    
     [self.view addSubview:PeopleUnderLine];
-    
     [PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
-        
         make.left.mas_equalTo(peopleLogo.mas_left);
-        
         make.top.mas_equalTo(peopleLogo.mas_bottom).offset(8);
-        
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
     _passwordNumber=[[UITextField alloc] init];
-    
     [self.view addSubview:_passwordNumber];
-    
     [_passwordNumber setSecureTextEntry:YES];
-    
     _passwordNumber.font=[UIFont systemFontOfSize:16];
-    
     _passwordNumber.textAlignment=NSTextAlignmentLeft;
-    
-    
     _passwordNumber.textColor=[UIColor colorWithHexString:@"#666666"];
-    
-    
     [_passwordNumber addTarget:self action:@selector(PasswordDidChange:) forControlEvents:UIControlEventEditingChanged];
-    
-    
     [_passwordNumber addTarget:self action:@selector(changePwdLine:) forControlEvents:UIControlEventEditingDidBegin];
-    
     [_passwordNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
         make.left.mas_equalTo(peopleNumber.mas_left);
-        
         make.top.mas_equalTo(peopleNumber.mas_bottom).offset(20);
-        
-        make.centerX.mas_equalTo(self.view.mas_centerX);
-        
         make.size.mas_equalTo(CGSizeMake(245, 30));
-        
     }];
     _PasswordUnderLine = [[UIView alloc]init];
-
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
-    
     [_PasswordUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
         make.left.mas_equalTo(peopleLogo.mas_left);
-        
         make.top.mas_equalTo(PeopleUnderLine.mas_bottom).offset(47);
-        
-        make.centerX.mas_equalTo(self.view.mas_centerX);
-        
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
-    
-    
-    
     UIImageView *PasswordLogo=[[UIImageView alloc] init];
-    
     [PasswordLogo setImage:[UIImage imageNamed:@"login_password"]];
-    
     [self.view addSubview:PasswordLogo];
-    
-    
     [PasswordLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
         make.top.mas_equalTo(PeopleUnderLine.mas_bottom).offset(20);
-        
-        make.centerY.mas_equalTo(_passwordNumber.mas_centerY);
-        
         make.left.mas_equalTo(self.view.mas_left).offset(65);
-        
         make.size.mas_equalTo(CGSizeMake(14, 18));
-        
     }];
-    
     UIButton *deleteLogo=[[UIButton alloc] init];
-    
     [deleteLogo setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
-    
-    
     [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
-    
-    
     [self.view addSubview:deleteLogo];
-    
-    
     [deleteLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
         make.top.mas_equalTo(PeopleUnderLine.mas_bottom).offset(25);
-        
         make.right.mas_equalTo(self.view.mas_right).offset(-74);
-        
         make.size.mas_equalTo(CGSizeMake(10, 10));
-        
     }];
-    
-    
-    
-    
     UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    
-    
     [logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
-    
     logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
-    
     [logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchDown];
-    
     [logoInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
     [logoInBtn setBackgroundColor:[UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1] forState:UIControlStateNormal];
-    
-    //    logoInBtn.layer.cornerRadius=10;
-    
     logoInBtn.clipsToBounds=YES;
-    
     logoInBtn.layer.cornerRadius=25;
-    
-    
     [self.view addSubview:logoInBtn];
-    
     [logoInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        
         make.top.mas_equalTo(_PasswordUnderLine.mas_bottom).offset(24);
-        
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        
         make.size.mas_equalTo(CGSizeMake(245, 52));
     }];
-    
-    
-    
-    
     UIButton *forGotPwd=[UIButton buttonWithType:UIButtonTypeCustom];
-    
-    
     [forGotPwd setTitle:@"忘记密码" forState:UIControlStateNormal];
-    
-    
     forGotPwd.titleLabel.font=[UIFont boldSystemFontOfSize:13];
     //    forGotPwd.titleLabel.font = [UIFont systemFontOfSize:13];
-    
     [forGotPwd addTarget:self action:@selector(jumpToFindPassword) forControlEvents:UIControlEventTouchDown];
-    
     [forGotPwd setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
-    
-    
     [self.view addSubview:forGotPwd];
-    
-    
-    
+  
     UIView *line=[[UIView alloc] init];
-    
     [line setBackgroundColor:[UIColor colorWithHexString:@"bcbcbc"]];
-    
     [self.view addSubview:line];
-    
-    
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.centerY.mas_equalTo(forGotPwd.mas_centerY).offset(0);
         make.left.mas_equalTo(forGotPwd.mas_right).offset(16);
-        
         make.size.mas_equalTo(CGSizeMake(0.5,14));
     }];
-    
-    
     [forGotPwd mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
-        
         make.right.mas_equalTo(line.mas_left).offset(-16);
-        
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
-    
-    
     UIButton *registerBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    
-    
     [registerBtn setTitle:@"申请注册" forState:UIControlStateNormal];
-    
     registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-    
     [registerBtn addTarget:self action:@selector(clickRegisterBtn) forControlEvents:UIControlEventTouchDown];
-    
     [registerBtn setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
-    
-    
     [self.view addSubview:registerBtn];
-    
     [registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
-        
         make.left.mas_equalTo(line.mas_right).offset(16);
-        
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     
