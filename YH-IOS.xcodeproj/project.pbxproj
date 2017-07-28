@@ -19,6 +19,8 @@
 		3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */; };
 		3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */; };
 		3B4868F31F2AFBC7003AF8D8 /* HudToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868F21F2AFBC7003AF8D8 /* HudToolView.m */; };
+		3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868F81F2B1C75003AF8D8 /* HomeNoticeMessageCell.m */; };
+		3B4868FE1F2B1F07003AF8D8 /* NSData+SDDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868FD1F2B1F07003AF8D8 /* NSData+SDDataCache.m */; };
 		3B4F9C491F298B470096256D /* ManageWarningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C471F298B470096256D /* ManageWarningCell.m */; };
 		3B4F9C4A1F298B470096256D /* ManageWarningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C481F298B470096256D /* ManageWarningCell.xib */; };
 		3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */; };
@@ -162,7 +164,6 @@
 		91BA00671F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */; };
 		91BA00681F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */; };
 		91BB7B861F29B592001934FA /* NewAppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B851F29B592001934FA /* NewAppColor.m */; };
-		91BB7B921F29C606001934FA /* UIWebView+CleanLayerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */; };
 		91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F41F1F220400CD7159 /* JYAnimationTool.m */; };
 		91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F61F1F220400CD7159 /* JYCursor.m */; };
 		91D3640B1F1F220400CD7159 /* JYItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F81F1F220400CD7159 /* JYItemManager.m */; };
@@ -232,7 +233,6 @@
 		91DB24AD1EF2840400FC8413 /* YHTopImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DB24AB1EF2840400FC8413 /* YHTopImageCollectionViewCell.m */; };
 		91E65A0B1F17374E0046B615 /* YHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E65A0A1F17374E0046B615 /* YHLocation.m */; };
 		91E65A1C1F18979B0046B615 /* YHScanStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E65A1B1F18979B0046B615 /* YHScanStoreViewController.m */; };
-		91E6CFA61EFB6B8C00507B7E /* NSData+SDDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF941EFB6B8C00507B7E /* NSData+SDDataCache.m */; };
 		91E6CFA71EFB6B8C00507B7E /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF971EFB6B8C00507B7E /* TAAbstractDotView.m */; };
 		91E6CFA81EFB6B8C00507B7E /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF991EFB6B8C00507B7E /* TAAnimatedDotView.m */; };
 		91E6CFA91EFB6B8C00507B7E /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E6CF9B1EFB6B8C00507B7E /* TADotView.m */; };
@@ -697,6 +697,10 @@
 		3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolModel.m; sourceTree = "<group>"; };
 		3B4868F11F2AFBC7003AF8D8 /* HudToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudToolView.h; sourceTree = "<group>"; };
 		3B4868F21F2AFBC7003AF8D8 /* HudToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudToolView.m; sourceTree = "<group>"; };
+		3B4868F71F2B1C75003AF8D8 /* HomeNoticeMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNoticeMessageCell.h; sourceTree = "<group>"; };
+		3B4868F81F2B1C75003AF8D8 /* HomeNoticeMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNoticeMessageCell.m; sourceTree = "<group>"; };
+		3B4868FC1F2B1F07003AF8D8 /* NSData+SDDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SDDataCache.h"; sourceTree = "<group>"; };
+		3B4868FD1F2B1F07003AF8D8 /* NSData+SDDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SDDataCache.m"; sourceTree = "<group>"; };
 		3B4F9C461F298B470096256D /* ManageWarningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageWarningCell.h; sourceTree = "<group>"; };
 		3B4F9C471F298B470096256D /* ManageWarningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageWarningCell.m; sourceTree = "<group>"; };
 		3B4F9C481F298B470096256D /* ManageWarningCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageWarningCell.xib; sourceTree = "<group>"; };
@@ -1114,8 +1118,6 @@
 		91E65A0A1F17374E0046B615 /* YHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHLocation.m; sourceTree = "<group>"; };
 		91E65A1A1F18979B0046B615 /* YHScanStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHScanStoreViewController.h; sourceTree = "<group>"; };
 		91E65A1B1F18979B0046B615 /* YHScanStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHScanStoreViewController.m; sourceTree = "<group>"; };
-		91E6CF931EFB6B8C00507B7E /* NSData+SDDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SDDataCache.h"; sourceTree = "<group>"; };
-		91E6CF941EFB6B8C00507B7E /* NSData+SDDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SDDataCache.m"; sourceTree = "<group>"; };
 		91E6CF961EFB6B8C00507B7E /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		91E6CF971EFB6B8C00507B7E /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		91E6CF981EFB6B8C00507B7E /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -1937,6 +1939,8 @@
 				3B4F9C551F29B24E0096256D /* BusinessGeneralCell.h */,
 				3B4F9C561F29B24E0096256D /* BusinessGeneralCell.m */,
 				3B4F9C571F29B24E0096256D /* BusinessGeneralCell.xib */,
+				3B4868F71F2B1C75003AF8D8 /* HomeNoticeMessageCell.h */,
+				3B4868F81F2B1C75003AF8D8 /* HomeNoticeMessageCell.m */,
 			);
 			name = HomeView;
 			path = YHKpiReport/HomeView;
@@ -2697,10 +2701,10 @@
 		91E6CF921EFB6B8C00507B7E /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				3B4868FC1F2B1F07003AF8D8 /* NSData+SDDataCache.h */,
+				3B4868FD1F2B1F07003AF8D8 /* NSData+SDDataCache.m */,
 				3B717DAE1F287A8800858E0E /* UIView+SDExtension.h */,
 				3B717DAF1F287A8800858E0E /* UIView+SDExtension.m */,
-				91E6CF931EFB6B8C00507B7E /* NSData+SDDataCache.h */,
-				91E6CF941EFB6B8C00507B7E /* NSData+SDDataCache.m */,
 				91E6CF951EFB6B8C00507B7E /* PageControl */,
 				91E6CFA01EFB6B8C00507B7E /* SDCollectionViewCell.h */,
 				91E6CFA11EFB6B8C00507B7E /* SDCollectionViewCell.m */,
@@ -4739,7 +4743,6 @@
 				B6E7B3521F29D2CE008B48BF /* MFlowLayOut.m in Sources */,
 				C4A564E41C2CECC10067516F /* UIColor+Hex.m in Sources */,
 				91DB24631EEE95E400FC8413 /* UIView+FrameChange.m in Sources */,
-				91E6CFA61EFB6B8C00507B7E /* NSData+SDDataCache.m in Sources */,
 				F68C25D41EC2D4790069C041 /* JYBaseComponentView.m in Sources */,
 				91DB24441EED7A3000FC8413 /* PhotoDetailController.m in Sources */,
 				F65548541E8CE3B400B4048C /* UserHeadView.m in Sources */,
@@ -4751,6 +4754,7 @@
 				91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */,
 				F68C25DD1EC2D4790069C041 /* JYLandscapeBar.m in Sources */,
 				F68C25851EC2D44F0069C041 /* JYBaseCollectionViewCell.m in Sources */,
+				3B4868FE1F2B1F07003AF8D8 /* NSData+SDDataCache.m in Sources */,
 				9169BC631F00FB9A00419E52 /* GuidePageViewController.m in Sources */,
 				F624579E1EA5FBE1006834D2 /* UINavigationBar+Category.m in Sources */,
 				F62456391EA5FACD006834D2 /* Foundation + Log.m in Sources */,
@@ -4941,6 +4945,8 @@
 				91DB24461EED7A3000FC8413 /* PhotoNavigationController.m in Sources */,
 				91DB24401EED7A3000FC8413 /* UIView+leoAdd.m in Sources */,
 				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
+				B6E7B3541F29D2CE008B48BF /* MHeadImaView.m in Sources */,
+				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
 				91BB7B921F29C606001934FA /* UIWebView+CleanLayerDelegate.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,

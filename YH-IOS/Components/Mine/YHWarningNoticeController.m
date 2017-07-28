@@ -123,7 +123,7 @@
             BaseModel* type = weakSelf.typesArray[item.tag-1];
             type.isSelected = !type.isSelected;
             [weakSelf.headerView setWithBaseModels:weakSelf.typesArray];
-            [weakSelf.reTool beginDownPull];
+            [weakSelf getData:YES isDownPull:YES];
         };
     }
     return _headerView;

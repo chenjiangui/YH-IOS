@@ -35,6 +35,8 @@
 #import "BusinessGeneralCell.h"
 #import "PermissionManager.h"
 #import "SubLBXScanViewController.h"
+#import "HomeNoticeMessageCell.h"
+#import "ToolModel.h"
 
 
 #define kJYNotifyHeight 40
@@ -69,6 +71,8 @@
 @property (nonatomic, strong) NSArray* dataList;
 
 @property (nonatomic, strong) HomeNavBarView* navBarView;
+
+@property (nonatomic, strong) ToolModel* noticeMessageModel;
 
 @end
 
@@ -105,7 +109,7 @@
     dataListButtom = [NSMutableArray new];
 //    [self loadData];
 //    [self idColor];
-    [self.reTool beginDownPull];
+    [self getData:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,26 +118,9 @@
 
 
 - (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
-    [self getData];
+    [self getData:false];
 }
 
-- (void)loadData {
-    NSString *messageUrl = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
-    HttpResponse *responsemessage = [HttpUtils httpGet:messageUrl header:nil timeoutInterval:10];
-    if ([responsemessage.statusCode isEqualToNumber:@(200)]) {
-        [_noticeArray removeAllObjects];
-        NSData *data = responsemessage.received;
-         NSArray *arraySource = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-        for (NSDictionary* dict in arraySource) {
-            if(![dict[@"title"] isEqual:nil] && ![dict[@"title"] isEqualToString:@""]){
-                [_noticeArray addObject:dict[@"title"]];
-            }
-        }
-    }
-    
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
-    //  NSData *data = [NSData dataWithContentsOfFile:path];
-}
 
 #pragma mark - 首页点击事件
 //轮播图点击事件
@@ -148,11 +135,15 @@
 }
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
-    
     NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 
 }
+//消息公告点击事件
+- (void)messageAction:(ToolModel*)model{
+
+}
+
 //扫描事件
 - (void)scanAction{
     [[PermissionManager shareInstance] verifyCanPhoto:^(BOOL canPhoto) {
@@ -191,12 +182,28 @@
 //    [footerView addSubview:imageView];
 //    return footerView;
 //}
+- (void)getNoticeData{
+    [YHHttpRequestAPI yh_getHomeNoticeListFinish:^(BOOL success, ToolModel* model, NSString *jsonObjc) {
+        if ([BaseModel handleResult:model]) {
+            self.noticeMessageModel = model;
+            dispatch_async_on_main_queue(^{
+                if (self.rootTBView.numberOfSections > 0) {
+                    [self.rootTBView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+                }
+                
+            });
+        }
+    }];
+}
 
-
-- (void)getData{
-    [dataListButtom removeAllObjects];
+- (void)getData:(BOOL)loading{
+    if (loading) {
+        [HudToolView showLoadingInView:self.view];
+    }
+    [self getNoticeData];
     [YHHttpRequestAPI yh_getHomeDashboardFinish:^(BOOL success, NSArray<YHKPIModel *>* demolArray, NSString *jsonObjc) {
         [self.reTool endDownPullWithReload:NO];
+        [HudToolView hideLoadingInView:self.view];
         if (success && demolArray && jsonObjc) {
             for (int i=0; i<demolArray.count; i++) {
                 if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
@@ -212,7 +219,7 @@
         }else{
             SCLAlertView *alert = [[SCLAlertView alloc] init];
             [alert addButton:@"重新加载" actionBlock:^(void) {
-                [self getData];
+                [self getData:loading];
             }];
             [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
             return;
@@ -289,6 +296,9 @@
         YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];
         return model.data.count ? model.data.count+1:0;
     }
+    if (section == 0) {
+        return self.noticeMessageModel.data.count ? 2:1;
+    }
     return 1;
 }
 
@@ -299,6 +309,9 @@
         }
         return [BusinessGeneralCell heightForSelf];
     }
+    if (indexPath.section==0 && indexPath.row == 1) {
+        return 40;
+    }
     return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
 }
 
@@ -306,13 +319,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MJWeakSelf;
     if (indexPath.section == 0) { // top 轮播
-        HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
-        YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"];
-        [cell setItem:model];
-        cell.clickBlock = ^(NSNumber* item) {
-            [weakSelf scrollImageAction:model.data[item.integerValue]];
-        };
-        return cell;
+        if (indexPath.row == 0) {
+            HomeScrollHeaderCell* cell = [HomeScrollHeaderCell cellWithTableView:tableView needXib:YES];
+            YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"];
+            [cell setItem:model];
+            cell.clickBlock = ^(NSNumber* item) {
+                [weakSelf scrollImageAction:model.data[item.integerValue]];
+            };
+            return cell;
+        }else{
+            HomeNoticeMessageCell* cell = [HomeNoticeMessageCell cellWithTableView:tableView needXib:NO];
+            [cell setItem:self.noticeMessageModel];
+            cell.selectBlock = ^(id item) {
+                [weakSelf messageAction:item];
+            };
+            return cell;
+        }
     }
     if (indexPath.section == 1) {
         ManageWarningCell* cell = [ManageWarningCell cellWithTableView:tableView needXib:YES];

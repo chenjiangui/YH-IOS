@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSString* group_order;
 @property (nonatomic, strong) NSString* item_order;
 @property (nonatomic, strong) NSString* created_at;
+@property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* content;
 
 
 @end

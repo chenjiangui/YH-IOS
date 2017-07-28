@@ -61,7 +61,6 @@
     }];
 }
 
-
 + (void)yh_collectArticleWithArticleId:(NSString *)identifier isFav:(BOOL)isFav finish:(YHHttpRequestBlock)finish{
         NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/article/%@/favourite_status/%@",kBaseUrl,[self user].userID,identifier,isFav ? @"1":@"2"];
     [BaseRequest postRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -70,7 +69,6 @@
     }];
 }
 
-// 生意概况页面
 + (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish{
     NSString *url = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, NSData* response, NSString *responseJson) {
@@ -80,7 +78,6 @@
     }];
 }
 
-// 工具箱页面
 + (void)yh_getToolListFinish:(YHHttpRequestBlock)finish{
     NSString *url = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/app_covers",kBaseUrl,self.user.groupID,self.user.roleID];
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -89,9 +86,8 @@
     }];
 }
 
-// 报表页
-+(void)yh_getReportListFinish:(YHHttpRequestBlock)finish{
-    NSString *url =  [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,self.user.groupID,self.user.roleID];
++ (void)yh_getHomeNoticeListFinish:(YHHttpRequestBlock)finish{
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
