@@ -18,6 +18,7 @@
 		3B4868E71F2ADEF5003AF8D8 /* OneImageAndLabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */; };
 		3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */; };
 		3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */; };
+		3B4868F31F2AFBC7003AF8D8 /* HudToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868F21F2AFBC7003AF8D8 /* HudToolView.m */; };
 		3B4F9C491F298B470096256D /* ManageWarningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C471F298B470096256D /* ManageWarningCell.m */; };
 		3B4F9C4A1F298B470096256D /* ManageWarningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C481F298B470096256D /* ManageWarningCell.xib */; };
 		3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */; };
@@ -694,6 +695,8 @@
 		3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneImageAndLabCell.xib; sourceTree = "<group>"; };
 		3B4868E91F2AECE5003AF8D8 /* ToolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolModel.h; sourceTree = "<group>"; };
 		3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolModel.m; sourceTree = "<group>"; };
+		3B4868F11F2AFBC7003AF8D8 /* HudToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudToolView.h; sourceTree = "<group>"; };
+		3B4868F21F2AFBC7003AF8D8 /* HudToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudToolView.m; sourceTree = "<group>"; };
 		3B4F9C461F298B470096256D /* ManageWarningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageWarningCell.h; sourceTree = "<group>"; };
 		3B4F9C471F298B470096256D /* ManageWarningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageWarningCell.m; sourceTree = "<group>"; };
 		3B4F9C481F298B470096256D /* ManageWarningCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageWarningCell.xib; sourceTree = "<group>"; };
@@ -1888,6 +1891,15 @@
 				3B30EEE01F25F60F00A702EC /* ScrollControllersVc.m */,
 			);
 			path = ScrollControllerVc;
+			sourceTree = "<group>";
+		};
+		3B4868EE1F2AFBAF003AF8D8 /* HudTool */ = {
+			isa = PBXGroup;
+			children = (
+				3B4868F11F2AFBC7003AF8D8 /* HudToolView.h */,
+				3B4868F21F2AFBC7003AF8D8 /* HudToolView.m */,
+			);
+			path = HudTool;
 			sourceTree = "<group>";
 		};
 		3B4F9C641F29D1120096256D /* CommonSheetView */ = {
@@ -3240,6 +3252,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3B4868EE1F2AFBAF003AF8D8 /* HudTool */,
 				3B4F9C641F29D1120096256D /* CommonSheetView */,
 				3B30EEDE1F25F60F00A702EC /* ScrollControllerVc */,
 				3BEBB36A1F2597EE007FB66D /* RefreshTool */,
@@ -4999,6 +5012,7 @@
 				F62457A11EA5FBE1006834D2 /* UITabBar+TabBarTip.m in Sources */,
 				F62457BB1EA5FC24006834D2 /* YHBaseViewController.m in Sources */,
 				F62457A51EA5FBE1006834D2 /* UITextView+Placeholder.m in Sources */,
+				3B4868F31F2AFBC7003AF8D8 /* HudToolView.m in Sources */,
 				F62457ED1EA5FD01006834D2 /* PointHudTool.m in Sources */,
 				F62457EE1EA5FD01006834D2 /* TPKeyboardAvoidingTableView.m in Sources */,
 				F624563E1EA5FACD006834D2 /* IQUITextFieldView+Additions.m in Sources */,

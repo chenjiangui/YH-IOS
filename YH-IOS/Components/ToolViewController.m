@@ -33,9 +33,10 @@
 
 - (void)getData:(BOOL)loading{
     if (loading) {
-        // to do show loading
+        [HudToolView showLoadingInView:self.view];
     }
     [YHHttpRequestAPI yh_getToolListFinish:^(BOOL success, ToolModel* model, NSString *jsonObjc) {
+        [HudToolView hideLoadingInView:self.view];
         [self.reTool endDownPullWithReload:false];
         if ([BaseModel handleResult:model]) {
             self.dataList = model.data;

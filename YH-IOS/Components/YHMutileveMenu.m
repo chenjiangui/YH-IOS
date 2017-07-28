@@ -141,7 +141,8 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
    // cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
     //cell.selectedBackgroundView.layer.borderWidth = 1;
     //cell.selectedBackgroundView.layer.backgroundColor = [UIColor colorWithHexString:@"#d2d2d2"].CGColor;
-   // cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+    cell.selectedBackgroundView =[[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
     //cell.contentLabel.highlightedTextColor = [UIColor colorWithHexString:@"#6aa657"];
     return cell;
 }

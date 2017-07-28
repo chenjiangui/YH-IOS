@@ -23,6 +23,8 @@
 #import "EnumConstant.h"
 #import "MainTabbarViewController.h"
 #import "NewAppColor.h"
+#import "HudToolView.h"
+
 
 #pragma mark - 分类
 #import "NSString+Category.h"

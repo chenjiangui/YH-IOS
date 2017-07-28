@@ -40,7 +40,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _page = 1;
-    [self.reTool beginDownPull];
+    [self getData:YES isDownPull:YES];
 }
 
 - (void)setupUI{
@@ -53,7 +53,7 @@
 
 - (void)getData:(BOOL)needLoding isDownPull:(BOOL)downPull{
     if (needLoding) {
-        // to do show loading
+        [HudToolView showLoadingInView:self.view];
     }
     NSInteger page = _page + 1;
     if (downPull) {
@@ -66,7 +66,7 @@
         }
     }
     [YHHttpRequestAPI yh_getNoticeWarningListWithTypes:types page:page finish:^(BOOL success, NoticeWarningModel* model, NSString *jsonObjc) {
-        // to do hideLoding
+        [HudToolView hideLoadingInView:self.view];
         [self.reTool endRefreshDownPullEnd:true topPullEnd:true reload:false noMore:false];
         if ([BaseModel handleResult:model]) {
             if (downPull) {

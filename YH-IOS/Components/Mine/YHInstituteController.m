@@ -50,14 +50,14 @@
 
 - (void)getData:(BOOL)needLoding isDownPull:(BOOL)downPull{
     if (needLoding) {
-        // to do show loading
+        [HudToolView showLoadingInView:self.view];
     }
     NSInteger page = _page + 1;
     if (downPull) {
         page = 1;
     }
     [YHHttpRequestAPI yh_getArticleListWithKeyword:self.keyword page:page finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
-        // to do hideLoding
+        [HudToolView hideLoadingInView:self.view];
         [self.reTool endRefreshDownPullEnd:true topPullEnd:true reload:false noMore:false];
         if ([model.code isEqualToString:@"0"]) { //该单独处理请求成功
             if (downPull) {
@@ -76,10 +76,11 @@
 }
 
 - (void)collecArticle:(NSString*)identifier isFav:(BOOL)isFav{
-    // to do show loading
+    [HudToolView showLoadingInView:self.view];
     [YHHttpRequestAPI yh_collectArticleWithArticleId:identifier isFav:isFav finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
+        [HudToolView hideLoadingInView:self.view];
         if ([model.code isEqualToString:@"201"]) {
-            [self.reTool beginDownPull];
+            [self getData:YES isDownPull:YES];
         }
     }];
 }

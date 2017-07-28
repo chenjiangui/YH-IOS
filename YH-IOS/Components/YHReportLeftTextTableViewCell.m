@@ -29,7 +29,7 @@
     [self addSubview:self.contentLabel];
     
     self.rightView = [[UIView alloc]init];
-    self.rightView.backgroundColor = [NewAppColor yhapp_8color];
+    self.rightView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.rightView];
     
     [self layoutUI];
@@ -53,7 +53,6 @@
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor = [UIColor whiteColor];
     
    // self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
    // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
@@ -64,8 +63,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    self.rightView.backgroundColor = [NewAppColor yhapp_1color];
-    //self.backgroundColor = [UIColor whiteColor];
+   // self.rightView.backgroundColor = [NewAppColor yhapp_1color];
    // self.rightView.backgroundColor = [NewAppColor yhapp_1color];
    // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
    // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
