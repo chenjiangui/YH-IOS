@@ -98,7 +98,7 @@
     else {
         self.reportScanCountView.dataLable.text =[NSString stringWithFormat:@"%@", person[@"browse_report_count"]];
     }
-    self.reportScanCountView.utilLabel.text = @"支";
+    self.reportScanCountView.utilLabel.text = @"次";
     self.reportScanCountView.noteLabel.text = @"浏览报表";
     if (person[@"surpass_percentage"] == nil ) {
         self.precentView.dataLable.text = [NSString stringWithFormat:@"%.1f",[@"0.0" floatValue]];

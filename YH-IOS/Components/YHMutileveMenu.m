@@ -50,7 +50,8 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         self.leftTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, adaptWidth(80),frame.size.height)];
         self.leftTable.dataSource  = self;
         self.leftTable.delegate = self;
-        [self.leftTable registerNib:[UINib nibWithNibName:@"YHReportLeftTextTableViewCell" bundle:nil] forCellReuseIdentifier:mutileresuedLeftCell];
+        //[self.leftTable registerNib:[UINib nibWithNibName:@"YHReportLeftTextTableViewCell" bundle:nil] forCellReuseIdentifier:mutileresuedLeftCell];
+        [self.leftTable registerClass:YHReportLeftTextTableViewCell.class forCellReuseIdentifier:@"YHReportLeftTextTableViewCell"];
         self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.leftTable.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
         [self addSubview:self.leftTable];
@@ -132,17 +133,10 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
    // UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    YHReportLeftTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mutileresuedLeftCell];
-    if (!cell) {
-        cell = [[YHReportLeftTextTableViewCell alloc]init];
-    }
+    YHReportLeftTextTableViewCell *cell = [[YHReportLeftTextTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YHReportLeftTextTableViewCell"];
     cell.contentLabel.text =_allData[indexPath.row].category;
     cell.contentLabel.font = [UIFont systemFontOfSize:14];
-    cell.bottomSepLine.backgroundColor = [UIColor clearColor];
-    UIImageView *bgView = [[UIImageView alloc]initWithFrame:cell.frame];
-    bgView.image = [UIImage imageNamed:@"left_list_bg"];
-    cell.selectedBackgroundView = bgView;
-    cell.contentLabel.highlightedTextColor = [UIColor colorWithHexString:@"#6aa657"];
+    cell.contentLabel.highlightedTextColor = [NewAppColor yhapp_1color];
    // cell.selectionStyle = UITableViewCellSelectionStyleNone;
    // cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
     //cell.selectedBackgroundView.layer.borderWidth = 1;

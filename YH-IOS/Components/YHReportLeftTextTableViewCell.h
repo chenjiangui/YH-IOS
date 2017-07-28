@@ -12,5 +12,5 @@
 
 @property (strong, nonatomic) UILabel *contentLabel;
 @property (strong, nonatomic) UIView *bottomSepLine;
-
+@property (strong, nonatomic) UIView *rightView;
 @end
