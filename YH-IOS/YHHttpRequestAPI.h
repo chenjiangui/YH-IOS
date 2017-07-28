@@ -62,4 +62,12 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
  */
 + (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish;
 
+/**
+ 获取工具箱列表
+ 
+ @param finish finish description
+ */
++ (void)yh_getToolListFinish:(YHHttpRequestBlock)finish;
+
+
 @end

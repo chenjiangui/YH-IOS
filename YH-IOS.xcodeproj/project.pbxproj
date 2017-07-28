@@ -14,6 +14,10 @@
 		3B30EEE91F25F63200A702EC /* YHWarningNoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B30EEE41F25F63200A702EC /* YHWarningNoticeCell.xib */; };
 		3B30EEEA1F25F63200A702EC /* YHWarningNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */; };
 		3B30EEEB1F25F63200A702EC /* YHWarningNoticeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */; };
+		3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */; };
+		3B4868E71F2ADEF5003AF8D8 /* OneImageAndLabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */; };
+		3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */; };
+		3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */; };
 		3B4F9C491F298B470096256D /* ManageWarningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C471F298B470096256D /* ManageWarningCell.m */; };
 		3B4F9C4A1F298B470096256D /* ManageWarningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F9C481F298B470096256D /* ManageWarningCell.xib */; };
 		3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F9C4E1F298E150096256D /* ManageWarningItemCell.m */; };
@@ -663,6 +667,13 @@
 		3B30EEE51F25F63200A702EC /* YHWarningNoticeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWarningNoticeController.h; sourceTree = "<group>"; };
 		3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWarningNoticeController.m; sourceTree = "<group>"; };
 		3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHWarningNoticeController.xib; sourceTree = "<group>"; };
+		3B4868DF1F2ADB96003AF8D8 /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
+		3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
+		3B4868E41F2ADEF5003AF8D8 /* OneImageAndLabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneImageAndLabCell.h; sourceTree = "<group>"; };
+		3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneImageAndLabCell.m; sourceTree = "<group>"; };
+		3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneImageAndLabCell.xib; sourceTree = "<group>"; };
+		3B4868E91F2AECE5003AF8D8 /* ToolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolModel.h; sourceTree = "<group>"; };
+		3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolModel.m; sourceTree = "<group>"; };
 		3B4F9C461F298B470096256D /* ManageWarningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageWarningCell.h; sourceTree = "<group>"; };
 		3B4F9C471F298B470096256D /* ManageWarningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageWarningCell.m; sourceTree = "<group>"; };
 		3B4F9C481F298B470096256D /* ManageWarningCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ManageWarningCell.xib; sourceTree = "<group>"; };
@@ -2647,6 +2658,8 @@
 				91EF8DD11EF38AD100333746 /* View */,
 				91EF8DCE1EF38A1700333746 /* YHTopicViewController.h */,
 				91EF8DCF1EF38A1700333746 /* YHTopicViewController.m */,
+				3B4868DF1F2ADB96003AF8D8 /* ToolViewController.h */,
+				3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */,
 			);
 			name = Topic;
 			sourceTree = "<group>";
@@ -2668,6 +2681,9 @@
 				914465651F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.h */,
 				914465661F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m */,
 				914465671F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib */,
+				3B4868E41F2ADEF5003AF8D8 /* OneImageAndLabCell.h */,
+				3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */,
+				3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3145,6 +3161,8 @@
 				C4DB7DCB1C02EE8E00DA534E /* HttpResponse */,
 				3B763B1B1F2724F400D5E965 /* ArticlesModel.h */,
 				3B763B1C1F2724F400D5E965 /* ArticlesModel.m */,
+				3B4868E91F2AECE5003AF8D8 /* ToolModel.h */,
+				3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4262,7 +4280,7 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = WV94P663S4;
+						DevelopmentTeam = 3V3LN88X9L;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -4403,6 +4421,7 @@
 				3BAC8E981F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				3B30EEEB1F25F63200A702EC /* YHWarningNoticeController.xib in Resources */,
 				C4EFE4B11C98F60A0009411A /* javascripts.zip in Resources */,
+				3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */,
 				F63D4A0B1EB329A20004BCC8 /* SuperChartVc.xib in Resources */,
 				91DB242E1EED7A3000FC8413 /* unSelect@3x.png in Resources */,
 				F62457471EA5FBB2006834D2 /* MultipleBarChartViewController.xib in Resources */,
@@ -4649,6 +4668,7 @@
 				91DB24661EEE99C600FC8413 /* UIView+Category.m in Sources */,
 				F62456C81EA5FB21006834D2 /* HomeIndexDetailListVC.m in Sources */,
 				915A8CE71F1E0B9400262311 /* JYHelpInfoView.m in Sources */,
+				3B4868E71F2ADEF5003AF8D8 /* OneImageAndLabCell.m in Sources */,
 				C48924EB1D858F0A00859411 /* ThurSayTableViewCell.m in Sources */,
 				F68C25E31EC2D4790069C041 /* JYRowViewCell.m in Sources */,
 				F62457E81EA5FD01006834D2 /* NSArray+PureLayout.m in Sources */,
@@ -4730,6 +4750,7 @@
 				91DB24411EED7A3000FC8413 /* BottomToolbar.m in Sources */,
 				91DB24421EED7A3000FC8413 /* PhotoSelectButton.m in Sources */,
 				F655484B1E8CE04200B4048C /* UserInfoModel.m in Sources */,
+				3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */,
 				F62457E71EA5FD01006834D2 /* ALView+PureLayout.m in Sources */,
 				F68C25DE1EC2D4790069C041 /* JYLineChartView.m in Sources */,
 				F62457501EA5FBB2006834D2 /* PositiveNegativeBarChartViewController.m in Sources */,
@@ -4944,6 +4965,7 @@
 				F63D4A071EB329A20004BCC8 /* SelectListVc.m in Sources */,
 				C4A564E31C2CECC10067516F /* NSData+MD5.m in Sources */,
 				9129DD3B1EF4D60600900611 /* JHCollectionReusableView.m in Sources */,
+				3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */,
 				F62457EC1EA5FD01006834D2 /* GifRefreshHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
