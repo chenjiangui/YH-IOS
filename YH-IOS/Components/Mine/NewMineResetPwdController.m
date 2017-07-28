@@ -143,8 +143,8 @@
             [OldPwdNumber addTarget:self action:@selector(OldPwdDidChange:) forControlEvents:UIControlEventEditingChanged];
             [OldPwdNumber mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
-                make.centerY.mas_equalTo(cell.mas_centerY);
-                make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, 50));
+//                make.centerY.mas_equalTo(cell.mas_centerY);
+                make.size.mas_equalTo(CGSizeMake(cell.contentView.frame.size.width, 50));
             }];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -168,12 +168,9 @@
            [NewPwdNumber mas_makeConstraints:^(MASConstraintMaker *make) {
                make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
                make.centerY.mas_equalTo(cell.mas_centerY);
-               make.right.mas_equalTo(cell.mas_right).offset(-44);
-               make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width-44, 50));
+               make.size.mas_equalTo(CGSizeMake(cell.contentView.bounds.size.width-44, 50));
            }];
        }
-       
-       
        NewPwdON=[UIButton buttonWithType:UIButtonTypeCustom];
        
        NewPwdON.tag=100;
@@ -183,7 +180,6 @@
        [NewPwdON setBackgroundImage:[UIImage imageNamed:@"look-on"] forState:UIControlStateNormal];
 
        [NewPwdON addTarget:self action:@selector(newPwdOnOrOffBtn:) forControlEvents:UIControlEventTouchDown];
-       
        [NewPwdON mas_makeConstraints:^(MASConstraintMaker *make) {
            make.centerY.mas_equalTo(cell.contentView.mas_centerY);
            make.right.mas_equalTo(cell.contentView.mas_right).offset(-28);
@@ -211,33 +207,23 @@
            [RequestPwdNumber addTarget:self action:@selector(RequestPwdDidChange:) forControlEvents:UIControlEventEditingChanged];
            [RequestPwdNumber mas_makeConstraints:^(MASConstraintMaker *make) {
                make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
-               make.right.mas_equalTo(cell.contentView.mas_right).offset(-44);
                make.centerY.mas_equalTo(cell.mas_centerY);
-               make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width-44, 50));
+               make.size.mas_equalTo(CGSizeMake(cell.contentView.bounds.size.width-44, 50));
            }];
        }
-       
        RequestON=[UIButton buttonWithType:UIButtonTypeCustom];
-       
        [cell.contentView addSubview:RequestON];
-       
-       RequestON.tag=100;
-       
+       RequestON.tag=200;
        [RequestON setBackgroundColor:[UIColor blueColor] forState:UIControlStateNormal];
-       
        [RequestON setBackgroundImage:[UIImage imageNamed:@"look-on"] forState:UIControlStateNormal];
-       
        [RequestON addTarget:self action:@selector(RequestOnOrOffBtn:) forControlEvents:UIControlEventTouchDown];
-       
        [RequestON mas_makeConstraints:^(MASConstraintMaker *make) {
            make.centerY.mas_equalTo(cell.contentView.mas_centerY);
            make.right.mas_equalTo(cell.contentView.mas_right).offset(-28);
            make.size.mas_equalTo(CGSizeMake(16, 16));
        }];
-      
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
-       
-       cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
        return cell;
    }
    else if (indexPath.section==1 && indexPath.row==2)
@@ -266,7 +252,6 @@
    }
     else
     {
-    
         static NSString *Identifier = @"saveCell";
         UITableViewCell * cell = [tableView  dequeueReusableCellWithIdentifier:Identifier];
         if (cell == nil) {//重新实例化对象的时候才添加button，队列中已有的cell上面是有button的
@@ -282,16 +267,14 @@
             [saveBtn setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"] forState:UIControlStateHighlighted];
             [cell addSubview:saveBtn];
             [saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(cell.mas_centerX);
-                make.centerY.mas_equalTo(cell.mas_centerY);
+//                make.centerX.mas_equalTo(cell.mas_centerX);
+//                make.centerY.mas_equalTo(cell.mas_centerY);
                 make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, 50));
             }];
         }
         return cell;
     }
 }
-
-
 -(void)newPwdOnOrOffBtn:(UIButton *)newBtn
 {
     if (newBtn.tag==100) {
@@ -310,15 +293,15 @@
 
 -(void)RequestOnOrOffBtn:(UIButton *)RequestPwdBtn
 {
-    if (RequestPwdBtn.tag==100) {
+    if (RequestPwdBtn.tag==200) {
         [RequestON setBackgroundImage:[UIImage imageNamed:@"look-off"] forState:UIControlStateNormal];
-        RequestON.tag=101;
+        RequestON.tag=201;
          [RequestPwdNumber setSecureTextEntry:NO];
     }
     else
     {
         [RequestON setBackgroundImage:[UIImage imageNamed:@"look-on"] forState:UIControlStateNormal];
-        RequestON.tag=100;
+        RequestON.tag=200;
         [RequestPwdNumber setSecureTextEntry:YES];
     }
 }
@@ -429,7 +412,6 @@
                                                                          range:NSMakeRange(0, password.length)];
     //英文字条件
     NSRegularExpression *tLetterRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[A-Za-z]" options:NSRegularExpressionCaseInsensitive error:nil];
-    
     //符合英文字条件的有几个字节
     NSUInteger tLetterMatchCount = [tLetterRegularExpression numberOfMatchesInString:password options:NSMatchingReportProgress range:NSMakeRange(0, password.length)];
     
@@ -452,12 +434,15 @@
 -(void)NewPwdViewBack
 {
     [self.navigationController popViewControllerAnimated:YES];
+    
+    [super didReceiveMemoryWarning];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
