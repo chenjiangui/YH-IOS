@@ -86,4 +86,12 @@
     }];
 }
 
++ (void)yh_getHomeNoticeListFinish:(YHHttpRequestBlock)finish{
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
+        finish(requestSuccess,model,responseJson);
+    }];
+}
+
 @end
