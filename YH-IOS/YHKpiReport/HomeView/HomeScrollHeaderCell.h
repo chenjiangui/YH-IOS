@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceDesLab;
 @property (weak, nonatomic) IBOutlet UILabel *unitLab;
 @property (nonatomic, strong) CommonBack scanBlock;
+@property (nonatomic, strong) CommonBack clickBlock;
+
 @end

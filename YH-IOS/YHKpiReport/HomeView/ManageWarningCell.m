@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     _titleLab.font = [UIFont boldSystemFontOfSize:16];
     _collection.delegate = self;
     _collection.dataSource = self;
@@ -43,6 +44,12 @@
     YHKPIDetailModel* model = [_dataList objectAtIndex:indexPath.row];
     [cell setItem:model];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.clickBlock) {
+        self.clickBlock(self.dataList[indexPath.row]);
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
