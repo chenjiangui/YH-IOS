@@ -10,8 +10,7 @@
 
 @interface YHTopImageCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIImageView *sepImageView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic)  UIImageView *imageView;
+@property (strong, nonatomic)  UILabel *titleLabel;
 
 @end

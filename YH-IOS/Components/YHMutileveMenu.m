@@ -39,15 +39,15 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         _block = selectIndex;
         self.leftSelectBgColor=[UIColor whiteColor];
         self.leftBgColor=[UIColor whiteColor];
-        self.leftSeparatorColor=UIColorFromRGB(0xE5E5E5);
-        self.leftUnSelectBgColor=UIColorFromRGB(0xF3F4F6);
+      //  self.leftSeparatorColor=UIColorFromRGB(0xE5E5E5);
+        //self.leftUnSelectBgColor=UIColorFromRGB(0xF3F4F6);
         
         self.leftUnSelectColor=[UIColor blackColor];
         _selectIndex = 0;
         _allData = data;
         
         // 左边的视图
-        self.leftTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kLeftWidth-2,frame.size.height)];
+        self.leftTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, adaptWidth(80),frame.size.height)];
         self.leftTable.dataSource  = self;
         self.leftTable.delegate = self;
         [self.leftTable registerNib:[UINib nibWithNibName:@"YHReportLeftTextTableViewCell" bundle:nil] forCellReuseIdentifier:mutileresuedLeftCell];
@@ -66,17 +66,18 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
             [self.leftTable selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom];
         }
         
-        self.sepView = [[UIView alloc]initWithFrame:CGRectMake(kLeftWidth-2, 0,1, frame.size.height)];
+        /*self.sepView = [[UIView alloc]initWithFrame:CGRectMake(kLeftWidth-2, 0,1, frame.size.height)];
         self.sepView.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
-        [self addSubview:_sepView];
+        [self addSubview:_sepView];*/
         // 右边的视图
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
         flowLayout.minimumInteritemSpacing = 0.f;
         flowLayout.minimumLineSpacing = 0.f;
         
         float leftMargin = 0;
-        self.rightCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(kLeftWidth +leftMargin, 0, SCREEN_WIDTH-kLeftWidth- leftMargin*2,SCREEN_HEIGHT-49- 64) collectionViewLayout:flowLayout];
-        [self.rightCollection registerNib:[UINib nibWithNibName:@"YHTopImageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"collectionCell"];
+        self.rightCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(adaptWidth(80), 0, SCREEN_WIDTH-adaptWidth(80),SCREEN_HEIGHT-49- 64) collectionViewLayout:flowLayout];
+
+        [self.rightCollection registerClass:YHTopImageCollectionViewCell.class forCellWithReuseIdentifier:@"collectionCell"];
         [self.rightCollection registerNib:[UINib nibWithNibName:@"YHMutileveHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:mutileresuedHeader];
         self.rightCollection.delegate =self;
         self.rightCollection.dataSource = self;
@@ -126,7 +127,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 38;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -178,7 +179,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake((SCREEN_WIDTH-100-20)/3, 85);
+    return CGSizeMake((SCREEN_WIDTH-54-30-adaptWidth(80))/3, 77);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
@@ -193,7 +194,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(10, 10, 0, 10);
+    UIEdgeInsets inset = UIEdgeInsetsMake(15, 30, 20, 15);
     return inset;
 }
 
@@ -216,6 +217,9 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     YHTopImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionCell" forIndexPath:indexPath];
+    if (cell==nil) {
+        cell = [[YHTopImageCollectionViewCell alloc]initWithFrame:CGRectZero];
+    }
     //cell.imageView.image = [UIImage imageNamed:@"user_ava"];
     NSString *imagestring =_allData[_selectIndex].listpage[indexPath.section].listData[indexPath.row].icon_link;
     imagestring =[imagestring stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

@@ -10,8 +10,7 @@
 
 @interface YHReportLeftTextTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIView *topsepLine;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet UIView *bottomSepLine;
+@property (strong, nonatomic) UILabel *contentLabel;
+@property (strong, nonatomic) UIView *bottomSepLine;
 
 @end

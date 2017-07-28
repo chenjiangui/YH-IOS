@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:13];
    // self.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
     // Initialization code
 }
