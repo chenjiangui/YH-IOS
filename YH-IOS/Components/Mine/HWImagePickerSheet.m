@@ -24,33 +24,33 @@
 
 //显示选择照片提示Sheet
 -(void)showImgPickerActionSheetInView:(UIViewController *)controller{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"选择照片" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    UIAlertAction *actionCamera = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"拍照"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (!imaPic) {
-            imaPic = [[UIImagePickerController alloc] init];
-        }
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            imaPic.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imaPic.delegate = self;
-            [viewController presentViewController:imaPic animated:NO completion:nil];
-        }
-        
-    }];
-    UIAlertAction *actionAlbum = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"相册"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self loadImgDataAndShowAllGroup];
-    }];
-    [alertController addAction:actionCancel];
-    [alertController addAction:actionCamera];
-    [alertController addAction:actionAlbum];
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"选择照片" preferredStyle:UIAlertControllerStyleActionSheet];
+//    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    UIAlertAction *actionCamera = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"拍照"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        if (!imaPic) {
+//            imaPic = [[UIImagePickerController alloc] init];
+//        }
+//        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//            imaPic.sourceType = UIImagePickerControllerSourceTypeCamera;
+//            imaPic.delegate = self;
+//            [viewController presentViewController:imaPic animated:NO completion:nil];
+//        }
+//        
+//    }];
+//    UIAlertAction *actionAlbum = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"相册"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        [self loadImgDataAndShowAllGroup];
+//    }];
+//    [alertController addAction:actionCancel];
+//    [alertController addAction:actionCamera];
+//    [alertController addAction:actionAlbum];
     viewController = controller;
     
     
      [self loadImgDataAndShowAllGroup];
     
-    [viewController presentViewController:alertController animated:YES completion:nil];
+//    [viewController presentViewController:alertController animated:YES completion:nil];
     
     
     

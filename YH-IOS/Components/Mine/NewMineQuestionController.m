@@ -531,6 +531,7 @@ return 1;
     _imgPickerActionSheet.maxCount = 3;
     
     [_imgPickerActionSheet showImgPickerActionSheetInView:_showActionSheetViewController];
+    
 }
 
 #pragma mark - 删除照片
