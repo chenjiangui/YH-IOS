@@ -42,6 +42,10 @@
             [self.collection reloadData];
         }
     }];
+}
+
+#pragma mark - 点击事件
+- (void)toolClickAction:(ToolModel*)model{
     
 }
 
@@ -58,7 +62,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    ToolModel* model = _dataList[indexPath.row];
+    [self toolClickAction:model];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
