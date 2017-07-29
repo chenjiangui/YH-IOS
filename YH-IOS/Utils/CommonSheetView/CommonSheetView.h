@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSString* lastString;
 
+@property (nonatomic, strong) UIColor* lastStringColor;
+
 @property (nonatomic, strong) id model;
 
 - (instancetype)initWithDataList:(NSArray<NSString*>*)dataList;

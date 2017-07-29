@@ -112,6 +112,18 @@
     [self getData:YES];
 }
 
+- (void)test{ //对项目无用 一个测试 cjg
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Test" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    NSString* arrayStr = [data valueForKey:@"array"];
+    arrayStr = [arrayStr removeString:@"["];
+    NSArray* firstArray = [arrayStr componentsSeparatedByString:@"],"];
+    NSMutableArray* strs = [NSMutableArray array];
+    for (NSString* str in firstArray) {
+        [strs addObject:[str removeString:@"]"]];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
 }
@@ -141,7 +153,7 @@
 }
 //消息公告点击事件
 - (void)messageAction:(ToolModel*)model{
-
+  
 }
 
 //扫描事件
