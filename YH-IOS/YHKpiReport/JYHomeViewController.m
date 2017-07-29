@@ -141,7 +141,7 @@
 }
 //消息公告点击事件
 - (void)messageAction:(ToolModel*)model{
-
+    self.tabBarController.selectedIndex = 3;
 }
 
 //扫描事件

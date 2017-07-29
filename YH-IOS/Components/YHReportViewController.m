@@ -46,9 +46,17 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
    // [self getdata];
     [self addMuneView];
-    [self getSomeThingNew];
+     self.title = @"报表";
+    [self getData:true];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)getData:(BOOL)loading{
+    if (loading) {
+        [HudToolView showLoadingInView:self.view];
+    }
+    [self getSomeThingNew];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -339,6 +347,7 @@
     
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
     if ([HttpUtils isNetworkAvailable3]) {
+        [HudToolView hideLoadingInView:self.view];
         HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
         if ([reponse.statusCode  isEqual: @200] || [HttpUtils isNetworkAvailable3]) {
             NSData *data = reponse.received;
@@ -365,6 +374,7 @@
         }
     }
     else{
+        [HudToolView hideLoadingInView:self.view];
         NSData *data = [NSData dataWithContentsOfFile:javascriptPath];
         if (!data) {
             SCLAlertView *alert = [[SCLAlertView alloc] init];

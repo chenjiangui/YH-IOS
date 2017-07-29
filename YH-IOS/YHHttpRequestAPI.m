@@ -12,6 +12,7 @@
 #import "ArticlesModel.h"
 #import "YHKPIModel.h"
 #import "ToolModel.h"
+#import "ListPage.h"
 
 @implementation YHHttpRequestAPI
 
@@ -91,6 +92,15 @@
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
+    }];
+}
+
++(void)yh_getReportListFininsh:(YHHttpRequestBlock)finish{
+    NSString *url =  [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,self.user.groupID,self.user.roleID];
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        NSArray *dic = [[NSJSONSerialization JSONObjectWithData:response options:0 error:NULL] objectForKey:@"data"];
+        NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
+        finish(requestSuccess,array,responseJson);
     }];
 }
 
