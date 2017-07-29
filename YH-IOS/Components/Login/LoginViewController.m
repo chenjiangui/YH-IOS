@@ -153,16 +153,16 @@
     UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
     logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
-    [logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchDown];
+    [logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [logoInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [logoInBtn setBackgroundColor:[UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1] forState:UIControlStateNormal];
+    [logoInBtn setBackgroundImage:@"btn_login".imageFromSelf forState:UIControlStateNormal];
     logoInBtn.clipsToBounds=YES;
-    logoInBtn.layer.cornerRadius=25;
+    logoInBtn.titleEdgeInsets = UIEdgeInsetsMake(-6, 0, 6, 0);
     [self.view addSubview:logoInBtn];
     [logoInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_PasswordUnderLine.mas_bottom).offset(24);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(245, 52));
+        make.size.mas_equalTo(@"btn_login".imageFromSelf.size);
     }];
     UIButton *forGotPwd=[UIButton buttonWithType:UIButtonTypeCustom];
     [forGotPwd setTitle:@"忘记密码" forState:UIControlStateNormal];

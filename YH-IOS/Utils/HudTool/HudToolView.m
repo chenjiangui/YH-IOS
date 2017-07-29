@@ -24,7 +24,9 @@
         case HudToolViewTypeLoading:
             [self setLoadingType];
             break;
-            
+        case HudToolViewTypeTopText:
+            [self setTopTextType];
+            break;
         default:
             break;
     }
@@ -58,8 +60,43 @@
     }
 }
 
-#pragma mark - loadingType
+#pragma mark - HudToolViewTypeTopText
+- (void)setTopTextType{
+    [self sd_addSubviews:@[self.contentView]];
+    [self.contentView addSubview:self.textLab];
+    self.contentView.frame = CGRectMake(0, -44, SCREEN_WIDTH, 44);
+    [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.height.mas_equalTo(self.contentView);
+        make.width.mas_equalTo(self.contentView).offset(-30);
+    }];
+}
 
++ (void)showTopWithText:(NSString *)text color:(UIColor *)color{
+    UIView* view = [self getTrueView:nil];
+    [self removeInView:view viewType:HudToolViewTypeTopText];
+    HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeTopText];
+    hud.frame = view.bounds;
+    hud.textLab.text = text;
+    hud.contentView.backgroundColor = color;
+    [view addSubview:hud];
+    [UIView animateWithDuration:0.6 animations:^{
+        hud.contentView.top = 0;
+    } completion:^(BOOL finished) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.6 animations:^{
+                hud.contentView.top = -44;
+            } completion:^(BOOL finished) {
+                [self removeInView:nil viewType:HudToolViewTypeTopText];
+            }];
+        });
+    }];
+}
+
++ (void)showTopWithText:(NSString *)text correct:(BOOL)correct{
+    [self showTopWithText:text color:correct ? [[NewAppColor yhapp_1color] colorWithAlphaComponent:0.95]: [[NewAppColor yhapp_11color] colorWithAlphaComponent:0.95]];
+}
+
+#pragma mark - loadingType
 - (void)setLoadingType{
     [self sd_addSubviews:@[self.loadingImageV]];
 }
@@ -105,6 +142,9 @@
     if (!_textLab) {
         _textLab = [[UILabel alloc] init];
         _textLab.textAlignment = NSTextAlignmentCenter;
+        _textLab.numberOfLines = 2;
+        _textLab.textColor = [NewAppColor yhapp_10color];
+        _textLab.font = [UIFont systemFontOfSize:16];
     }
     return _textLab;
 }
