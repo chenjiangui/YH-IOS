@@ -24,6 +24,7 @@
 #import "MainTabbarViewController.h"
 #import "NewAppColor.h"
 #import "HudToolView.h"
+#import "JYHudView.h"
 
 
 #pragma mark - 分类

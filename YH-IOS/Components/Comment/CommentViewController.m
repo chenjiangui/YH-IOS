@@ -116,6 +116,8 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+   
+
 }
 
 #pragma mark - UIWebview pull down to refresh

@@ -717,7 +717,6 @@
 
 - (void)clearBrowserCache {
     [self.browser stopLoading];
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     NSString *domain = [[NSURL URLWithString:self.urlString] host];
     for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {

@@ -257,6 +257,7 @@
 		B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B675935E1F29CBEE00E89B65 /* HWCollectionViewCell.xib */; };
 		B67593651F29CBEE00E89B65 /* HWImagePickerSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */; };
 		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
+		B69018651F2C37170018F3B1 /* NewFindPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */; };
 		B6E7B3521F29D2CE008B48BF /* MFlowLayOut.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */; };
 		B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3371F29D2CE008B48BF /* MHeaderImaCell.m */; };
 		B6E7B3551F29D2CE008B48BF /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B33C1F29D2CE008B48BF /* JJMainScrollView.m */; };
@@ -1160,6 +1161,8 @@
 		B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWImagePickerSheet.m; sourceTree = "<group>"; };
 		B676BB3C1F282AD700AF363A /* NewMineResetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineResetPwdController.h; sourceTree = "<group>"; };
 		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
+		B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFindPasswordCell.h; sourceTree = "<group>"; };
+		B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFindPasswordCell.m; sourceTree = "<group>"; };
 		B6E7B3341F29D2CE008B48BF /* MFlowLayOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFlowLayOut.h; sourceTree = "<group>"; };
 		B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFlowLayOut.m; sourceTree = "<group>"; };
 		B6E7B3361F29D2CE008B48BF /* MHeaderImaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHeaderImaCell.h; sourceTree = "<group>"; };
@@ -3083,6 +3086,7 @@
 		C4C628381C0C1ED6000AD5D8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C4C628401C0C1ED6000AD5D8 /* Login */,
 				91BB7B8C1F29C4F6001934FA /* Category */,
 				91E65A171F1897710046B615 /* 门店巡检 */,
 				9169BC5E1F00FB8700419E52 /* GuideView */,
@@ -3100,7 +3104,6 @@
 				C4CF3B551C1AC73C00F58E1E /* Comment */,
 				C4C6283A1C0C1ED6000AD5D8 /* Subject */,
 				C4C6283D1C0C1ED6000AD5D8 /* Dashboard */,
-				C4C628401C0C1ED6000AD5D8 /* Login */,
 				C49E1AB01C1962F200CFFE3C /* Setting */,
 			);
 			path = Components;
@@ -3160,6 +3163,8 @@
 				C4C628421C0C1ED6000AD5D8 /* LoginViewController.m */,
 				F691E5E21E28835C00BDC73E /* FindPasswordViewController.h */,
 				F691E5E31E28835C00BDC73E /* FindPasswordViewController.m */,
+				B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */,
+				B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -4457,7 +4462,7 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = LY7F59PHE8;
+						DevelopmentTeam = LS69CLN4M7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -4947,9 +4952,7 @@
 				91DB24461EED7A3000FC8413 /* PhotoNavigationController.m in Sources */,
 				91DB24401EED7A3000FC8413 /* UIView+leoAdd.m in Sources */,
 				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
-				B6E7B3541F29D2CE008B48BF /* MHeadImaView.m in Sources */,
 				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
-				91BB7B921F29C606001934FA /* UIWebView+CleanLayerDelegate.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
@@ -5058,6 +5061,7 @@
 				F624563F1EA5FACD006834D2 /* IQUIView+Hierarchy.m in Sources */,
 				91D364111F1F220400CD7159 /* JYSortItemView.m in Sources */,
 				91DB24291EED7A3000FC8413 /* PhotoGroupCell.m in Sources */,
+				B69018651F2C37170018F3B1 /* NewFindPasswordCell.m in Sources */,
 				91D77F371EEAA4D1007405A0 /* LeftIamgeTableViewCell.m in Sources */,
 				3B763B1D1F2724F400D5E965 /* ArticlesModel.m in Sources */,
 				F62456E51EA5FB5D006834D2 /* IntAxisValueFormatter.m in Sources */,
@@ -5336,7 +5340,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LY7F59PHE8;
+				DEVELOPMENT_TEAM = LS69CLN4M7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5398,7 +5402,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LY7F59PHE8;
+				DEVELOPMENT_TEAM = LS69CLN4M7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

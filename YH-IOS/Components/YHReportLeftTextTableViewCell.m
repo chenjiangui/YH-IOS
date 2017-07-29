@@ -37,30 +37,23 @@
 
 
 -(void)layoutUI{
-    
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.mas_centerX).mas_offset(0);
         make.centerY.mas_equalTo(self.mas_centerY).mas_offset(0);
     }];
-    
     [self.rightView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.mas_left);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(4, 20));
     }];
 }
-
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setHighlighted:highlighted animated:animated];
-    
    // self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
    // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
     //  self.selectedBackgroundView.backgroundColor = [UIColor clearColor];// 设置选中cell的背景view背景色
-    
 }
-
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
    // self.rightView.backgroundColor = [NewAppColor yhapp_1color];

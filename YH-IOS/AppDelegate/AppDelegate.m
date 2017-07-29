@@ -167,7 +167,7 @@ void UncaughtExceptionHandler(NSException * exception) {
         [application registerUserNotificationSettings:setting];
     }
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
+
     return YES;
 }
 

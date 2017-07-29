@@ -143,7 +143,7 @@
     }];
     UIButton *deleteLogo=[[UIButton alloc] init];
     [deleteLogo setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
-    [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
+    [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:deleteLogo];
     [deleteLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(25);
@@ -153,7 +153,7 @@
     UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
     logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
-    [logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchDown];
+    [logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [logoInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [logoInBtn setBackgroundColor:[UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1] forState:UIControlStateNormal];
     logoInBtn.clipsToBounds=YES;
@@ -168,7 +168,7 @@
     [forGotPwd setTitle:@"忘记密码" forState:UIControlStateNormal];
     forGotPwd.titleLabel.font=[UIFont boldSystemFontOfSize:13];
     //    forGotPwd.titleLabel.font = [UIFont systemFontOfSize:13];
-    [forGotPwd addTarget:self action:@selector(jumpToFindPassword) forControlEvents:UIControlEventTouchDown];
+    [forGotPwd addTarget:self action:@selector(jumpToFindPassword) forControlEvents:UIControlEventTouchUpInside];
     [forGotPwd setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
     [self.view addSubview:forGotPwd];
   
@@ -189,7 +189,7 @@
     UIButton *registerBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [registerBtn setTitle:@"申请注册" forState:UIControlStateNormal];
     registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-    [registerBtn addTarget:self action:@selector(clickRegisterBtn) forControlEvents:UIControlEventTouchDown];
+    [registerBtn addTarget:self action:@selector(clickRegisterBtn) forControlEvents:UIControlEventTouchUpInside];
     [registerBtn setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
     [self.view addSubview:registerBtn];
     [registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {

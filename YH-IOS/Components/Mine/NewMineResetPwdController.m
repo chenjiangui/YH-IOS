@@ -179,7 +179,7 @@
        
        [NewPwdON setBackgroundImage:[UIImage imageNamed:@"look-on"] forState:UIControlStateNormal];
 
-       [NewPwdON addTarget:self action:@selector(newPwdOnOrOffBtn:) forControlEvents:UIControlEventTouchDown];
+       [NewPwdON addTarget:self action:@selector(newPwdOnOrOffBtn:) forControlEvents:UIControlEventTouchUpInside];
        [NewPwdON mas_makeConstraints:^(MASConstraintMaker *make) {
            make.centerY.mas_equalTo(cell.contentView.mas_centerY);
            make.right.mas_equalTo(cell.contentView.mas_right).offset(-28);
@@ -216,7 +216,7 @@
        RequestON.tag=200;
        [RequestON setBackgroundColor:[UIColor blueColor] forState:UIControlStateNormal];
        [RequestON setBackgroundImage:[UIImage imageNamed:@"look-on"] forState:UIControlStateNormal];
-       [RequestON addTarget:self action:@selector(RequestOnOrOffBtn:) forControlEvents:UIControlEventTouchDown];
+       [RequestON addTarget:self action:@selector(RequestOnOrOffBtn:) forControlEvents:UIControlEventTouchUpInside];
        [RequestON mas_makeConstraints:^(MASConstraintMaker *make) {
            make.centerY.mas_equalTo(cell.contentView.mas_centerY);
            make.right.mas_equalTo(cell.contentView.mas_right).offset(-28);

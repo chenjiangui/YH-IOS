@@ -50,7 +50,7 @@ static CGFloat const MRStopButtonMinSize = 44.0;
     [self.layer addSublayer:shapeLayer];
     self.shapeLayer= shapeLayer;
     
-    [self addTarget:self action:@selector(didTouchDown) forControlEvents:UIControlEventTouchDown];
+    [self addTarget:self action:@selector(didTouchDown) forControlEvents:UIControlEventTouchUpInside];
     [self addTarget:self action:@selector(didTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
     
     [self tintColorDidChange];

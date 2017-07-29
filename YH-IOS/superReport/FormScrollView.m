@@ -116,7 +116,7 @@
 - (void)queueReusableCell:(FormCell *)cell {
     if (cell) {
         cell.indexPath = nil;
-        [cell removeTarget:self action:@selector(cellClickAction:) forControlEvents:UIControlEventTouchDown];
+        [cell removeTarget:self action:@selector(cellClickAction:) forControlEvents:UIControlEventTouchUpInside];
         [cell removeTarget:self action:@selector(cellDoubleClickAction:) forControlEvents:UIControlEventTouchDownRepeat];
         [_reusableCells addObject:cell];
     }
@@ -214,7 +214,7 @@
             if ([self isOnScreenRect:rect]) {
                 FIndexPath *indexPath = [FIndexPath indexPathForSection:section inColumn:column];
                 FormCell *cell = [_fDataSource form:self cellForColumnAtIndexPath:indexPath];
-                [cell addTarget:self action:@selector(cellClickAction:) forControlEvents:UIControlEventTouchDown];
+                [cell addTarget:self action:@selector(cellClickAction:) forControlEvents:UIControlEventTouchUpInside];
                 [cell addTarget:self action:@selector(cellDoubleClickAction:) forControlEvents:UIControlEventTouchDownRepeat];
                 cell.indexPath = indexPath;
                 cell.frame = rect;

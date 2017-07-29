@@ -46,7 +46,6 @@
      *  self.searchItems 不做任何修改，列表源使用变量 self.dataList
      */
     self.searchItems = [self.searchItems sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    
     self.dataList = [self.searchItems copy];
     self.title = self.bannerName;
     self.tableView.dataSource = self;
