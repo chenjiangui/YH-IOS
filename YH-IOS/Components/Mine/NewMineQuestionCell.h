@@ -1,8 +1,8 @@
 //
-//  NewMineQuestionController.h
+//  NewMineQuestionCell.h
 //  YH-IOS
 //
-//  Created by 薛宇晶 on 2017/7/27.
+//  Created by 薛宇晶 on 2017/7/30.
 //  Copyright © 2017年 com.intfocus. All rights reserved.
 //
 
@@ -11,13 +11,36 @@
 #import "HWCollectionViewCell.h"
 #import "JJPhotoManeger.h"
 #import "HWImagePickerSheet.h"
+#import "PhotoNavigationController.h"
+#import "PhotoManagerConfig.h"
+#import "PhotoRevealCell.h"
+#import "UIImage+StackBlur.h"
+#import "zoomPopup.h"
+#import "UIImage+StackBlur.h"
+#import "User.h"
+#import "SCLAlertView.h"
+#import "Version.h"
+#import "APIHelper.h"
+
+
 @protocol HWPublishBaseViewDelegate <NSObject>
 
 @optional
 
 @end
 
-@interface NewMineQuestionController : UIViewController
+@interface NewMineQuestionCell : UITableViewCell<UITextViewDelegate,JJPhotoDelegate,HWImagePickerSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+{
+    UIButton *saveBtn;
+    NSInteger  clickImageNumber;
+    User *user;
+    NSString *questionProblemText;
+    NSString *pushImageName;
+    UILabel *headerLaber;
+}
+@property (nonatomic, strong) Version *version;
+
+@property (nonatomic, strong) HWImagePickerSheet *imgPickerActionSheet;
 
 @property (nonatomic, assign) id<HWPublishBaseViewDelegate> delegate;
 
@@ -59,4 +82,10 @@
 - (NSArray*)getALAssetArray;
 
 - (void)pickerViewFrameChanged;
+
+
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andType:(NSString*)type;
+
+
 @end

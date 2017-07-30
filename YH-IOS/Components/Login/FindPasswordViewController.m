@@ -18,10 +18,7 @@
 #import "HttpUtils.h"
 #import "User.h"
 #import "FileUtils+Assets.h"
-
-#import "RMessage.h"
-#import "RMessageView.h"
-@interface FindPasswordViewController ()<UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,RMessageProtocol>
+@interface FindPasswordViewController ()<UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *FindPwdTableview;
     NSString * PeopleString;
@@ -49,8 +46,6 @@
         self.assetsPath = [FileUtils sharedPath];
     }
     self.title = @"找回密码";
-    [RMessage setDefaultViewController:self.navigationController];
-    [RMessage setDelegate:self];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -184,7 +179,6 @@
         static NSString *Identifier = @"Cell";
         NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         if (cell == nil) {
-            cell = [[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
             cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"PeopleNumber"];
         }
         FindPwdTableview.separatorColor = [UIColor colorWithHexString:@"#e6e6e6"];
@@ -198,7 +192,7 @@
         static NSString *Identifier = @"Cell2";
         NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         if (cell == nil) {
-            cell = [[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+          
             cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"PhoneNumber"];
         }
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
@@ -210,7 +204,7 @@
         static NSString *Identifier = @"Cell3";
         NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         if (cell == nil) {
-            cell = [[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+
             cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"textLabel"];
         }
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
@@ -221,7 +215,6 @@
         static NSString *Identifier = @"Cell4";
         NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
         if (cell == nil) {
-            cell = [[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
             cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"upDataBtn"];
         }
         return cell;

@@ -25,4 +25,7 @@ typedef enum : NSUInteger {
 + (void)showLoadingInView:(UIView*)view;
 + (void)hideLoadingInView:(UIView*)view;
 
++ (void)showTopWithText:(NSString*)text color:(UIColor*)color;
++ (void)showTopWithText:(NSString*)text correct:(BOOL)correct;
+
 @end

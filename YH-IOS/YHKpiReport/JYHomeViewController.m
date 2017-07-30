@@ -43,28 +43,28 @@
 
 @interface JYHomeViewController () <UITableViewDelegate, UITableViewDataSource, PagedFlowViewDelegate, PagedFlowViewDataSource, JYNotifyDelegate, JYFallsViewDelegate,SDCycleScrollViewDelegate,RefreshToolDelegate> {
     
-    CGFloat bottomViewHeight;
-    NSArray *dataListTop;
-    NSMutableArray *dataListButtom;
-    NSArray *dataList;
-    SDCycleScrollView *_cycleScrollView;
+//    CGFloat bottomViewHeight;
+//    NSArray *dataListTop;
+//    NSMutableArray *dataListButtom;
+//    NSArray *dataList;
+//    SDCycleScrollView *_cycleScrollView;
 }
 
 @property (nonatomic, strong) UITableView *rootTBView;
 
-@property (nonatomic, strong) JYNotifyView *notifyView;
-@property (nonatomic, copy) NSArray *pages;
-@property (nonatomic, strong) JYPagedFlowView *pageView;
-@property (nonatomic, strong) JYFallsView *fallsView;
+//@property (nonatomic, strong) JYNotifyView *notifyView;
+//@property (nonatomic, copy) NSArray *pages;
+//@property (nonatomic, strong) JYPagedFlowView *pageView;
+//@property (nonatomic, strong) JYFallsView *fallsView;
 //@property (nonatomic, strong) MJRefreshGifHeader *header;
 @property (nonatomic, strong) User* user;
-@property (nonatomic, strong) NSMutableArray* noticeArray;
-@property (nonatomic, strong) NSArray *dropMenuTitles;
-@property (nonatomic, strong) NSArray *dropMenuIcons;
-@property (nonatomic, strong) UITableView *dropMenu;
-@property (nonatomic, strong) NSMutableArray* titleArray;
-@property (nonatomic, strong) NSArray<YHKPIModel *> * modelKpiArray;
-@property (nonatomic, strong) YHKPIModel* modeltop;
+//@property (nonatomic, strong) NSMutableArray* noticeArray;
+//@property (nonatomic, strong) NSArray *dropMenuTitles;
+//@property (nonatomic, strong) NSArray *dropMenuIcons;
+//@property (nonatomic, strong) UITableView *dropMenu;
+//@property (nonatomic, strong) NSMutableArray* titleArray;
+//@property (nonatomic, strong) NSArray<YHKPIModel *> * modelKpiArray;
+//@property (nonatomic, strong) YHKPIModel* modeltop;
 
 @property (nonatomic, strong) RefreshTool* reTool;
 
@@ -105,11 +105,23 @@
         make.edges.mas_equalTo(self.view);
     }];
     _user = [[User alloc]init];
-    _noticeArray = [[NSMutableArray alloc]init];
-    dataListButtom = [NSMutableArray new];
+//    _noticeArray = [[NSMutableArray alloc]init];
+//    dataListButtom = [NSMutableArray new];
 //    [self loadData];
 //    [self idColor];
     [self getData:YES];
+}
+
+- (void)test{ //对项目无用 一个测试 cjg
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Test" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    NSString* arrayStr = [data valueForKey:@"array"];
+    arrayStr = [arrayStr removeString:@"["];
+    NSArray* firstArray = [arrayStr componentsSeparatedByString:@"],"];
+    NSMutableArray* strs = [NSMutableArray array];
+    for (NSString* str in firstArray) {
+        [strs addObject:[str removeString:@"]"]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -141,7 +153,7 @@
 }
 //消息公告点击事件
 - (void)messageAction:(ToolModel*)model{
-
+  
 }
 
 //扫描事件
@@ -205,14 +217,14 @@
         [self.reTool endDownPullWithReload:NO];
         [HudToolView hideLoadingInView:self.view];
         if (success && demolArray && jsonObjc) {
-            for (int i=0; i<demolArray.count; i++) {
-                if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
-                    self.modeltop = demolArray[i];
-                }
-                else{
-                    [dataListButtom addObject:demolArray[i]];
-                }
-            }
+//            for (int i=0; i<demolArray.count; i++) {
+//                if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
+//                    self.modeltop = demolArray[i];
+//                }
+//                else{
+//                    [dataListButtom addObject:demolArray[i]];
+//                }
+//            }
             self.dataList = demolArray;
             [self.rootTBView reloadData];
             self.navBarView.hidden = NO;

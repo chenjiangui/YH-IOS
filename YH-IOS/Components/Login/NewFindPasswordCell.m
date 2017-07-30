@@ -46,7 +46,6 @@ static  NSString *PhoneString;
                             make.centerY.mas_equalTo(self.contentView.mas_centerY);
                             make.size.mas_equalTo(CGSizeMake(self.contentView.frame.size.width, 50));
                         }];
-        
                     }
                 else if([type isEqualToString:@"textLabel"])
                 {
@@ -103,63 +102,6 @@ static  NSString *PhoneString;
 {
     PhoneString=PhoneNumber.text;
 }
-//-(void)upTodata
-//{
-//    NSString *userNum = PeopleString;
-//    NSString *userPhone = PhoneString;
-//    NSLog(@"%@%@",userNum,userPhone);
-//    if (userNum && userPhone) {
-//        HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
-//        NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"info"]];
-//        SCLAlertView *alert = [[SCLAlertView alloc] init];
-//        if ([reponse.statusCode isEqualToNumber:@(201)]) {
-//            [alert addButton:@"重新登录" actionBlock:^(void){
-////                [self dismissFindPwd];
-//            }];
-//                                [alert showSuccess:self.contentView title:@"温馨提示" subTitle:message closeButtonTitle:nil duration:0.0f];
-//      
-//            [RMessage showNotificationInViewController:self.contentView
-//                                                 title:@"提交成功"
-//                                              subtitle:nil
-//                                             iconImage:nil
-//                                                  type:RMessageTypeSuccess
-//                                        customTypeName:nil
-//                                              duration:RMessageDurationAutomatic
-//                                              callback:nil
-//                                           buttonTitle:nil
-//                                        buttonCallback:nil
-//                                            atPosition:RMessagePositionNavBarOverlay
-//                                  canBeDismissedByUser:YES];
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                /*
-//                 * 用户行为记录, 单独异常处理，不可影响用户体验
-//                 */
-//                @try {
-//                    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-//                    logParams[@"action"] = @"找回密码";
-//                    [APIHelper actionLog:logParams];
-//                }
-//                @catch (NSException *exception) {
-//                    NSLog(@"%@", exception);
-//                }
-//            });
-//            
-//        }
-//        else {
-//            // [self changLocalPwd:newPassword];
-//            [alert addButton:@"好的" actionBlock:^(void) {
-////                [self dismissViewControllerAnimated:YES completion:^{
-////                    self.webView.delegate = nil;
-////                    self.webView = nil;
-////                    self.bridge = nil;
-////                }];
-//            }];
-////            [alert showWarning:self title:@"温馨提示" subTitle:message closeButtonTitle:nil duration:0.0f];
-//        }
-//    }
-//}
-
-
 -(void)upTodata
 {
           NSString *userNum = PeopleString;
@@ -171,26 +113,8 @@ static  NSString *PhoneString;
                 SCLAlertView *alert = [[SCLAlertView alloc] init];
                 if ([reponse.statusCode isEqualToNumber:@(201)]) {
                     [alert addButton:@"重新登录" actionBlock:^(void){
-//                        [self dismissFindPwd];
                     }];
-//                    [alert showSuccess:self title:@"温馨提示" subTitle:message closeButtonTitle:nil duration:0.0f];
-//                    if (self.navigationController.navigationBarHidden) {
-//                        [self.navigationController setNavigationBarHidden:NO];
-//                    }
-                    
-                    
-                    [RMessage showNotificationInViewController:self.viewController
-                                                         title:message
-                                                      subtitle:nil
-                                                     iconImage:nil
-                                                          type:RMessageTypeSuccess
-                                                customTypeName:nil
-                                                      duration:RMessageDurationAutomatic
-                                                      callback:nil
-                                                   buttonTitle:nil
-                                                buttonCallback:nil
-                                                    atPosition:RMessagePositionNavBarOverlay
-                                          canBeDismissedByUser:YES];
+                    [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         /*
                          * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -204,35 +128,9 @@ static  NSString *PhoneString;
                             NSLog(@"%@", exception);
                         }
                     });
-
                 }
                 else {
-                    // [self changLocalPwd:newPassword];
-//                    [alert addButton:@"好的" actionBlock:^(void) {
-//                        [self dismissViewControllerAnimated:YES completion:^{
-//                            self.webView.delegate = nil;
-//                            self.webView = nil;
-//                            self.bridge = nil;
-//                        }];
-//                    }];
-//                    [alert showWarning:self title:@"温馨提示" subTitle:message closeButtonTitle:nil duration:0.0f];
-                    
-                    
-                    [RMessage showNotificationInViewController:self.viewController
-                                                         title:message
-                                                      subtitle:nil
-                                                     iconImage:nil
-                                                          type:RMessageTypeSuccess
-                                                customTypeName:nil
-                                                      duration:RMessageDurationAutomatic
-                                                      callback:nil
-                                                   buttonTitle:nil
-                                                buttonCallback:nil
-                                                    atPosition:RMessagePositionNavBarOverlay
-                                          canBeDismissedByUser:YES];
-
-                    
-                    
+                    [HudToolView showTopWithText:message color:[NewAppColor yhapp_11color]];
                 }
             }
 }

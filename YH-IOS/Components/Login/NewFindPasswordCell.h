@@ -17,9 +17,8 @@
 #import "HttpUtils.h"
 #import "User.h"
 #import "FileUtils+Assets.h"
-#import "RMessage.h"
-#import "RMessageView.h"
-@interface NewFindPasswordCell : UITableViewCell<RMessageProtocol>
+
+@interface NewFindPasswordCell : UITableViewCell
 @property (nonatomic, strong) UIView *navBar;
 @property (nonatomic, strong) UILabel *versionLabel;
 @property (nonatomic, strong) Version *version;

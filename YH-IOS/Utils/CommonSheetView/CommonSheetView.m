@@ -53,6 +53,11 @@
     [self.tableView reloadData];
 }
 
+- (void)setLastStringColor:(UIColor *)lastStringColor{
+    _lastStringColor = lastStringColor;
+    [self.tableView reloadData];
+}
+
 - (void)show{
     self.sl_popupController.layoutType = PopupLayoutTypeBottom;
     self.sl_popupController.transitStyle = PopupTransitStyleFromBottom;
@@ -79,12 +84,8 @@
     }
     cell.leftLab.text = self.dataList[indexPath.row];
     if (indexPath.section == 1) {
-        if (self.lastString) {
-            cell.leftLab.text = self.lastString;
-        }else{
-            cell.leftLab.text = @"取消";
-        }
-        cell.leftLab.textColor = [NewAppColor yhapp_3color];
+        cell.leftLab.text = self.lastString? :@"取消";
+        cell.leftLab.textColor = self.lastStringColor? : [NewAppColor yhapp_3color];
     }
     return cell;
 }

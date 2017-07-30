@@ -147,22 +147,6 @@
 		91AB66B01F28A2DB0077A0CF /* ThurSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66AF1F28A2DB0077A0CF /* ThurSayViewController.m */; };
 		91B70D5F1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */; };
 		91B70D681EF8C84600C02F16 /* JYSigleValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D671EF8C84600C02F16 /* JYSigleValueView.m */; };
-		91BA00511F2721A500943596 /* AlternativeDesigns.json in Resources */ = {isa = PBXBuildFile; fileRef = 91BA00241F2721A500943596 /* AlternativeDesigns.json */; };
-		91BA00521F2721A500943596 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA00261F2721A500943596 /* HexColors.m */; };
-		91BA005B1F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA00361F2721A500943596 /* UINavigationController+PPTopMostController.m */; };
-		91BA005C1F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA00381F2721A500943596 /* UITabBarController+PPTopMostController.m */; };
-		91BA005D1F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA003A1F2721A500943596 /* UIViewController+PPTopMostController.m */; };
-		91BA005E1F2721A500943596 /* NotificationBackgroundWarningIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91BA003E1F2721A500943596 /* NotificationBackgroundWarningIcon.png */; };
-		91BA005F1F2721A500943596 /* NotificationBackgroundWarningIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91BA003F1F2721A500943596 /* NotificationBackgroundWarningIcon@2x.png */; };
-		91BA00601F2721A500943596 /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 91BA00401F2721A500943596 /* NotificationButtonBackground.png */; };
-		91BA00611F2721A500943596 /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91BA00411F2721A500943596 /* NotificationButtonBackground@2x.png */; };
-		91BA00621F2721A500943596 /* RMessageDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 91BA00421F2721A500943596 /* RMessageDefaultDesign.json */; };
-		91BA00631F2721A500943596 /* RMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91BA00441F2721A500943596 /* RMessageView.xib */; };
-		91BA00641F2721A500943596 /* RMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA00461F2721A500943596 /* RMessage.m */; };
-		91BA00651F2721A500943596 /* RMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA00481F2721A500943596 /* RMessageView.m */; };
-		91BA00661F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004A1F2721A500943596 /* UINavigationController+PPTopMostController.m */; };
-		91BA00671F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */; };
-		91BA00681F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */; };
 		91BB7B861F29B592001934FA /* NewAppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B851F29B592001934FA /* NewAppColor.m */; };
 		91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F41F1F220400CD7159 /* JYAnimationTool.m */; };
 		91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F61F1F220400CD7159 /* JYCursor.m */; };
@@ -252,6 +236,8 @@
 		91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */; };
 		91EF8DEC1EF3DB1200333746 /* YHMutileveHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
+		B6627FEA1F2D7B0500296B72 /* NewMinepResetPwdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */; };
+		B6627FED1F2D93AC00296B72 /* NewMineQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6627FEC1F2D93AC00296B72 /* NewMineQuestionCell.m */; };
 		B67592801F29965200E89B65 /* NewMineQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B675927F1F29965200E89B65 /* NewMineQuestionController.m */; };
 		B67593631F29CBEE00E89B65 /* HWCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B675935D1F29CBEE00E89B65 /* HWCollectionViewCell.m */; };
 		B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B675935E1F29CBEE00E89B65 /* HWCollectionViewCell.xib */; };
@@ -961,37 +947,10 @@
 		91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHReportLeftTextTableViewCell.m; sourceTree = "<group>"; };
 		91B70D661EF8C84600C02F16 /* JYSigleValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSigleValueView.h; sourceTree = "<group>"; };
 		91B70D671EF8C84600C02F16 /* JYSigleValueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSigleValueView.m; sourceTree = "<group>"; };
-		91BA00241F2721A500943596 /* AlternativeDesigns.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesigns.json; sourceTree = "<group>"; };
-		91BA00251F2721A500943596 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
-		91BA00261F2721A500943596 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
-		91BA00271F2721A500943596 /* PPTopMostControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTopMostControllerProtocol.h; sourceTree = "<group>"; };
-		91BA00351F2721A500943596 /* UINavigationController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+PPTopMostController.h"; sourceTree = "<group>"; };
-		91BA00361F2721A500943596 /* UINavigationController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+PPTopMostController.m"; sourceTree = "<group>"; };
-		91BA00371F2721A500943596 /* UITabBarController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+PPTopMostController.h"; sourceTree = "<group>"; };
-		91BA00381F2721A500943596 /* UITabBarController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+PPTopMostController.m"; sourceTree = "<group>"; };
-		91BA00391F2721A500943596 /* UIViewController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PPTopMostController.h"; sourceTree = "<group>"; };
-		91BA003A1F2721A500943596 /* UIViewController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PPTopMostController.m"; sourceTree = "<group>"; };
-		91BA003E1F2721A500943596 /* NotificationBackgroundWarningIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundWarningIcon.png; sourceTree = "<group>"; };
-		91BA003F1F2721A500943596 /* NotificationBackgroundWarningIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundWarningIcon@2x.png"; sourceTree = "<group>"; };
-		91BA00401F2721A500943596 /* NotificationButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationButtonBackground.png; sourceTree = "<group>"; };
-		91BA00411F2721A500943596 /* NotificationButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationButtonBackground@2x.png"; sourceTree = "<group>"; };
-		91BA00421F2721A500943596 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RMessageDefaultDesign.json; sourceTree = "<group>"; };
-		91BA00441F2721A500943596 /* RMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMessageView.xib; sourceTree = "<group>"; };
-		91BA00451F2721A500943596 /* RMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMessage.h; sourceTree = "<group>"; };
-		91BA00461F2721A500943596 /* RMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMessage.m; sourceTree = "<group>"; };
-		91BA00471F2721A500943596 /* RMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMessageView.h; sourceTree = "<group>"; };
-		91BA00481F2721A500943596 /* RMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMessageView.m; sourceTree = "<group>"; };
-		91BA00491F2721A500943596 /* UINavigationController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+PPTopMostController.h"; sourceTree = "<group>"; };
-		91BA004A1F2721A500943596 /* UINavigationController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+PPTopMostController.m"; sourceTree = "<group>"; };
-		91BA004B1F2721A500943596 /* UITabBarController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+PPTopMostController.h"; sourceTree = "<group>"; };
-		91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+PPTopMostController.m"; sourceTree = "<group>"; };
-		91BA004D1F2721A500943596 /* UIViewController+PPTopMostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PPTopMostController.h"; sourceTree = "<group>"; };
-		91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PPTopMostController.m"; sourceTree = "<group>"; };
 		91BB7B841F29B592001934FA /* NewAppColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAppColor.h; sourceTree = "<group>"; };
 		91BB7B851F29B592001934FA /* NewAppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAppColor.m; sourceTree = "<group>"; };
 		91BB7B901F29C606001934FA /* UIWebView+CleanLayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+CleanLayerDelegate.h"; sourceTree = "<group>"; };
 		91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+CleanLayerDelegate.m"; sourceTree = "<group>"; };
-		91BB7BAC1F2B23C6001934FA /* YHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAPI.h; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -1152,6 +1111,10 @@
 		91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMutileveHeaderView.h; sourceTree = "<group>"; };
 		91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveHeaderView.m; sourceTree = "<group>"; };
 		91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHMutileveHeaderView.xib; sourceTree = "<group>"; };
+		B6627FE81F2D7B0500296B72 /* NewMinepResetPwdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMinepResetPwdCell.h; sourceTree = "<group>"; };
+		B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMinepResetPwdCell.m; sourceTree = "<group>"; };
+		B6627FEB1F2D93AC00296B72 /* NewMineQuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionCell.h; sourceTree = "<group>"; };
+		B6627FEC1F2D93AC00296B72 /* NewMineQuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineQuestionCell.m; sourceTree = "<group>"; };
 		B675927E1F29965200E89B65 /* NewMineQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionController.h; sourceTree = "<group>"; };
 		B675927F1F29965200E89B65 /* NewMineQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineQuestionController.m; sourceTree = "<group>"; };
 		B675935C1F29CBEE00E89B65 /* HWCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2367,6 +2330,10 @@
 				9118AEA11F26FF3600DD3FD3 /* UserAvaTableViewCell.h */,
 				9118AEA21F26FF3600DD3FD3 /* UserAvaTableViewCell.m */,
 				91DB247A1EEFA24A00FC8413 /* MineRequestListCell.xib */,
+				B6627FE81F2D7B0500296B72 /* NewMinepResetPwdCell.h */,
+				B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */,
+				B6627FEB1F2D93AC00296B72 /* NewMineQuestionCell.h */,
+				B6627FEC1F2D93AC00296B72 /* NewMineQuestionCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2378,56 +2345,6 @@
 				9169BC621F00FB9A00419E52 /* GuidePageViewController.m */,
 			);
 			name = GuideView;
-			sourceTree = "<group>";
-		};
-		91BA00231F2721A500943596 /* PPTopMostController-Files */ = {
-			isa = PBXGroup;
-			children = (
-				91BA00241F2721A500943596 /* AlternativeDesigns.json */,
-				91BA00251F2721A500943596 /* HexColors.h */,
-				91BA00261F2721A500943596 /* HexColors.m */,
-				91BA00271F2721A500943596 /* PPTopMostControllerProtocol.h */,
-				91BA00351F2721A500943596 /* UINavigationController+PPTopMostController.h */,
-				91BA00361F2721A500943596 /* UINavigationController+PPTopMostController.m */,
-				91BA00371F2721A500943596 /* UITabBarController+PPTopMostController.h */,
-				91BA00381F2721A500943596 /* UITabBarController+PPTopMostController.m */,
-				91BA00391F2721A500943596 /* UIViewController+PPTopMostController.h */,
-				91BA003A1F2721A500943596 /* UIViewController+PPTopMostController.m */,
-			);
-			path = "PPTopMostController-Files";
-			sourceTree = "<group>";
-		};
-		91BA003C1F2721A500943596 /* RMessage */ = {
-			isa = PBXGroup;
-			children = (
-				91BA003D1F2721A500943596 /* Assets */,
-				91BA00431F2721A500943596 /* Resources */,
-				91BA00451F2721A500943596 /* RMessage.h */,
-				91BA00461F2721A500943596 /* RMessage.m */,
-				91BA00471F2721A500943596 /* RMessageView.h */,
-				91BA00481F2721A500943596 /* RMessageView.m */,
-			);
-			path = RMessage;
-			sourceTree = "<group>";
-		};
-		91BA003D1F2721A500943596 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				91BA003E1F2721A500943596 /* NotificationBackgroundWarningIcon.png */,
-				91BA003F1F2721A500943596 /* NotificationBackgroundWarningIcon@2x.png */,
-				91BA00401F2721A500943596 /* NotificationButtonBackground.png */,
-				91BA00411F2721A500943596 /* NotificationButtonBackground@2x.png */,
-				91BA00421F2721A500943596 /* RMessageDefaultDesign.json */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		91BA00431F2721A500943596 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				91BA00441F2721A500943596 /* RMessageView.xib */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		91BB7B8C1F29C4F6001934FA /* Category */ = {
@@ -2780,6 +2697,26 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		B6627FE61F2D7A6F00296B72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */,
+				B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B6627FE71F2D7A8600296B72 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C4C628411C0C1ED6000AD5D8 /* LoginViewController.h */,
+				C4C628421C0C1ED6000AD5D8 /* LoginViewController.m */,
+				F691E5E21E28835C00BDC73E /* FindPasswordViewController.h */,
+				F691E5E31E28835C00BDC73E /* FindPasswordViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		B67592841F29C80400E89B65 /* NewPhotoSelector */ = {
 			isa = PBXGroup;
 			children = (
@@ -3025,7 +2962,6 @@
 				C49BB9AB1D8C2548004C9F70 /* Constant.h */,
 				912833001EE85A830071CE69 /* PrivateConstants.h */,
 				C49BB9A91D8C2538004C9F70 /* Constant.m */,
-				91BB7BAC1F2B23C6001934FA /* YHAPI.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -3151,20 +3087,8 @@
 		C4C628401C0C1ED6000AD5D8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				91BA00231F2721A500943596 /* PPTopMostController-Files */,
-				91BA003C1F2721A500943596 /* RMessage */,
-				91BA00491F2721A500943596 /* UINavigationController+PPTopMostController.h */,
-				91BA004A1F2721A500943596 /* UINavigationController+PPTopMostController.m */,
-				91BA004B1F2721A500943596 /* UITabBarController+PPTopMostController.h */,
-				91BA004C1F2721A500943596 /* UITabBarController+PPTopMostController.m */,
-				91BA004D1F2721A500943596 /* UIViewController+PPTopMostController.h */,
-				91BA004E1F2721A500943596 /* UIViewController+PPTopMostController.m */,
-				C4C628411C0C1ED6000AD5D8 /* LoginViewController.h */,
-				C4C628421C0C1ED6000AD5D8 /* LoginViewController.m */,
-				F691E5E21E28835C00BDC73E /* FindPasswordViewController.h */,
-				F691E5E31E28835C00BDC73E /* FindPasswordViewController.m */,
-				B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */,
-				B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */,
+				B6627FE71F2D7A8600296B72 /* Controller */,
+				B6627FE61F2D7A6F00296B72 /* View */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -4560,17 +4484,14 @@
 				91DB242D1EED7A3000FC8413 /* unSelect@2x.png in Resources */,
 				F624564A1EA5FACD006834D2 /* IQKeyboardManager.bundle in Resources */,
 				91DB242B1EED7A3000FC8413 /* select@2x.png in Resources */,
-				91BA005F1F2721A500943596 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				F62457591EA5FBB2006834D2 /* StackedBarChartViewController.xib in Resources */,
 				91D77F3D1EEAA61D007405A0 /* RightButtonTableViewCell.xib in Resources */,
 				3BAC8E921F284A8900A01A12 /* UMSCommentInputControlleriPad.xib in Resources */,
 				F62456C41EA5FB21006834D2 /* HomeIndexCollectionCellContentView.xib in Resources */,
 				C4EFE4B21C98F60A0009411A /* images.zip in Resources */,
 				F62456D81EA5FB21006834D2 /* YHMarkerV.xib in Resources */,
-				91BA00631F2721A500943596 /* RMessageView.xib in Resources */,
 				C46903941D5CC75F00233D05 /* BarCodeScan.zip in Resources */,
 				3B30EEE91F25F63200A702EC /* YHWarningNoticeCell.xib in Resources */,
-				91BA00621F2721A500943596 /* RMessageDefaultDesign.json in Resources */,
 				F62456BF1EA5FB21006834D2 /* ChartHudView.xib in Resources */,
 				F62456C71EA5FB21006834D2 /* HomeIndexDetailListCell.xib in Resources */,
 				C4EFE4B01C98F60A0009411A /* stylesheets.zip in Resources */,
@@ -4584,7 +4505,6 @@
 				3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */,
 				F62457391EA5FBB2006834D2 /* CubicLineChartViewController.xib in Resources */,
 				915A8D351F1E106000262311 /* report_v24.json in Resources */,
-				91BA005E1F2721A500943596 /* NotificationBackgroundWarningIcon.png in Resources */,
 				F63D4A081EB329A20004BCC8 /* SelectListVc.xib in Resources */,
 				91DB246E1EEE9A7200FC8413 /* CustomCell.xib in Resources */,
 				3BAC8E961F284A8900A01A12 /* UMSnsAccountViewController.xib in Resources */,
@@ -4616,7 +4536,6 @@
 				B6E7B35B1F29D2CE008B48BF /* MGroupCell.xib in Resources */,
 				91EF8DD91EF399F000333746 /* YHTopicCollectionViewCell.xib in Resources */,
 				F624573B1EA5FBB2006834D2 /* HalfPieChartViewController.xib in Resources */,
-				91BA00601F2721A500943596 /* NotificationButtonBackground.png in Resources */,
 				914465691F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib in Resources */,
 				B6E7B3591F29D2CE008B48BF /* none.png in Resources */,
 				B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */,
@@ -4624,7 +4543,6 @@
 				3BAC8E951F284A8900A01A12 /* UMSLoginViewController.xib in Resources */,
 				91DB242C1EED7A3000FC8413 /* select@3x.png in Resources */,
 				9114619F1EEA63B4006A35AF /* MineInfoTableViewCell.xib in Resources */,
-				91BA00511F2721A500943596 /* AlternativeDesigns.json in Resources */,
 				91DB242A1EED7A3000FC8413 /* back@2x.png in Resources */,
 				F62456C91EA5FB21006834D2 /* HomeIndexDetailListVC.xib in Resources */,
 				3BAC8E971F284A8900A01A12 /* UMSShareListController.xib in Resources */,
@@ -4640,7 +4558,6 @@
 				91DB247C1EEFA24A00FC8413 /* MineRequestListCell.xib in Resources */,
 				C4DB7D861C02EC0500DA534E /* LaunchScreen.storyboard in Resources */,
 				C4DB7D831C02EC0500DA534E /* Assets.xcassets in Resources */,
-				91BA00611F2721A500943596 /* NotificationButtonBackground@2x.png in Resources */,
 				F624573D1EA5FBB2006834D2 /* HorizontalBarChartViewController.xib in Resources */,
 				3B763AED1F262CF700D5E965 /* Test.plist in Resources */,
 				F62456D51EA5FB21006834D2 /* YH_ScrollTitleLineAndBarVC.xib in Resources */,
@@ -4733,7 +4650,6 @@
 				3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */,
 				91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */,
 				F62457E51EA5FD01006834D2 /* DataManager.m in Sources */,
-				91BA005D1F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */,
 				C4DB7DC21C02EE3800DA534E /* ExtendNSLogFunctionality.m in Sources */,
 				F62456CA1EA5FB21006834D2 /* HomeIndexItemModel.m in Sources */,
 				B6E7B35C1F29D2CE008B48BF /* MImaCell.m in Sources */,
@@ -4743,7 +4659,6 @@
 				F62456D21EA5FB21006834D2 /* YH_BarView.m in Sources */,
 				3B717DB01F287A8800858E0E /* UIView+SDExtension.m in Sources */,
 				F62456411EA5FACD006834D2 /* IQUIWindow+Hierarchy.m in Sources */,
-				91BA00651F2721A500943596 /* RMessageView.m in Sources */,
 				F62456C61EA5FB21006834D2 /* HomeIndexDetailListCell.m in Sources */,
 				912833111EE868A50071CE69 /* Person.m in Sources */,
 				9118AEA31F26FF3600DD3FD3 /* UserAvaTableViewCell.m in Sources */,
@@ -4782,7 +4697,6 @@
 				91DB24531EEE4D3900FC8413 /* MessageNotice.m in Sources */,
 				91D3640E1F1F220400CD7159 /* JYRootScrollViewManager.m in Sources */,
 				915A8D121F1E0BA500262311 /* JYSingleValueModel.m in Sources */,
-				91BA005B1F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */,
 				F62457401EA5FBB2006834D2 /* LineChart2ViewController.m in Sources */,
 				B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */,
 				91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */,
@@ -4808,7 +4722,6 @@
 				F68C25981EC2D44F0069C041 /* JYWaterLayout.m in Sources */,
 				3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */,
 				F62456C51EA5FB21006834D2 /* HomeIndexCollectionVC.m in Sources */,
-				91BA00681F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */,
 				C48924EA1D858F0A00859411 /* SwitchTableViewCell.m in Sources */,
 				91DB244B1EED7CA700FC8413 /* PhotoRevealCell.m in Sources */,
 				F624563D1EA5FACD006834D2 /* IQUIScrollView+Additions.m in Sources */,
@@ -4837,6 +4750,7 @@
 				F62457E41EA5FD01006834D2 /* CommonTableViewCell.m in Sources */,
 				F624564B1EA5FACD006834D2 /* CommonAlertView.m in Sources */,
 				F62456DD1EA5FB3F006834D2 /* DemoListViewController.m in Sources */,
+				B6627FED1F2D93AC00296B72 /* NewMineQuestionCell.m in Sources */,
 				91DB24851EF0DD0900FC8413 /* MyQuestion.m in Sources */,
 				C4DB7DC31C02EE3800DA534E /* FileUtils.m in Sources */,
 				C49E1AB71C196B5400CFFE3C /* ViewUtils.m in Sources */,
@@ -4850,7 +4764,6 @@
 				F624574E1EA5FBB2006834D2 /* PiePolylineChartViewController.m in Sources */,
 				F68C25AA1EC2D4670069C041 /* JYBaseModel.m in Sources */,
 				F62457541EA5FBB2006834D2 /* ScatterChartViewController.m in Sources */,
-				91BA00661F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */,
 				3B4F9C581F29B24E0096256D /* BusinessGeneralCell.m in Sources */,
 				C4DB7D781C02EC0500DA534E /* main.m in Sources */,
 				F63D4A1A1EB32A3F0004BCC8 /* RTDragCellTableView.m in Sources */,
@@ -4894,6 +4807,7 @@
 				F62457EA1EA5FD01006834D2 /* TableViewAndCollectionPackage.m in Sources */,
 				F62456401EA5FACD006834D2 /* IQUIViewController+Additions.m in Sources */,
 				91DB24451EED7A3000FC8413 /* PhotoGroupViewController.m in Sources */,
+				B6627FEA1F2D7B0500296B72 /* NewMinepResetPwdCell.m in Sources */,
 				B6E7B3601F29D2CE008B48BF /* MShowGroupAllSet.m in Sources */,
 				C48924E71D858F0A00859411 /* OneButtonTableViewCell.m in Sources */,
 				915A8D0D1F1E0BA500262311 /* JYInfoModel.m in Sources */,
@@ -4986,7 +4900,6 @@
 				914F3F211EE92BCE004B2C25 /* MineController.m in Sources */,
 				91BB7B861F29B592001934FA /* NewAppColor.m in Sources */,
 				915A8CD81F1E0B9400262311 /* JYBannerView.m in Sources */,
-				91BA00671F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */,
 				F62457B91EA5FC24006834D2 /* TCBaseAppDelegate.mm in Sources */,
 				F62457A91EA5FBE1006834D2 /* UIViewController+Category.m in Sources */,
 				F68C25951EC2D44F0069C041 /* JYSaleView.m in Sources */,
@@ -5011,7 +4924,6 @@
 				F62457321EA5FBB1006834D2 /* CandleStickChartViewController.m in Sources */,
 				C4C628431C0C1ED6000AD5D8 /* SubjectViewController.m in Sources */,
 				915A8D0E1F1E0BA500262311 /* JYMainDataModel.m in Sources */,
-				91BA00641F2721A500943596 /* RMessage.m in Sources */,
 				F68C25931EC2D44F0069C041 /* JYPercentCircelView.m in Sources */,
 				F68C25E01EC2D4790069C041 /* JYNotifyView.m in Sources */,
 				B6E7B3581F29D2CE008B48BF /* JJPhotoManeger.m in Sources */,
@@ -5079,7 +4991,6 @@
 				914F3F2A1EE92C08004B2C25 /* NoticeTableViewController.m in Sources */,
 				F62456BC1EA5FB21006834D2 /* ChartHeaderViewCell.m in Sources */,
 				915A8CF01F1E0B9400262311 /* JYSubSheetView.m in Sources */,
-				91BA005C1F2721A500943596 /* UITabBarController+PPTopMostController.m in Sources */,
 				91AB66A31F28A1F60077A0CF /* MineResetPwdViewController.m in Sources */,
 				B67593631F29CBEE00E89B65 /* HWCollectionViewCell.m in Sources */,
 				91D364101F1F220400CD7159 /* JYSortButton.m in Sources */,
@@ -5093,7 +5004,6 @@
 				C46F6A9B1D0673AB00C561CE /* MyQRViewController.m in Sources */,
 				C4C284E61D06BB1A009458E6 /* ScanResultViewController.m in Sources */,
 				3B763AEA1F26109F00D5E965 /* NoticeWarningModel.m in Sources */,
-				91BA00521F2721A500943596 /* HexColors.m in Sources */,
 				C4EFE4BF1C99812B0009411A /* WKWebViewJavascriptBridge.m in Sources */,
 				91D77F161EEA8746007405A0 /* UserCountView.m in Sources */,
 				91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */,
