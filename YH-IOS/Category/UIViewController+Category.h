@@ -24,4 +24,8 @@
 //返回上级视图
 - (void)backTo;
 
+- (void)presentViewController:(UIViewController*)vc
+                          nav:(BOOL)nav
+                       finish:(CommonBack)finish;
+
 @end

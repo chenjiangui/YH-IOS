@@ -12,6 +12,18 @@
 
 @implementation UIViewController (Category)
 
+
+- (void)presentViewController:(UIViewController *)vc nav:(BOOL)nav finish:(CommonBack)finish{
+    if (nav) {
+        vc = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    }
+    [self presentViewController:vc animated:YES completion:^{
+        if (finish) {
+            finish(nil);
+        }
+    }];
+}
+
 #pragma mark - view life circle
 - (void)viewDidLoadCustom{
     //autoresize

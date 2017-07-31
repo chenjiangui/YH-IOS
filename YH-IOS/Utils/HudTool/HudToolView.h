@@ -21,6 +21,7 @@ typedef enum : NSUInteger {
 - (instancetype)initWithViewType:(HudToolViewType)viewType;
 
 
++ (void)removeInView:(UIView*)view viewType:(HudToolViewType)viewType;
 // view nil为window
 + (void)showLoadingInView:(UIView*)view;
 + (void)hideLoadingInView:(UIView*)view;

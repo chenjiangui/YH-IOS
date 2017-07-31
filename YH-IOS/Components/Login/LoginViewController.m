@@ -511,19 +511,19 @@
         if (self.navigationController.navigationBarHidden) {
             [self.navigationController setNavigationBarHidden:NO];
         }
-        
-        [RMessage showNotificationInViewController:self.navigationController
-                                             title:msg
-                                          subtitle:nil
-                                         iconImage:nil
-                                              type:RMessageTypeError
-                                    customTypeName:nil
-                                          duration:RMessageDurationAutomatic
-                                          callback:nil
-                                       buttonTitle:nil
-                                    buttonCallback:nil
-                                        atPosition:RMessagePositionNavBarOverlay
-                              canBeDismissedByUser:YES];
+        [HudToolView showTopWithText:msg correct:false];
+//        [RMessage showNotificationInViewController:self.navigationController
+//                                             title:msg
+//                                          subtitle:nil
+//                                         iconImage:nil
+//                                              type:RMessageTypeError
+//                                    customTypeName:nil
+//                                          duration:RMessageDurationAutomatic
+//                                          callback:nil
+//                                       buttonTitle:nil
+//                                    buttonCallback:nil
+//                                        atPosition:RMessagePositionNavBarOverlay
+//                              canBeDismissedByUser:YES];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             // 用户行为记录, 单独异常处理，不可影响用户体验

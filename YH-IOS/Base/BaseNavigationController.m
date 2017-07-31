@@ -60,9 +60,9 @@
 
 - (void)customBackItem:(UIViewController *)viewController {
     if ([self.viewControllers count] > 1) {
-       // UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
-       // UIBarButtonItem *button = [UIBarButtonItem createBarButtonItemWithString:@"返回" font:14 color:[UIColor whiteColor] target:self action:@selector(backAction)];
-       // viewController.navigationItem.leftBarButtonItem = item;
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav_back-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+//        UIBarButtonItem *button = [UIBarButtonItem createBarButtonItemWithString:@"返回" font:14 color:[UIColor whiteColor] target:self action:@selector(backAction)];
+        viewController.navigationItem.leftBarButtonItem = item;
     }
 }
 

@@ -30,6 +30,7 @@
 #import "LogoutTableViewCell.h"
 #import "NewMineResetPwdController.h"
 #import "NewMineQuestionController.h"
+#import "MyFavArticleController.h"
 
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
 {
@@ -90,6 +91,7 @@
 }
 
 - (CommonSheetView *)favSheetView{
+    if (!_favSheetView) {
         _favSheetView = [[CommonSheetView alloc] initWithDataList:@[@"确认退出"]];
         _favSheetView.lastString = @"取消";
         _favSheetView.colors = @[[NewAppColor yhapp_17color]];
@@ -97,9 +99,10 @@
         _favSheetView.selectBlock = ^(NSNumber* item) {
             [weakSelf.favSheetView hide];
             if (item.integerValue == 0) {
-               [weakSelf jumpToLogin];
+                [weakSelf jumpToLogin];
             }
         };
+    }
     return _favSheetView;
 }
 
@@ -332,6 +335,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ((indexPath.section == 3 ) && (indexPath.row == 1)) {
 //        MineResetPwdViewController *mineResetPwdCtrl = [[MineResetPwdViewController alloc]init];
         
@@ -354,6 +358,9 @@
         MineSingleSettingViewController *settingCtrl = [[MineSingleSettingViewController alloc]init];
         settingCtrl.title = @"设置";
         [RootNavigationController pushViewController:settingCtrl animated:YES hideBottom:YES];
+    }else if (indexPath.section == 2){
+        MyFavArticleController* vc = [[MyFavArticleController alloc] init];
+        [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
     }
 }
 

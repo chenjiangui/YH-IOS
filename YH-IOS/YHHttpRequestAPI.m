@@ -12,7 +12,6 @@
 #import "ArticlesModel.h"
 #import "YHKPIModel.h"
 #import "ToolModel.h"
-#import "ListPage.h"
 
 @implementation YHHttpRequestAPI
 
@@ -95,12 +94,11 @@
     }];
 }
 
-+(void)yh_getReportListFininsh:(YHHttpRequestBlock)finish{
-    NSString *url =  [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,self.user.groupID,self.user.roleID];
++ (void)yh_getFavArticleListPage:(NSInteger)page Finish:(YHHttpRequestBlock)finish{
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/page/%zd/limit/%@/favourite_articles",kBaseUrl,self.user.userID,page,defaultLimit];
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
-        NSArray *dic = [[NSJSONSerialization JSONObjectWithData:response options:0 error:NULL] objectForKey:@"data"];
-        NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-        finish(requestSuccess,array,responseJson);
+        ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
+        finish(requestSuccess,model,responseJson);
     }];
 }
 

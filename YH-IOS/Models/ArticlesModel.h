@@ -26,5 +26,7 @@
 
 @property (nonatomic, strong) NSString* tagInfo;
 
+@property (nonatomic, strong) NSString* acticleId;
+
 
 @end
