@@ -131,6 +131,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 50;
+        _tableView.bounces = false;
     }
     return _tableView;
 }
