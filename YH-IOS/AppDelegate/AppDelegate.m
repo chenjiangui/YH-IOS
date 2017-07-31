@@ -26,6 +26,7 @@
 #import "iflyMSC/IFlySpeechUtility.h"
 #import <UserNotifications/UserNotifications.h>
 #import "GuidePageViewController.h"
+#import <Bugly/Bugly.h>
 
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -89,6 +90,7 @@ void UncaughtExceptionHandler(NSException * exception) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _isReApp = YES;
+    [self registerAppSDK];
     // [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"receiveRemote"];
     // 获取版本号
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -169,6 +171,11 @@ void UncaughtExceptionHandler(NSException * exception) {
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     return YES;
+}
+
+// 注册第三方SDK
+-(void)registerAppSDK {
+    [Bugly startWithAppId:kBUGLYID];
 }
 
 - (void)savePushDict:(NSDictionary *)dict {

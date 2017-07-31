@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YHBaseViewController.h"
 
-@interface MineInfoViewController : YHBaseViewController
+#define RootNavigationController [YHBaseViewController getRootNavController]
+
+@interface MineInfoViewController : UIViewController
 
 @property (nonatomic, strong) RACCommand *requestCommane;
 

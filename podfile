@@ -28,4 +28,5 @@ target 'YH-IOS' do
     pod 'MRProgress'
     pod ‘Mantle’, ‘~>2.1.0’
     pod ‘ReactiveObjC’
+    pod 'Bugly'
 end
