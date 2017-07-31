@@ -49,6 +49,9 @@
             }
         }
     }
+    if (viewType == HudToolViewTypeTopText) {
+        [UIApplication sharedApplication].keyWindow.windowLevel = UIWindowLevelNormal;
+    }
 }
 
 - (void)layoutSubviews{
@@ -72,10 +75,11 @@
 }
 
 + (void)showTopWithText:(NSString *)text color:(UIColor *)color{
-    UIView* view = [self getTrueView:nil];
+    UIWindow* view = (UIWindow*)[self getTrueView:nil];
     [self removeInView:view viewType:HudToolViewTypeTopText];
     HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeTopText];
     hud.frame = view.bounds;
+    view.windowLevel = UIWindowLevelStatusBar;
     hud.textLab.text = text;
     hud.contentView.backgroundColor = color;
     [view addSubview:hud];
@@ -93,7 +97,7 @@
 }
 
 + (void)showTopWithText:(NSString *)text correct:(BOOL)correct{
-    [self showTopWithText:text color:correct ? [[NewAppColor yhapp_1color] colorWithAlphaComponent:0.95]: [[NewAppColor yhapp_11color] colorWithAlphaComponent:0.95]];
+    [self showTopWithText:text color:correct ? [[NewAppColor yhapp_1color] colorWithAlphaComponent:0.5]: [[NewAppColor yhapp_11color] colorWithAlphaComponent:0.5]];
 }
 
 #pragma mark - loadingType
