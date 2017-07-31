@@ -378,9 +378,6 @@ static NSString *headerViewIdentifier = @"hederview";
 
 #pragma mark <UICollectionViewDataSource>
 
-
-
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 return 1;
 }

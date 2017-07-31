@@ -236,6 +236,7 @@
 		91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */; };
 		91EF8DEC1EF3DB1200333746 /* YHMutileveHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
+		B62DD12A1F2EE05500B7E8EB /* NewSubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B62DD1291F2EE05500B7E8EB /* NewSubjectViewController.m */; };
 		B6627FEA1F2D7B0500296B72 /* NewMinepResetPwdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */; };
 		B6627FED1F2D93AC00296B72 /* NewMineQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6627FEC1F2D93AC00296B72 /* NewMineQuestionCell.m */; };
 		B67592801F29965200E89B65 /* NewMineQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B675927F1F29965200E89B65 /* NewMineQuestionController.m */; };
@@ -1111,6 +1112,8 @@
 		91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMutileveHeaderView.h; sourceTree = "<group>"; };
 		91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveHeaderView.m; sourceTree = "<group>"; };
 		91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHMutileveHeaderView.xib; sourceTree = "<group>"; };
+		B62DD1281F2EE05500B7E8EB /* NewSubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSubjectViewController.h; sourceTree = "<group>"; };
+		B62DD1291F2EE05500B7E8EB /* NewSubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSubjectViewController.m; sourceTree = "<group>"; };
 		B6627FE81F2D7B0500296B72 /* NewMinepResetPwdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMinepResetPwdCell.h; sourceTree = "<group>"; };
 		B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMinepResetPwdCell.m; sourceTree = "<group>"; };
 		B6627FEB1F2D93AC00296B72 /* NewMineQuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionCell.h; sourceTree = "<group>"; };
@@ -3068,6 +3071,8 @@
 				C4C6283C1C0C1ED6000AD5D8 /* SubjectViewController.m */,
 				918302611F1B98690039B8CD /* SubjectOutterViewController.h */,
 				918302621F1B98690039B8CD /* SubjectOutterViewController.m */,
+				B62DD1281F2EE05500B7E8EB /* NewSubjectViewController.h */,
+				B62DD1291F2EE05500B7E8EB /* NewSubjectViewController.m */,
 			);
 			name = Subject;
 			path = Chart;
@@ -4898,6 +4903,7 @@
 				C4DB7DB01C02EC3D00DA534E /* AppDelegate.m in Sources */,
 				C4CF3B581C1AC75C00F58E1E /* CommentViewController.m in Sources */,
 				914F3F211EE92BCE004B2C25 /* MineController.m in Sources */,
+				B62DD12A1F2EE05500B7E8EB /* NewSubjectViewController.m in Sources */,
 				91BB7B861F29B592001934FA /* NewAppColor.m in Sources */,
 				915A8CD81F1E0B9400262311 /* JYBannerView.m in Sources */,
 				F62457B91EA5FC24006834D2 /* TCBaseAppDelegate.mm in Sources */,

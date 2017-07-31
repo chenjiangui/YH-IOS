@@ -20,7 +20,7 @@
 #import "YHScanStoreViewController.h"
 #import "SubjectOutterViewController.h"
 #import "JYDemoViewController.h"
-
+#import "NewSubjectViewController.h"
 @interface YHReportViewController ()
 {
     NSMutableArray * _list;
@@ -203,15 +203,20 @@
                 }
             });
             if (isInnerLink) {
-                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                //  UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 
-                SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                subjectView.bannerName = item.listName;
-                subjectView.link = targeturl;
-                subjectView.commentObjectType = ObjectTypeAnalyse;
-                subjectView.objectID = @(item.itemID);
-                UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-                [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                // SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+                dispatch_async_on_main_queue(^{
+                    NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
+                    subjectView.bannerName = item.listName;
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeAnalyse;
+                    subjectView.objectID = @(item.itemID);
+                    BaseNavigationController *subCtrl = [[BaseNavigationController alloc]initWithRootViewController:subjectView];
+                    [weakSelf presentViewController:subCtrl animated:YES completion:nil];
+
+                });
+                
             }
             else{
                 
