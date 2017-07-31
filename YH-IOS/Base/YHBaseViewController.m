@@ -104,8 +104,15 @@
 
 - (void)pushViewController:(UIViewController *)vc animation:(BOOL)needAnimation hideBottom:(BOOL)hideBottom{
     [vc setHidesBottomBarWhenPushed:hideBottom];
-    [self.navigationController pushViewController:vc animated:needAnimation];
+    if (vc.navigationController) {
+         [self.navigationController pushViewController:vc animated:needAnimation];
+    }else{
+        if (RootNavigationController) {
+            [RootNavigationController pushViewController:vc animated:needAnimation hideBottom:hideBottom];
+        }
+    }
 }
+
 
 - (void)popNeedAnimation:(BOOL)needAnimation{
     [self.navigationController popViewControllerAnimated:needAnimation];

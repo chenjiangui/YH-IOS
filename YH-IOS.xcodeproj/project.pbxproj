@@ -45,6 +45,7 @@
 		3B763B191F27154D00D5E965 /* YHInstituteListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763B171F27154D00D5E965 /* YHInstituteListCell.m */; };
 		3B763B1A1F27154D00D5E965 /* YHInstituteListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B763B181F27154D00D5E965 /* YHInstituteListCell.xib */; };
 		3B763B1D1F2724F400D5E965 /* ArticlesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763B1C1F2724F400D5E965 /* ArticlesModel.m */; };
+		3B843C751F2EFEE000463EA5 /* MyFavArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B843C741F2EFEE000463EA5 /* MyFavArticleController.m */; };
 		3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E171F284A8900A01A12 /* UMSocialLocalizable.strings */; };
 		3BAC8E8E1F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E251F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a */; };
 		3BAC8E8F1F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E261F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a */; };
@@ -741,6 +742,8 @@
 		3B763B181F27154D00D5E965 /* YHInstituteListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHInstituteListCell.xib; sourceTree = "<group>"; };
 		3B763B1B1F2724F400D5E965 /* ArticlesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlesModel.h; sourceTree = "<group>"; };
 		3B763B1C1F2724F400D5E965 /* ArticlesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlesModel.m; sourceTree = "<group>"; };
+		3B843C731F2EFEE000463EA5 /* MyFavArticleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavArticleController.h; sourceTree = "<group>"; };
+		3B843C741F2EFEE000463EA5 /* MyFavArticleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavArticleController.m; sourceTree = "<group>"; };
 		3BAC8E181F284A8900A01A12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
 		3BAC8E1A1F284A8900A01A12 /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
 		3BAC8E1B1F284A8900A01A12 /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
@@ -2254,6 +2257,8 @@
 				3B763B161F27154D00D5E965 /* YHInstituteListCell.h */,
 				3B763B171F27154D00D5E965 /* YHInstituteListCell.m */,
 				3B763B181F27154D00D5E965 /* YHInstituteListCell.xib */,
+				3B843C731F2EFEE000463EA5 /* MyFavArticleController.h */,
+				3B843C741F2EFEE000463EA5 /* MyFavArticleController.m */,
 			);
 			name = Institute;
 			sourceTree = "<group>";
@@ -4802,6 +4807,7 @@
 				3B4F9C501F298E150096256D /* ManageWarningItemCell.m in Sources */,
 				F62456C51EA5FB21006834D2 /* HomeIndexCollectionVC.m in Sources */,
 				91BA00681F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */,
+				3B843C751F2EFEE000463EA5 /* MyFavArticleController.m in Sources */,
 				C48924EA1D858F0A00859411 /* SwitchTableViewCell.m in Sources */,
 				91DB244B1EED7CA700FC8413 /* PhotoRevealCell.m in Sources */,
 				F624563D1EA5FACD006834D2 /* IQUIScrollView+Additions.m in Sources */,
@@ -4945,9 +4951,7 @@
 				91DB24461EED7A3000FC8413 /* PhotoNavigationController.m in Sources */,
 				91DB24401EED7A3000FC8413 /* UIView+leoAdd.m in Sources */,
 				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
-				B6E7B3541F29D2CE008B48BF /* MHeadImaView.m in Sources */,
 				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
-				91BB7B921F29C606001934FA /* UIWebView+CleanLayerDelegate.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
