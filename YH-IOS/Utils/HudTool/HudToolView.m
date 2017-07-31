@@ -78,26 +78,34 @@
     UIWindow* view = (UIWindow*)[self getTrueView:nil];
     [self removeInView:view viewType:HudToolViewTypeTopText];
     HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeTopText];
-    hud.frame = view.bounds;
-    view.windowLevel = UIWindowLevelStatusBar;
+    hud.frame = CGRectMake(0, 0, view.width, 44);
+    view.windowLevel = UIWindowLevelAlert;
     hud.textLab.text = text;
     hud.contentView.backgroundColor = color;
+    hud.alpha = 0.2;
     [view addSubview:hud];
-    [UIView animateWithDuration:0.6 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         hud.contentView.top = 0;
+        hud.alpha = 1;
     } completion:^(BOOL finished) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.6 animations:^{
-                hud.contentView.top = -44;
-            } completion:^(BOOL finished) {
-                [self removeInView:nil viewType:HudToolViewTypeTopText];
-            }];
-        });
+        if (hud.superview) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:0.3 animations:^{
+                    hud.contentView.top = -44;
+                    hud.alpha = 0.2;
+                } completion:^(BOOL finished) {
+                    if (hud.superview) {
+                        [self removeInView:nil viewType:HudToolViewTypeTopText];
+                    }
+                }];
+            });
+
+        }
     }];
 }
 
 + (void)showTopWithText:(NSString *)text correct:(BOOL)correct{
-    [self showTopWithText:text color:correct ? [[NewAppColor yhapp_1color] colorWithAlphaComponent:0.5]: [[NewAppColor yhapp_11color] colorWithAlphaComponent:0.5]];
+    [self showTopWithText:text color:correct ? [NewAppColor yhapp_1color]: [NewAppColor yhapp_11color]];
 }
 
 #pragma mark - loadingType
