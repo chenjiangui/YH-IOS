@@ -68,17 +68,24 @@
     secondArray = @[user.groupName,user.userNum];
     seconImageArray = @[@"list_ic_set"];
      [self setupTableView];
-    // Do any additional setup after loading the view.
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
     [self BindDate];
+    [self getData];
+}
+
+
+-(void)getData{
     RACSignal *requestSingal = [self.requestCommane execute:nil];
     [requestSingal subscribeNext:^(NSDictionary *x) {
-        
         self.userDict = [x copy];
+        [self.minetableView.mj_header endRefreshing];
         [self.minetableView reloadData];
     }];
 }
@@ -133,6 +140,9 @@
     self.minetableView.delegate = self;
     self.minetableView.dataSource = self;
     self.minetableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.minetableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getData];
+    }];
    // UINib *mineInfoCell = [UINib nibWithNibName:@"MineInfoTableViewCell" bundle:nil];
     //[self.minetableView registerNib:mineInfoCell forCellReuseIdentifier:@"MineInfoTableViewCell"];
    // self.minetableView.tableFooterView = [self LogoutFooterView];
@@ -390,6 +400,7 @@
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:kLoginVCName];
     self.view.window.rootViewController = loginViewController;
 }
+
 
 
 - (void)didReceiveMemoryWarning {

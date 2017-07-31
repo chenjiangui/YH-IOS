@@ -86,4 +86,11 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
                           Finish:(YHHttpRequestBlock)finish;
 
 
+/**
+ 获取报表页面公告列表
+ 
+ @param finish finish description
+ */
++(void)yh_getReportListFininsh:(YHHttpRequestBlock)finish;
+
 @end
