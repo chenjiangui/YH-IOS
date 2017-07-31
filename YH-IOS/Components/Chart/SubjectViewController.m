@@ -478,6 +478,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [weakSelf displayBannerTitleAndSearchIcon];
         }
     }];
+    
+    
+    
      /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
          if ([data[@"state"] isEqualToString:@"show"]) {
              [self.navigationController.navigationBar setHidden:NO];

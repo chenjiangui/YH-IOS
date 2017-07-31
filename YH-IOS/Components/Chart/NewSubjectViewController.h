@@ -13,7 +13,7 @@
 #import "APIHelper.h"
 #import "FileUtils+Assets.h"
 #import <MBProgressHUD.h>
-#import "WebViewJavascriptBridge.h"
+//#import "WebViewJavascriptBridge.h"
 //use wkwebview
 #import "UMSocialControllerService.h"
 #import "WKWebViewJavascriptBridge.h"

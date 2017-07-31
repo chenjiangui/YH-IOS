@@ -69,26 +69,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     // Do any additional setup after loading the view.
     self.user = [[User alloc] init];
     self.browser = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)];
+    self.browser.layer.borderColor = [UIColor whiteColor].CGColor;
+    // self.browser.scrollView.bounces = NO;
+    self.view.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.navigationController.navigationBar.layer.borderColor = [UIColor whiteColor].CGColor;
+    //self.navigationController.navigationBar.c;
     [self.view addSubview:_browser];
-    [self.browser mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
-    }];
-    self.browser.UIDelegate = self;
-    self.browser.navigationDelegate = self;
-    
-    [WKWebViewJavascriptBridge enableLogging];
-    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"SubjectViewController - Response for message from ObjC");
-    }];
-    [self addWebViewJavascriptBridge];
-    
-//    self.browser.layer.borderColor = [UIColor whiteColor].CGColor;
-//    // self.browser.scrollView.bounces = NO;
-//    self.view.layer.borderColor = [UIColor whiteColor].CGColor;
-//    self.navigationController.navigationBar.layer.borderColor = [UIColor whiteColor].CGColor;
-//    //self.navigationController.navigationBar.c;
-    self.browser.backgroundColor = [UIColor yellowColor];
-//    self.navigationController.navigationBar.translucent = NO;
+    self.browser.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
     self.sharedPath = [FileUtils sharedPath];
     if(self.user.userID) {
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];
@@ -96,6 +84,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
     
     [self startLocation];
+    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
     [self hiddenShadow];
     
@@ -103,6 +92,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * 被始化页面样式
      */
     //[self idColor];
+    self.tabBarController.tabBar.hidden = YES;
     //self.bannerName = self.bannerName;
     /**
      * 服务器内链接需要做缓存、点击事件处理；
@@ -112,8 +102,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     // navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
     //[self.view addSubview:self.browser];
-
-//    self.browser.allowsBackForwardNavigationGestures = YES;
+    self.browser.UIDelegate = self;
 //    self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
@@ -129,10 +118,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  外部链接，支持手势放大缩小
          */
 //        self.browser.scalesPageToFit = YES;
-//        self.browser.contentMode = UIViewContentModeScaleAspectFit;
+        self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
     //[self idColor];
-
+    [WKWebViewJavascriptBridge enableLogging];
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        responseCallback(@"SubjectViewController - Response for message from ObjC");
+    }];
+    [self addWebViewJavascriptBridge];
 }
 - (BOOL)prefersStatusBarHidden {
     return NO;
@@ -184,11 +177,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self isLoadHtmlFromService];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
-- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0)){
 
-    [webView reload];
-
-}
 
 //解决 uinavigationBar 透明之后出现黑线
 - (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
@@ -263,9 +252,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             // needed later.
             // Add code to clean up other strong references to the view in
             // the view hierarchy.
-//            self.browser=nil;
-//            [self.view removeAllSubviews];
-//            [self.browser removeAllSubviews];
+            self.browser=nil;
+            [self.view removeAllSubviews];
+            [self.browser removeAllSubviews];
+            
             self.view = nil;// 目的是再次进入时能够重新加载调用viewDidLoad函数。
         }
     }
@@ -584,7 +574,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self showLoading:LoadingRefresh];
         }
         else {
-            [self.browser loadHTMLString:htmlContent baseURL:nil];
+            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
         }
     }
 }
@@ -804,7 +794,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         responseCallback(selectedItem);
     }];
-    
+ 
     [self.bridge registerHandler:@"showAlert" handler:^(id data, WVJBResponseCallback responseCallback){
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:data[@"title"]
                                                                        message:data[@"content"]
@@ -862,6 +852,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         [alert addButton:kIAlreadyKnownText actionBlock:^(void) {
             [self jumpToLogin];
         }];
+        
         [alert showError:self title:kWarningTitleText subTitle:kAppForbiedUseText closeButtonTitle:nil duration:0.0f];
     }
     else {
@@ -870,6 +861,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         });
     }
 }
+
 - (void)loadOuterLink {
     
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
@@ -879,24 +871,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
     
     NSLog(@"%@", self.urlString);
-    
-   [self.browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
-    
-    [self webViewWebContentProcessDidTerminate:self.browser];
-
-//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
-//    [request addValue:@"skey=skeyValue" forHTTPHeaderField:@"Cookie"];
-//    [self.browser loadRequest:request];
-  
-//    self.isLoadFinish = !self.browser.isLoading;
-    
-//    WKUserContentController* userContentController = [WKUserContentController new];
-//    WKUserScript * cookieScript = [[WKUserScript alloc] initWithSource: @"document.cookie = 'skey=skeyValue';" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-//    
-//    [userContentController addUserScript:cookieScript];
-    
-    
-    
+    [self.browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
+    self.isLoadFinish = !self.browser.isLoading;
 }
 
 - (void)loadInnerLink {
@@ -951,8 +927,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         });
     });
 }
-
-
 - (void)displayBannerTitleAndSearchIcon {
     self.btnSearch.hidden = NO;
     
