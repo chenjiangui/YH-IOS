@@ -232,6 +232,23 @@
                 }
             });
             if (isInnerLink) {
+                logParams[kActionALCName]   = @"点击/专题/报表";
+                //logParams[kObjIDALCName]    = @(item.itemID);
+                //logParams[kObjTypeALCName]  = @(ObjectTypeApp);
+                // logParams[kObjTitleALCName] =  item.listName;
+                /*
+                 * 用户行为记录, 单独异常处理，不可影响用户体验
+                 */
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    @try {
+                        [APIHelper actionLog:logParams];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"%@", exception);
+                    }
+                });
+
+
                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 
                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
@@ -243,7 +260,23 @@
                 [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
             }
             else{
-                
+
+                logParams[kActionALCName]   = @"点击/专题/链接";
+                //logParams[kObjIDALCName]    = @(item.itemID);
+                //logParams[kObjTypeALCName]  = @(ObjectTypeApp);
+                // logParams[kObjTitleALCName] =  item.listName;
+                /*
+                 * 用户行为记录, 单独异常处理，不可影响用户体验
+                 */
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    @try {
+                        [APIHelper actionLog:logParams];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"%@", exception);
+                    }
+                });
+
                 SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
               //  subjectView.bannerName = item.listName;
                 subjectView.link = targeturl;

@@ -673,19 +673,19 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         __block NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
-            htmlPath = [HttpUtils urlConvertToLocal:weakSelf.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];
+            htmlPath = [HttpUtils urlConvertToLocal:self.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];
         }
         else {
-            NSString *htmlName = [HttpUtils urlTofilename:weakSelf.urlString suffix:@".html"][0];
+            NSString *htmlName = [HttpUtils urlTofilename:self.urlString suffix:@".html"][0];
             htmlPath = [weakSelf.assetsPath stringByAppendingPathComponent:htmlName];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf clearBrowserCache];
+            [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-            [weakSelf.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
+            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-            weakSelf.isLoadFinish = !weakSelf.browser.isLoading;
+            self.isLoadFinish = !self.browser.isLoading;
         });
     });
 }

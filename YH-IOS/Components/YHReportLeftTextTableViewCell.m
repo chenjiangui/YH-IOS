@@ -49,15 +49,17 @@
     }];
     
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.centerX.bottom.mas_equalTo(self);
-        make.width.mas_equalTo(self).offset(10);
+        make.top.bottom.mas_equalTo(self);
+        make.left.mas_equalTo(_leftView.mas_right).mas_offset(4);
+        make.right.mas_equalTo(self.mas_right);
+        
     }];
     
-    [self.rightView mas_makeConstraints:^(MASConstraintMaker *make) {
+   /* [self.rightView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.mas_left);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(4, 20));
-    }];
+    }];*/
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

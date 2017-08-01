@@ -913,23 +913,23 @@
           [self presentViewController:superChartNavCtrl animated:YES completion:nil];
       }
       else{ //跳转事件
-          logParams[kActionALCName]   = @"点击/生意概况/报表";
-          logParams[kObjIDALCName]    = [NSString stringWithFormat:@"%@",[urlArray lastObject]];
-          logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
-          logParams[kObjTitleALCName] =  title;
-          /*
-           * 用户行为记录, 单独异常处理，不可影响用户体验
-           */
-          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              @try {
-                  [APIHelper actionLog:logParams];
-              }
-              @catch (NSException *exception) {
-                  NSLog(@"%@", exception);
-              }
-          });
-
           if (isInnerLink) {
+              logParams[kActionALCName]   = @"点击/生意概况/报表";
+              logParams[kObjIDALCName]    = [NSString stringWithFormat:@"%@",[urlArray lastObject]];
+              logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+              logParams[kObjTitleALCName] =  title;
+              /*
+               * 用户行为记录, 单独异常处理，不可影响用户体验
+               */
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  @try {
+                      [APIHelper actionLog:logParams];
+                  }
+                  @catch (NSException *exception) {
+                      NSLog(@"%@", exception);
+                  }
+              });
+
               UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
               
               SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
@@ -941,6 +941,22 @@
               [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
           }
           else{
+              logParams[kActionALCName]   = @"点击/生意概况/链接";
+              logParams[kObjIDALCName]    = [NSString stringWithFormat:@"%@",[urlArray lastObject]];
+              logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+              logParams[kObjTitleALCName] =  title;
+              /*
+               * 用户行为记录, 单独异常处理，不可影响用户体验
+               */
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  @try {
+                      [APIHelper actionLog:logParams];
+                  }
+                  @catch (NSException *exception) {
+                      NSLog(@"%@", exception);
+                  }
+              });
+
               
               SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
               subjectView.bannerName = title;

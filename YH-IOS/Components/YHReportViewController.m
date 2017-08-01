@@ -368,7 +368,21 @@
     NSString*fileName =  @"home_report";
     
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
-    if ([HttpUtils isNetworkAvailable3]) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:kpiUrl
+      parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          NSLog(@"JSON: %@", responseObject);
+          [HudToolView hideLoadingInView:self.view];
+        NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:responseObject[@"data"] error:nil];
+          self.listArray = [array copy];
+          [self initCategoryMenu];
+          [HudToolView hideLoadingInView:self.view];
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          SCLAlertView *alert = [[SCLAlertView alloc] init];
+          [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
+      }];
+    
+   /* if ([HttpUtils isNetworkAvailable3]) {
         [HudToolView hideLoadingInView:self.view];
         HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
         if ([reponse.statusCode  isEqual: @200] || [HttpUtils isNetworkAvailable3]) {
@@ -411,8 +425,9 @@
         self.listArray = [array copy];
         [self initCategoryMenu];
         }
-    }
+    }*/
 }
+
 
 -(void)getSomeThingNewRefresh {
     user = [[User alloc]init];
