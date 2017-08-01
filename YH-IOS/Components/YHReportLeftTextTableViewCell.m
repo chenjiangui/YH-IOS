@@ -27,6 +27,7 @@
     self.contentLabel = [[UILabel alloc]init];
     self.contentLabel.textColor = [NewAppColor yhapp_6color];
     self.contentLabel.font = [UIFont systemFontOfSize:14];
+    self.contentLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:self.contentLabel];
     
     self.rightView = [[UIView alloc]init];
@@ -50,7 +51,7 @@
     
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.centerX.bottom.mas_equalTo(self);
-        make.width.mas_equalTo(self).offset(10);
+        make.width.mas_equalTo(self).offset(-10);
     }];
     
     [self.rightView mas_makeConstraints:^(MASConstraintMaker *make) {
