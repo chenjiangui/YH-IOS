@@ -7,6 +7,7 @@
 //
 
 #import "JYHomeViewController.h"
+#import <PgyUpdate/PgyUpdateManager.h>
 
 #import "JYDashboardModel.h"
 
@@ -37,6 +38,9 @@
 #import "SubLBXScanViewController.h"
 #import "HomeNoticeMessageCell.h"
 #import "ToolModel.h"
+#import "Version.h"
+#import "FileUtils+Assets.h"
+#import <Reachability/Reachability.h>
 
 
 #define kJYNotifyHeight 40
@@ -73,6 +77,7 @@
 @property (nonatomic, strong) HomeNavBarView* navBarView;
 
 @property (nonatomic, strong) ToolModel* noticeMessageModel;
+@property (strong, nonatomic) NSString *localNotificationPath;
 
 @end
 
@@ -99,12 +104,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.localNotificationPath = [FileUtils dirPath:kConfigDirName FileName:kLocalNotificationConfigFileName];
     self.fd_prefersNavigationBarHidden = YES;
     [self.view sd_addSubviews:@[self.rootTBView,self.navBarView]];
     [self.rootTBView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
     _user = [[User alloc]init];
+    [self checkFromViewController];
 //    _noticeArray = [[NSMutableArray alloc]init];
 //    dataListButtom = [NSMutableArray new];
 //    [self loadData];
@@ -628,6 +635,121 @@
 //    [self jumpToDetailView:targetString viewTitle:model.title];
 //    
 //}
+
+/*
+ * 解屏进入主页面，需检测版本更新
+ */
+- (void)checkFromViewController {
+    // if(self.fromViewController && [self.fromViewController isEqualToString:@"AppDelegate"]) {
+    // self.fromViewController = @"AlreadyShow";
+    // 检测版本更新
+    [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:kPgyerAppId];
+    [[PgyUpdateManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(appToUpgradeMethod:)];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        /*
+         * 用户行为记录, 单独异常处理，不可影响用户体验
+         */
+        @try {
+            NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+            logParams[kActionALCName] = @"解屏";
+            [APIHelper actionLog:logParams];
+            
+            /**
+             *  解屏验证用户信息，更新用户权限
+             *  若难失败，则在下次解屏检测时进入登录界面
+             */
+            NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+            NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+            if(!userDict[kUserNumCUName]) {
+                return;
+            }
+            
+            NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
+            NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
+            if(msg.length != 0) {
+                userDict[kIsLoginCUName] = @(NO);
+                [userDict writeToFile:userConfigPath atomically:YES];
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+}
+
+
+# pragma mark - assitant methods
+/**
+ *  内容检测版本升级，判断版本号是否为偶数。以便内测
+ *
+ *  @param response <#response description#>
+ */
+- (void)appToUpgradeMethod:(NSDictionary *)response {
+    if(!response || !response[kDownloadURLCPCName] || !response[kVersionCodeCPCName] || !response[kVersionNameCPCName]) {
+        return;
+    }
+    
+    NSString *pgyerVersionPath = [[FileUtils basePath] stringByAppendingPathComponent:kPgyerVersionConfigFileName];
+    [FileUtils writeJSON:[NSMutableDictionary dictionaryWithDictionary:response] Into:pgyerVersionPath];
+    
+    Version *version = [[Version alloc] init];
+    NSInteger currentVersionCode = [version.build integerValue];
+    NSInteger responseVersionCode = [response[kVersionCodeCPCName] integerValue];
+    
+    // 对比 build 值，只准正向安装提示
+    if(responseVersionCode <= currentVersionCode) {
+        return;
+    }
+    
+    NSMutableDictionary *localNotificationDict = [FileUtils readConfigFile:self.localNotificationPath];
+    localNotificationDict[kSettingPgyerLNName] = @(1);
+    [FileUtils writeJSON:localNotificationDict Into:self.localNotificationPath];
+    
+    Reachability *reach = [Reachability reachabilityForInternetConnection];
+    if(responseVersionCode % 2 == 0) {
+        if (responseVersionCode % 10 == 8 && [reach isReachableViaWiFi]) {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"重大改动，请升级" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]]];
+                NSURL *url = [NSURL URLWithString:[kPgyerUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication] openURL:url];
+                [self exitApplication];
+                //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]] options:@{} completionHandler:nil];
+                //  [[PgyUpdateManager sharedPgyManager] updateLocalBuildNumber];
+            }];
+            
+            [alertVC addAction:action1];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }
+        else {
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert addButton:kUpgradeBtnText actionBlock:^(void) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]]];
+                [[PgyUpdateManager sharedPgyManager] updateLocalBuildNumber];
+            }];
+            
+            NSString *subTitle = [NSString stringWithFormat:kUpgradeWarnText, response[kVersionNameCPCName], response[kVersionCodeCPCName]];
+            [alert showSuccess:self title:kUpgradeTitleText subTitle:subTitle closeButtonTitle:kCancelBtnText duration:0.0f];
+        }
+    }
+}
+
+
+- (void)exitApplication {
+    
+    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+    UIWindow *window = app.window;
+    
+    [UIView animateWithDuration:1.0f animations:^{
+        window.alpha = 0;
+        window.frame = CGRectMake(0, window.bounds.size.width, 0, 0);
+    } completion:^(BOOL finished) {
+        exit(0);
+    }];
+    //exit(0);
+    
+}
 
 #pragma mark - <JYNotifyDelegate>
 //- (void)notifyView:(JYNotifyView *)notify didSelected:(NSInteger)idx selectedData:(id)data {

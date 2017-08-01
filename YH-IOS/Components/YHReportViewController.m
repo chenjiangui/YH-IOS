@@ -194,6 +194,28 @@
            // UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:jyHome];
            // [self presentViewController:superChartNavCtrl animated:YES completion:nil];
         }
+        else if ([targeturl rangeOfString:@"template/1/"].location != NSNotFound) {
+            JYDemoViewController *superChaerCtrl = [[JYDemoViewController alloc]init];
+            superChaerCtrl.urlLink = targeturl;
+            // UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:superChaerCtrl];
+            logParams[kActionALCName]   = @"点击/专题/报表";
+            logParams[kObjIDALCName]    = @(item.itemID);
+            logParams[kObjTypeALCName]  = @(ObjectTypeApp);
+            logParams[kObjTitleALCName] =  item.listName;
+            /*
+             * 用户行为记录, 单独异常处理，不可影响用户体验
+             */
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                @try {
+                    [APIHelper actionLog:logParams];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"%@", exception);
+                }
+            });
+            [RootNavigationController pushViewController:superChaerCtrl animated:YES hideBottom:YES];
+        }
+
         else{ //跳转事件
             logParams[kActionALCName]   = @"点击/报表/报表";
             logParams[kObjIDALCName]    = @(item.itemID);
