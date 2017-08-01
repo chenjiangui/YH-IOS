@@ -11,12 +11,17 @@
 typedef enum : NSUInteger {
     HudToolViewTypeText,
     HudToolViewTypeLoading,
-    HudToolViewTypeTopText
+    HudToolViewTypeTopText,
+    HudToolViewTypeEmpty
 } HudToolViewType;
 
 @interface HudToolView : UIView
 
+@property (nonatomic, strong) UIView* contentView;
+
 @property (nonatomic, assign) HudToolViewType viewType;
+
+@property (nonatomic, strong) CommonBack touchBlock;
 
 - (instancetype)initWithViewType:(HudToolViewType)viewType;
 
@@ -28,5 +33,7 @@ typedef enum : NSUInteger {
 
 + (void)showTopWithText:(NSString*)text color:(UIColor*)color;
 + (void)showTopWithText:(NSString*)text correct:(BOOL)correct;
+
++ (instancetype)view:(UIView*)view showEmpty:(BOOL)show;
 
 @end

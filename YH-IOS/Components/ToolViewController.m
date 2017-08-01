@@ -80,6 +80,9 @@
 #pragma mark - lazy and ui
 - (void)setupUI{
     [self.view sd_addSubviews:@[self.collection]];
+    [self.collection mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
 }
 
 - (RefreshTool *)reTool{

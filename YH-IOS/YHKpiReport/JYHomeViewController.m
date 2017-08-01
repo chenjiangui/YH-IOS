@@ -79,6 +79,8 @@
 @property (nonatomic, strong) ToolModel* noticeMessageModel;
 @property (strong, nonatomic) NSString *localNotificationPath;
 
+@property (nonatomic, strong) HudToolView* netBugView;
+
 @end
 
 @implementation JYHomeViewController
@@ -100,6 +102,20 @@
         };
     }
     return _navBarView;
+}
+
+- (HudToolView *)netBugView{
+    if (!_netBugView) {
+        _netBugView = [HudToolView view:self.view showEmpty:YES];
+        _netBugView.hidden = YES;
+        MJWeakSelf;
+        _netBugView.touchBlock = ^(id item) {
+            weakSelf.netBugView.contentView.hidden = YES;
+            [weakSelf getData:YES];
+        };
+    }
+    [self.view bringSubviewToFront:_netBugView];
+    return _netBugView;
 }
 
 - (void)viewDidLoad {
@@ -221,27 +237,13 @@
     }
     [self getNoticeData];
     [YHHttpRequestAPI yh_getHomeDashboardFinish:^(BOOL success, NSArray<YHKPIModel *>* demolArray, NSString *jsonObjc) {
+        self.netBugView.hidden = success;
         [self.reTool endDownPullWithReload:NO];
         [HudToolView hideLoadingInView:self.view];
         if (success && demolArray && jsonObjc) {
-//            for (int i=0; i<demolArray.count; i++) {
-//                if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
-//                    self.modeltop = demolArray[i];
-//                }
-//                else{
-//                    [dataListButtom addObject:demolArray[i]];
-//                }
-//            }
             self.dataList = demolArray;
             [self.rootTBView reloadData];
             self.navBarView.hidden = NO;
-        }else{
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"重新加载" actionBlock:^(void) {
-                [self getData:loading];
-            }];
-            [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
-            return;
         }
     }];
 //    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
