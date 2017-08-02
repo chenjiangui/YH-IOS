@@ -20,8 +20,9 @@
 #import "YHScanStoreViewController.h"
 #import "SubjectOutterViewController.h"
 #import "JYDemoViewController.h"
+#import "RefreshTool.h"
 
-@interface YHReportViewController ()
+@interface YHReportViewController () <RefreshToolDelegate>
 {
     NSMutableArray * _list;
     User *user;
@@ -29,11 +30,19 @@
 
 @property (nonatomic, strong)NSArray<ListPageList *> *listArray;
 @property (nonatomic, strong)YHMutileveMenu *menuView ;
-@property (nonatomic, strong) UIRefreshControl* refreshControl;
+//@property (nonatomic, strong) UIRefreshControl* refreshControl;
+@property (nonatomic, strong) RefreshTool* reTool;
 
 @end
 
 @implementation YHReportViewController
+
+- (RefreshTool *)reTool{
+    if (!_reTool) {
+        _reTool = [[RefreshTool alloc] initWithScrollView:self.menuView.rightCollection delegate:self down:true top:false];
+    }
+    return _reTool;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,6 +59,10 @@
     [self getData:true];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
+    [self getData:false];
 }
 
 - (void)getData:(BOOL)loading{
@@ -76,17 +89,17 @@
     _menuView.isRecordLastScroll = NO;
     [weakSelf.view addSubview:_menuView];
     
-    _refreshControl = [[UIRefreshControl alloc] init];
-    
-    [_refreshControl addTarget:weakSelf
-     
-                        action:@selector(getSomeThingNewRefresh)
-     
-              forControlEvents:UIControlEventValueChanged];
-    
-    [_refreshControl setAttributedTitle:[[NSAttributedString alloc] init]];
-    
-    [weakSelf.menuView.rightCollection addSubview:_refreshControl];
+//    _refreshControl = [[UIRefreshControl alloc] init];
+//    
+//    [_refreshControl addTarget:weakSelf
+//     
+//                        action:@selector(getSomeThingNewRefresh)
+//     
+//              forControlEvents:UIControlEventValueChanged];
+//    
+//    [_refreshControl setAttributedTitle:[[NSAttributedString alloc] init]];
+//    
+//    [weakSelf.menuView.rightCollection addSubview:_refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -103,7 +116,7 @@
 
 - (void)initCategoryMenu {
     self.menuView.allData = _listArray;
-    [self.refreshControl endRefreshing];
+//    [self.refreshControl endRefreshing];
     [self.menuView reloadData];
 }
 
@@ -372,12 +385,14 @@
     [manager GET:kpiUrl
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
+          [self.reTool endDownPullWithReload:false];
           [HudToolView hideLoadingInView:self.view];
         NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:responseObject[@"data"] error:nil];
           self.listArray = [array copy];
           [self initCategoryMenu];
-          [HudToolView hideLoadingInView:self.view];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          [self.reTool endDownPullWithReload:false];
+          [HudToolView hideLoadingInView:self.view];
           SCLAlertView *alert = [[SCLAlertView alloc] init];
           [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
       }];

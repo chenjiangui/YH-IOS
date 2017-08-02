@@ -47,6 +47,14 @@
 }
 
 -(void)getData{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+    
+    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
+    [self moduleTwoList];
+    return;
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/1/json",kBaseUrl,user.groupID];
     [manager GET:kpiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -68,9 +76,7 @@
 }
 
 - (void)moduleTwoList {
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    moduleTwoView = [[JYModuleTwoView alloc] initWithFrame:CGRectMake(0,0, JYVCWidth, self.view.frame.size.height+64)];
+    moduleTwoView = [[JYModuleTwoView alloc] initWithFrame:CGRectMake(0,0, JYVCWidth, SCREEN_HEIGHT-64)];
     moduleTwoView.moduleModel = self.moduleTwoModel;
     [self.view addSubview:moduleTwoView];
     
@@ -78,7 +84,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
-    [self.view removeAllSubviews];
+//    [self.view removeAllSubviews];
 }
 
 
