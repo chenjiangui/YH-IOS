@@ -80,7 +80,6 @@
     [self getData];
 }
 
-
 -(void)getData{
     RACSignal *requestSingal = [self.requestCommane execute:nil];
     [requestSingal subscribeNext:^(NSDictionary *x) {

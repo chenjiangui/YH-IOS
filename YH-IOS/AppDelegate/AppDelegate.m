@@ -27,6 +27,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "GuidePageViewController.h"
 #import <Bugly/Bugly.h>
+#import <DMPasscode/DMPasscode.h>
 
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -38,6 +39,9 @@
 #define IOS7_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
 @interface AppDelegate ()<LTHPasscodeViewControllerDelegate,UNUserNotificationCenterDelegate>
+{
+        BOOL _showingPasscode;
+}
 @property (nonatomic,assign) BOOL isReApp;
 @end
 
@@ -139,6 +143,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     [self checkAssets];
     [self initWebViewUserAgent];
     [self initScreenLock];
+   // [self actionSetup];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     application.applicationIconBadgeNumber = 0;
@@ -243,6 +248,16 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 
+- (void)actionSetup {
+    [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
+        if (success) {
+            [self jumpToDashboardView];
+        }
+    }];
+}
+
+
+
 - (void) userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
 {
     /* SystemSoundID soundID = 1008;//具体参数详情下面贴出来
@@ -338,11 +353,22 @@ void UncaughtExceptionHandler(NSException * exception) {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [self initScreenLock];
+    //_showingPasscode = YES;
+    //_showingPasscode = NO;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if ([DMPasscode isPasscodeSet] && !_showingPasscode) {
+        _showingPasscode = YES;
+        [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
+            if (success) {
+                [self jumpToDashboardView];
+            }else{
+               
+            }
+        }];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

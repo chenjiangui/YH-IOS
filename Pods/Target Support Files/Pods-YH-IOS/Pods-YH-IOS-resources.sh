@@ -80,10 +80,12 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "$PODS_CONFIGURATION_BUILD_DIR/DMPasscode/DMPasscode.bundle"
   install_resource "LTHPasscodeViewController/Localizations/LTHPasscodeViewController.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "$PODS_CONFIGURATION_BUILD_DIR/DMPasscode/DMPasscode.bundle"
   install_resource "LTHPasscodeViewController/Localizations/LTHPasscodeViewController.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
 fi
