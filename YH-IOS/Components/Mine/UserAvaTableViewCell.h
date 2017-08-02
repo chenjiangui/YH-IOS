@@ -14,4 +14,6 @@
 @property (nonatomic, strong)UILabel *userNameLabel;
 @property (nonatomic, strong)UILabel *userRoleLabel;
 
+@property (nonatomic, strong) UIView *sepertView;
+
 @end

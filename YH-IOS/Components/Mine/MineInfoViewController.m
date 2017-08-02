@@ -137,6 +137,7 @@
     self.minetableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49-64);
     [self.view addSubview:self.minetableView];
     [self.minetableView setScrollEnabled:YES];
+    self.minetableView.backgroundColor = [NewAppColor yhapp_8color];
     self.minetableView.delegate = self;
     self.minetableView.dataSource = self;
     self.minetableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -145,7 +146,7 @@
     }];
    // UINib *mineInfoCell = [UINib nibWithNibName:@"MineInfoTableViewCell" bundle:nil];
     //[self.minetableView registerNib:mineInfoCell forCellReuseIdentifier:@"MineInfoTableViewCell"];
-   // self.minetableView.tableFooterView = [self LogoutFooterView];
+    self.minetableView.tableFooterView = [self LogoutFooterView];
     
   //  [self.mineHeaderView.avaterImageView sd_setImageWithURL:self.person.icon];
 }
@@ -310,19 +311,8 @@
 
 -(UIView *)LogoutFooterView{
     
-    UIView *logoutView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
-    UIButton *logoutButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 20,SCREEN_WIDTH, 40)];
-    [logoutView addSubview:logoutButton];
-    logoutButton.layer.borderWidth = 1;
-    logoutButton.layer.borderColor = [UIColor colorWithHexString:@"#d2d2d2"].CGColor;
-    [logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
-    [[logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-       // [self logoutButtonClick:logoutButton];
-    }];
-    //[logoutButton addTarget:self action:@selector(logoutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [logoutButton setTitleColor:[UIColor colorWithHexString:@"#010101"] forState:UIControlStateNormal];
-    logoutButton.backgroundColor = [UIColor colorWithHexString:@"#fbfcf5"];
-    logoutView.backgroundColor = [UIColor whiteColor];
+    UIView *logoutView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    logoutView.backgroundColor = [NewAppColor yhapp_8color];
     
     return logoutView;
     
