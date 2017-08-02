@@ -87,8 +87,8 @@ static NSString *rowCellID = @"rowCell";
 // 表头悬浮
 - (void)refreshSectionViewFrame:(NSNotification *)nt {
     
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    CGRect toWindowFrame = [self convertRect:self.frame toView:keyWindow];
+    UIView *keyWindow = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    CGRect toWindowFrame = [self.superview convertRect:self.frame toView:keyWindow];
     CGFloat offset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y;
     BOOL canScroll = NO;
     [self canBeScroller:(UIView *)nt.object canBeScroll:&canScroll];
@@ -106,16 +106,25 @@ static NSString *rowCellID = @"rowCell";
             }
             
             [keyWindow addSubview:self.freezeView.sectionView];
-            CGRect frame = self.freezeView.sectionView.frame;
-            frame.origin.y = offset;
-            frame.origin.x = JYDefaultMargin * 2 + kFreezePoint.x;
-            self.freezeView.sectionView.frame = frame;
+            CGRect nowFrame = CGRectMake(self.freezeView.sectionView.left, offset, self.freezeView.sectionView.width, self.freezeView.sectionView.height);
+            CGRect changeFrame = [keyWindow convertRect:nowFrame toView:self.freezeView.sectionView.superview];
+            changeFrame.origin.x = JYDefaultMargin * 2 + kFreezePoint.x;
+            self.freezeView.sectionView.frame = changeFrame;
             
+//            CGRect frame = self.freezeView.sectionView.frame;
+//            frame.origin.y = offset;
+//            frame.origin.x = JYDefaultMargin * 2 + kFreezePoint.x;
+//            self.freezeView.sectionView.frame = frame;
+    
             [keyWindow addSubview:self.freezeView.signView];
-            frame = self.freezeView.signView.frame;
-            frame.origin.y = offset;
-            frame.origin.x = JYDefaultMargin * 2;
-            self.freezeView.signView.frame = frame;
+            
+             nowFrame = CGRectMake(self.freezeView.signView.left, offset, self.freezeView.signView.width, self.freezeView.signView.height);
+             changeFrame = [keyWindow convertRect:nowFrame toView:self.freezeView.signView.superview];
+            changeFrame.origin.x = JYDefaultMargin * 2;
+           self.freezeView.signView.frame =changeFrame;
+//            frame.origin.y = offset;
+//            frame.origin.x = JYDefaultMargin * 2;
+//            self.freezeView.signView.frame = frame;
             //printf("＋＋＋retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self.freezeView.sectionView)));
         }
         else {
@@ -151,6 +160,15 @@ static NSString *rowCellID = @"rowCell";
         self.freezeView.signView.frame = frame;
         //printf("……………………retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self.freezeView.sectionView)));
     }
+    DLog(@"self.freezeView.sectionView.frame = %@",NSStringFromCGRect(self.freezeView.sectionView.frame));
+    DLog(@"self.freezeView.signView.frame = %@ \n\n\n",NSStringFromCGRect(self.freezeView.signView.frame));
+}
+
+- (void)removeFromSuperview{
+    [self.freezeView.signView removeFromSuperview];
+    [self.freezeView.sectionView removeFromSuperview];
+    [super removeFromSuperview];
+//    UIView* keyWindow = [UIApplication sharedApplication].keyWindow;
 }
 
 - (void)dealloc {
