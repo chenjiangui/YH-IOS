@@ -38,14 +38,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;
-
-
-
-
 @property (nonatomic, strong)UITextField *passwordNumber;
-
-
-
 @property (nonatomic, copy)NSString *peopleNumString;
 
 @property (nonatomic, copy)NSString *passwordNumString;
@@ -175,13 +168,15 @@
     [self.view addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.centerY.mas_equalTo(forGotPwd.mas_centerY).offset(0);
-        make.left.mas_equalTo(forGotPwd.mas_right).offset(16);
+//        make.centerY.mas_equalTo(forGotPwd.mas_centerY).offset(0);
+//        make.left.mas_equalTo(forGotPwd.mas_right).offset(16);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
         make.size.mas_equalTo(CGSizeMake(0.5,14));
     }];
     [forGotPwd mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
         make.right.mas_equalTo(line.mas_left).offset(-16);
+        make.centerY.mas_equalTo(line.mas_centerY);
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     UIButton *registerBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -193,6 +188,7 @@
     [registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
         make.left.mas_equalTo(line.mas_right).offset(16);
+        make.centerY.mas_equalTo(line.mas_centerY);
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     

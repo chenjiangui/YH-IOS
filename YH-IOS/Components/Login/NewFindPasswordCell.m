@@ -25,7 +25,7 @@ static  NSString *PhoneString;
                     PeopleNumber.placeholder=@"员工号";
                     PeopleNumber.font=[UIFont systemFontOfSize:16];
                     PeopleNumber.textAlignment=NSTextAlignmentLeft;
-                    PeopleNumber.textColor=[UIColor colorWithHexString:@"#bcbcbc"];
+                    PeopleNumber.textColor=[NewAppColor yhapp_3color];
                     [PeopleNumber addTarget:self action:@selector(PeopleNumberDidChange:) forControlEvents:UIControlEventEditingChanged];
                     [PeopleNumber mas_makeConstraints:^(MASConstraintMaker *make) {
                         make.left.mas_equalTo(self.contentView.mas_left).offset(20);
@@ -33,14 +33,17 @@ static  NSString *PhoneString;
                         make.size.mas_equalTo(CGSizeMake(self.contentView.frame.size.width, 50));
                     }];
       }
+        //
                 else if([type isEqualToString:@"PhoneNumber"])
                     {
                         UITextField *PhoneNumber =[[UITextField alloc] init];
                         [self.contentView addSubview:PhoneNumber];
+                        PhoneNumber.placeholder=@"手机号";
                         PhoneNumber.font=[UIFont systemFontOfSize:16];
                         PhoneNumber.textAlignment=NSTextAlignmentLeft;
+                        PhoneNumber.keyboardType = UIKeyboardTypeNumberPad;
                         [PhoneNumber addTarget:self action:@selector(PhoneNumberDidChange:) forControlEvents:UIControlEventEditingChanged];
-                        PhoneNumber.textColor=[UIColor colorWithHexString:@"#666666"];
+                        PhoneNumber.textColor=[NewAppColor yhapp_3color];
                         [PhoneNumber mas_makeConstraints:^(MASConstraintMaker *make) {
                             make.left.mas_equalTo(self.contentView.mas_left).offset(20);
                             make.centerY.mas_equalTo(self.contentView.mas_centerY);

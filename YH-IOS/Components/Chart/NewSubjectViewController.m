@@ -36,7 +36,7 @@ static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifi
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
 
-@interface NewSubjectViewController ()<LTHPasscodeViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,UIWebViewDelegate,CLLocationManagerDelegate>
+@interface NewSubjectViewController ()<LTHPasscodeViewControllerDelegate,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,CLLocationManagerDelegate,WKUIDelegate,WKNavigationDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UMSocialUIDelegate,UIScrollViewDelegate,WebViewJavascriptBridgeBaseDelegate>
 {
     NSMutableDictionary *betaDict;
     UIImageView *navBarHairlineImageView;
@@ -68,11 +68,23 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.user = [[User alloc] init];
+    
+    
     self.browser = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)];
-    self.browser.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    
+//    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+//    configuration.userContentController = [WKUserContentController new];
+//    
+//    WKPreferences *preferences = [WKPreferences new];
+//    preferences.javaScriptCanOpenWindowsAutomatically = YES;
+//    preferences.minimumFontSize = 30.0;
+//    configuration.preferences = preferences;
+//    
+//    self.browser = [[WKWebView alloc] initWithFrame:self.view.frame configuration:configuration];
+
+    
     // self.browser.scrollView.bounces = NO;
-    self.view.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.navigationController.navigationBar.layer.borderColor = [UIColor whiteColor].CGColor;
     //self.navigationController.navigationBar.c;
     [self.view addSubview:_browser];
     self.browser.backgroundColor = [UIColor whiteColor];
@@ -82,9 +94,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];
     }
     
-    
     [self startLocation];
-    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
     [self hiddenShadow];
     
@@ -103,6 +113,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
     //[self.view addSubview:self.browser];
     self.browser.UIDelegate = self;
+    self.browser.navigationDelegate=self;
 //    self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
@@ -120,13 +131,129 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //        self.browser.scalesPageToFit = YES;
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
+    
+    [self.browser setBackgroundColor:[UIColor blueColor]];
+//    WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc] init];
+//    //     设置进程池 用来配置同一个进程池webView的共享数据 如cookies 用户凭证等
+//    WKProcessPool * pool = [[WKProcessPool alloc] init];
+//    config.processPool = pool;
+//    // 进程偏好设置
+//    WKPreferences * prefer = [[WKPreferences alloc] init];
+//    prefer.javaScriptEnabled = YES;
+//    //     是否可以不进过用户交互由javascript自动打开窗口
+//    prefer.javaScriptCanOpenWindowsAutomatically = YES;
+//    config.preferences = prefer;
+    //设置内容交互控制器 用于处理JavaScript与native交互
+//    WKUserContentController * userController = [[WKUserContentController alloc]init];
+//    //设置处理代理并且注册要被js调用的方法名称
+//    [userController addScriptMessageHandler:self.bridge name:@"name"];
+//    //js注入，注入一个测试方法。
+//    NSString *javaScriptSource = @"function userFunc(){window.webkit.messageHandlers.name.postMessage( {\"name\":\"HS\"})}";
+//    WKUserScript *userScript = [[WKUserScript alloc] initWithSource:javaScriptSource injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
+//    // forMainFrameOnly:NO(全局窗口)，yes（只限主窗口）
+//    [userController addUserScript:userScript];
+//    config.userContentController = userController;
+
+    
+
     //[self idColor];
-    [WKWebViewJavascriptBridge enableLogging];
+//    [WKWebViewJavascriptBridge enableLogging];
     self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
-    [self addWebViewJavascriptBridge];
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+    NSURL *baseURL = [[NSBundle mainBundle] bundleURL];
+    [self.browser loadHTMLString:[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil] baseURL:baseURL];
+    
+    
+    //            NSString *localHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+    //            NSURL *fileURL = [NSURL fileURLWithPath:htmlPath];
+    //            [self.browser loadHTMLString:localHtml baseURL:fileURL];
+    ////
+    
+    //
+    [self.bridge registerHandler:@"ObjC Echo" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+    }];
+    
+//
+//    self.bridge=[WKWebViewJavascriptBridge bridgeForWebView:self.browser handler:^(id data, WVJBResponseCallback responseCallback) {
+//      
+//        NSLog(@"23");
+//    }];
+//    
+//    [self.bridge callHandler:@"testJSFunction" data:@"一个字符串" responseCallback:^(id responseData) {
+//        NSLog(@"调用完JS后的回调：%@",responseData);
+//    }];
+
+
+    // 如果控制器里需要监听WKWebView 的`navigationDelegate`方法，就需要添加下面这行。
+   // [self addWebViewJavascriptBridge];
+    
+//    [self registerNativeFunctions];
+    
+    
+    
 }
+
+//+ (instancetype)bridgeForWebView:(WKWebView*)webView {
+//    WKWebViewJavascriptBridge* bridge = [[self alloc] init];
+//    [bridge _setupInstance:webView];
+//    
+//    [];
+//
+//    [bridge _setup];
+//    
+//
+//    [bridge reset];
+//    return bridge;
+//}
+//- (void) _setupInstance:(WKWebView*)webView {
+//    self.browser = webView;
+//    self.browser .navigationDelegate = self;
+//    _base = [[WebViewJavascriptBridgeBase alloc] init];
+//    _base.delegate = self;
+//}
+//
+
+
+
+
+#pragma mark - private method
+- (void)registerNativeFunctions
+{
+//    [self registerMove ];
+    [self registerjsException];
+    [self registerselectedItem];
+    [self registerrefreshBrowser];
+    [self registersearchItems];
+    [self registershowAlert];
+}
+
+-(void)registerMove
+{
+
+    [self.bridge registerHandler:@"getUserIdFromObjC" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"js call getUserIdFromObjC, data from js is %@", data);
+        if (responseCallback) {
+            // 反馈给JS
+            responseCallback(@{@"userId": @"123456"});
+        }
+    }];
+    
+    [self.bridge registerHandler:@"getBlogNameFromObjC" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"js call getBlogNameFromObjC, data from js is %@", data);
+        if (responseCallback) {
+            // 反馈给JS
+            responseCallback(@{@"blogName": @"标哥的技术博客"});
+        }
+    }];
+}
+
+
+
+
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
@@ -140,7 +267,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      [LTHPasscodeViewController useKeychain:NO];
      [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;*/
     [self hiddenShadow];
-    [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    //[MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     //[self showProgressHUD:@"加载中" mode:MBProgressHUDModeIndeterminate];
     
     // self.bannerView.height = 0;
@@ -164,6 +291,18 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
     self.title =self.bannerName;
+
+    
+    
+////    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser];
+//    
+//    self.bridge=[WebViewJavascriptBridge bridgeForWebView:self.browser handler:^(id data, WVJBResponseCallback responseCallback) {
+//        
+//    }];
+//    // 如果控制器里需要监听WKWebView 的`navigationDelegate`方法，就需要添加下面这行。
+//    [self.bridge setWebViewDelegate:self];
+    
+    
     //  navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     /*
      * 主题页面,允许横屏
@@ -176,7 +315,16 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self displayBannerViewButtonsOrNot];
     [self isLoadHtmlFromService];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+//    NSLog(@"==%@",self.browser.title);
+    
+//    if ([self.browser.title isEqualToString:@""]) {
+//        [self.browser reload];
+//    }
+    
 }
+
+#pragma mark - private method
 
 
 //解决 uinavigationBar 透明之后出现黑线
@@ -240,6 +388,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:kLoginVCName];
     self.view.window.rootViewController = loginViewController;
 }
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];//即使没有显示在window上，也不会自动的将self.view释放。注意跟ios6.0之前的区分
     // Add code to clean up any of your own resources that are no longer necessary.
@@ -252,9 +403,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             // needed later.
             // Add code to clean up other strong references to the view in
             // the view hierarchy.
-            self.browser=nil;
-            [self.view removeAllSubviews];
-            [self.browser removeAllSubviews];
+//            self.browser=nil;
+//            [self.view removeAllSubviews];
+//            [self.browser removeAllSubviews];
             
             self.view = nil;// 目的是再次进入时能够重新加载调用viewDidLoad函数。
         }
@@ -419,7 +570,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [APIHelper screenLock:userDict[kUserDeviceIDCUName] passcode:passcode state:YES];
     });
-    
     /*
      * 用户行为记录, 单独异常处理，不可影响用户体验
      */
@@ -448,7 +598,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
     //idView.backgroundColor = [UIColor redColor];
     [self.navigationController.navigationBar addSubview:_idView];
-    
+    //400-6701-855
     UIImageView* idColor0 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 4, 4)];
     idColor0.layer.cornerRadius = 2;
     [_idView addSubview:idColor0];
@@ -515,11 +665,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.browser.frame = CGRectMake(0, 0, size.width, size.height-34);
     }
 }
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [self.progressHUD hide:YES];
-    self.progressHUD = nil;
-    [MRProgressOverlayView dismissAllOverlaysForView:self.browser animated:YES];
-}
+
 /*
  -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
  //  [self checkInterfaceOrientation:toInterfaceOrientation];
@@ -628,7 +774,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 #pragma mark - UIWebview pull down to refresh
 
 -(void)handleRefresh {
-    [self addWebViewJavascriptBridge];
+//    [self addWebViewJavascriptBridge];
     
     if(self.isInnerLink) {
         NSString *reportDataUrlString = [APIHelper reportDataUrlString:self.user.groupID templateID:self.templateID reportID:self.reportID];
@@ -666,6 +812,89 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
 }
 
+
+
+
+-(void)registerjsException
+{
+    [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
+        // [self showLoading:LoadingRefresh];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            /*
+             * 用户行为记录, 单独异常处理，不可影响用户体验
+             */
+            @try {
+                NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                logParams[kActionALCName]   = @"JS异常";
+                logParams[kObjIDALCName]    = self.objectID;
+                logParams[kObjTypeALCName]  = @(self.commentObjectType);
+                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"主题页面/%@/%@", self.bannerName, data[@"ex"]];
+                [APIHelper actionLog:logParams];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception);
+            }
+        });
+    }];
+
+}
+
+-(void)registerrefreshBrowser
+{
+    [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
+        [self handleRefresh];
+    }];
+}
+-(void)registersearchItems
+{
+    [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
+        NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
+        [data[@"items"] writeToFile:searchItemsPath atomically:YES];
+        
+        /**
+         *  判断筛选的条件: data[@"items"] 数组不为空
+         *  报表第一次加载时，此处为判断筛选功能的关键点
+         */
+        self.isSupportSearch = [FileUtils reportIsSupportSearch:self.user.groupID templateID:self.templateID reportID:self.reportID];
+        if(self.isSupportSearch) {
+            [self displayBannerTitleAndSearchIcon];
+        }
+    }];
+}
+-(void)registerselectedItem{
+    
+    [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
+        NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+        self.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", self.javascriptPath];
+        NSString *selectedItem = NULL;
+        if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
+            selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
+        }
+        responseCallback(selectedItem);
+    }];
+}
+
+-(void)registershowAlert{
+    [self.bridge registerHandler:@"showAlert" handler:^(id data, WVJBResponseCallback responseCallback){
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:data[@"title"]
+                                                                       message:data[@"content"]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  
+                                                              }];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }];
+}
+
 - (void)addWebViewJavascriptBridge {
     __weak typeof(*&self) weakSelf = self;
     [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -690,39 +919,32 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         [HttpUtils clearHttpResponeHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
-        
         [weakSelf handleRefresh];
     }];
-    
     [self.bridge registerHandler:@"pageTabIndex" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *behaviorPath = [FileUtils dirPath:kConfigDirName FileName:kBehaviorConfigFileName];
         NSMutableDictionary *behaviorDict = [FileUtils readConfigFile:behaviorPath];
-        
         NSString *action = data[@"action"], *pageName = data[@"pageName"];
         NSNumber *tabIndex = data[@"tabIndex"];
-        
         if([action isEqualToString:@"store"]) {
             behaviorDict[kReportUBCName][pageName] = tabIndex;
             [behaviorDict writeToFile:behaviorPath atomically:YES];
         }
         else if([action isEqualToString:@"restore"]) {
             tabIndex = behaviorDict[kReportUBCName] && behaviorDict[kReportUBCName][pageName] ? behaviorDict[kReportUBCName][pageName] : @(0);
-            
             responseCallback(tabIndex);
         }
         else {
             NSLog(@"unkown action %@", action);
         }
     }];
-    
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
-        
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        
+
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
@@ -732,57 +954,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [weakSelf displayBannerTitleAndSearchIcon];
         }
     }];
-    /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
-     if ([data[@"state"] isEqualToString:@"show"]) {
-     [self.navigationController.navigationBar setHidden:NO];
-     self.browser.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-     }
-     else {
-     [self.navigationController.navigationBar setHidden:YES];
-     self.browser.frame = CGRectMake(0, -64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-     }
-     }];
-     
-     
-     [self.bridge registerHandler:@"toggleShowBannerBack" handler:^(id data, WVJBResponseCallback responseCallback){
-     if ([data[@"state"] isEqualToString:@"show"]) {
-     //[self.navigationItem.rightBarButtonItem seth]
-     [self.backBtn setHidden:NO];
-     }
-     else {
-     [self.backBtn setHidden:YES];
-     }
-     }];
-     
-     [self.bridge registerHandler:@"toggleShowBannerMenu" handler:^(id data, WVJBResponseCallback responseCallback){
-     if ([data[@"state"] isEqualToString:@"show"]) {
-     //[self.navigationItem.rightBarButtonItem seth]
-     self.navigationItem.rightBarButtonItem.customView.hidden=NO;
-     }
-     else {
-     self.navigationItem.rightBarButtonItem.customView.hidden=YES;
-     }
-     }];
-     [self.bridge registerHandler:@"setBannerTitle" handler:^(id data, WVJBResponseCallback responseCallback){
-     self.title = data[@"title"];
-     }];
-     
-     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
-     if (self.userlatitude == nil || [self.userlatitude isEqualToString:@""]) {
-     coordianteString = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-     }
-     else {
-     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
-     }
-     [self.bridge registerHandler:@"closeSubjectView" handler:^(id data, WVJBResponseCallback responseCallback) {
-     [super dismissViewControllerAnimated:YES completion:nil];
-     }];
-     
-     [self.bridge registerHandler:@"getLocation" handler:^(id data, WVJBResponseCallback responseCallback) {
-     NSLog(@"%@",coordianteString);
-     responseCallback(coordianteString);
-     }];
-     */
+
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
@@ -864,8 +1036,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)loadOuterLink {
     
-    NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
-    
+    NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 2000];
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
     NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", self.user.userNum, timestamp];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
@@ -909,24 +1080,70 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
         
-        __block NSString *htmlPath;
+         NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
             htmlPath = [HttpUtils urlConvertToLocal:weakSelf.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];
         }
         else {
             NSString *htmlName = [HttpUtils urlTofilename:weakSelf.urlString suffix:@".html"][0];
             htmlPath = [weakSelf.assetsPath stringByAppendingPathComponent:htmlName];
+
         }
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf clearBrowserCache];
-            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-            [weakSelf.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
-            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+          
+//            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
+//        
+//            [weakSelf.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
+
+//            NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"success" ofType:@".html"];
+//            
+//            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:urlStr];
+//            
+//            [weakSelf.browser loadHTMLString:htmlContent baseURL:nil];
+//            
+            
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"success" ofType:@"html"];
+            NSURL *baseURL = [[NSBundle mainBundle] bundleURL];
+            [self.browser loadHTMLString:[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil] baseURL:baseURL];
+            
+            
+//            NSString *localHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+//            NSURL *fileURL = [NSURL fileURLWithPath:htmlPath];
+//            [self.browser loadHTMLString:localHtml baseURL:fileURL];
+////
+            
+
+            
             weakSelf.isLoadFinish = !weakSelf.browser.isLoading;
+
         });
+
+
     });
 }
+
+- (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL {
+    NSError *error = nil;
+    if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error]) {
+        return nil;
+    }
+    // Create "/temp/www" directory
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    NSURL *temDirURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:@"www"];
+    [fileManager createDirectoryAtURL:temDirURL withIntermediateDirectories:YES attributes:nil error:&error];
+    
+    NSURL *dstURL = [temDirURL URLByAppendingPathComponent:fileURL.lastPathComponent];
+    // Now copy given file to the temp directory
+    [fileManager removeItemAtURL:dstURL error:&error];
+    [fileManager copyItemAtURL:fileURL toURL:dstURL error:&error];
+    // Files in "/temp/www" load flawlesly :)
+    return dstURL;
+}
+
+
+
+
 - (void)displayBannerTitleAndSearchIcon {
     self.btnSearch.hidden = NO;
     
@@ -1055,7 +1272,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             }
         }
     }];
-    
 }
 
 
@@ -1233,17 +1449,16 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 #pragma mark - UIWebview delegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
-    self.isLoadFinish = YES;
-    [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-    if ([browerDict[@"allow_brower_copy"] boolValue]) {
-        return;
-    }
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
-}
-
+//- (void)webViewDidFinishLoad:(UIWebView *)webView {
+//    NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
+//    self.isLoadFinish = YES;
+//    [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+//    if ([browerDict[@"allow_brower_copy"] boolValue]) {
+//        return;
+//    }
+//    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+//    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+//}
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     /**
      *  忽略 NSURLErrorDomain 错误 - 999
@@ -1255,40 +1470,33 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSLog(@"dvc: %@", error.description);
 }
 
-
 #pragma mark - bug#fix
 /**
- 
  2015-12-25 10:08:20.848 YH-IOS[52214:1924885] http://izoom.mobi/demo/upload.html?userid=3026
  2015-12-25 10:08:27.117 YH-IOS[52214:1924885] Passed in type public.item doesn't conform to either public.content or public.data. If you are exporting a new type, please ensure that it conforms to an appropriate parent type.
  2015-12-25 10:08:27.189 YH-IOS[52214:1924885] the behavior of the UICollectionViewFlowLayout is not defined because:
  2015-12-25 10:08:27.190 YH-IOS[52214:1924885] the item width must be less than the width of the UICollectionView minus the section insets left and right values, minus the content insets left and right values.
  2015-12-25 10:08:30.497 YH-IOS[52214:1924885] Warning: Attempt to present <UIImagePickerController: 0x7f857a84b000> on <ChartViewController: 0x7f857b8daa60> whose view is not in the window hierarchy!
  *
- *  @return <#return value description#>
+ *  @return return value description
  */
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     if(self.presentedViewController) {
         [super dismissViewControllerAnimated:flag completion:completion];
     }
 }
-
-#pragma mark - UIWebview delegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSURL *url = [request URL];
-        if (![[url scheme] hasPrefix:@";file"] && ![[url relativeString] hasPrefix:@"http://222.76.27.51"]) {
-            [[UIApplication sharedApplication] openURL:url];
-            return NO;
-        }
-    }
-    
-    return YES;
-}
-
-
-
-
+//#pragma mark - UIWebview delegate
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+//    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+//        NSURL *url = [request URL];
+//        if (![[url scheme] hasPrefix:@";file"] && ![[url relativeString] hasPrefix:@"http://222.76.27.51"]) {
+//            [[UIApplication sharedApplication] openURL:url];
+//            return NO;
+//        }
+//    }
+//    
+//    return YES;
+//}
 #pragma mark - UMSocialUIDelegate
 -(void)didCloseUIViewController:(UMSViewControllerType)fromViewControllerType {
     /*
@@ -1335,5 +1543,83 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSLog(@"%@", exception);
     }
 }
+#pragma mark --UINaviagtionDelegate
+//页面开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+    NSLog(@"start");
+}
+//页面完成加载时调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+//    [self addWebViewJavascriptBridge];
+    [self.progressHUD hide:YES];
+    self.progressHUD = nil;
+    [MRProgressOverlayView dismissAllOverlaysForView:self.browser animated:YES];
+    
+    
+    
+//    [self addWebViewJavascriptBridge];
+     [self registerNativeFunctions];
+    
+    
+    NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
+    self.isLoadFinish = YES;
+//    [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+    if ([browerDict[@"allow_brower_copy"] boolValue]) {
+        return;
+    }
+
+    
+}
+//页面加载错误时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+    NSLog(@"%@",error);
+}
+//页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+//身份验证
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler{
+    // 不要证书验证
+    completionHandler(NSURLSessionAuthChallengeUseCredential, nil);
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message?:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler();
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
+    //    DLOG(@"msg = %@ frmae = %@",message,frame);
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message?:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:([UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(NO);
+    }])];
+    [alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(YES);
+    }])];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:prompt message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = defaultText;
+    }];
+    [alertController addAction:([UIAlertAction actionWithTitle:@"完成" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler(alertController.textFields[0].text?:@"");
+    }])];
+    
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+
+
 
 @end

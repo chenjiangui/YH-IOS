@@ -131,9 +131,6 @@
     if ([_infodict[key] isKindOfClass:[NSDictionary class]]) {
 //        cell.detailTextLabel.text = @"";
 
-
-        
-        
          if ([key isEqualToString:@"检测更新"]) {
 //            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@(%@)", _version.current, _version.build];
 //             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

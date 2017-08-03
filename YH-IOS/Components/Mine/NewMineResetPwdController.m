@@ -43,7 +43,7 @@
     
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[NewAppColor yhapp_6color]}] ;
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[NewAppColor yhapp_6color]}] ;
     
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     

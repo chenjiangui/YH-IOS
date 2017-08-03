@@ -27,8 +27,10 @@
 
 #define WeakSelf  __weak typeof(*&self) weakSelf = self;
 
-@interface NewSubjectViewController : UIViewController<WKUIDelegate,WKNavigationDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UMSocialUIDelegate>
+@interface NewSubjectViewController : UIViewController
 
+
+@property (assign) id <WebViewJavascriptBridgeBaseDelegate> bridgeDelegate;
 @property WKWebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;
 @property (strong, nonatomic) NSString *urlString;
@@ -71,5 +73,7 @@
 // 内部报表具有胡筛选功能时，用户点击的选项
 @property (strong, nonatomic) NSString *selectedItem;
 
+
+- (void) _setupInstance:(WKWebView*)webView;
 
 @end
