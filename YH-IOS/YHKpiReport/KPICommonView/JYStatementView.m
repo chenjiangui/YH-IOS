@@ -10,13 +10,14 @@
 #import "JYModuleTwoCell.h"
 #import "JYExcelModel.h"
 
+
 @interface JYStatementView () <UITableViewDelegate, UITableViewDataSource, JYModuleTwoCellDelegate> {
     
 }
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) JYModuleTwoCell *moduleTwoCell;
 @property (nonatomic, strong) NSArray *viewModelList;
-
 
 @end
 
@@ -86,6 +87,7 @@
     }
     return cell;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 0.0;

@@ -102,7 +102,7 @@
     [super layoutSubviews];
     self.clickBtn.frame = self.bounds;
     if (self.style == JYFreezeViewCellStyleDefault) {
-        [self.titleLabel setFrame:CGRectMake(JYDefaultMargin, 0, self.frame.size.width-JYDefaultMargin * 1.5, self.frame.size.height)];
+        [self.titleLabel setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [self.flagPoint setFrame:CGRectMake(-13, (CGRectGetHeight(self.titleLabel.frame) - 15) / 2.0, 15, 15)];
     }
     if (self.separatorStyle == JYFreezeViewCellSeparatorStyleSingleLine) {

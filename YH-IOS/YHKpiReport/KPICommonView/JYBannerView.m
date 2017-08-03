@@ -34,6 +34,7 @@
     
     dateLB = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(titleLB.frame) + JYDefaultMargin, 0, 100, JYViewHeight)];
     dateLB.text = @"2017/05/10";
+    dateLB.adjustsFontSizeToFitWidth = YES;
     [self addSubview:dateLB];
     
     UIButton *showInfoBtn = [UIButton buttonWithType:UIButtonTypeInfoDark];
