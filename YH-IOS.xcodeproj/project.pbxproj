@@ -235,8 +235,6 @@
 		91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */; };
 		91EF8DEC1EF3DB1200333746 /* YHMutileveHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
-		B612926E1F335F7C007EF57A /* success.html in Resources */ = {isa = PBXBuildFile; fileRef = B612926D1F335F7B007EF57A /* success.html */; };
-		B61292701F336062007EF57A /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = B612926F1F336062007EF57A /* index.html */; };
 		B61529651F308ED600B1A5AA /* NewPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61529641F308ED600B1A5AA /* NewPushViewController.m */; };
 		B61529EB1F30A3FE00B1A5AA /* advertisement.zip in Resources */ = {isa = PBXBuildFile; fileRef = B61529691F30A3FE00B1A5AA /* advertisement.zip */; };
 		B61529EC1F30A3FE00B1A5AA /* assets.zip in Resources */ = {isa = PBXBuildFile; fileRef = B615296A1F30A3FE00B1A5AA /* assets.zip */; };
@@ -1220,8 +1218,6 @@
 		91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMutileveHeaderView.h; sourceTree = "<group>"; };
 		91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveHeaderView.m; sourceTree = "<group>"; };
 		91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHMutileveHeaderView.xib; sourceTree = "<group>"; };
-		B612926D1F335F7B007EF57A /* success.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = success.html; sourceTree = "<group>"; };
-		B612926F1F336062007EF57A /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		B61529631F308ED600B1A5AA /* NewPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPushViewController.h; sourceTree = "<group>"; };
 		B61529641F308ED600B1A5AA /* NewPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPushViewController.m; sourceTree = "<group>"; };
 		B61529691F30A3FE00B1A5AA /* advertisement.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = advertisement.zip; sourceTree = "<group>"; };
@@ -3596,8 +3592,6 @@
 		C4DB7D6A1C02EC0500DA534E = {
 			isa = PBXGroup;
 			children = (
-				B612926F1F336062007EF57A /* index.html */,
-				B612926D1F335F7B007EF57A /* success.html */,
 				C4DB7D751C02EC0500DA534E /* YH-IOS */,
 				C4DB7D8F1C02EC0600DA534E /* YH-IOSTests */,
 				C4DB7D9A1C02EC0600DA534E /* YH-IOSUITests */,
@@ -5062,7 +5056,6 @@
 				B6152A4B1F30A3FF00B1A5AA /* mobile_v1.css in Resources */,
 				B61529EC1F30A3FE00B1A5AA /* assets.zip in Resources */,
 				91DB242E1EED7A3000FC8413 /* unSelect@3x.png in Resources */,
-				B612926E1F335F7C007EF57A /* success.html in Resources */,
 				F62457471EA5FBB2006834D2 /* MultipleBarChartViewController.xib in Resources */,
 				F62456BB1EA5FB21006834D2 /* ChartHeaderView.xib in Resources */,
 				B6152A021F30A3FE00B1A5AA /* dataTables.jqueryui.css in Resources */,
@@ -5152,7 +5145,6 @@
 				F656DF791EC016C400DECD7F /* kpi_data.json in Resources */,
 				B6152A3C1F30A3FF00B1A5AA /* responsive.bootstrap.js in Resources */,
 				F62457351EA5FBB1006834D2 /* ColoredLineChartViewController.xib in Resources */,
-				B61292701F336062007EF57A /* index.html in Resources */,
 				F63D4A011EB329A20004BCC8 /* FilterSuperChartHeaderCell.xib in Resources */,
 				B6152A321F30A3FF00B1A5AA /* responsive.bootstrap.css in Resources */,
 			);
