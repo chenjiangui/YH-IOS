@@ -38,6 +38,10 @@
     [self.collection reloadData];
 }
 
+- (void)reload{
+    [self.collection reloadData];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (self.locationBlock) {
         self.locationBlock(indexPath,_dataList[indexPath.row]);
@@ -49,7 +53,7 @@
     ScreenModel* model = [_dataList objectAtIndex:indexPath.row];
     [cell.button setImage:@"ic_arrow_down".imageFromSelf forState:UIControlStateNormal];
     [cell.button setImage:@"ic_arrow_up".imageFromSelf forState:UIControlStateSelected];
-    [cell.button setTitle:@"123" forState:UIControlStateNormal];
+    [cell.button setTitleColor:[NewAppColor yhapp_1color] forState:UIControlStateSelected];
     [cell.button setTitle:model.category forState:UIControlStateNormal];
     cell.button.selected = model.isSelected;
     [cell.button layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:8];
@@ -132,6 +136,7 @@
         layout.itemSize = CGSizeMake(SCREEN_WIDTH/4.0, 40);
         _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collection.dataSource = self;
+        _collection.delegate = self;
         _collection.backgroundColor = self.backgroundColor;
         _collection.showsHorizontalScrollIndicator = NO;
     }

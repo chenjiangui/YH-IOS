@@ -22,4 +22,6 @@
 
 - (void)setData:(NSArray*)data;
 
+- (void)reload;
+
 @end

@@ -78,12 +78,19 @@
             }
         };
         _headerView.locationBlock = ^(NSIndexPath* indexPath,ScreenModel* item) {
-            weakSelf.selectTypeModel = item;
-            if (weakSelf.simpleVc.view.hidden) {
-                
+            if (weakSelf.selectTypeModel != item) {
+                weakSelf.selectTypeModel = item;
+                for (ScreenModel* model in weakSelf.typesModel.data) {
+                    model.isSelected = model==item;
+                }
+                weakSelf.simpleVc.view.hidden = false;
+                [weakSelf.simpleVc updateDateList:item.data];
             }else{
-                
+                weakSelf.simpleVc.view.hidden = true;
+                weakSelf.selectTypeModel.isSelected = false;
+                weakSelf.selectTypeModel = nil;
             }
+            [weakSelf.headerView reload];
         };
     }
     return _headerView;
@@ -112,9 +119,13 @@
             
         };
         _simpleVc.touchBlock = ^(id item) {
-            weakSelf.simpleVc.view.hidden = YES;
+            weakSelf.simpleVc.view.hidden = true;
+            weakSelf.selectTypeModel.isSelected = false;
+            weakSelf.selectTypeModel = nil;
+            [weakSelf.headerView reload];
         };
         _simpleVc.view.hidden = YES;
+        _simpleVc.view.frame = CGRectMake(0, self.headerView.bottom, SCREEN_WIDTH, self.view.height-self.headerView.height);
     }
     return _simpleVc;
 }
