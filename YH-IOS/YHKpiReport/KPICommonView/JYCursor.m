@@ -51,6 +51,7 @@
         _tipsLabel.text = @"栏目切换";
         _tipsLabel.textColor = [UIColor whiteColor];
         _tipsLabel.font = [UIFont systemFontOfSize:22];
+        _tipsLabel.adjustsFontSizeToFitWidth = YES;
         _tipsLabel.textAlignment = NSTextAlignmentCenter;
         _tipsLabel.hidden = YES;
     }

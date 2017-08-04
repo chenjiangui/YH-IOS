@@ -154,7 +154,7 @@
 - (NSArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSArray arrayWithObjects:
-                    @"概况,JYHomeViewController,tab_overview2,tab_overview1",
+                    @"生意概况,JYHomeViewController,tab_overview2,tab_overview1",
                     @"报表,YHReportViewController,tab_form2,tab_form1",
                     @"工具箱,ToolViewController,tab_special2,tab_special1",
                     @"我的,MineController,tab_my2,tab_my1",

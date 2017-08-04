@@ -176,12 +176,13 @@
     return 50;
 }
 
+/*
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
     
     return self.view.frame.size.height-210;
 }
-
+*/
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 1:{

@@ -7,6 +7,7 @@
 //
 
 #import "JYHomeViewController.h"
+#import <PgyUpdate/PgyUpdateManager.h>
 
 #import "JYDashboardModel.h"
 
@@ -37,6 +38,9 @@
 #import "SubLBXScanViewController.h"
 #import "HomeNoticeMessageCell.h"
 #import "ToolModel.h"
+#import "Version.h"
+#import "FileUtils+Assets.h"
+#import <Reachability/Reachability.h>
 
 
 #define kJYNotifyHeight 40
@@ -73,6 +77,9 @@
 @property (nonatomic, strong) HomeNavBarView* navBarView;
 
 @property (nonatomic, strong) ToolModel* noticeMessageModel;
+@property (strong, nonatomic) NSString *localNotificationPath;
+
+@property (nonatomic, strong) HudToolView* netBugView;
 
 @end
 
@@ -97,14 +104,30 @@
     return _navBarView;
 }
 
+- (HudToolView *)netBugView{
+    if (!_netBugView) {
+        _netBugView = [HudToolView view:self.view showEmpty:YES];
+        _netBugView.hidden = YES;
+        MJWeakSelf;
+        _netBugView.touchBlock = ^(id item) {
+            weakSelf.netBugView.contentView.hidden = YES;
+            [weakSelf getData:YES];
+        };
+    }
+    [self.view bringSubviewToFront:_netBugView];
+    return _netBugView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.localNotificationPath = [FileUtils dirPath:kConfigDirName FileName:kLocalNotificationConfigFileName];
     self.fd_prefersNavigationBarHidden = YES;
     [self.view sd_addSubviews:@[self.rootTBView,self.navBarView]];
     [self.rootTBView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
     _user = [[User alloc]init];
+    [self checkFromViewController];
 //    _noticeArray = [[NSMutableArray alloc]init];
 //    dataListButtom = [NSMutableArray new];
 //    [self loadData];
@@ -128,6 +151,10 @@
     [super viewWillAppear:YES];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 - (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
     [self getData:false];
@@ -137,17 +164,17 @@
 #pragma mark - 首页点击事件
 //轮播图点击事件
 - (void)scrollImageAction:(YHKPIDetailModel*)model{
-    NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
+    NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 }
 //经营预警事件
 - (void)manageWarningAction:(YHKPIDetailModel*)model{
-    NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
+    NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 }
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
-    NSString *targetUrl = [NSString stringWithFormat:@"/%@",model.targeturl];
+    NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 
 }
@@ -214,27 +241,13 @@
     }
     [self getNoticeData];
     [YHHttpRequestAPI yh_getHomeDashboardFinish:^(BOOL success, NSArray<YHKPIModel *>* demolArray, NSString *jsonObjc) {
+        self.netBugView.hidden = success;
         [self.reTool endDownPullWithReload:NO];
         [HudToolView hideLoadingInView:self.view];
         if (success && demolArray && jsonObjc) {
-//            for (int i=0; i<demolArray.count; i++) {
-//                if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
-//                    self.modeltop = demolArray[i];
-//                }
-//                else{
-//                    [dataListButtom addObject:demolArray[i]];
-//                }
-//            }
             self.dataList = demolArray;
             [self.rootTBView reloadData];
             self.navBarView.hidden = NO;
-        }else{
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"重新加载" actionBlock:^(void) {
-                [self getData:loading];
-            }];
-            [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
-            return;
         }
     }];
 //    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
@@ -629,6 +642,121 @@
 //    
 //}
 
+/*
+ * 解屏进入主页面，需检测版本更新
+ */
+- (void)checkFromViewController {
+    // if(self.fromViewController && [self.fromViewController isEqualToString:@"AppDelegate"]) {
+    // self.fromViewController = @"AlreadyShow";
+    // 检测版本更新
+    [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:kPgyerAppId];
+    [[PgyUpdateManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(appToUpgradeMethod:)];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        /*
+         * 用户行为记录, 单独异常处理，不可影响用户体验
+         */
+        @try {
+            NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+            logParams[kActionALCName] = @"解屏";
+            [APIHelper actionLog:logParams];
+            
+            /**
+             *  解屏验证用户信息，更新用户权限
+             *  若难失败，则在下次解屏检测时进入登录界面
+             */
+            NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+            NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+            if(!userDict[kUserNumCUName]) {
+                return;
+            }
+            
+            NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
+            NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
+            if(msg.length != 0) {
+                userDict[kIsLoginCUName] = @(NO);
+                [userDict writeToFile:userConfigPath atomically:YES];
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+}
+
+
+# pragma mark - assitant methods
+/**
+ *  内容检测版本升级，判断版本号是否为偶数。以便内测
+ *
+ *  @param response <#response description#>
+ */
+- (void)appToUpgradeMethod:(NSDictionary *)response {
+    if(!response || !response[kDownloadURLCPCName] || !response[kVersionCodeCPCName] || !response[kVersionNameCPCName]) {
+        return;
+    }
+    
+    NSString *pgyerVersionPath = [[FileUtils basePath] stringByAppendingPathComponent:kPgyerVersionConfigFileName];
+    [FileUtils writeJSON:[NSMutableDictionary dictionaryWithDictionary:response] Into:pgyerVersionPath];
+    
+    Version *version = [[Version alloc] init];
+    NSInteger currentVersionCode = [version.build integerValue];
+    NSInteger responseVersionCode = [response[kVersionCodeCPCName] integerValue];
+    
+    // 对比 build 值，只准正向安装提示
+    if(responseVersionCode <= currentVersionCode) {
+        return;
+    }
+    
+    NSMutableDictionary *localNotificationDict = [FileUtils readConfigFile:self.localNotificationPath];
+    localNotificationDict[kSettingPgyerLNName] = @(1);
+    [FileUtils writeJSON:localNotificationDict Into:self.localNotificationPath];
+    
+    Reachability *reach = [Reachability reachabilityForInternetConnection];
+    if(responseVersionCode % 2 == 0) {
+        if (responseVersionCode % 10 == 8 && [reach isReachableViaWiFi]) {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"重大改动，请升级" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]]];
+                NSURL *url = [NSURL URLWithString:[kPgyerUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication] openURL:url];
+                [self exitApplication];
+                //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]] options:@{} completionHandler:nil];
+                //  [[PgyUpdateManager sharedPgyManager] updateLocalBuildNumber];
+            }];
+            
+            [alertVC addAction:action1];
+            [self presentViewController:alertVC animated:YES completion:nil];
+        }
+        else {
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert addButton:kUpgradeBtnText actionBlock:^(void) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]]];
+                [[PgyUpdateManager sharedPgyManager] updateLocalBuildNumber];
+            }];
+            
+            NSString *subTitle = [NSString stringWithFormat:kUpgradeWarnText, response[kVersionNameCPCName], response[kVersionCodeCPCName]];
+            [alert showSuccess:self title:kUpgradeTitleText subTitle:subTitle closeButtonTitle:kCancelBtnText duration:0.0f];
+        }
+    }
+}
+
+
+- (void)exitApplication {
+    
+    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+    UIWindow *window = app.window;
+    
+    [UIView animateWithDuration:1.0f animations:^{
+        window.alpha = 0;
+        window.frame = CGRectMake(0, window.bounds.size.width, 0, 0);
+    } completion:^(BOOL finished) {
+        exit(0);
+    }];
+    //exit(0);
+    
+}
+
 #pragma mark - <JYNotifyDelegate>
 //- (void)notifyView:(JYNotifyView *)notify didSelected:(NSInteger)idx selectedData:(id)data {
 //    NSLog(@"seleted index:%zi data:%@", idx, data);
@@ -789,23 +917,23 @@
           [self presentViewController:superChartNavCtrl animated:YES completion:nil];
       }
       else{ //跳转事件
-          logParams[kActionALCName]   = @"点击/生意概况/报表";
-          logParams[kObjIDALCName]    = [NSString stringWithFormat:@"%@",[urlArray lastObject]];
-          logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
-          logParams[kObjTitleALCName] =  title;
-          /*
-           * 用户行为记录, 单独异常处理，不可影响用户体验
-           */
-          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              @try {
-                  [APIHelper actionLog:logParams];
-              }
-              @catch (NSException *exception) {
-                  NSLog(@"%@", exception);
-              }
-          });
-
           if (isInnerLink) {
+              logParams[kActionALCName]   = @"点击/生意概况/报表";
+              logParams[kObjIDALCName]    = [NSString stringWithFormat:@"%@",[urlArray lastObject]];
+              logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+              logParams[kObjTitleALCName] =  title;
+              /*
+               * 用户行为记录, 单独异常处理，不可影响用户体验
+               */
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  @try {
+                      [APIHelper actionLog:logParams];
+                  }
+                  @catch (NSException *exception) {
+                      NSLog(@"%@", exception);
+                  }
+              });
+
               UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
               
               SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
@@ -817,6 +945,22 @@
               [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
           }
           else{
+              logParams[kActionALCName]   = @"点击/生意概况/链接";
+              logParams[kObjIDALCName]    = [NSString stringWithFormat:@"%@",[urlArray lastObject]];
+              logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+              logParams[kObjTitleALCName] =  title;
+              /*
+               * 用户行为记录, 单独异常处理，不可影响用户体验
+               */
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  @try {
+                      [APIHelper actionLog:logParams];
+                  }
+                  @catch (NSException *exception) {
+                      NSLog(@"%@", exception);
+                  }
+              });
+
               
               SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
               subjectView.bannerName = title;

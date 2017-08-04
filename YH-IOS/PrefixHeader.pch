@@ -47,6 +47,7 @@
 #import "UIImage+Category.h"
 #import "NSObject+NSObject.h"
 #import "UIWebView+CleanLayerDelegate.h"
+#import "YHHttpRequestAPI.h"
 
 #pragma mark - 第三方库
 #import <MJExtension/MJExtension.h>

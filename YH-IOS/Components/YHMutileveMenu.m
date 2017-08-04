@@ -136,14 +136,6 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
     YHReportLeftTextTableViewCell *cell = [[YHReportLeftTextTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YHReportLeftTextTableViewCell"];
     cell.contentLabel.text =_allData[indexPath.row].category;
     cell.contentLabel.font = [UIFont systemFontOfSize:14];
-    cell.contentLabel.highlightedTextColor = [NewAppColor yhapp_1color];
-   // cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   // cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-    //cell.selectedBackgroundView.layer.borderWidth = 1;
-    //cell.selectedBackgroundView.layer.backgroundColor = [UIColor colorWithHexString:@"#d2d2d2"].CGColor;
-    cell.selectedBackgroundView =[[UIView alloc] initWithFrame:cell.frame];
-    cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
-    //cell.contentLabel.highlightedTextColor = [UIColor colorWithHexString:@"#6aa657"];
     return cell;
 }
 

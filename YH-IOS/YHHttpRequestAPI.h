@@ -76,5 +76,21 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
  */
 + (void)yh_getHomeNoticeListFinish:(YHHttpRequestBlock)finish;
 
+/**
+ 获取收藏文章列表
+
+ @param page page description
+ @param finish finish description
+ */
++ (void)yh_getFavArticleListPage:(NSInteger)page
+                          Finish:(YHHttpRequestBlock)finish;
+
+
+/**
+ 获取报表页面公告列表
+ 
+ @param finish finish description
+ */
++(void)yh_getReportListFininsh:(YHHttpRequestBlock)finish;
 
 @end

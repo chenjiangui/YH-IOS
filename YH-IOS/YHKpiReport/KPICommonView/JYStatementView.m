@@ -10,13 +10,14 @@
 #import "JYModuleTwoCell.h"
 #import "JYExcelModel.h"
 
+
 @interface JYStatementView () <UITableViewDelegate, UITableViewDataSource, JYModuleTwoCellDelegate> {
     
 }
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) JYModuleTwoCell *moduleTwoCell;
 @property (nonatomic, strong) NSArray *viewModelList;
-
 
 @end
 
@@ -24,7 +25,13 @@
 
 - (void)layoutSubviews {
     
-    [self addSubview:self.tableView];
+//    [self addSubview:self.tableView];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    [self tableView];
+    return self;
 }
 
 - (NSArray *)viewModelList {
@@ -49,6 +56,10 @@
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        [self addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(self);
+        }];
     }
     return _tableView;
 }
@@ -77,6 +88,7 @@
     return cell;
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 0.0;
     
@@ -100,7 +112,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": @"{0,121}"}]; // 72 + 45 + 4
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": @"{0,110}"}]; // 72 + 45 + 4
 }
 
 #pragma mark - <JYModuleTwoCellDelegate>

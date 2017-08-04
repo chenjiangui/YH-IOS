@@ -14,4 +14,6 @@
 @property (nonatomic,strong)UILabel *leftLabel;
 @property (nonatomic,strong)UILabel *rightLabel;
 
+@property (nonatomic, strong) UIView *sepertView;
+
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "YHInstituteController.h"
-#import "RefreshTool.h"
 #import "YHInstituteListCell.h"
 #import "YHHttpRequestAPI.h"
 #import "ArticlesModel.h"
@@ -15,24 +14,11 @@
 #import "YHInstituteDetailViewController.h"
 #import "User.h"
 
-@interface YHInstituteController () <UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate,UISearchBarDelegate>
+@interface YHInstituteController () 
 {
     User *user;
 }
 
-@property (nonatomic, strong) UITableView* tableView;
-
-@property (nonatomic, strong) RefreshTool* reTool;
-
-@property (nonatomic, strong) NSMutableArray* dataList;
-
-@property (nonatomic, assign) NSInteger page;
-
-@property (nonatomic, strong) NSString* keyword;
-
-@property (nonatomic, strong) UISearchBar* searchBar;
-
-@property (nonatomic, strong) CommonSheetView* favSheetView;
 
 @end
 
@@ -80,9 +66,9 @@
     
 }
 
-- (void)collecArticle:(NSString*)identifier isFav:(BOOL)isFav{
+- (void)collecArticle:(ArticlesModel*)articlesModel isFav:(BOOL)isFav{
     [HudToolView showLoadingInView:self.view];
-    [YHHttpRequestAPI yh_collectArticleWithArticleId:identifier isFav:isFav finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
+    [YHHttpRequestAPI yh_collectArticleWithArticleId:articlesModel.identifier isFav:isFav finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
         [HudToolView hideLoadingInView:self.view];
         if ([model.code isEqualToString:@"201"]) {
             [self getData:YES isDownPull:YES];
@@ -115,7 +101,7 @@
             [weakSelf.favSheetView show];
             weakSelf.favSheetView.model = model;
         }else{
-            [weakSelf collecArticle:model.identifier isFav:!item.selected];
+            [weakSelf collecArticle:model isFav:!item.selected];
         }
     };
     [cell setupAutoHeightWithBottomView:cell.iconImageV bottomMargin:15];
@@ -178,7 +164,7 @@
             [weakSelf.favSheetView hide];
             if (item.integerValue == 0) {
                 ArticlesModel* model = weakSelf.favSheetView.model;
-                [weakSelf collecArticle:model.identifier isFav:NO];
+                [weakSelf collecArticle:model isFav:NO];
             }
         };
     }

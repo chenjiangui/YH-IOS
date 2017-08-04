@@ -148,15 +148,19 @@
         BaseModel* model1 = [[BaseModel alloc] init];
         model1.identifier = @"0";
         model1.message = @"系统公告";
+        model1.isSelected = true;
         BaseModel* model2 = [[BaseModel alloc] init];
         model2.identifier = @"1";
         model2.message = @"业务公告";
+        model2.isSelected = true;
         BaseModel* model3 = [[BaseModel alloc] init];
         model3.identifier = @"2";
         model3.message = @"预警公告";
+        model3.isSelected =true;
         BaseModel* model4 = [[BaseModel alloc] init];
         model4.identifier = @"3";
         model4.message = @"报表评论";
+        model4.isSelected = true;
         _typesArray = @[model1,model2,model3,model4];
     }
     return _typesArray;

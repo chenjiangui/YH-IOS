@@ -12,7 +12,7 @@
 #import "JYItemManager.h"
 
 
-#define ItemWidth                 90
+#define ItemWidth                 120
 #define FontMinSize               10
 #define FontDetLeSize             5
 #define FontDefSize               10

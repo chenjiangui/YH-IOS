@@ -30,6 +30,7 @@
 #import "LogoutTableViewCell.h"
 #import "NewMineResetPwdController.h"
 #import "NewMineQuestionController.h"
+#import "MyFavArticleController.h"
 
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
 {
@@ -67,22 +68,29 @@
     secondArray = @[user.groupName,user.userNum];
     seconImageArray = @[@"list_ic_set"];
      [self setupTableView];
-    // Do any additional setup after loading the view.
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
     [self BindDate];
+    [self getData];
+}
+
+-(void)getData{
     RACSignal *requestSingal = [self.requestCommane execute:nil];
     [requestSingal subscribeNext:^(NSDictionary *x) {
-        
         self.userDict = [x copy];
+        [self.minetableView.mj_header endRefreshing];
         [self.minetableView reloadData];
     }];
 }
 
 - (CommonSheetView *)favSheetView{
+    if (!_favSheetView) {
         _favSheetView = [[CommonSheetView alloc] initWithDataList:@[@"确认退出"]];
         _favSheetView.lastString = @"取消";
         _favSheetView.colors = @[[NewAppColor yhapp_17color]];
@@ -90,9 +98,10 @@
         _favSheetView.selectBlock = ^(NSNumber* item) {
             [weakSelf.favSheetView hide];
             if (item.integerValue == 0) {
-               [weakSelf jumpToLogin];
+                [weakSelf jumpToLogin];
             }
         };
+    }
     return _favSheetView;
 }
 
@@ -127,12 +136,16 @@
     self.minetableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49-64);
     [self.view addSubview:self.minetableView];
     [self.minetableView setScrollEnabled:YES];
+    self.minetableView.backgroundColor = [NewAppColor yhapp_8color];
     self.minetableView.delegate = self;
     self.minetableView.dataSource = self;
     self.minetableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.minetableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getData];
+    }];
    // UINib *mineInfoCell = [UINib nibWithNibName:@"MineInfoTableViewCell" bundle:nil];
     //[self.minetableView registerNib:mineInfoCell forCellReuseIdentifier:@"MineInfoTableViewCell"];
-   // self.minetableView.tableFooterView = [self LogoutFooterView];
+    self.minetableView.tableFooterView = [self LogoutFooterView];
     
   //  [self.mineHeaderView.avaterImageView sd_setImageWithURL:self.person.icon];
 }
@@ -297,19 +310,8 @@
 
 -(UIView *)LogoutFooterView{
     
-    UIView *logoutView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
-    UIButton *logoutButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 20,SCREEN_WIDTH, 40)];
-    [logoutView addSubview:logoutButton];
-    logoutButton.layer.borderWidth = 1;
-    logoutButton.layer.borderColor = [UIColor colorWithHexString:@"#d2d2d2"].CGColor;
-    [logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
-    [[logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-       // [self logoutButtonClick:logoutButton];
-    }];
-    //[logoutButton addTarget:self action:@selector(logoutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [logoutButton setTitleColor:[UIColor colorWithHexString:@"#010101"] forState:UIControlStateNormal];
-    logoutButton.backgroundColor = [UIColor colorWithHexString:@"#fbfcf5"];
-    logoutView.backgroundColor = [UIColor whiteColor];
+    UIView *logoutView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    logoutView.backgroundColor = [NewAppColor yhapp_8color];
     
     return logoutView;
     
@@ -322,6 +324,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ((indexPath.section == 3 ) && (indexPath.row == 1)) {
 //        MineResetPwdViewController *mineResetPwdCtrl = [[MineResetPwdViewController alloc]init];
         
@@ -344,6 +347,9 @@
         MineSingleSettingViewController *settingCtrl = [[MineSingleSettingViewController alloc]init];
         settingCtrl.title = @"设置";
         [RootNavigationController pushViewController:settingCtrl animated:YES hideBottom:YES];
+    }else if (indexPath.section == 2){
+        MyFavArticleController* vc = [[MyFavArticleController alloc] init];
+        [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
     }
 }
 
@@ -383,6 +389,7 @@
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:kLoginVCName];
     self.view.window.rootViewController = loginViewController;
 }
+
 
 
 - (void)didReceiveMemoryWarning {

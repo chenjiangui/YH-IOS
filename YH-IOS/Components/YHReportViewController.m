@@ -21,7 +21,9 @@
 #import "SubjectOutterViewController.h"
 #import "JYDemoViewController.h"
 #import "NewSubjectViewController.h"
-@interface YHReportViewController ()
+#import "RefreshTool.h"
+
+@interface YHReportViewController () <RefreshToolDelegate>
 {
     NSMutableArray * _list;
     User *user;
@@ -29,11 +31,19 @@
 
 @property (nonatomic, strong)NSArray<ListPageList *> *listArray;
 @property (nonatomic, strong)YHMutileveMenu *menuView ;
-@property (nonatomic, strong) UIRefreshControl* refreshControl;
+//@property (nonatomic, strong) UIRefreshControl* refreshControl;
+@property (nonatomic, strong) RefreshTool* reTool;
 
 @end
 
 @implementation YHReportViewController
+
+- (RefreshTool *)reTool{
+    if (!_reTool) {
+        _reTool = [[RefreshTool alloc] initWithScrollView:self.menuView.rightCollection delegate:self down:true top:false];
+    }
+    return _reTool;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,9 +56,21 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
    // [self getdata];
     [self addMuneView];
-    [self getSomeThingNew];
+     self.title = @"报表";
+    [self getData:true];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
+    [self getData:false];
+}
+
+- (void)getData:(BOOL)loading{
+    if (loading) {
+        [HudToolView showLoadingInView:self.view];
+    }
+    [self getSomeThingNew];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -68,17 +90,17 @@
     _menuView.isRecordLastScroll = NO;
     [weakSelf.view addSubview:_menuView];
     
-    _refreshControl = [[UIRefreshControl alloc] init];
-    
-    [_refreshControl addTarget:weakSelf
-     
-                        action:@selector(getSomeThingNewRefresh)
-     
-              forControlEvents:UIControlEventValueChanged];
-    
-    [_refreshControl setAttributedTitle:[[NSAttributedString alloc] init]];
-    
-    [weakSelf.menuView.rightCollection addSubview:_refreshControl];
+//    _refreshControl = [[UIRefreshControl alloc] init];
+//    
+//    [_refreshControl addTarget:weakSelf
+//     
+//                        action:@selector(getSomeThingNewRefresh)
+//     
+//              forControlEvents:UIControlEventValueChanged];
+//    
+//    [_refreshControl setAttributedTitle:[[NSAttributedString alloc] init]];
+//    
+//    [weakSelf.menuView.rightCollection addSubview:_refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -95,7 +117,7 @@
 
 - (void)initCategoryMenu {
     self.menuView.allData = _listArray;
-    [self.refreshControl endRefreshing];
+//    [self.refreshControl endRefreshing];
     [self.menuView reloadData];
 }
 
@@ -186,6 +208,28 @@
            // UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:jyHome];
            // [self presentViewController:superChartNavCtrl animated:YES completion:nil];
         }
+        else if ([targeturl rangeOfString:@"template/1/"].location != NSNotFound) {
+            JYDemoViewController *superChaerCtrl = [[JYDemoViewController alloc]init];
+            superChaerCtrl.urlLink = targeturl;
+            // UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:superChaerCtrl];
+            logParams[kActionALCName]   = @"点击/专题/报表";
+            logParams[kObjIDALCName]    = @(item.itemID);
+            logParams[kObjTypeALCName]  = @(ObjectTypeApp);
+            logParams[kObjTitleALCName] =  item.listName;
+            /*
+             * 用户行为记录, 单独异常处理，不可影响用户体验
+             */
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                @try {
+                    [APIHelper actionLog:logParams];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"%@", exception);
+                }
+            });
+            [RootNavigationController pushViewController:superChaerCtrl animated:YES hideBottom:YES];
+        }
+
         else{ //跳转事件
             logParams[kActionALCName]   = @"点击/报表/报表";
             logParams[kObjIDALCName]    = @(item.itemID);
@@ -338,7 +382,24 @@
     NSString*fileName =  @"home_report";
     
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
-    if ([HttpUtils isNetworkAvailable3]) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:kpiUrl
+      parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          NSLog(@"JSON: %@", responseObject);
+          [self.reTool endDownPullWithReload:false];
+          [HudToolView hideLoadingInView:self.view];
+        NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:responseObject[@"data"] error:nil];
+          self.listArray = [array copy];
+          [self initCategoryMenu];
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          [self.reTool endDownPullWithReload:false];
+          [HudToolView hideLoadingInView:self.view];
+          SCLAlertView *alert = [[SCLAlertView alloc] init];
+          [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
+      }];
+    
+   /* if ([HttpUtils isNetworkAvailable3]) {
+        [HudToolView hideLoadingInView:self.view];
         HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
         if ([reponse.statusCode  isEqual: @200] || [HttpUtils isNetworkAvailable3]) {
             NSData *data = reponse.received;
@@ -365,6 +426,7 @@
         }
     }
     else{
+        [HudToolView hideLoadingInView:self.view];
         NSData *data = [NSData dataWithContentsOfFile:javascriptPath];
         if (!data) {
             SCLAlertView *alert = [[SCLAlertView alloc] init];
@@ -379,8 +441,9 @@
         self.listArray = [array copy];
         [self initCategoryMenu];
         }
-    }
+    }*/
 }
+
 
 -(void)getSomeThingNewRefresh {
     user = [[User alloc]init];

@@ -47,25 +47,37 @@
     self.precentView.dataLable.textColor = [UIColor colorWithHexString:@"#f57658"];
     self.precentView.utilLabel.textColor = [UIColor colorWithHexString:@"#f57658"];
     [self addSubview:self.precentView];
+    
+    
+    self.sepertView = [[UIView alloc]init];
+    self.sepertView.backgroundColor = [NewAppColor yhapp_8color];
+    [self addSubview:_sepertView];
+    
     [self layoutUI];
 }
 
 -(void)layoutUI {
     
+    
+    [self.sepertView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self);
+        make.height.mas_equalTo(@1);
+    }];
+    
     [self.loginCountView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.mas_left).mas_offset(40);
         make.right.equalTo(self.reportScanCountView.mas_left).mas_offset(-20);
         make.top.mas_equalTo(self.mas_top).mas_offset(0);
-        make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-16);
+        make.bottom.mas_equalTo(self.sepertView.mas_top).mas_offset(-15);
     }];
     [self.reportScanCountView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).mas_offset(0);
-        make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-16);
+        make.bottom.mas_equalTo(self.sepertView.mas_top).mas_offset(-15);
         make.centerX.equalTo(self.mas_centerX).mas_offset(0);
     }];
     [self.precentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).mas_offset(0);
-        make.bottom.mas_equalTo(self.mas_bottom).mas_offset(-16);
+        make.bottom.mas_equalTo(self.sepertView.mas_top).mas_offset(-15);
         make.right.mas_equalTo(self.mas_right).mas_offset(-40);
         make.left.mas_equalTo(self.reportScanCountView.mas_right).mas_offset(20);
         make.width.equalTo(@[self.reportScanCountView.mas_width,self.loginCountView.mas_width]);

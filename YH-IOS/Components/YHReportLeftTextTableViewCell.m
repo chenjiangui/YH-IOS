@@ -15,6 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self addSubViews];
     }
     return self;
@@ -26,41 +27,46 @@
     self.contentLabel = [[UILabel alloc]init];
     self.contentLabel.textColor = [NewAppColor yhapp_6color];
     self.contentLabel.font = [UIFont systemFontOfSize:14];
-    [self addSubview:self.contentLabel];
+    [self.contentView addSubview:self.contentLabel];
     
     self.rightView = [[UIView alloc]init];
     self.rightView.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.rightView];
+    [self.contentView addSubview:self.rightView];
+    
+    self.leftView = [[UILabel alloc] init];
+    self.leftView.text = @" ";
+    self.leftView.backgroundColor = [NewAppColor yhapp_1color];
+    [self.contentView addSubview:self.leftView];
     
     [self layoutUI];
 }
 
 
 -(void)layoutUI{
-    [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.mas_centerX).mas_offset(0);
-        make.centerY.mas_equalTo(self.mas_centerY).mas_offset(0);
+    [_leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.centerY.mas_equalTo(self);
+        make.size.mas_equalTo(CGSizeMake(4, 20));
     }];
-    [self.rightView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(self);
+        make.left.mas_equalTo(_leftView.mas_right).mas_offset(4);
+        make.right.mas_equalTo(self.mas_right);
+        
+    }];
+    
+   /* [self.rightView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.mas_left);
         make.centerY.mas_equalTo(self.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(4, 20));
-    }];
+    }];*/
 }
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
-    [super setHighlighted:highlighted animated:animated];
-   // self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-   // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
-    //  self.selectedBackgroundView.backgroundColor = [UIColor clearColor];// 设置选中cell的背景view背景色
-}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-   // self.rightView.backgroundColor = [NewAppColor yhapp_1color];
-   // self.rightView.backgroundColor = [NewAppColor yhapp_1color];
-   // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
-   // self.bottomSepLine.backgroundColor = [UIColor colorWithHexString:@"#dedede"];
-    // Configure the view for the selected state
+    self.contentView.backgroundColor = selected? [UIColor whiteColor]:[NewAppColor yhapp_8color];
+    _contentLabel.textColor = selected? [NewAppColor yhapp_1color]:[NewAppColor yhapp_6color];
+    _leftView.hidden = !selected;
 }
 
 @end

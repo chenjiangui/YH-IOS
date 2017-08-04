@@ -14,6 +14,7 @@
 @property (nonatomic, strong)UserCountView *loginCountView;
 @property (nonatomic, strong)UserCountView *reportScanCountView;
 @property (nonatomic, strong)UserCountView *precentView;
+@property (nonatomic, strong) UIView *sepertView;
 
 -(void)refreshViewWith:(NSDictionary *)person;
 

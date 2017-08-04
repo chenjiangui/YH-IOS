@@ -26,6 +26,8 @@
 #import "iflyMSC/IFlySpeechUtility.h"
 #import <UserNotifications/UserNotifications.h>
 #import "GuidePageViewController.h"
+#import <Bugly/Bugly.h>
+#import <DMPasscode/DMPasscode.h>
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
@@ -36,6 +38,9 @@
 #define IOS7_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
 @interface AppDelegate ()<LTHPasscodeViewControllerDelegate,UNUserNotificationCenterDelegate>
+{
+        BOOL _showingPasscode;
+}
 @property (nonatomic,assign) BOOL isReApp;
 
 @end
@@ -94,6 +99,7 @@ void UncaughtExceptionHandler(NSException * exception) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _isReApp = YES;
+    [self registerAppSDK];
     // [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"receiveRemote"];
     // 获取版本号
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -142,6 +148,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     [self checkAssets];
     [self initWebViewUserAgent];
     [self initScreenLock];
+   // [self actionSetup];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     application.applicationIconBadgeNumber = 0;
@@ -173,6 +180,11 @@ void UncaughtExceptionHandler(NSException * exception) {
     }
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     return YES;
+}
+
+// 注册第三方SDK
+-(void)registerAppSDK {
+    [Bugly startWithAppId:kBUGLYID];
 }
 
 - (void)savePushDict:(NSDictionary *)dict {
@@ -249,6 +261,15 @@ void UncaughtExceptionHandler(NSException * exception) {
 
 
 //iOS10新增：处理后台点击通知的代理方法
+- (void)actionSetup {
+    [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
+        if (success) {
+            [self jumpToDashboardView];
+        }
+    }];
+}
+
+
 - (void) userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
 {
     /* SystemSoundID soundID = 1008;//具体参数详情下面贴出来
@@ -402,11 +423,22 @@ void UncaughtExceptionHandler(NSException * exception) {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [self initScreenLock];
+    //_showingPasscode = YES;
+    //_showingPasscode = NO;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if ([DMPasscode isPasscodeSet] && !_showingPasscode) {
+        _showingPasscode = YES;
+        [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
+            if (success) {
+                [self jumpToDashboardView];
+            }else{
+               
+            }
+        }];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -242,6 +242,8 @@
         _scrollVc.scaleBack = ^(NSNumber* item) {
 //            DLog(@"%f",item.floatValue);
             [weakSelf.headerView updateWithScale:item.floatValue];
+            [weakSelf.view endEditing:YES];
+            
         };
         _scrollVc.selectBack = ^(NSNumber* item) {
             for (UIButton* button in weakSelf.headerView.btns) {

@@ -51,12 +51,22 @@
     self.userRoleLabel.font = [UIFont systemFontOfSize:12];
     [self addSubview:self.userRoleLabel];
     
+    self.sepertView = [[UIView alloc]init];
+    self.sepertView.backgroundColor = [NewAppColor yhapp_8color];
+    [self addSubview:_sepertView];
+    
     [self layoutUI];
 
 }
 
 
 -(void)layoutUI {
+    
+    [self.sepertView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self);
+        make.height.mas_equalTo(@1);
+    }];
+    
     [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         NSLog(@"图片的底部是:--%f ",self.avaterImageView.bottom);
         NSLog(@"图片高是 -- %f",self.avaterImageView.width);

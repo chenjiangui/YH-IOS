@@ -94,4 +94,14 @@
     }];
 }
 
++ (void)yh_getFavArticleListPage:(NSInteger)page Finish:(YHHttpRequestBlock)finish{
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/page/%zd/limit/%@/favourite_articles",kBaseUrl,self.user.userID,page,defaultLimit];
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
+        finish(requestSuccess,model,responseJson);
+    }];
+}
+
+
+
 @end

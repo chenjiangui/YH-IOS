@@ -20,6 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bugly (2.4.8)
+  - DMPasscode (2.0.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -78,6 +80,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
+  - Bugly
+  - DMPasscode
   - FMDB
   - LBXScan (from `https://github.com/MxABC/LBXScan.git`)
   - LTHPasscodeViewController (~> 3.7.1)
@@ -112,6 +116,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  Bugly: da3c02408c14838d498429320545a8e439392978
+  DMPasscode: 2c787063d41869bb3f78c88f38ea63739dc0a80e
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   LBXScan: 30153fa9c57bbe63d93cc6bf35c047ec1b63260c
   LTHPasscodeViewController: 93a2438709e2affda710ad53081810d12d3081ff
@@ -130,6 +136,6 @@ SPEC CHECKSUMS:
   ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
   ZYCornerRadius: 485a8e9304d16d1620641054a08b9c0f55dd512c
 
-PODFILE CHECKSUM: 63abe2c257810079a39b8bb43a6be8493975a7f3
+PODFILE CHECKSUM: afb21afe59421d108626652bcd02b6e014bae60f
 
 COCOAPODS: 1.2.1

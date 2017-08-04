@@ -18,8 +18,6 @@
 #import "YHLocation.h"
 #import <CoreLocation/CoreLocation.h>
 
-
-
 #define kSloganHeight [[UIScreen mainScreen]bounds].size.height / 6
 
 @interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,CLLocationManagerDelegate>
@@ -38,7 +36,14 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;
+
+
+
+
 @property (nonatomic, strong)UITextField *passwordNumber;
+
+
+
 @property (nonatomic, copy)NSString *peopleNumString;
 
 @property (nonatomic, copy)NSString *passwordNumString;
@@ -53,7 +58,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self startLocation];
     UIImageView *Logo =[[UIImageView alloc] init];
     [self.view addSubview:Logo];
@@ -134,7 +138,7 @@
     }];
     UIButton *deleteLogo=[[UIButton alloc] init];
     [deleteLogo setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
-    [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchUpInside];
+    [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:deleteLogo];
     [deleteLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(25);
@@ -159,7 +163,7 @@
     [forGotPwd setTitle:@"忘记密码" forState:UIControlStateNormal];
     forGotPwd.titleLabel.font=[UIFont boldSystemFontOfSize:13];
     //    forGotPwd.titleLabel.font = [UIFont systemFontOfSize:13];
-    [forGotPwd addTarget:self action:@selector(jumpToFindPassword) forControlEvents:UIControlEventTouchUpInside];
+    [forGotPwd addTarget:self action:@selector(jumpToFindPassword) forControlEvents:UIControlEventTouchDown];
     [forGotPwd setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
     [self.view addSubview:forGotPwd];
   
@@ -168,27 +172,24 @@
     [self.view addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);
-//        make.centerY.mas_equalTo(forGotPwd.mas_centerY).offset(0);
-//        make.left.mas_equalTo(forGotPwd.mas_right).offset(16);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
+        make.centerY.mas_equalTo(forGotPwd.mas_centerY).offset(0);
+        make.left.mas_equalTo(forGotPwd.mas_right).offset(16);
         make.size.mas_equalTo(CGSizeMake(0.5,14));
     }];
     [forGotPwd mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
         make.right.mas_equalTo(line.mas_left).offset(-16);
-        make.centerY.mas_equalTo(line.mas_centerY);
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     UIButton *registerBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [registerBtn setTitle:@"申请注册" forState:UIControlStateNormal];
     registerBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-    [registerBtn addTarget:self action:@selector(clickRegisterBtn) forControlEvents:UIControlEventTouchUpInside];
+    [registerBtn addTarget:self action:@selector(clickRegisterBtn) forControlEvents:UIControlEventTouchDown];
     [registerBtn setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
     [self.view addSubview:registerBtn];
     [registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-40);
         make.left.mas_equalTo(line.mas_right).offset(16);
-        make.centerY.mas_equalTo(line.mas_centerY);
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
     
@@ -502,9 +503,26 @@
     [self.progressHUD hide:YES];
     
     if (!(msg.length == 0)) {
-    [HudToolView showTopWithText:msg color:[NewAppColor yhapp_11color]];
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if (self.navigationController.navigationBarHidden) {
+            [self.navigationController setNavigationBarHidden:NO];
+        }
+        [HudToolView showTopWithText:msg correct:false];
+//        [RMessage showNotificationInViewController:self.navigationController
+//                                             title:msg
+//                                          subtitle:nil
+//                                         iconImage:nil
+//                                              type:RMessageTypeError
+//                                    customTypeName:nil
+//                                          duration:RMessageDurationAutomatic
+//                                          callback:nil
+//                                       buttonTitle:nil
+//                                    buttonCallback:nil
+//                                        atPosition:RMessagePositionNavBarOverlay
+//                              canBeDismissedByUser:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
             // 用户行为记录, 单独异常处理，不可影响用户体验
+            
             @try {
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
                 NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
