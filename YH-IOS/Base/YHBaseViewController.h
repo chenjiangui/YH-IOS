@@ -16,6 +16,7 @@
 #define RootNavigationController [YHBaseViewController getRootNavController]
 
 typedef void(^CommonBack)(id item);
+typedef void(^CommonTwoBack)(id item1, id item2);
 
 @interface YHBaseViewController : UIViewController
 

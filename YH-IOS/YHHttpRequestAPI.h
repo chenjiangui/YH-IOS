@@ -85,12 +85,12 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
 + (void)yh_getFavArticleListPage:(NSInteger)page
                           Finish:(YHHttpRequestBlock)finish;
 
-
 /**
- 获取报表页面公告列表
- 
+ 获取筛选界面主数据和地址数据
+
  @param finish finish description
  */
-+(void)yh_getReportListFininsh:(YHHttpRequestBlock)finish;
++ (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish;
+
 
 @end
