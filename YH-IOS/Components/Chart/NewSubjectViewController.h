@@ -13,10 +13,9 @@
 #import "APIHelper.h"
 #import "FileUtils+Assets.h"
 #import <MBProgressHUD.h>
-//#import "WebViewJavascriptBridge.h"
+#import "WebViewJavascriptBridge.h"
 //use wkwebview
 #import "UMSocialControllerService.h"
-#import "WKWebViewJavascriptBridge.h"
 #import "HttpResponse.h"
 #import <SCLAlertView.h>
 #import "UIColor+Hex.h"
@@ -30,8 +29,8 @@
 @interface NewSubjectViewController : UIViewController
 
 
-@property (assign) id <WebViewJavascriptBridgeBaseDelegate> bridgeDelegate;
-@property WKWebViewJavascriptBridge* bridge;
+//@property (assign) id <WebViewJavascriptBridgeBaseDelegate> bridgeDelegate;
+@property WebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSString *assetsPath;

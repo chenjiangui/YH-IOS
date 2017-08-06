@@ -157,65 +157,17 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
 
     //[self idColor];
-//    [WKWebViewJavascriptBridge enableLogging];
-    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"SubjectViewController - Response for message from ObjC");
-    }];
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSURL *baseURL = [[NSBundle mainBundle] bundleURL];
-    [self.browser loadHTMLString:[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil] baseURL:baseURL];
-    
-    
-    //            NSString *localHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-    //            NSURL *fileURL = [NSURL fileURLWithPath:htmlPath];
-    //            [self.browser loadHTMLString:localHtml baseURL:fileURL];
-    ////
-    
-    //
-    [self.bridge registerHandler:@"ObjC Echo" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"%@",data);
-    }];
-    
-//
-//    self.bridge=[WKWebViewJavascriptBridge bridgeForWebView:self.browser handler:^(id data, WVJBResponseCallback responseCallback) {
-//      
-//        NSLog(@"23");
+    [WebViewJavascriptBridge enableLogging];
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        responseCallback(@"SubjectViewController - Response for message from ObjC");
 //    }];
-//    
-//    [self.bridge callHandler:@"testJSFunction" data:@"一个字符串" responseCallback:^(id responseData) {
-//        NSLog(@"调用完JS后的回调：%@",responseData);
-//    }];
-
-
-    // 如果控制器里需要监听WKWebView 的`navigationDelegate`方法，就需要添加下面这行。
-   // [self addWebViewJavascriptBridge];
     
-//    [self registerNativeFunctions];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     
-    
+    [self.bridge setWebViewDelegate:self];
     
 }
 
-//+ (instancetype)bridgeForWebView:(WKWebView*)webView {
-//    WKWebViewJavascriptBridge* bridge = [[self alloc] init];
-//    [bridge _setupInstance:webView];
-//    
-//    [];
-//
-//    [bridge _setup];
-//    
-//
-//    [bridge reset];
-//    return bridge;
-//}
-//- (void) _setupInstance:(WKWebView*)webView {
-//    self.browser = webView;
-//    self.browser .navigationDelegate = self;
-//    _base = [[WebViewJavascriptBridgeBase alloc] init];
-//    _base.delegate = self;
-//}
-//
 
 
 
@@ -231,25 +183,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self registershowAlert];
 }
 
--(void)registerMove
-{
-
-    [self.bridge registerHandler:@"getUserIdFromObjC" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"js call getUserIdFromObjC, data from js is %@", data);
-        if (responseCallback) {
-            // 反馈给JS
-            responseCallback(@{@"userId": @"123456"});
-        }
-    }];
-    
-    [self.bridge registerHandler:@"getBlogNameFromObjC" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"js call getBlogNameFromObjC, data from js is %@", data);
-        if (responseCallback) {
-            // 反馈给JS
-            responseCallback(@{@"blogName": @"标哥的技术博客"});
-        }
-    }];
-}
 
 
 
@@ -1017,7 +950,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)loadHtml {
     DeviceState deviceState = [APIHelper deviceState];
     if(deviceState == StateOK) {
-        self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
+        self.isInnerLink ? [self loadOuterLink]: [self loadInnerLink];
     }
     else if(deviceState == StateForbid) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
@@ -1041,7 +974,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", self.user.userNum, timestamp];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
     
-    NSLog(@"%@", self.urlString);
     [self.browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
     self.isLoadFinish = !self.browser.isLoading;
 }
@@ -1090,38 +1022,99 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf clearBrowserCache];
-          
-//            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-//        
-//            [weakSelf.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
+            [self clearBrowserCache];
+            
+//            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"change" ofType:@"html"];
+//
+//          
+//          NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:filePath];
 
-//            NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"success" ofType:@".html"];
-//            
-//            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:urlStr];
-//            
-//            [weakSelf.browser loadHTMLString:htmlContent baseURL:nil];
-//            
+            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
             
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"success" ofType:@"html"];
-            NSURL *baseURL = [[NSBundle mainBundle] bundleURL];
-            [self.browser loadHTMLString:[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil] baseURL:baseURL];
+            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:htmlPath]];
             
-            
-//            NSString *localHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-//            NSURL *fileURL = [NSURL fileURLWithPath:htmlPath];
-//            [self.browser loadHTMLString:localHtml baseURL:fileURL];
+//
+//            [self.browser loadFileURL:[NSURL fileURLWithPath:htmlPath] allowingReadAccessToURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
+//            
+
+//            NSString *a=[[NSBundle mainBundle] resourcePath];
+//            
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSString *docDir = [paths objectAtIndex:0];
+//            
+//            NSFileManager *fileManager = [NSFileManager defaultManager];
+//            
+//            [fileManager copyItemAtPath:docDir toPath:a error:NULL];
+//            
+//            NSError *error = nil;
+//            NSArray *fileList = [[NSArray alloc] init];
+//            fileList = [fileManager contentsOfDirectoryAtPath:a error:&error];
+//            NSLog(@"%@",fileList);
+//            NSLog(@"%@", error);
+//            
+//            
+//            if( [fileManager copyItemAtPath:docDir toPath:a error:NULL]==NO){
+//                NSLog(@"复制失败");
+//            }
+//            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:a]];
+//
 ////
             
+            
+//            [self.browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://myself.nttuoyu.com/"]]];
 
             
-            weakSelf.isLoadFinish = !weakSelf.browser.isLoading;
+//            [self.browser lo];
+            
+//            NSLog(@"%@",htmlPath);
+//            
+//            NSLog(@"%@",[NSURL fileURLWithPath:self.sharedPath]);
+            
+            
+//            
+////            NSFileManager *fileManager = [NSFileManager defaultManager];
+////
+////
+////            NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+////            
+////            NSString *documentDirectory = [directoryPaths objectAtIndex:0];
+////        
+////            NSString *path1=[NSString stringWithFormat:@"file://%@/Shared",documentDirectory];
+////
+////            NSLog(@"%@",path1);
+////            
+////            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
+////            
+////            
+////            NSArray * tempFileList2 = [[NSArray alloc] initWithArray:[fileManager contentsOfDirectoryAtPath:self.sharedPath error:nil]];
+////            NSLog(@"%@",tempFileList2);
+////
+//            
+////            [self.browser loadFileURL:[NSURL fileURLWithPath:htmlPath] allowingReadAccessToURL:[NSURL fileURLWithPath:weakSelf.sharedPath]];
+//            
+//            
+//            
+//            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+//            self.isLoadFinish = !self.browser.isLoading;
+//
+            
+//            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"change" ofType:@"html"];
+//////
+////
+//////            NSString *filePaths = [[NSBundle mainBundle] pathForResource:@"report_template_v2" ofType:@"js"];
+//////            
+///
+//   NSString * htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+////            NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] resourcePath]];
+//            [self.browser loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:a]];
+//
+//            NSString *a=[[NSBundle mainBundle] resourcePath];
+//            [self.browser loadHTMLString:[NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil] baseURL:[NSURL fileURLWithPath:a]];
 
         });
-
-
     });
 }
+
 
 - (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL {
     NSError *error = nil;
@@ -1550,24 +1543,44 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 //页面完成加载时调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
-//    [self addWebViewJavascriptBridge];
-    [self.progressHUD hide:YES];
-    self.progressHUD = nil;
-    [MRProgressOverlayView dismissAllOverlaysForView:self.browser animated:YES];
-    
-    
-    
-//    [self addWebViewJavascriptBridge];
+////    [self addWebViewJavascriptBridge];
+//    [self.progressHUD hide:YES];
+//    self.progressHUD = nil;
+//    [MRProgressOverlayView dismissAllOverlaysForView:self.browser animated:YES];
+//    
+//    
+//    
+////    [self addWebViewJavascriptBridge];
      [self registerNativeFunctions];
-    
-    
-    NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
-    self.isLoadFinish = YES;
-//    [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-    if ([browerDict[@"allow_brower_copy"] boolValue]) {
-        return;
-    }
+//    
+//    
+//    NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
+//    self.isLoadFinish = YES;
+////    [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+//    if ([browerDict[@"allow_brower_copy"] boolValue]) {
+//        return;
+//    }
 
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.images.length"] completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+        
+        if (response != 0) {
+            
+            for (int i=0; i<[response intValue]; i++) {
+                [webView evaluateJavaScript:[NSString stringWithFormat:@"document.images[%d].style.maxWidth='100%%'",i] completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                    //                    NSLog(@"response1: %@ error: %@", response, error);
+                }];
+                [webView evaluateJavaScript:[NSString stringWithFormat:@"document.images[%d].style.height='auto'",i] completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+                    //                    NSLog(@"response2: %@ error: %@", response, error);
+                }];
+            }
+            
+        }
+        //        NSLog(@"response0: %@ error: %@", response, error);
+    }];
+    
+    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust = '60%'" completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+        //        NSLog(@"response3: %@ error: %@", response, error);
+    }];
     
 }
 //页面加载错误时调用

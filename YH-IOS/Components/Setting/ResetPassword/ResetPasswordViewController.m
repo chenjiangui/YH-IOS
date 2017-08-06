@@ -59,10 +59,11 @@
    
     
     
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"ResetPasswordViewController - ObjC received message from JS: %@", data);
-        responseCallback(@"ResetPasswordViewController - Response for message from ObjC");
-    }];
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"ResetPasswordViewController - ObjC received message from JS: %@", data);
+//        responseCallback(@"ResetPasswordViewController - Response for message from ObjC");
+//    }];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     self.user = [[User alloc]init];
     if(self.user.userID) {
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];

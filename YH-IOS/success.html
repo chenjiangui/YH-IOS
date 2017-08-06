@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <title>报表V4</title>
+    <meta charset='utf-8'>
+    <meta content='report display' name='description'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <!-- Basic Styles -->
+    <link href="assets/stylesheets/font-awesome.min.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/int-bootstrap.min.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/intfocus-v2.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/animate.min.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/DataTables/datatables.min.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/DataTables/FixedColumns-3.2.2/css/fixedColumns.dataTables.min.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/report_template_v2.css?1501915071" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <!-- Main Container -->
+    <div class='main-container container-fluid'>
+      <div class='row' style='margin-left:0px;margin-right:0px'>
+        <div class='widget'>
+          <div class='dashboard-box wrapper' id='wrapper01'>
+            <div class='box-days scroller'>
+              <ul class='row' id='tabNav' style='margin: 15px 16px 10px 16px; padding:0;white-space:nowrap;overflow:hidden;overflow-x:scroll;margin-bottom:-30px;padding-bottom:30px;-webkit-overflow-scrolling:touch;'></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='tabContent'></div>
+    </div>
+    <!-- Basic Scripts -->
+    <script type="text/javascript">
+
+alert(23);
+
+  function setupWebViewJavascriptBridge(callback) {
+alert(123);
+      if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+      if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+      window.WVJBCallbacks = [callback];
+      var WVJBIframe = document.createElement('iframe');
+      WVJBIframe.style.display = 'none';
+      WVJBIframe.src = 'https://__bridge_loaded__';
+      document.documentElement.appendChild(WVJBIframe);
+      setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+  }
+
+
+
+
+
+
+    (function(){
+alert(1223);
+        window.onerror = function(e) {
+         if(MobileBridge.connectWebViewJavascriptBridge) {
+
+            // MobileBridge.connectWebViewJavascriptBridge(function(bridge){
+            //   bridge.callHandler('jsException', {'ex': e}, function(response) {});
+            // })
+           setupWebViewJavascriptBridge(function(bridge) {
+
+  /* Initialize your app here */
+  bridge.callHandler('jsException', {'ex': window.event}, function responseCallback(responseData) {
+    console.log("JS received response:", responseData)
+  })
+})
+          
+
+          } else {
+            console.log(typeof(e));
+            console.log(e);
+          }
+        }
+        window.MobileBridge = {
+          connectWebViewJavascriptBridge: function(callback) {
+            if(window.WebViewJavascriptBridge) {
+              callback(WebViewJavascriptBridge)
+            }
+            else {
+              document.addEventListener('WebViewJavascriptBridgeReady', function() {
+                callback(WebViewJavascriptBridge)
+              }, false)
+            }
+          },
+          mousedown: function(el) {
+            el.className += " submit-field_pressed";
+          },
+          storeTabIndex: function(pageName, tabIndex) {
+            MobileBridge.connectWebViewJavascriptBridge(function(bridge){
+
+
+              // bridge.callHandler('pageTabIndex', {'action': 'store', 'pageName': pageName, 'tabIndex': tabIndex}, function(response) {});
+
+setupWebViewJavascriptBridge(function(bridge) {
+
+  /* Initialize your app here */
+  bridge.callHandler('pageTabIndex',{'action': 'store', 'pageName': pageName, 'tabIndex': tabIndex}, function responseCallback(responseData) {
+    console.log("JS received response:", responseData)
+  })
+})
+            })
+          },
+          restoreTabIndex: function(pageName) {
+            $(".tab-part").addClass("hidden");
+            MobileBridge.connectWebViewJavascriptBridge(function(bridge){
+              // bridge.init(function(message, responseCallback) {
+              // })
+
+              // bridge.callHandler('pageTabIndex', {'action': 'restore', 'pageName': pageName}, function(response) {
+              //   var tabIndex = response;
+              //   var klass = ".tab-part-" + tabIndex;
+              //   $(klass).removeClass("hidden");
+    
+              //   $(".day-container").removeClass("highlight");
+              //   $(".day-container").each(function(){
+              //     var eIndex = parseInt($(this).data("index")) ;
+              //     if(eIndex === tabIndex) {
+              //       $(this).addClass("highlight");
+              //     }
+              //   })
+              // });
+setupWebViewJavascriptBridge(function(bridge) {
+
+  /* Initialize your app here */
+  bridge.callHandler('pageTabIndex', {'action': 'restore', 'pageName': pageName}, function responseCallback(responseData) {
+                  var tabIndex = response;
+                var klass = ".tab-part-" + tabIndex;
+                $(klass).removeClass("hidden");
+    
+                $(".day-container").removeClass("highlight");
+                $(".day-container").each(function(){
+                  var eIndex = parseInt($(this).data("index")) ;
+                  if(eIndex === tabIndex) {
+                    $(this).addClass("highlight");
+                  }
+                })
+  })
+})
+            })
+          },
+          setSearchItems: function(items) {
+            MobileBridge.connectWebViewJavascriptBridge(function(bridge){
+              // bridge.init(function(message, responseCallback) {})
+              // bridge.callHandler('searchItems', {'items': items}, function(response) {});
+
+
+setupWebViewJavascriptBridge(function(bridge) {
+
+  /* Initialize your app here */
+  bridge.callHandler('searchItems', {'items': items}, function responseCallback(responseData) {
+    console.log("JS received response:", responseData)
+  })
+})
+            })
+          },
+          getReportSelectedItem: function(templateCallback) {
+            MobileBridge.connectWebViewJavascriptBridge(function(bridge){
+
+              // bridge.callHandler('selectedItem', {}, function(response) {
+              //   templateCallback(response);
+              // });
+setupWebViewJavascriptBridge(function(bridge) {
+
+  /* Initialize your app here */
+  bridge.callHandler('selectedItem', {}, function responseCallback(responseData) {
+          templateCallback(responseData);
+  })
+})
+            })
+          }
+        }
+    }).call(this)
+    </script>
+    <script src="spinner.js?1501915071" type="text/javascript"></script>
+    <script src="jquery.min.js?1501915071" type="text/javascript"></script>
+    <script src="bootstrap.min.js?1501915071" type="text/javascript"></script>
+    <script src="layer.js?1501915071" type="text/javascript"></script>
+    <script src="echarts-all.js?1501915071" type="text/javascript"></script>
+    <script src="macarons.js?1501915071" type="text/javascript"></script>
+    <script src="scroll.js?1501915071" type="text/javascript"></script>
+    <script src="navbarscroll.js?1501915071" type="text/javascript"></script>
+    <script src="jquery.dataTables.min.js?1501915071" type="text/javascript"></script>
+    <script src="dataTables.fixedColumns.min.js?1501915071" type="text/javascript"></script>
+    <script src="dataTables.fixedHeader.min.js?1501915071" type="text/javascript"></script>
+    <script src="group_0_template_4_report_13.js?1501915071" type="text/javascript"></script>
+    <script src="report_template_v2.js?1501915071" type="text/javascript"></script>
+  </body>
+</html>

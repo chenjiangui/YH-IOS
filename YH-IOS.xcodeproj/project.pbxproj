@@ -353,6 +353,7 @@
 		B621287B1F31BBBE007455DD /* NewPushTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B621287A1F31BBBE007455DD /* NewPushTableView.m */; };
 		B621287E1F31DE0A007455DD /* NewPushTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B621287D1F31DE0A007455DD /* NewPushTableCell.m */; };
 		B62DD12A1F2EE05500B7E8EB /* NewSubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B62DD1291F2EE05500B7E8EB /* NewSubjectViewController.m */; };
+		B64202BE1F3641EA007622D3 /* success.html in Resources */ = {isa = PBXBuildFile; fileRef = B64202BD1F3641EA007622D3 /* success.html */; };
 		B6627FEA1F2D7B0500296B72 /* NewMinepResetPwdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */; };
 		B6627FED1F2D93AC00296B72 /* NewMineQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6627FEC1F2D93AC00296B72 /* NewMineQuestionCell.m */; };
 		B67592801F29965200E89B65 /* NewMineQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B675927F1F29965200E89B65 /* NewMineQuestionController.m */; };
@@ -360,7 +361,10 @@
 		B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B675935E1F29CBEE00E89B65 /* HWCollectionViewCell.xib */; };
 		B67593651F29CBEE00E89B65 /* HWImagePickerSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */; };
 		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
+		B68F84001F36EBA600B857F6 /* group_0_template_4_report_13.js in Resources */ = {isa = PBXBuildFile; fileRef = B68F83FF1F36EBA600B857F6 /* group_0_template_4_report_13.js */; };
 		B69018651F2C37170018F3B1 /* NewFindPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */; };
+		B6BC20EA1F3639FD00EC2532 /* change.html in Resources */ = {isa = PBXBuildFile; fileRef = B6BC20E91F3639FD00EC2532 /* change.html */; };
+		B6CF9BED1F3631650022BE84 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CF9BEC1F3631650022BE84 /* WebViewJavascriptBridge_JS.m */; };
 		B6E7B3521F29D2CE008B48BF /* MFlowLayOut.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */; };
 		B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3371F29D2CE008B48BF /* MHeaderImaCell.m */; };
 		B6E7B3551F29D2CE008B48BF /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B33C1F29D2CE008B48BF /* JJMainScrollView.m */; };
@@ -448,7 +452,6 @@
 		C4DEBB5A1D3CD22D00EEBC29 /* FileUtils+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DEBB591D3CD22D00EEBC29 /* FileUtils+Report.m */; };
 		C4E93F0F1D38C01D00DBEC90 /* ReportSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E93F0E1D38C01D00DBEC90 /* ReportSelectorViewController.m */; };
 		C4ECB2801C3119E900F7947B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C4ECB27F1C3119E900F7947B /* NSString+MD5.m */; };
-		C4EFE4BC1C99812B0009411A /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EFE4B61C99812B0009411A /* WebViewJavascriptBridge.js.txt */; };
 		C4EFE4BD1C99812B0009411A /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFE4B71C99812B0009411A /* WebViewJavascriptBridge.m */; };
 		C4EFE4BE1C99812B0009411A /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFE4B91C99812B0009411A /* WebViewJavascriptBridgeBase.m */; };
 		C4EFE4BF1C99812B0009411A /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFE4BB1C99812B0009411A /* WKWebViewJavascriptBridge.m */; };
@@ -1342,6 +1345,7 @@
 		B621287D1F31DE0A007455DD /* NewPushTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPushTableCell.m; sourceTree = "<group>"; };
 		B62DD1281F2EE05500B7E8EB /* NewSubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSubjectViewController.h; sourceTree = "<group>"; };
 		B62DD1291F2EE05500B7E8EB /* NewSubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSubjectViewController.m; sourceTree = "<group>"; };
+		B64202BD1F3641EA007622D3 /* success.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = success.html; sourceTree = "<group>"; };
 		B6627FE81F2D7B0500296B72 /* NewMinepResetPwdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMinepResetPwdCell.h; sourceTree = "<group>"; };
 		B6627FE91F2D7B0500296B72 /* NewMinepResetPwdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMinepResetPwdCell.m; sourceTree = "<group>"; };
 		B6627FEB1F2D93AC00296B72 /* NewMineQuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionCell.h; sourceTree = "<group>"; };
@@ -1355,8 +1359,12 @@
 		B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWImagePickerSheet.m; sourceTree = "<group>"; };
 		B676BB3C1F282AD700AF363A /* NewMineResetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineResetPwdController.h; sourceTree = "<group>"; };
 		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
+		B68F83FF1F36EBA600B857F6 /* group_0_template_4_report_13.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = group_0_template_4_report_13.js; sourceTree = "<group>"; };
 		B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFindPasswordCell.h; sourceTree = "<group>"; };
 		B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFindPasswordCell.m; sourceTree = "<group>"; };
+		B6BC20E91F3639FD00EC2532 /* change.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = change.html; sourceTree = "<group>"; };
+		B6CF9BEB1F3631650022BE84 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		B6CF9BEC1F3631650022BE84 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
 		B6E7B3341F29D2CE008B48BF /* MFlowLayOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFlowLayOut.h; sourceTree = "<group>"; };
 		B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFlowLayOut.m; sourceTree = "<group>"; };
 		B6E7B3361F29D2CE008B48BF /* MHeaderImaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHeaderImaCell.h; sourceTree = "<group>"; };
@@ -1516,7 +1524,6 @@
 		C4ECB27E1C3119E900F7947B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		C4ECB27F1C3119E900F7947B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		C4EFE4B51C99812B0009411A /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		C4EFE4B61C99812B0009411A /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
 		C4EFE4B71C99812B0009411A /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		C4EFE4B81C99812B0009411A /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
 		C4EFE4B91C99812B0009411A /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
@@ -3620,6 +3627,9 @@
 		C4DB7D751C02EC0500DA534E /* YH-IOS */ = {
 			isa = PBXGroup;
 			children = (
+				B68F83FF1F36EBA600B857F6 /* group_0_template_4_report_13.js */,
+				B64202BD1F3641EA007622D3 /* success.html */,
+				B6BC20E91F3639FD00EC2532 /* change.html */,
 				3B717DAB1F28717400858E0E /* Resource */,
 				F656DEED1EC00F8D00DECD7F /* YHKpiReport */,
 				F684BE821EA5E0D100DBDBD4 /* SCReport */,
@@ -3789,8 +3799,9 @@
 		C4EFE4B41C99812B0009411A /* WebViewJavascriptBridge */ = {
 			isa = PBXGroup;
 			children = (
+				B6CF9BEB1F3631650022BE84 /* WebViewJavascriptBridge_JS.h */,
+				B6CF9BEC1F3631650022BE84 /* WebViewJavascriptBridge_JS.m */,
 				C4EFE4B51C99812B0009411A /* WebViewJavascriptBridge.h */,
-				C4EFE4B61C99812B0009411A /* WebViewJavascriptBridge.js.txt */,
 				C4EFE4B71C99812B0009411A /* WebViewJavascriptBridge.m */,
 				C4EFE4B81C99812B0009411A /* WebViewJavascriptBridgeBase.h */,
 				C4EFE4B91C99812B0009411A /* WebViewJavascriptBridgeBase.m */,
@@ -4943,7 +4954,6 @@
 			files = (
 				3BAC8EB61F284A8A00A01A12 /* README.txt in Resources */,
 				B6152A2A1F30A3FF00B1A5AA /* fixedHeader.foundation.css in Resources */,
-				C4EFE4BC1C99812B0009411A /* WebViewJavascriptBridge.js.txt in Resources */,
 				B6152A4C1F30A3FF00B1A5AA /* mobile_v2.css in Resources */,
 				B6152A1C1F30A3FF00B1A5AA /* fixedColumns.bootstrap.css in Resources */,
 				B61529F41F30A3FE00B1A5AA /* Loading.zip in Resources */,
@@ -5011,6 +5021,7 @@
 				3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */,
 				3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */,
 				F62457391EA5FBB2006834D2 /* CubicLineChartViewController.xib in Resources */,
+				B6BC20EA1F3639FD00EC2532 /* change.html in Resources */,
 				B6152A561F30A3FF00B1A5AA /* sorrow-left.png in Resources */,
 				915A8D351F1E106000262311 /* report_v24.json in Resources */,
 				B6152A121F30A3FF00B1A5AA /* dataTables.jqueryui.js in Resources */,
@@ -5068,6 +5079,7 @@
 				B6152A571F30A3FF00B1A5AA /* sorrow-right.png in Resources */,
 				B6152A091F30A3FF00B1A5AA /* sort_asc.png in Resources */,
 				F62457451EA5FBB2006834D2 /* LineChartTimeViewController.xib in Resources */,
+				B68F84001F36EBA600B857F6 /* group_0_template_4_report_13.js in Resources */,
 				B6152A211F30A3FF00B1A5AA /* fixedColumns.foundation.min.css in Resources */,
 				F62456BD1EA5FB21006834D2 /* ChartHeaderViewCell.xib in Resources */,
 				B6E7B35B1F29D2CE008B48BF /* MGroupCell.xib in Resources */,
@@ -5107,6 +5119,7 @@
 				B6152A421F30A3FF00B1A5AA /* demo-home.css in Resources */,
 				B6E7B35D1F29D2CE008B48BF /* MImaCell.xib in Resources */,
 				B6152A521F30A3FF00B1A5AA /* report_template_v1.css in Resources */,
+				B64202BE1F3641EA007622D3 /* success.html in Resources */,
 				B61529F51F30A3FE00B1A5AA /* animate.min.css in Resources */,
 				F624573F1EA5FBB2006834D2 /* LineChart1ViewController.xib in Resources */,
 				F624564C1EA5FACD006834D2 /* CommonAlertView.xib in Resources */,
@@ -5449,6 +5462,7 @@
 				91DB24461EED7A3000FC8413 /* PhotoNavigationController.m in Sources */,
 				91DB24401EED7A3000FC8413 /* UIView+leoAdd.m in Sources */,
 				3B717DB31F28918D00858E0E /* HomeNavBarView.m in Sources */,
+				B6CF9BED1F3631650022BE84 /* WebViewJavascriptBridge_JS.m in Sources */,
 				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,

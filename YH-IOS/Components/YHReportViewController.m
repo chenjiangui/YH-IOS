@@ -247,11 +247,11 @@
                 }
             });
             if (isInnerLink) {
-                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                
-                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                
-               // NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
+//                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                
+//                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+//                
+                NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
                 subjectView.bannerName = item.listName;
                 subjectView.link = targeturl;
                 subjectView.commentObjectType = ObjectTypeAnalyse;
