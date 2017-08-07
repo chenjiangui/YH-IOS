@@ -62,8 +62,6 @@
             [_reTool endRefreshDownPullEnd:YES topPullEnd:YES reload:YES noMore:[model isNoMore]];
         }
     }];
-
-    
 }
 
 - (void)collecArticle:(ArticlesModel*)articlesModel isFav:(BOOL)isFav{

@@ -52,7 +52,16 @@
 }
 
 - (void)updateWithScale:(CGFloat)scale{
-    if (scale>=0 && scale<=2.0) {
+    if (scale>=1 && scale<2.0) {
+        _lightView.backgroundColor = [NewAppColor yhapp_1color];
+        self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
+    }
+    else if (scale>=0 && scale<1.0){
+        _lightView.backgroundColor = [NewAppColor yhapp_18color];
+        self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
+    }
+    else {
+        _lightView.backgroundColor = [UIColor colorWithHexString:@"00a4e9"];
         self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
     }
 }
@@ -89,7 +98,7 @@
     if (!_lightView) {
         _lightView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3.0)/2.0-12, 64-7, 24, 3)];
         [_lightView cornerRadius:1.5];
-        _lightView.backgroundColor = [UIColor colorWithHexString:@"00a4e9"];
+       // _lightView.backgroundColor = [UIColor colorWithHexString:@"00a4e9"];
     }
     return _lightView;
 }
