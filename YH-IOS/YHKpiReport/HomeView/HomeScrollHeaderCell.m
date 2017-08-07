@@ -81,10 +81,10 @@
     if (!_cycleView) {
         _cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 194) delegate:self placeholderImage:@"banner".imageFromSelf];
         _cycleView.autoScrollTimeInterval = 3;
-        _cycleView.pageDotColor = [[UIColor whiteColor] appendAlpha:0.5];
+        _cycleView.pageDotColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
         _cycleView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
         _cycleView.pageControlDotSize = CGSizeMake(5, 5);
-        _cycleView.pageControlRightOffset = 20;
+        _cycleView.pageControlRightOffset = 13;
     }
     return _cycleView;
 }

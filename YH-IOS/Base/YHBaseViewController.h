@@ -20,6 +20,8 @@ typedef void(^CommonTwoBack)(id item1, id item2);
 
 @interface YHBaseViewController : UIViewController
 
+@property (nonatomic, assign) BOOL touchCancleEdit;
+
 @property (nonatomic, strong) EmptyView* emptyView;
 
 + (MainTabbarViewController*)getMainTabController;

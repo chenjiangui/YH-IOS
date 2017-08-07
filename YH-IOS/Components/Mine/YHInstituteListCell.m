@@ -25,9 +25,9 @@
         make.left.mas_equalTo(self).offset(15);
     }];
     [_favBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_iconImageV);
-        make.size.mas_equalTo(CGSizeMake(30, 20));
-        make.right.mas_equalTo(self).offset(-10);
+        make.centerX.mas_equalTo(_titleLab);
+        make.size.mas_equalTo(CGSizeMake(40, 40));
+        make.right.mas_equalTo(self).offset(-5);
     }];
     [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_iconImageV);
@@ -55,6 +55,10 @@
     _titleLab.text = model.title;
     _favBtn.selected = model.favorite;
     _tagLab.text = model.tagInfo;
+    _iconImageV.hidden = !_iconImageV.image;
+    [_titleLab mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(_iconImageV.mas_right).offset(_iconImageV.hidden? -36:15);
+    }];
 }
 
 - (UIImageView *)iconImageV{

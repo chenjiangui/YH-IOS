@@ -50,11 +50,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
+    _touchCancleEdit = YES;
     //    self.automaticallyAdjustsScrollViewInsets = NO;
     //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self fullScreen:NO];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.touchCancleEdit) {
+        [self.view endEditing:YES];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -95,10 +102,6 @@
     //消息调用
     [invocation invoke];
     return invocation;
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
 }
 
 - (BOOL)prefersStatusBarHidden
