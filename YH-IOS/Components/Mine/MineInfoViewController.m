@@ -128,12 +128,21 @@
     }];
 }
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat sectionHeaderHeight = 10;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }
+    else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
 
 -(void)setupTableView {
     
     self.minetableView= [[UITableView alloc]init];
-    self.minetableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49-64);
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.minetableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
     [self.view addSubview:self.minetableView];
     [self.minetableView setScrollEnabled:YES];
     self.minetableView.backgroundColor = [NewAppColor yhapp_8color];
@@ -217,6 +226,7 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return adaptHeight(10);
@@ -351,6 +361,7 @@
         MyFavArticleController* vc = [[MyFavArticleController alloc] init];
         [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
     }
+    [self.minetableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)logoutButtonClick {
