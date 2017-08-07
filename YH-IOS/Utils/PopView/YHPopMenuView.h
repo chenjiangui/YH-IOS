@@ -2,14 +2,12 @@
 //  YHPopMenuView.h
 //  PikeWay
 //
-//  Created by samuelandkevin on 16/10/25.
-//  Copyright © 2016年 YHSoft. All rights reserved.
+//  Created by 钱宝峰 on 17/08/07.
 //  弹出菜单
 
 #import <UIKit/UIKit.h>
 
-
-typedef void(^DismissBlock)(BOOL isCanceled,NSInteger row);
+typedef void (^dismissBlock)(BOOL isCanceled, NSInteger row);
 
 @interface YHPopMenuView : UIView
 
@@ -20,12 +18,12 @@ typedef void(^DismissBlock)(BOOL isCanceled,NSInteger row);
 @property (nonatomic,assign) CGFloat itemNameLeftSpace; //itemName左边距
 @property (nonatomic,assign) CGFloat iconLeftSpace;     //icon左边距离
 @property (nonatomic,assign) CGFloat itemH;             //item高度
-@property (nonatomic,copy) NSArray *iconNameArray;      //图标名字Array
-@property (nonatomic,copy) NSArray *itemNameArray;      //item名字Array
+@property (nonatomic,copy) NSMutableArray *iconNameArray;      //图标名字Array
+@property (nonatomic,copy) NSMutableArray *itemNameArray;      //item名字Array
 
 @property (nonatomic,assign) BOOL canTouchTabbar;//可以点击Tabbar;(默认是遮挡Tabbar)
 
-- (void)dismissHandler:(DismissBlock)handler;
+- (void)dismissHandler:(dismissBlock)handler;
 - (void)show;
 - (void)hideWithAnimation:(BOOL)animate;
 @end

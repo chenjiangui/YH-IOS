@@ -92,6 +92,8 @@
 		3BAC8EB91F284A8A00A01A12 /* libYixinSDK_V2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E891F284A8900A01A12 /* libYixinSDK_V2.2.a */; };
 		3BEBB36F1F2597EE007FB66D /* RefreshTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBB36C1F2597EE007FB66D /* RefreshTool.m */; };
 		3BEBB3701F2597EE007FB66D /* RefreshToolDownPullHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBB36E1F2597EE007FB66D /* RefreshToolDownPullHeader.m */; };
+		911114961F38B7C800E3366E /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 911114951F38B7C800E3366E /* YHPopMenuView.m */; };
+		9111149D1F38CC4100E3366E /* YHArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9111149C1F38CC4100E3366E /* YHArrow.m */; };
 		911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 911291241EE8EBA900A0B529 /* YHNetworkTool.m */; };
 		9114619E1EEA63B4006A35AF /* MineInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114619C1EEA63B4006A35AF /* MineInfoTableViewCell.m */; };
 		9114619F1EEA63B4006A35AF /* MineInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9114619D1EEA63B4006A35AF /* MineInfoTableViewCell.xib */; };
@@ -860,6 +862,10 @@
 		3BEBB36E1F2597EE007FB66D /* RefreshToolDownPullHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshToolDownPullHeader.m; sourceTree = "<group>"; };
 		6A867606F7216FABE6624278 /* libPods-YH-IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YH-IOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		766890D48B9541057B438511 /* Pods-YH-IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YH-IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YH-IOS/Pods-YH-IOS.debug.xcconfig"; sourceTree = "<group>"; };
+		911114941F38B7C800E3366E /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YHPopMenuView.h; path = PopView/YHPopMenuView.h; sourceTree = "<group>"; };
+		911114951F38B7C800E3366E /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHPopMenuView.m; path = PopView/YHPopMenuView.m; sourceTree = "<group>"; };
+		9111149B1F38CC4100E3366E /* YHArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHArrow.h; sourceTree = "<group>"; };
+		9111149C1F38CC4100E3366E /* YHArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHArrow.m; sourceTree = "<group>"; };
 		911291231EE8EBA900A0B529 /* YHNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNetworkTool.h; sourceTree = "<group>"; };
 		911291241EE8EBA900A0B529 /* YHNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNetworkTool.m; sourceTree = "<group>"; };
 		9114619B1EEA63B4006A35AF /* MineInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -2253,6 +2259,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		911114931F38B7A200E3366E /* POView */ = {
+			isa = PBXGroup;
+			children = (
+				911114941F38B7C800E3366E /* YHPopMenuView.h */,
+				911114951F38B7C800E3366E /* YHPopMenuView.m */,
+				9111149B1F38CC4100E3366E /* YHArrow.h */,
+				9111149C1F38CC4100E3366E /* YHArrow.m */,
+			);
+			name = POView;
+			sourceTree = "<group>";
+		};
 		911203931EE809E600E7CFB9 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
@@ -3307,6 +3324,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				911114931F38B7A200E3366E /* POView */,
 				3B0D41661F32FD1300E279F9 /* SimpleTableViewController */,
 				3B4868EE1F2AFBAF003AF8D8 /* HudTool */,
 				3B4F9C641F29D1120096256D /* CommonSheetView */,
@@ -4778,6 +4796,7 @@
 			files = (
 				F62457361EA5FBB1006834D2 /* CombinedChartViewController.m in Sources */,
 				915A8D0B1F1E0BA500262311 /* JYChartModel.m in Sources */,
+				911114961F38B7C800E3366E /* YHPopMenuView.m in Sources */,
 				91E6CFA81EFB6B8C00507B7E /* TAAnimatedDotView.m in Sources */,
 				3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */,
 				91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */,
@@ -4969,6 +4988,7 @@
 				91DB24A91EF25D8500FC8413 /* YHMutileveMenu.m in Sources */,
 				91D3640F1F1F220400CD7159 /* JYScrollNavBar.m in Sources */,
 				91DB235C1EEB98F900FC8413 /* SingleLabelTableViewCell.m in Sources */,
+				9111149D1F38CC4100E3366E /* YHArrow.m in Sources */,
 				C48924E51D858F0A00859411 /* ResetPasswordViewController.m in Sources */,
 				3B30EEEA1F25F63200A702EC /* YHWarningNoticeController.m in Sources */,
 				C4C628451C0C1ED6000AD5D8 /* LoginViewController.m in Sources */,

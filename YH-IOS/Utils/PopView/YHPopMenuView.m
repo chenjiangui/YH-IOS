@@ -2,11 +2,11 @@
 //  YHPopMenuView.m
 //  PikeWay
 //
-//  Created by samuelandkevin on 16/10/25.
-//  Copyright © 2016年 YHSoft. All rights reserved.
+//  Created by 钱宝峰 on 17/08/07.
 //
 
 #import "YHPopMenuView.h"
+#import "YHArrow.h"
 
 @interface CellForMenuItem : UITableViewCell
 @property (nonatomic,strong) UIImageView *imgvIcon;
@@ -16,6 +16,8 @@
 
 @end
 
+#define KEYWINDOW [UIApplication sharedApplication].keyWindow
+#define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 #define kItemBgColor RGBCOLOR(0, 191, 144)        //item背景颜色
 static const CGFloat kIconW = 16;       //图标宽(默认宽高相等)
 static const CGFloat kFontSize = 14.0f; //字体大小
@@ -51,14 +53,14 @@ static const CGFloat kIconLeftSpace = 15;    //icon左边距离
     [self.contentView addSubview:self.lbName];
     
     self.viewBotLine = [UIView new];
-    self.viewBotLine.backgroundColor = kGrayColor;
+    self.viewBotLine.backgroundColor = [NewAppColor yhapp_2color];
     [self.contentView addSubview:self.viewBotLine];
     
     [self layoutUI];
 }
 
 - (void)layoutUI{
-    WeakSelf
+    WeakSelf;
     [_imgvIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contentView).offset(10);
         make.centerY.equalTo(weakSelf.contentView.mas_centerY);
@@ -86,7 +88,7 @@ static const CGFloat kIconLeftSpace = 15;    //icon左边距离
     self.lbName.font = [UIFont systemFontOfSize:fontSize];
     
     UIColor *itemBgColor = _dictConfig[@"itemBgColor"];
-    itemBgColor = itemBgColor?itemBgColor:kItemBgColor;
+    itemBgColor = itemBgColor;
     self.backgroundColor = itemBgColor;
     
     UIColor *fontColor = _dictConfig[@"fontColor"];
@@ -132,8 +134,9 @@ static const CGFloat kIconLeftSpace = 15;    //icon左边距离
 @property (nonatomic,assign) CGFloat menuViewY;
 @property (nonatomic,assign) CGFloat menuViewW;
 @property (nonatomic,assign) CGFloat menuViewH;
+@property (nonatomic,strong) YHArrow *arrow;
 
-@property (nonatomic,copy)   DismissBlock dBlock;
+@property (nonatomic,copy)   dismissBlock dBlock;
 @end
 
 static const CGFloat kItemH = 44.0f;//item高度
@@ -165,6 +168,9 @@ static const CGFloat kItemH = 44.0f;//item高度
     [self addSubview:viewBG];
     _viewBG = viewBG;
     
+    self.arrow = [[YHArrow alloc]init];
+    [self addSubview:self.arrow];
+    
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     tableView.delegate   = self;
     tableView.dataSource = self;
@@ -186,6 +192,13 @@ static const CGFloat kItemH = 44.0f;//item高度
         make.top.equalTo(weakSelf).offset(weakSelf.menuViewY+(weakSelf.tableView.layer.anchorPoint.y-0.5)*weakSelf.menuViewH);
         make.width.mas_equalTo(0);
         make.height.mas_equalTo(0);
+    }];
+    
+    [_arrow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(weakSelf).mas_offset(self.menuViewX+(self.menuViewW-26));
+        make.top.mas_equalTo(weakSelf).mas_offset(self.menuViewY-5);
+        make.width.mas_equalTo(10);
+        make.height.mas_equalTo(5);
     }];
     
     [_viewBG mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -210,7 +223,7 @@ static const CGFloat kItemH = 44.0f;//item高度
 
 - (NSDictionary *)config{
     if (!_config) {
-        _itemBgColor = _itemBgColor?_itemBgColor:kItemBgColor;
+        _itemBgColor = [NewAppColor yhapp_5color];
         _fontColor = _fontColor?_fontColor:[UIColor blackColor];
         _config = @{
                     @"iconW":@(_iconW),
@@ -230,7 +243,7 @@ static const CGFloat kItemH = 44.0f;//item高度
 
 
 #pragma mark - Public
-- (void)dismissHandler:(DismissBlock)handler{
+- (void)dismissHandler:(dismissBlock)handler{
     _dBlock = handler;
 }
 
@@ -252,13 +265,13 @@ static const CGFloat kItemH = 44.0f;//item高度
             weakSelf.tableView.alpha = 1;
             weakSelf.tableView.transform = CGAffineTransformMakeScale(1.0, 1.0);
         }];
-       
-        [UIView animateWithDuration:0.2 animations:^{
+        
+       // [UIView animateWithDuration:0.2 animations:^{
            
             [weakSelf.tableView layoutIfNeeded];
-        }completion:^(BOOL finished) {
+       // }completion:^(BOOL finished) {
             
-        }];
+        //}];
     });
 
 
@@ -269,7 +282,7 @@ static const CGFloat kItemH = 44.0f;//item高度
     
     self.tableView.contentOffset = CGPointZero;
     WeakSelf
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
         weakSelf.tableView.alpha = 0;
         if (animate) {
             weakSelf.tableView.transform = CGAffineTransformMakeScale(0.01, 0.01);

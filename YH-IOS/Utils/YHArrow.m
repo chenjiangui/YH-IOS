@@ -10,12 +10,26 @@
 
 @implementation YHArrow
 
-/*
+-(instancetype)initWithFrame:(CGRect)frame{
+    self=[super initWithFrame:frame];
+    if (self) {
+        self.frame = CGRectMake(0, 0, 10, 5);
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    // 三角形
+    CGContextMoveToPoint(ctx, 0, 5);
+    CGContextAddLineToPoint(ctx, 5, 0);
+    CGContextAddLineToPoint(ctx, 10, 5);
+    [[NewAppColor yhapp_5color] set];
+    CGContextClosePath(ctx);
+    CGContextFillPath(ctx);
 }
-*/
 
 @end
