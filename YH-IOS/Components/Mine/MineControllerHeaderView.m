@@ -53,7 +53,7 @@
 
 - (void)updateWithScale:(CGFloat)scale{
     if (scale>=0 && scale<=2.0) {
-        self.lightView.centerX = ((SCREEN_WIDTH/3.0)/2.0) + SCREEN_WIDTH*2/3.0*scale/2.0;
+        self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
     }
 }
 

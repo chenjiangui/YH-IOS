@@ -12,6 +12,7 @@
 #import "ArticlesModel.h"
 #import "YHKPIModel.h"
 #import "ToolModel.h"
+#import "ScreenModel.h"
 
 @implementation YHHttpRequestAPI
 
@@ -33,11 +34,8 @@
                           @"limit":defaultLimit
                           };
     NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/notices",kBaseUrl,[self user].userID];
-//    url = [url stringByAppendingString:[NSString stringWithFormat:@"?page=%zd&limit=%@&type=%@",page,defaultLimit,typeStr]];
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Test" ofType:@"plist"];
-        NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
-        NoticeWarningModel* model = [NoticeWarningModel mj_objectWithKeyValues:[dic valueForKey:@"key"]];
+        NoticeWarningModel* model = [NoticeWarningModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
 }
@@ -98,6 +96,14 @@
     NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/page/%zd/limit/%@/favourite_articles",kBaseUrl,self.user.userID,page,defaultLimit];
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
+        finish(requestSuccess,model,responseJson);
+    }];
+}
+
++ (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish{
+    NSString* url = @"http://yonghui-test.idata.mobi/api/v1/report/menus";
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        ScreenModel* model = [ScreenModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
 }

@@ -91,6 +91,10 @@
 }
 
 #pragma mark - 列表代理
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.view endEditing:YES];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YHInstituteListCell *cell = [YHInstituteListCell cellWithTableView:tableView needXib:YES];
     ArticlesModel* model = _dataList[indexPath.row];

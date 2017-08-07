@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0D415A1F32C09600E279F9 /* ScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41591F32C09600E279F9 /* ScreenHeaderView.m */; };
+		3B0D415F1F32C56F00E279F9 /* OneButtonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D415E1F32C56F00E279F9 /* OneButtonCollectionCell.m */; };
+		3B0D41621F32CEC100E279F9 /* YHScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41611F32CEC100E279F9 /* YHScreenController.m */; };
+		3B0D41651F32FB0500E279F9 /* SelectLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41641F32FB0500E279F9 /* SelectLocationView.m */; };
+		3B0D41691F32FD2100E279F9 /* SimpleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41681F32FD2100E279F9 /* SimpleTableViewController.m */; };
+		3B0D416C1F3326DF00E279F9 /* ScreenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D416B1F3326DF00E279F9 /* ScreenModel.m */; };
 		3B30EEDA1F25F60500A702EC /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EED71F25F60500A702EC /* UITableView+SDAutoTableViewCellHeight.m */; };
 		3B30EEDB1F25F60500A702EC /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EED91F25F60500A702EC /* UIView+SDAutoLayout.m */; };
 		3B30EEE11F25F60F00A702EC /* ScrollControllersVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EEE01F25F60F00A702EC /* ScrollControllersVc.m */; };
@@ -45,6 +51,7 @@
 		3B763B191F27154D00D5E965 /* YHInstituteListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763B171F27154D00D5E965 /* YHInstituteListCell.m */; };
 		3B763B1A1F27154D00D5E965 /* YHInstituteListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B763B181F27154D00D5E965 /* YHInstituteListCell.xib */; };
 		3B763B1D1F2724F400D5E965 /* ArticlesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B763B1C1F2724F400D5E965 /* ArticlesModel.m */; };
+		3B7FCF281F3441BC006EE972 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7FCF271F3441BC006EE972 /* TestModel.m */; };
 		3B843C751F2EFEE000463EA5 /* MyFavArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B843C741F2EFEE000463EA5 /* MyFavArticleController.m */; };
 		3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E171F284A8900A01A12 /* UMSocialLocalizable.strings */; };
 		3BAC8E8E1F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E251F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a */; };
@@ -676,6 +683,18 @@
 
 /* Begin PBXFileReference section */
 		12271BD9C7ACC15E638BF692 /* Pods-YH-IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YH-IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-YH-IOS/Pods-YH-IOS.release.xcconfig"; sourceTree = "<group>"; };
+		3B0D41581F32C09600E279F9 /* ScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenHeaderView.h; sourceTree = "<group>"; };
+		3B0D41591F32C09600E279F9 /* ScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenHeaderView.m; sourceTree = "<group>"; };
+		3B0D415D1F32C56F00E279F9 /* OneButtonCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneButtonCollectionCell.h; sourceTree = "<group>"; };
+		3B0D415E1F32C56F00E279F9 /* OneButtonCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneButtonCollectionCell.m; sourceTree = "<group>"; };
+		3B0D41601F32CEC100E279F9 /* YHScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHScreenController.h; sourceTree = "<group>"; };
+		3B0D41611F32CEC100E279F9 /* YHScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHScreenController.m; sourceTree = "<group>"; };
+		3B0D41631F32FB0500E279F9 /* SelectLocationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocationView.h; sourceTree = "<group>"; };
+		3B0D41641F32FB0500E279F9 /* SelectLocationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocationView.m; sourceTree = "<group>"; };
+		3B0D41671F32FD2100E279F9 /* SimpleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableViewController.h; sourceTree = "<group>"; };
+		3B0D41681F32FD2100E279F9 /* SimpleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableViewController.m; sourceTree = "<group>"; };
+		3B0D416A1F3326DF00E279F9 /* ScreenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenModel.h; sourceTree = "<group>"; };
+		3B0D416B1F3326DF00E279F9 /* ScreenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenModel.m; sourceTree = "<group>"; };
 		3B30EED51F25F60500A702EC /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
 		3B30EED61F25F60500A702EC /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
 		3B30EED71F25F60500A702EC /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
@@ -742,6 +761,8 @@
 		3B763B181F27154D00D5E965 /* YHInstituteListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHInstituteListCell.xib; sourceTree = "<group>"; };
 		3B763B1B1F2724F400D5E965 /* ArticlesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlesModel.h; sourceTree = "<group>"; };
 		3B763B1C1F2724F400D5E965 /* ArticlesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlesModel.m; sourceTree = "<group>"; };
+		3B7FCF261F3441BC006EE972 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
+		3B7FCF271F3441BC006EE972 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
 		3B843C731F2EFEE000463EA5 /* MyFavArticleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavArticleController.h; sourceTree = "<group>"; };
 		3B843C741F2EFEE000463EA5 /* MyFavArticleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavArticleController.m; sourceTree = "<group>"; };
 		3BAC8E181F284A8900A01A12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -1877,6 +1898,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B0D41661F32FD1300E279F9 /* SimpleTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3B0D41671F32FD2100E279F9 /* SimpleTableViewController.h */,
+				3B0D41681F32FD2100E279F9 /* SimpleTableViewController.m */,
+			);
+			path = SimpleTableViewController;
+			sourceTree = "<group>";
+		};
 		3B30EED41F25F60500A702EC /* SDAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1964,6 +1994,21 @@
 				3B763AF21F2637CC00D5E965 /* UINavigationController+FDFullscreenPopGesture.m */,
 			);
 			path = FDFullscreenPopGesture;
+			sourceTree = "<group>";
+		};
+		3BAC7A311F31C93A00A1636A /* 筛选 */ = {
+			isa = PBXGroup;
+			children = (
+				3B0D41581F32C09600E279F9 /* ScreenHeaderView.h */,
+				3B0D41591F32C09600E279F9 /* ScreenHeaderView.m */,
+				3B0D415D1F32C56F00E279F9 /* OneButtonCollectionCell.h */,
+				3B0D415E1F32C56F00E279F9 /* OneButtonCollectionCell.m */,
+				3B0D41601F32CEC100E279F9 /* YHScreenController.h */,
+				3B0D41611F32CEC100E279F9 /* YHScreenController.m */,
+				3B0D41631F32FB0500E279F9 /* SelectLocationView.h */,
+				3B0D41641F32FB0500E279F9 /* SelectLocationView.m */,
+			);
+			path = "筛选";
 			sourceTree = "<group>";
 		};
 		3BAC8E161F284A8900A01A12 /* UMSocial_Sdk_5.2.1 */ = {
@@ -3086,6 +3131,7 @@
 		C4C628381C0C1ED6000AD5D8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				3BAC7A311F31C93A00A1636A /* 筛选 */,
 				91BB7B8C1F29C4F6001934FA /* Category */,
 				91E65A171F1897710046B615 /* 门店巡检 */,
 				9169BC5E1F00FB8700419E52 /* GuideView */,
@@ -3261,6 +3307,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3B0D41661F32FD1300E279F9 /* SimpleTableViewController */,
 				3B4868EE1F2AFBAF003AF8D8 /* HudTool */,
 				3B4F9C641F29D1120096256D /* CommonSheetView */,
 				3B30EEDE1F25F60F00A702EC /* ScrollControllerVc */,
@@ -3343,6 +3390,10 @@
 				3B763B1C1F2724F400D5E965 /* ArticlesModel.m */,
 				3B4868E91F2AECE5003AF8D8 /* ToolModel.h */,
 				3B4868EA1F2AECE5003AF8D8 /* ToolModel.m */,
+				3B0D416A1F3326DF00E279F9 /* ScreenModel.h */,
+				3B0D416B1F3326DF00E279F9 /* ScreenModel.m */,
+				3B7FCF261F3441BC006EE972 /* TestModel.h */,
+				3B7FCF271F3441BC006EE972 /* TestModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4460,9 +4511,8 @@
 				TargetAttributes = {
 					C4DB7D721C02EC0500DA534E = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = WV94P663S4;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -4741,6 +4791,7 @@
 				F62456D21EA5FB21006834D2 /* YH_BarView.m in Sources */,
 				3B717DB01F287A8800858E0E /* UIView+SDExtension.m in Sources */,
 				F62456411EA5FACD006834D2 /* IQUIWindow+Hierarchy.m in Sources */,
+				3B0D415F1F32C56F00E279F9 /* OneButtonCollectionCell.m in Sources */,
 				91BA00651F2721A500943596 /* RMessageView.m in Sources */,
 				F62456C61EA5FB21006834D2 /* HomeIndexDetailListCell.m in Sources */,
 				912833111EE868A50071CE69 /* Person.m in Sources */,
@@ -4759,6 +4810,7 @@
 				91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */,
 				F68C25DD1EC2D4790069C041 /* JYLandscapeBar.m in Sources */,
 				F68C25851EC2D44F0069C041 /* JYBaseCollectionViewCell.m in Sources */,
+				3B0D41651F32FB0500E279F9 /* SelectLocationView.m in Sources */,
 				3B4868FE1F2B1F07003AF8D8 /* NSData+SDDataCache.m in Sources */,
 				9169BC631F00FB9A00419E52 /* GuidePageViewController.m in Sources */,
 				F624579E1EA5FBE1006834D2 /* UINavigationBar+Category.m in Sources */,
@@ -4783,8 +4835,10 @@
 				91BA005B1F2721A500943596 /* UINavigationController+PPTopMostController.m in Sources */,
 				F62457401EA5FBB2006834D2 /* LineChart2ViewController.m in Sources */,
 				B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */,
+				3B0D41621F32CEC100E279F9 /* YHScreenController.m in Sources */,
 				91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */,
 				F64903BC1DB5CD9B0001DD2B /* UserInfoViewController.m in Sources */,
+				3B0D416C1F3326DF00E279F9 /* ScreenModel.m in Sources */,
 				91DB24571EEE698700FC8413 /* zoomPopup.m in Sources */,
 				F655483B1E8CDF5600B4048C /* NewSettingViewController.m in Sources */,
 				F62457E31EA5FD01006834D2 /* AppColor.m in Sources */,
@@ -4954,6 +5008,7 @@
 				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
+				3B7FCF281F3441BC006EE972 /* TestModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
 				91DB243F1EED7A3000FC8413 /* UIView+building.m in Sources */,
 				C4EFE4BE1C99812B0009411A /* WebViewJavascriptBridgeBase.m in Sources */,
@@ -5007,6 +5062,7 @@
 				9145097E1F02257100ED82D6 /* ThreeSelectViewController.m in Sources */,
 				F624572E1EA5FBB1006834D2 /* BarChartViewController.m in Sources */,
 				F62456491EA5FACD006834D2 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				3B0D415A1F32C09600E279F9 /* ScreenHeaderView.m in Sources */,
 				F62457321EA5FBB1006834D2 /* CandleStickChartViewController.m in Sources */,
 				C4C628431C0C1ED6000AD5D8 /* SubjectViewController.m in Sources */,
 				915A8D0E1F1E0BA500262311 /* JYMainDataModel.m in Sources */,
@@ -5165,6 +5221,7 @@
 				915A8D0F1F1E0BA500262311 /* JYModuleTwoModel.m in Sources */,
 				F63D4A141EB32A200004BCC8 /* CommonMenuView.m in Sources */,
 				F63D4A071EB329A20004BCC8 /* SelectListVc.m in Sources */,
+				3B0D41691F32FD2100E279F9 /* SimpleTableViewController.m in Sources */,
 				C4A564E31C2CECC10067516F /* NSData+MD5.m in Sources */,
 				9129DD3B1EF4D60600900611 /* JHCollectionReusableView.m in Sources */,
 				3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */,
@@ -5339,7 +5396,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = WV94P663S4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5402,7 +5459,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = WV94P663S4;
+				DEVELOPMENT_TEAM = 3V3LN88X9L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5444,8 +5501,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b23e37da-754a-439e-913e-b0cdfcb7581a";
+				PROVISIONING_PROFILE_SPECIFIER = Common_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

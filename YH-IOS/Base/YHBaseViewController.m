@@ -13,10 +13,27 @@
 
 
 @interface YHBaseViewController ()
+/** 底部显示tip视图 */
+@property (nonatomic, strong) UIButton* bottomTipBtn;
 
 @end
 
 @implementation YHBaseViewController
+
+- (UIButton *)bottomTipBtn{
+    if (!_bottomTipBtn) {
+        _bottomTipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bottomTipBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_bottomTipBtn setTitleColor:[NewAppColor yhapp_4color] forState:UIControlStateNormal];
+        [self.view insertSubview:_bottomTipBtn atIndex:0];
+        _bottomTipBtn.userInteractionEnabled = false;
+        [_bottomTipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(self.view);
+            make.bottom.mas_equalTo(self.view);
+        }];
+    }
+    return _bottomTipBtn;
+}
 
 
 + (MainTabbarViewController *)getMainTabController{
@@ -47,14 +64,29 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
+- (void)showBottomTip:(BOOL)show title:(NSString *)title image:(UIImage *)image{
+    self.bottomTipBtn.hidden = !show;
+    [self.bottomTipBtn setTitle:title forState:UIControlStateNormal];
+    [self.bottomTipBtn setImage:image forState:UIControlStateNormal];
+    [self.bottomTipBtn sizeToFit];
+    [self.bottomTipBtn layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleBottom imageTitleSpace:12];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
+    _touchCancleEdit = YES;
     //    self.automaticallyAdjustsScrollViewInsets = NO;
     //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self fullScreen:NO];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.touchCancleEdit) {
+        [self.view endEditing:YES];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -95,10 +127,6 @@
     //消息调用
     [invocation invoke];
     return invocation;
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
 }
 
 - (BOOL)prefersStatusBarHidden

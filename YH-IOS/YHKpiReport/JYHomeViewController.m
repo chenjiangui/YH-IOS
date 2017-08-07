@@ -41,6 +41,7 @@
 #import "Version.h"
 #import "FileUtils+Assets.h"
 #import <Reachability/Reachability.h>
+#import "TestModel.h"
 
 
 #define kJYNotifyHeight 40
@@ -133,6 +134,7 @@
 //    [self loadData];
 //    [self idColor];
     [self getData:YES];
+    [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
 }
 
 - (void)test{ //对项目无用 一个测试 cjg
@@ -145,10 +147,42 @@
     for (NSString* str in firstArray) {
         [strs addObject:[str removeString:@"]"]];
     }
+    NSMutableArray* models = [NSMutableArray array];
+    for (NSString* str in strs) {
+        NSArray<NSString*>* values = [str componentsSeparatedByString:@","];
+        TestModel* model = [[TestModel alloc] init];
+        if (values.count>=3) {
+            model.identifier = [[values[0] removeSpace] removeString:@"\"\""];
+            model.fatherId = [[values[1] removeSpace] removeString:@"\"\""];
+            for (int i = 2; i<values.count; i++) {
+                [model.main_data addObject:values[i]];
+            }
+        }
+        [models addObject:model];
+    }
+    NSMutableArray* copyModels = [NSMutableArray arrayWithArray:models];
+    for (TestModel* copy in copyModels) {
+        for (TestModel* trueModel in models) {
+            if ([copy.fatherId isEqualToString:trueModel.identifier] && !IsEmptyText(copy.fatherId)) {
+                [trueModel.sub_data addObject:copy];
+                break;
+            }
+        }
+    }
+    NSMutableArray* sortArray = [NSMutableArray array];
+    for (TestModel* model in models) {
+        if (IsEmptyText(model.fatherId)) {
+            [sortArray addObject:model];
+        }
+    }
+    NSString* json = [TestModel mj_keyValuesArrayWithObjectArray:sortArray].mj_JSONString;
+    json = [json removeSpace];
+    DLog(@"结束");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+//    [self test];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -401,6 +435,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == tableView.numberOfSections-1 && tableView.numberOfSections) {
+        return 80;
+    }
     return 10;
 }
 
@@ -547,7 +584,7 @@
 //        _rootTBView.tableHeaderView = [self addHeaderView];
 //        _rootTBView.tableFooterView = [self footerView];
         _rootTBView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _rootTBView.backgroundColor = self.view.backgroundColor;
+        _rootTBView.backgroundColor = [UIColor clearColor];
     }
     return _rootTBView;
 }

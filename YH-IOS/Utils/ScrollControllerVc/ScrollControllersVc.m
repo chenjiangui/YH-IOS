@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UIScrollView* titleScrollView;
 @property (nonatomic, strong) UIScrollView* controllersScrollView;
 @property (nonatomic, strong) NSArray* controllers;
-@property (nonatomic, strong) NSArray* titles;
 @property (nonatomic, strong) UIView* hightLightView;
 @end
 
@@ -65,7 +64,6 @@
         _titleScrollView = [[UIScrollView alloc] init ];//WithFrame:CGRectMake(0, 0, self.view.mj_w, LableH)];
         _titleScrollView.backgroundColor = [UIColor whiteColor];
         _titleScrollView.clipsToBounds = YES;
-        [self.view addSubview:_titleScrollView];
     }
     return _titleScrollView;
 }
@@ -94,13 +92,15 @@
     for (UIViewController* vc in self.childViewControllers) {
         [vc removeFromParentViewController];
     }
+    [self.titleScrollView removeAllSubviews];
+    [self addScrollView];
     self.controllers = controllers;
     [self addControllers];
     _curIndex = 0;
     self.titles = titles;
-    [self addScrollView];
     [self addTitles];
     [self scrollWithIndex:_curIndex];
+    [self scrollViewDidScroll:self.controllersScrollView];
 //    [self scrollViewDidScroll:self.controllersScrollView];
 }
 
@@ -111,11 +111,14 @@
     _controllersScrollView.delegate = self;
 //    _controllersScrollView.backgroundColor = [UIColor blueColor];
     
-    _hightLightView = [[UIView alloc] initWithFrame:CGRectMake((_lableW-16)/2.0, _lableH-3, 45, 3)];
+    _hightLightView = [[UIView alloc] initWithFrame:CGRectMake((_lableW-16)/2.0, _lableH-1, 45, 1)];
     _hightLightView.backgroundColor = [UIColor colorWithHexString:@"#00a4e9"];
     [self.titleScrollView addSubview:_hightLightView];
     [self.view addSubview:_controllersScrollView];
     
+    
+    [self.view addSubview:self.titleScrollView];
+
     _titleScrollView.sd_layout.topEqualToView(self.view).leftEqualToView(self.view).rightEqualToView(self.view).widthIs(self.view.width_sd).heightIs(_lableH);
     _controllersScrollView.sd_layout.topSpaceToView(_titleScrollView, 0).leftEqualToView(self.view).rightEqualToView(self.view).widthIs(self.view.width_sd).bottomSpaceToView(self.view, 0);
     
@@ -163,7 +166,7 @@
         lable.tag                    = i+1;
         lable.text                   = _titles[i];
         lable.backgroundColor        = [UIColor whiteColor];
-        [lable setTextAlignment:NSTextAlignmentCenter];
+        lable.textAlignment = NSTextAlignmentCenter;
         [lable setUserInteractionEnabled:YES];
         [lable addGestureRecognizer:tap];
         lable.font = [UIFont systemFontOfSize:14];
@@ -185,7 +188,7 @@
     CGFloat offset_x = LableW*index - self.view.width_sd*0.5+LableW*0.5;
     if (offset_x>0 && offset_x<(_titleScrollView.contentSize.width-self.view.width_sd)) {
         [_titleScrollView setContentOffset:CGPointMake(offset_x, 0) animated:YES];
-    }else if (offset_x<0){
+    }else if (offset_x<=0){
         [_titleScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }else{
         [_titleScrollView setContentOffset:CGPointMake(_titleScrollView.contentSize.width-self.view.width_sd, 0) animated:YES];
@@ -201,7 +204,7 @@
     }
     [UIView animateWithDuration:0.5 animations:^{
         nowLabel.textColor = UIColorHex(00a4e9);
-        nowLabel.font = [UIFont systemFontOfSize:15];
+        nowLabel.font = [UIFont systemFontOfSize:13];
     }];
     
     UIViewController *vc = self.childViewControllers[index];
@@ -209,8 +212,12 @@
         
     if (![vc isViewLoaded] || vc.view.superview != self.controllersScrollView) {
         [self.controllersScrollView addSubview:vc.view];
-        vc.view.sd_layout.topEqualToView(_controllersScrollView).leftEqualToView(_controllersScrollView).offset(self.view.width_sd*index).widthIs(self.view.width_sd).bottomEqualToView(_controllersScrollView);
+//        vc.view.sd_layout.topEqualToView(_controllersScrollView).leftEqualToView(_controllersScrollView).offset(self.view.width_sd*index).widthIs(self.view.width_sd).bottomEqualToView(_controllersScrollView);
+        vc.view.frame = CGRectMake(self.view.width_sd*index, 0, self.view.width_sd, self.controllersScrollView.height);
+        
         }
+
+
     }
     if (self.selectBack) {
         self.selectBack(@(index));
