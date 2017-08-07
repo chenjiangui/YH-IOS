@@ -62,6 +62,8 @@
 //    self.viewControllers = [self createSubViewController];
 //    [self setSelectedIndex:0];
     self.delegate = self;//    [self setItems];
+    self.tabBar.backgroundImage = [UIImage imageWithColor:[UIColor whiteColor]];
+    self.tabBar.shadowImage = @"pic_shadow".imageFromSelf;
 }
 
 - (void)updateWithCartChange{
