@@ -13,10 +13,27 @@
 
 
 @interface YHBaseViewController ()
+/** 底部显示tip视图 */
+@property (nonatomic, strong) UIButton* bottomTipBtn;
 
 @end
 
 @implementation YHBaseViewController
+
+- (UIButton *)bottomTipBtn{
+    if (!_bottomTipBtn) {
+        _bottomTipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bottomTipBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_bottomTipBtn setTitleColor:[NewAppColor yhapp_4color] forState:UIControlStateNormal];
+        [self.view insertSubview:_bottomTipBtn atIndex:0];
+        _bottomTipBtn.userInteractionEnabled = false;
+        [_bottomTipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(self.view);
+            make.bottom.mas_equalTo(self.view);
+        }];
+    }
+    return _bottomTipBtn;
+}
 
 
 + (MainTabbarViewController *)getMainTabController{
@@ -45,6 +62,14 @@
     button.frame = CGRectMake(0, 0, 50, 44);
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)showBottomTip:(BOOL)show title:(NSString *)title image:(UIImage *)image{
+    self.bottomTipBtn.hidden = !show;
+    [self.bottomTipBtn setTitle:title forState:UIControlStateNormal];
+    [self.bottomTipBtn setImage:image forState:UIControlStateNormal];
+    [self.bottomTipBtn sizeToFit];
+    [self.bottomTipBtn layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleBottom imageTitleSpace:12];
 }
 
 - (void)viewDidLoad {

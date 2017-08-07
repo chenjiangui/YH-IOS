@@ -41,6 +41,11 @@ typedef void(^CommonTwoBack)(id item1, id item2);
 - (void)creatBackItem;
 
 - (void)popNeedAnimation:(BOOL)needAnimation;
+
+- (void)showBottomTip:(BOOL)show
+                title:(NSString*)title
+                image:(UIImage*)image;
+
 /**
  *  是否全屏布局
  *

@@ -65,7 +65,6 @@
         make.height.mas_equalTo(244);
     }];
     self.simpleVc.view.backgroundColor = [UIColor clearColor];
-    
 }
 
 - (ScreenHeaderView *)headerView{
@@ -116,7 +115,8 @@
             [cell.actionBtn layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:12];
         };
         _simpleVc.selectBlock = ^(NSIndexPath* item1, ScreenModel* item2) {
-            
+            [NSArray setValue:@(YES) keyPath:@"isSelected" deafaultValue:@(NO) index:item1.row inArray:weakSelf.simpleVc.dataList];
+            weakSelf.simpleVc.touchBlock(nil);
         };
         _simpleVc.touchBlock = ^(id item) {
             weakSelf.simpleVc.view.hidden = true;

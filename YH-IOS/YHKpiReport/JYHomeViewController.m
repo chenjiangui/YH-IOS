@@ -134,6 +134,7 @@
 //    [self loadData];
 //    [self idColor];
     [self getData:YES];
+    [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
 }
 
 - (void)test{ //对项目无用 一个测试 cjg
@@ -434,6 +435,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == tableView.numberOfSections-1 && tableView.numberOfSections) {
+        return 80;
+    }
     return 10;
 }
 
@@ -580,7 +584,7 @@
 //        _rootTBView.tableHeaderView = [self addHeaderView];
 //        _rootTBView.tableFooterView = [self footerView];
         _rootTBView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _rootTBView.backgroundColor = self.view.backgroundColor;
+        _rootTBView.backgroundColor = [UIColor clearColor];
     }
     return _rootTBView;
 }
