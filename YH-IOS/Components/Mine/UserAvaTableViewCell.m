@@ -31,7 +31,7 @@
     self.avaterImageView = [[UIButton alloc]initWithFrame:CGRectMake(adaptWidth(20.5), adaptHeight(20), 55, 55)];
     self.avaterImageView.layer.cornerRadius = 27.5;
     // [self.avaterImageView setImage:[UIImage imageNamed:@"user_ava"] forState:UIControlStateNormal];
-    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_user.gravatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"user_ava"]];
+    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_user.gravatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"face_default"]];
     //_avaterImageView.layer.cornerRadius = 44;
     [self addSubview:_avaterImageView];
     [self.avaterImageView.layer setMasksToBounds:YES];

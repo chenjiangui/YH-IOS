@@ -95,19 +95,20 @@
         _userIconSheetView = [[CommonSheetView alloc] initWithDataList:@[@"拍照",@"相册"]];
         _userIconSheetView.lastString = @"取消";
         _userIconSheetView.colors = @[[NewAppColor yhapp_1color]];
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
+
         MJWeakSelf;
         _userIconSheetView.selectBlock = ^(NSNumber* item) {
             [weakSelf.userIconSheetView hide];
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = weakSelf;
+            imagePickerController.allowsEditing = YES;
             if (item.integerValue == 0) {
                 imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                [weakSelf presentViewController:imagePickerController animated:YES completion:^{}];
+                [RootTabbarViewConTroller presentViewController:imagePickerController animated:YES completion:^{}];
             }
             else if (item.integerValue ==1){
                 imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                [weakSelf presentViewController:imagePickerController animated:YES completion:^{}];
+                [RootTabbarViewConTroller presentViewController:imagePickerController animated:YES completion:^{}];
             }
         };
     }
