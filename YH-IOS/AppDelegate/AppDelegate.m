@@ -29,6 +29,8 @@
 #import <Bugly/Bugly.h>
 #import <DMPasscode/DMPasscode.h>
 
+#import "ZJNewFeatureController.h"
+
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
 
@@ -121,8 +123,12 @@ void UncaughtExceptionHandler(NSException * exception) {
         [FileUtils removeFile:assetsPath];
         cachedHeaderPath  = [NSString stringWithFormat:@"%@/%@", [FileUtils dirPath:kHTMLDirName], kCachedHeaderConfigFileName];
         [[NSUserDefaults standardUserDefaults] setObject:app_Version forKey:@"firstStart"];
-        GuidePageViewController *guidePage = [[GuidePageViewController alloc]init];
-        [self.window setRootViewController:guidePage];
+//        GuidePageViewController *guidePage = [[GuidePageViewController alloc]init];
+//        [self.window setRootViewController:guidePage];
+    
+        ZJNewFeatureController *NewFeatur=[[ZJNewFeatureController alloc] init];
+        [self.window setRootViewController:NewFeatur];
+        
         [FileUtils removeFile:cachedHeaderPath];
          NSString *distPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"dist"];
         if ([ FileUtils checkFileExist:distPath isDir:YES]) {

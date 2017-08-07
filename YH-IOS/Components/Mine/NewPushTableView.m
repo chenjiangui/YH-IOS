@@ -97,15 +97,20 @@
     }
     else
     {
+        
         NewPushTableCell* cell = [NewPushTableCell cellWithTableView:tableView needXib:false];
         [cell UserInfo:PushInfo[indexPath.row]];
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        cell.selectedBackgroundView = cellBackGround;
         return cell;
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (PushInfo.count==0) {
         return;
     }

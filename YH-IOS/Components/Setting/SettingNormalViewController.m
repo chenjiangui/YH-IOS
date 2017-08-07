@@ -104,17 +104,25 @@
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell;
+    
+   
+//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([_indictKey[indexPath.row] isEqualToString:@"消息推送"]){
         SwitchTableViewCell*  cell = [[SwitchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"dictcell"];
         cell.messageLabel.text = _indictKey[indexPath.row];
         cell.changStatusBtn.on = [_infodict[@"消息推送"] boolValue];
         cell.delegate = self;
         cellnum++;
+        
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        cell.selectedBackgroundView = cellBackGround;
+        
          [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
         return cell;
     }
      cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//     cell.selectionStyle = UITableViewCellSelectionStyleNone;
      [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
     
     UILabel *cellLabel=[[UILabel alloc] init];
@@ -126,6 +134,10 @@
         make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
         make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
     }];
+    
+    UIView *cellBackGround=[[UIView alloc] init];
+    [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+    cell.selectedBackgroundView = cellBackGround;
 
     NSString *key = _indictKey[indexPath.row];
     if ([_infodict[key] isKindOfClass:[NSDictionary class]]) {
@@ -147,6 +159,7 @@
              }];
              
              
+             
              UILabel *detailLabel=[[UILabel alloc] init];
              
              [cell.contentView addSubview:detailLabel];
@@ -161,6 +174,10 @@
                  make.right.mas_equalTo(cell.contentView.mas_right).offset(-32);
                  make.centerY.mas_equalTo(cell.contentView.mas_centerY);
              }];
+             
+             UIView *cellBackGround=[[UIView alloc] init];
+             [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+             cell.selectedBackgroundView = cellBackGround;
 
              
         }
@@ -169,6 +186,10 @@
 //        cell.detailTextLabel.text = @"";
 
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        cell.selectedBackgroundView = cellBackGround;
     }
     
      else if ([_infodict[key] isKindOfClass:[NSString class]]){
@@ -179,7 +200,6 @@
          [cell.contentView addSubview:detailLabel];
          detailLabel.textColor=[UIColor colorWithRed:0.21 green:0.25 blue:0.29 alpha:1];
          detailLabel.font=[UIFont systemFontOfSize:15];
-         
          NSString *detailLabelPoint=@"20";
          if ([key isEqualToString:@"检查新版本"]) {
              cell.detailTextLabel.text = self.pgyLinkString;
@@ -200,6 +220,10 @@
          }];
          
          
+         UIView *cellBackGround=[[UIView alloc] init];
+         [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+         cell.selectedBackgroundView = cellBackGround;
+         
          if ([key isEqualToString:@"检查新版本"]) {
              
 
@@ -217,6 +241,11 @@
                  make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
              }];
 
+             UIView *cellBackGround=[[UIView alloc] init];
+             [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+             cell.selectedBackgroundView = cellBackGround;
+             
+        
              cell.userInteractionEnabled = YES;
 
          }
@@ -235,6 +264,11 @@
                  make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
              }];
              cell.userInteractionEnabled = YES;
+             
+             
+             UIView *cellBackGround=[[UIView alloc] init];
+             [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+             cell.selectedBackgroundView = cellBackGround;
          }
          else if ([key isEqualToString:@"修改密码"]) {
 //             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -264,6 +298,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString* key = _indictKey[indexPath.row];
     if ([_infodict[key] isKindOfClass:[NSDictionary class]]) {
         SettingNormalViewController *thirdView = [[SettingNormalViewController alloc]init];

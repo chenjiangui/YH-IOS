@@ -155,10 +155,11 @@
 //            make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
             make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
         }];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
         
         
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        cell.selectedBackgroundView = cellBackGround;
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -185,6 +186,7 @@
 }
 */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 1:{
             NSDictionary *infodict = @{@"锁屏设置":@"",@"微信分享长图":@"", @"报表操作":@"", @"清理缓存":@""};

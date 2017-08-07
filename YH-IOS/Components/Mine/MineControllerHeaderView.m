@@ -10,8 +10,6 @@
 
 @interface MineControllerHeaderView ()
 
-
-
 @end
 
 @implementation MineControllerHeaderView

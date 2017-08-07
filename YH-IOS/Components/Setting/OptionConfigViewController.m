@@ -129,7 +129,6 @@
             make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
         }];
         
-        
         UIImageView *cellImage=[[UIImageView alloc] init];
         
         [cell.contentView addSubview:cellImage];
@@ -143,8 +142,11 @@
         }];
         
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        cell.selectedBackgroundView = cellBackGround;
+        [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
         
-         [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
     return cell;
     }
     else {
@@ -156,17 +158,21 @@
         if ([key  isEqualToString:@"微信分享长图"]) {
             NSMutableDictionary* betaDict = [FileUtils readConfigFile:self.settingsConfigPath];
             cell.changStatusBtn.on = (betaDict[@"image_within_screen"] && [betaDict[@"image_within_screen"] boolValue]);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else if ([key isEqualToString:@"报表操作"]) {
             NSMutableDictionary* betaDict = [FileUtils readConfigFile:self.settingsConfigPath];
             cell.changStatusBtn.on = (betaDict[@"allow_brower_copy"] && [betaDict[@"allow_brower_copy"] boolValue]);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         }
         else if ([key  isEqualToString:@"锁屏设置"]) {
             NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
              _userdict = [FileUtils readConfigFile:userConfigPath];
             cell.changStatusBtn.on = [ _userdict[kIsUseGesturePasswordCUName] boolValue];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         }
-         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
          [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
         return cell;
@@ -234,6 +240,7 @@
     else if ([key  isEqualToString:@"清理缓存"]){
           [self actionCheckAssets];
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)actionChangeGesturePassword {
@@ -262,7 +269,6 @@
 }
 
 //清理缓存
-
 - (void)actionCheckAssets {
     User* user = [[User alloc] init];
     self.sharedPath = [FileUtils sharedPath];

@@ -314,6 +314,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+
     switch (indexPath.row) {
         case 0:{
             NSString *userRole =[NSString stringWithFormat:@"%@", user.roleName];
@@ -390,6 +392,7 @@
         }
             break;
         default:
+            
             break;
     }
 }

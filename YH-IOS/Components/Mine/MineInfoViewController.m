@@ -241,6 +241,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (indexPath.section == 0 && indexPath.row == 0){
        UserAvaTableViewCell* Cell = [[UserAvaTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"userAva"];
         if (self.userDict != nil) {
@@ -276,11 +277,9 @@
            }
         return Cell;
     }
-    
     else if (indexPath.section == 1) {
       MineTwoLabelTableViewCell*  Cell = (MineTwoLabelTableViewCell *)[[MineTwoLabelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaltCell"];
         Cell.userInteractionEnabled = NO;
-        
         Cell.leftLabel.text = self.userArray[indexPath.section][indexPath.row];
         Cell.leftImageView.image = [[UIImage imageNamed:self.leftImageArray[indexPath.section][indexPath.row]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         Cell.rightLabel.text =secondArray[indexPath.row];
@@ -299,6 +298,10 @@
         MineDetailTableViewCell *Cell = [[MineDetailTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaulttwo"];
         Cell.leftLabel.text = self.userArray[indexPath.section][indexPath.row];
         Cell.leftImageView.image = [[UIImage imageNamed:self.leftImageArray[indexPath.section][indexPath.row]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        Cell.selectedBackgroundView = cellBackGround;
         return Cell;
     }
 }
