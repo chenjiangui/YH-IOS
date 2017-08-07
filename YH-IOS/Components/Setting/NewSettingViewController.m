@@ -296,6 +296,7 @@
     if (cell) {
         cell.textLabel.text = userInfoArray[indexPath.row];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
 }

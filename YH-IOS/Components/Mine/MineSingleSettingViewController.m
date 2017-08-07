@@ -155,7 +155,8 @@
 //            make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
             make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
         }];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         
         
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -214,79 +215,12 @@
             settingNormalView.title = userInfoArray[indexPath.row];
             [self.navigationController pushViewController:settingNormalView animated:YES];
         }
-           
             break;
         case 2:{
-            
+          //推送消息文本
             NewPushTableView *pushTableView=[[NewPushTableView alloc]init];
-            
             [self.navigationController pushViewController:pushTableView animated:YES];
-            
-            
-            
-            
-//            NSString *pushConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kPushConfigFileName];
-//            NSMutableDictionary *pushDict = [FileUtils readConfigFile:pushConfigPath];
-//            NSString* pushstate = pushDict[@"push_valid"] && [pushDict[@"push_valid"] boolValue] ? @"true" : @"false";
-//            NSDictionary *devideDict = [self pushdeviceDict];
-//           
-//            
-//            
-//           // NSString *pushDataPath = [[FileUtils userspace] stringByAppendingPathComponent:@"pushData.plist"];
-//          //  NSMutableDictionary *pushData = [FileUtils readConfigFile:pushDataPath];
-//            NSMutableDictionary*  pushDatavalue = [NSMutableDictionary alloc];
-//            
-//            
-//            NSString *filePath = [[FileUtils userspace] stringByAppendingPathComponent:@"PushInfo.plist"];
-//            NSMutableArray *userInfo=[NSMutableArray alloc];
-//            userInfo = [NSMutableArray arrayWithContentsOfFile:filePath];
-            
-            
-            
-            
-//           // NSMutableDictionary* pushDatavalue = pushData;
-////            if ([[pushData allKeys]count] == 0) {
-////                pushDatavalue = @{@"暂无数据":@"0"};
-////            }
-//            if (userInfo.count == 0) {
-//               [pushDatavalue setObject:@"0" forKey:@"暂无数据"];
-//            }
-//            else
-//            {
-////            NSString *filePath = [[FileUtils userspace] stringByAppendingPathComponent:@"PushInfo.plist"];
-////            NSMutableArray *userInfo=[NSMutableArray alloc];////            userInfo = [NSMutableArray arrayWithContentsOfFile:filePath];
-//            NSLog(@"%@",[[userInfo[0] objectForKey:@"aps"] objectForKey:@"alert"]);
-//            for (int i=0; i<userInfo.count; i++) {
-//                [pushDatavalue setObject:@"" forKey:[[userInfo[i] objectForKey:@"aps"] objectForKey:@"alert"]];
-//              
-//            }
-//            }
-//            NSMutableDictionary *infodict;
-//            NSArray* infoArray = @[@"消息推送",@"关联的设备列表",@"推送的消息列表"];
-//            if (!devideDict || [devideDict allKeys].count == 0) {
-//                    [infodict setObject:pushstate forKey:@"消息推送"];
-//                    [infodict setObject:@"" forKey:@"关联的设备列表"];
-//                    [infodict setObject:pushDatavalue forKey:@"推送的消息列表"];
-////                infodict = @{@"消息推送":pushstate,@"关联的设备列表":@"" ,@"推送的消息列表":pushDatavalue};
-//            }
-//            else{
-////              infodict = @{@"消息推送":pushstate,@"关联的设备列表":devideDict[@"devices"] ,@"推送的消息列表":pushDatavalue};
-//                [infodict setObject:pushstate forKey:@"消息推送"];
-//                [infodict setObject:devideDict[@"devices"] forKey:@"关联的设备列表"];
-//                [infodict setObject:pushDatavalue forKey:@"推送的消息列表"];
-//            }
-//            SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
-//            settingNormalView.infodict  = infodict;
-//            settingNormalView.indictKey = infoArray;
-//            settingNormalView.title = userInfoArray[indexPath.row];
-//            [self.navigationController pushViewController:settingNormalView animated:YES];
-            
-            
-            
-            
-            
-            
-            
+       
         }
             break;
         case 3:{

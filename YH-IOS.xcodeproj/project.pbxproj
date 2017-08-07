@@ -361,7 +361,6 @@
 		B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B675935E1F29CBEE00E89B65 /* HWCollectionViewCell.xib */; };
 		B67593651F29CBEE00E89B65 /* HWImagePickerSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */; };
 		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
-		B68F84001F36EBA600B857F6 /* group_0_template_4_report_13.js in Resources */ = {isa = PBXBuildFile; fileRef = B68F83FF1F36EBA600B857F6 /* group_0_template_4_report_13.js */; };
 		B69018651F2C37170018F3B1 /* NewFindPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */; };
 		B6BC20EA1F3639FD00EC2532 /* change.html in Resources */ = {isa = PBXBuildFile; fileRef = B6BC20E91F3639FD00EC2532 /* change.html */; };
 		B6CF9BED1F3631650022BE84 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CF9BEC1F3631650022BE84 /* WebViewJavascriptBridge_JS.m */; };
@@ -1359,7 +1358,6 @@
 		B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWImagePickerSheet.m; sourceTree = "<group>"; };
 		B676BB3C1F282AD700AF363A /* NewMineResetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineResetPwdController.h; sourceTree = "<group>"; };
 		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
-		B68F83FF1F36EBA600B857F6 /* group_0_template_4_report_13.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = group_0_template_4_report_13.js; sourceTree = "<group>"; };
 		B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFindPasswordCell.h; sourceTree = "<group>"; };
 		B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFindPasswordCell.m; sourceTree = "<group>"; };
 		B6BC20E91F3639FD00EC2532 /* change.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = change.html; sourceTree = "<group>"; };
@@ -3627,7 +3625,6 @@
 		C4DB7D751C02EC0500DA534E /* YH-IOS */ = {
 			isa = PBXGroup;
 			children = (
-				B68F83FF1F36EBA600B857F6 /* group_0_template_4_report_13.js */,
 				B64202BD1F3641EA007622D3 /* success.html */,
 				B6BC20E91F3639FD00EC2532 /* change.html */,
 				3B717DAB1F28717400858E0E /* Resource */,
@@ -5079,7 +5076,6 @@
 				B6152A571F30A3FF00B1A5AA /* sorrow-right.png in Resources */,
 				B6152A091F30A3FF00B1A5AA /* sort_asc.png in Resources */,
 				F62457451EA5FBB2006834D2 /* LineChartTimeViewController.xib in Resources */,
-				B68F84001F36EBA600B857F6 /* group_0_template_4_report_13.js in Resources */,
 				B6152A211F30A3FF00B1A5AA /* fixedColumns.foundation.min.css in Resources */,
 				F62456BD1EA5FB21006834D2 /* ChartHeaderViewCell.xib in Resources */,
 				B6E7B35B1F29D2CE008B48BF /* MGroupCell.xib in Resources */,

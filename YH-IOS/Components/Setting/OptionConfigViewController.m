@@ -166,7 +166,8 @@
              _userdict = [FileUtils readConfigFile:userConfigPath];
             cell.changStatusBtn.on = [ _userdict[kIsUseGesturePasswordCUName] boolValue];
         }
-     
+         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
          [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
         return cell;
     }

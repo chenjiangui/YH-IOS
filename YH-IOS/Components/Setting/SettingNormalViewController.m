@@ -114,7 +114,7 @@
         return cell;
     }
      cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-    
+     cell.selectionStyle = UITableViewCellSelectionStyleNone;
      [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
     
     UILabel *cellLabel=[[UILabel alloc] init];

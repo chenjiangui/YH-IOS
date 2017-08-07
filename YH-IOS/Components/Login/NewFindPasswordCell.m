@@ -7,7 +7,6 @@
 //
 
 #import "NewFindPasswordCell.h"
-
 @implementation NewFindPasswordCell
 
 static  NSString *PeopleString;
@@ -33,7 +32,7 @@ static  NSString *PhoneString;
                         make.size.mas_equalTo(CGSizeMake(self.contentView.frame.size.width, 50));
                     }];
       }
-        //
+        
                 else if([type isEqualToString:@"PhoneNumber"])
                     {
                         UITextField *PhoneNumber =[[UITextField alloc] init];
@@ -91,7 +90,7 @@ static  NSString *PhoneString;
                         [upDataBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                             make.centerX.mas_equalTo(self.contentView.mas_centerX);
                             make.centerY.mas_equalTo(self.contentView.mas_centerY);
-                            make.size.mas_equalTo(CGSizeMake(self.contentView.frame.size.width, 50));
+                            make.size.mas_equalTo(CGSizeMake(self.contentView.bounds.size.width, 50));
                         }];
                     }
     }
@@ -107,8 +106,9 @@ static  NSString *PhoneString;
 }
 -(void)upTodata
 {
-          NSString *userNum = PeopleString;
-          NSString *userPhone = PhoneString;
+
+         NSString *userNum = PeopleString;
+         NSString *userPhone = PhoneString;
          NSLog(@"%@%@",userNum,userPhone);
             if (userNum && userPhone) {
                 HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
@@ -117,7 +117,8 @@ static  NSString *PhoneString;
                 if ([reponse.statusCode isEqualToNumber:@(201)]) {
                     [alert addButton:@"重新登录" actionBlock:^(void){
                     }];
-                    [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];     
+                    [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
+                    [[self viewController] dismissModalViewControllerAnimated:YES];
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         /*
                          * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -136,7 +137,24 @@ static  NSString *PhoneString;
                     [HudToolView showTopWithText:message color:[NewAppColor yhapp_11color]];
                 }
             }
+            else
+            {
+                [HudToolView showTopWithText:@"信息有误，请重新输入" color:[NewAppColor yhapp_11color]];
+            }
 }
+
+
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

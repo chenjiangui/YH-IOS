@@ -950,7 +950,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)loadHtml {
     DeviceState deviceState = [APIHelper deviceState];
     if(deviceState == StateOK) {
-        self.isInnerLink ? [self loadOuterLink]: [self loadInnerLink];
+        self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
     }
     else if(deviceState == StateForbid) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
@@ -1377,7 +1377,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                                                               handler:^(UIAlertAction * action) {
                                                                   self.isLoadFinish = self.browser.isLoading;
                                                               }];
-        
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
@@ -1390,7 +1389,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIGraphicsEndImageContext();
     return image;
 }
-
 
 - (UIImage *)saveWebViewAsImage {
     UIScrollView *scrollview = self.browser.scrollView;

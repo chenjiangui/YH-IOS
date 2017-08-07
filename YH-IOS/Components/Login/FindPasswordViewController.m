@@ -213,7 +213,7 @@
             cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"textLabel"];
         }
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else{

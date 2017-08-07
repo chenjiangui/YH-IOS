@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"推送历史";
+    self.title = @"推送消息";
     [self.view setBackgroundColor:[NewAppColor yhapp_8color]];
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -75,7 +75,8 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (PushInfo.count==0) {
-        return 1;
+        [PushTableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        return 0;
     }
     else
     return PushInfo.count;
@@ -92,25 +93,14 @@
 //}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (PushInfo.count==0) {
-        NewPushTableCell* cell = [NewPushTableCell cellWithTableView:tableView needXib:false];
-        UILabel *cellLabel=[[UILabel alloc] init];
-        [cell addSubview:cellLabel];
-        cellLabel.text=@"暂无推送消息";
-        [cellLabel setFont:[UIFont boldSystemFontOfSize:15]];
-        cellLabel.textAlignment = NSTextAlignmentLeft;
-        [cellLabel setTextColor:[NewAppColor yhapp_6color]];
-        [cellLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(cell.contentView.mas_top).offset(17);
-            make.left.mas_equalTo(cell.contentView.mas_left).offset(20);
-        }];
-        [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
-        return cell;
+        return nil;
     }
     else
     {
         NewPushTableCell* cell = [NewPushTableCell cellWithTableView:tableView needXib:false];
         [cell UserInfo:PushInfo[indexPath.row]];
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }

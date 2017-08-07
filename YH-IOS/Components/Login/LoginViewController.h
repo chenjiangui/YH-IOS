@@ -26,7 +26,11 @@
 
 @interface LoginViewController : UIViewController
 
+@property (nonatomic, strong) UIImageView *PasswordLogo;
+@property (nonatomic, strong) UIImageView *peopleLogo;
 @property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UIButton *PeopleDelete;
+@property (nonatomic, strong) UIButton *PasswoedDelete;
 @property (nonatomic, strong) UITextField *userPasswordText;
 @property (nonatomic, strong) UITextField *userNameText;
 @property (nonatomic, strong) UIButton *findPassword;

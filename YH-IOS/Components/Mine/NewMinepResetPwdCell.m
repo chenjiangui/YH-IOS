@@ -39,7 +39,7 @@ static  NSString *RequstPwdString;
         {
             NewPwdNumber =[[UITextField alloc] init];
             [self.contentView  addSubview:NewPwdNumber];
-            NewPwdNumber.placeholder=@"请输入新密码";
+            NewPwdNumber.placeholder=@"新密码";
             NewPwdNumber.font=[UIFont systemFontOfSize:16];
             NewPwdNumber.textAlignment=NSTextAlignmentLeft;
             [NewPwdNumber setSecureTextEntry:YES];
@@ -65,7 +65,7 @@ static  NSString *RequstPwdString;
         {
             RequestPwdNumber =[[UITextField alloc] init];
             [self.contentView addSubview:RequestPwdNumber];
-            RequestPwdNumber.placeholder=@"请再次输入新密码";
+            RequestPwdNumber.placeholder=@"确认密码";
             RequestPwdNumber.font=[UIFont systemFontOfSize:16];
             [RequestPwdNumber setSecureTextEntry:YES];
             RequestPwdNumber.textAlignment=NSTextAlignmentLeft;
