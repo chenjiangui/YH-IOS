@@ -79,6 +79,12 @@
         make.height.mas_equalTo(@12);
         make.width.mas_equalTo(@5);
     }];
+    [self.sepertView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.mas_bottom);
+        make.left.mas_equalTo(self.mas_left).mas_offset(16);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-16);
+        make.height.mas_equalTo(@1);
+    }];
 }
 
 
