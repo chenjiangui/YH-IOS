@@ -70,7 +70,7 @@
                 <outlet property="unitLab" destination="Z76-Fr-st2" id="k2P-10-3Ng"/>
                 <outlet property="yestodayLab" destination="oOF-kH-zSx" id="TMs-qZ-qIu"/>
             </connections>
-            <point key="canvasLocation" x="-619" y="10"/>
+            <point key="canvasLocation" x="-858" y="-16"/>
         </tableViewCell>
     </objects>
 </document>

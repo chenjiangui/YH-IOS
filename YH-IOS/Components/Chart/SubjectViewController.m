@@ -23,7 +23,9 @@
 #import "RootTableController.h"
 #import "SelectDataModel.h"
 #import <CoreLocation/CoreLocation.h>
-#define WeakSelf __weak typeof(*&self) weakSelf = self;
+#import "YHPopMenuView.h"
+
+#define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
@@ -47,9 +49,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (assign, nonatomic) BOOL isLoadFinish;
 @property (strong, nonatomic) UIView* idView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) NSString *userLongitude;
-@property(nonatomic, strong) NSString *userlatitude;
+@property (nonatomic, strong) NSString *userLongitude;
+@property (nonatomic, strong) NSString *userlatitude;
 @property (nonatomic, strong) UIButton *backBtn;
+@property (nonatomic, strong) YHPopMenuView *popView;
+@property (nonatomic, assign) BOOL rBtnSelected;
+@property (nonatomic, strong) NSMutableArray *iconNameArray;
+@property (nonatomic, strong) NSMutableArray *itemNameArray;
 
 @end
 
@@ -58,6 +64,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewDidLoad {
     [super viewDidLoad];
      [self startLocation];
+    self.iconNameArray =[ @[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+    self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
     [self hiddenShadow];
@@ -130,7 +138,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     
     self.title =self.bannerName;
   //  navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
@@ -148,6 +156,65 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self isLoadHtmlFromService];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
+
+
+// 弹出框
+
+#pragma mark - Action
+- (void)onRightBtn:(id)sender{
+    
+    _rBtnSelected = !_rBtnSelected;
+    if (_rBtnSelected) {
+        [self showPopMenu];
+    }else{
+        [self hidePopMenuWithAnimation:YES];
+    }
+    
+}
+
+- (void)showPopMenu{
+    CGFloat itemH = 50;
+    CGFloat w = 150;
+    CGFloat h = 4*itemH;
+    CGFloat r = 15;
+    CGFloat x = SCREEN_WIDTH - w - r;
+    CGFloat y = 1;
+    
+    _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    _popView.iconNameArray =self.iconNameArray;
+    _popView.itemNameArray =self.itemNameArray;
+    _popView.itemH     = itemH;
+    _popView.fontSize  = 16.0f;
+    _popView.fontColor = [UIColor whiteColor];
+    _popView.canTouchTabbar = YES;
+    [_popView show];
+    
+    WeakSelf;
+   [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
+        if (!isCanceled) {
+            
+            NSLog(@"点击第%ld行",(long)row);
+            if (!row) {
+                
+            }
+            else if(row == 1){
+            }
+            else if(row == 2){
+                
+            }
+            else if(row == 3){
+                
+            }
+        }
+        
+        weakSelf.rBtnSelected = NO;
+    }];
+}
+
+- (void)hidePopMenuWithAnimation:(BOOL)animate{
+    [_popView hideWithAnimation:animate];
+}
+
 
 //标识点
 
@@ -469,6 +536,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
+        self.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+        self.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空

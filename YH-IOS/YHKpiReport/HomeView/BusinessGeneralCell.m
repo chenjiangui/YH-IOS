@@ -36,7 +36,6 @@
 
 - (void)setItem:(YHKPIDetailModel*)item{
     
-    _topLeftLab.text = SafeText(item.hightLightData.compare);
     _bottomLeftLab.text = SafeText(item.memo2);
     _topRightLab.text = SafeText(item.title);
     _bottomRightLab.text = [NSString stringWithFormat:@"%@%@%@",SafeText(item.memo1),SafeText(item.hightLightData.number),SafeText(item.unit)];
@@ -44,9 +43,13 @@
         NSRange range = [_bottomRightLab.text rangeOfString:item.hightLightData.number];
         [_bottomRightLab setLabelColor:UIColorHex(4688b5) StringFromLocation:range.location StringNeedLength:range.length + SafeText(item.unit).length];
     }
-    _topLeftLab.textColor = [_topLeftLab.text removeString:@"%"].floatValue > 0 ? UIColorHex(91c941):UIColorHex(f57658);
-
-
+    _topLeftLab.textColor = [SafeText(item.hightLightData.compare) removeString:@"%"].floatValue > 0 ? UIColorHex(91c941):UIColorHex(f57658);
+    NSMutableAttributedString* str = [[NSMutableAttributedString alloc] initWithString:SafeText(item.hightLightData.compare)];
+    NSRange range = [SafeText(item.hightLightData.compare) rangeOfString:@"%"];
+    if (range.length) {
+        [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:CustomFontName size:18] range:range];
+    }
+    _topLeftLab.attributedText = str;
 }
 
 @end

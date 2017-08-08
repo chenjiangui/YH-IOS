@@ -46,7 +46,7 @@
 }
 
 +(UIColor*)yhapp_9color{
-    return UIColorHex(6e6e6e);
+    return UIColorHex(e6e6e6);
 }
 
 +(UIColor*)yhapp_10color{

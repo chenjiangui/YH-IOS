@@ -20,6 +20,9 @@ typedef void(^CommonBack)(id item);
 
 @property (nonatomic, assign) NSInteger curIndex;
 
+@property (nonatomic, strong) NSArray* titles;
+
+
 @property (nonatomic, assign) CGFloat lableW; //必须set
 @property (nonatomic, assign) CGFloat lableH; //必须set
 

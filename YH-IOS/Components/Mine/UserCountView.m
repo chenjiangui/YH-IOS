@@ -32,13 +32,14 @@
     _utilLabel = [[UILabel alloc]init];
     _utilLabel.font = [UIFont systemFontOfSize:10];
     _utilLabel.textAlignment = NSTextAlignmentLeft;
+    [_utilLabel sizeToFit];
     [self addSubview:_utilLabel];
     
     //名称
     _noteLabel = [[UILabel alloc]init];
     _noteLabel.font = [UIFont systemFontOfSize:11];
     _noteLabel.adjustsFontSizeToFitWidth = YES;
-    _noteLabel.textColor = [UIColor colorWithHexString:@"#666"];
+    _noteLabel.textColor = [NewAppColor yhapp_3color];
     _noteLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_noteLabel];
     
@@ -51,7 +52,7 @@
     }];
     
     [_utilLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.dataLable.mas_bottom).mas_offset(-4);
+        make.bottom.equalTo(self.dataLable.mas_bottom).mas_offset(-6);
         make.width.equalTo(@13);
     }];
     
