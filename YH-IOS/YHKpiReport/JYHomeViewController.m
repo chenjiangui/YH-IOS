@@ -226,20 +226,23 @@
         //扫码框周围4个角的类型,设置为外挂式
         style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Outer;
         //扫码框周围4个角绘制的线条宽度
-        style.photoframeLineW = 6;
+        style.photoframeLineW = 5;
         //扫码框周围4个角的宽度
         style.photoframeAngleW = 24;
         //扫码框周围4个角的高度
         style.photoframeAngleH = 24;
+        style.colorAngle = RGBA(0, 255, 255, 1);
         //扫码框内 动画类型 --线条上下移动
         style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
+        style.xScanRetangleOffset = 57.5;
         //线条上下移动图片
-        style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
+        style.animationImage = [UIImage imageNamed:@"scan_line"];
+        style.colorRetangleLine = [UIColor clearColor];
         //SubLBXScanViewController继承自LBXScanViewController
         //添加一些扫码或相册结果处理
-        SubLBXScanViewController *vc = [SubLBXScanViewController new];
+        SubLBXScanViewController *vc = [[SubLBXScanViewController alloc] init];;
         vc.style = style;
-        vc.isQQSimulator = YES;
+//        vc.isQQSimulator = YES;
         vc.isVideoZoom = YES;
         [self presentViewController:vc animated:YES completion:nil];
     }];

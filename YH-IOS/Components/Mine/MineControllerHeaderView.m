@@ -105,7 +105,7 @@
 - (UIView *)lineView{
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = [UIColor colorWithHexString:@"e6e6e6"];
+        _lineView.backgroundColor = [NewAppColor yhapp_9color];
     }
     return _lineView;
 }
