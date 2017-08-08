@@ -13,7 +13,7 @@
 #import <SCLAlertView.h>
 #import "ScanResultViewController.h"
 #import "ManualInputViewController.h"
-
+#import "NewManualInputViewController.h"
 @interface SubLBXScanViewController ()
 @end
 
@@ -124,6 +124,8 @@
     //[_btnManualInput setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_myqrcode_nor÷"] forState:UIControlStateHighlighted];
     [_btnManualInput addTarget:self action:@selector(manualInput) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    
     [_bottomItemsView addSubview:_btnFlash];
     [_bottomItemsView addSubview:_btnPhoto];
     [_bottomItemsView addSubview:_btnManualInput];
@@ -201,7 +203,6 @@
 }
 
 #pragma mark -底部功能项
-
 - (void)myQRCode {
     MyQRViewController *vc = [MyQRViewController new];
     [self presentViewController:vc animated:YES completion:nil];
@@ -209,9 +210,14 @@
 
 // 手动输入
 - (void)manualInput {
-    ManualInputViewController *manualInput = [[ManualInputViewController alloc]init];
-    manualInput.fromViewController = @"click";
-    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
+    
+//    ManualInputViewController *manualInput = [[ManualInputViewController alloc]init];
+//    manualInput.fromViewController = @"click";
+//    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
+//    [self presentViewController:manulCtrl animated:YES completion:nil];
+//    
+    NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
+    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
     [self presentViewController:manulCtrl animated:YES completion:nil];
 }
 

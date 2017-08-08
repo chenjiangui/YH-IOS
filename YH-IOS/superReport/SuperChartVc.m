@@ -101,12 +101,10 @@ const static CGFloat lineHeight = 40; //一行的高度
         });
     });
 }
-
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     self.formView.frame = self.view.bounds;
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
