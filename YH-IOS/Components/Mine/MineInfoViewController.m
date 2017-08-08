@@ -50,6 +50,7 @@
 @property (nonatomic, strong) UIImage *userAvaImage;
 @property (nonatomic, strong) NSDictionary *userDict;
 @property (nonatomic, strong) CommonSheetView* favSheetView;
+@property (nonatomic, strong)CommonSheetView* userIconSheetView;
 
 @end
 
@@ -87,6 +88,31 @@
         [self.minetableView.mj_header endRefreshing];
         [self.minetableView reloadData];
     }];
+}
+
+-(CommonSheetView *)userIconSheetView{
+    if (!_userIconSheetView) {
+        _userIconSheetView = [[CommonSheetView alloc] initWithDataList:@[@"拍照",@"相册"]];
+        _userIconSheetView.lastString = @"取消";
+        _userIconSheetView.colors = @[[NewAppColor yhapp_1color]];
+
+        MJWeakSelf;
+        _userIconSheetView.selectBlock = ^(NSNumber* item) {
+            [weakSelf.userIconSheetView hide];
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = weakSelf;
+            imagePickerController.allowsEditing = YES;
+            if (item.integerValue == 0) {
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                [RootTabbarViewConTroller presentViewController:imagePickerController animated:YES completion:^{}];
+            }
+            else if (item.integerValue ==1){
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                [RootTabbarViewConTroller presentViewController:imagePickerController animated:YES completion:^{}];
+            }
+        };
+    }
+    return _userIconSheetView;
 }
 
 - (CommonSheetView *)favSheetView{
@@ -128,18 +154,27 @@
     }];
 }
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat sectionHeaderHeight = 10;
+    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }
+    else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
 
 -(void)setupTableView {
     
     self.minetableView= [[UITableView alloc]init];
-    self.minetableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49-64);
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.minetableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
     [self.view addSubview:self.minetableView];
     [self.minetableView setScrollEnabled:YES];
     self.minetableView.backgroundColor = [NewAppColor yhapp_8color];
     self.minetableView.delegate = self;
     self.minetableView.dataSource = self;
-    self.minetableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.minetableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.minetableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self getData];
     }];
@@ -218,6 +253,7 @@
     return 5;
 }
 
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return adaptHeight(10);
 }
@@ -263,9 +299,11 @@
 //            else
 //                [Cell.avaterImageView setImage:[UIImage imageNamed:@"face_default"] forState:UIControlStateNormal];
         }
+         MJWeakSelf;
         [[Cell.avaterImageView rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             NSLog(@"点击了按钮");
-            [self ClickButton:Cell.avaterImageView];
+            [weakSelf.userIconSheetView show];
+            //[self ClickButton:Cell.avaterImageView];
         }];
           return Cell;
     }
@@ -363,33 +401,9 @@
             [RootNavigationController pushViewController:PushVc animated:YES hideBottom:YES];
         }
     }
+    [self.minetableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)logoutButtonClick {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认退出" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction *action) {
-        [self jumpToLogin];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction *action){}];
-    [alertController addAction:okAction];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        /*
-         * 用户行为记录, 单独异常处理，不可影响用户体验
-         */
-        [APIHelper deleteUserDevice:@"ios" withDeviceID:user.deviceID];
-        @try {
-            NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-            logParams[kActionALCName] = @"退出登录";
-            [APIHelper actionLog:logParams];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"%@", exception);
-        }
-    });
-}
 
 - (void)jumpToLogin {
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];

@@ -50,7 +50,7 @@
 
 - (void)setBackColorAlpha:(CGFloat)backColorAlpha{
     _backColorAlpha = backColorAlpha;
-     self.backgroundColor = [UIColorHex(32414b) appendAlpha:backColorAlpha];
+     self.backgroundColor = [[NewAppColor yhapp_6color] colorWithAlphaComponent:backColorAlpha];
 }
 
 - (UILabel *)titleLab{

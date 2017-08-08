@@ -16,6 +16,7 @@
 #import "SubjectOutterViewController.h"
 #import "SuperChartVc.h"
 #import "JYDemoViewController.h"
+#import "YHScreenController.h"
 
 @interface ToolViewController () <UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>
 
@@ -52,6 +53,9 @@
 
 #pragma mark - 点击事件
 - (void)toolClickAction:(ToolModel*)model{
+    YHScreenController* vc = [[YHScreenController alloc] init];
+    [self pushViewController:vc animation:YES hideBottom:YES];
+    return;
     [self jumpToSubjectView:model];
 }
 

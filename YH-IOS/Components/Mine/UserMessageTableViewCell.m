@@ -10,14 +10,12 @@
 
 @implementation UserMessageTableViewCell
 
-
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self layoutViews];
     }
     return self;
-    
 }
 
 -(void)layoutViews {
@@ -57,10 +55,10 @@
 }
 
 -(void)layoutUI {
-    
-    
     [self.sepertView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.mas_equalTo(self);
+        make.bottom.mas_equalTo(self.mas_bottom);
+        make.left.mas_equalTo(self.mas_left).mas_offset(16);
+        make.right.mas_equalTo(self.mas_right).mas_offset(-16);
         make.height.mas_equalTo(@1);
     }];
     

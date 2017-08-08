@@ -16,8 +16,11 @@
 #define RootNavigationController [YHBaseViewController getRootNavController]
 
 typedef void(^CommonBack)(id item);
+typedef void(^CommonTwoBack)(id item1, id item2);
 
 @interface YHBaseViewController : UIViewController
+
+@property (nonatomic, assign) BOOL touchCancleEdit;
 
 @property (nonatomic, strong) EmptyView* emptyView;
 
@@ -38,6 +41,11 @@ typedef void(^CommonBack)(id item);
 - (void)creatBackItem;
 
 - (void)popNeedAnimation:(BOOL)needAnimation;
+
+- (void)showBottomTip:(BOOL)show
+                title:(NSString*)title
+                image:(UIImage*)image;
+
 /**
  *  是否全屏布局
  *
