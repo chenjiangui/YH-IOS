@@ -602,6 +602,17 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     */
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
+       /* NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+        NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", weakSelf.javascriptPath];
+        NSString *selectedItem = NULL;
+        if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
+            selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
+        }
+        responseCallback(selectedItem);*/
+    }];
+    [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
@@ -612,6 +623,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         responseCallback(selectedItem);
     }];
+
     
     [self.bridge registerHandler:@"showAlert" handler:^(id data, WVJBResponseCallback responseCallback){
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:data[@"title"]

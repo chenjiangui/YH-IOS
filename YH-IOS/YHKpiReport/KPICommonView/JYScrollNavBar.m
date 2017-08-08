@@ -235,8 +235,8 @@
 - (void)layoutButtons{
     self.contentSize = CGSizeMake(self.tmpKeys.count * ItemWidth, 0);
     CGFloat buttonW = ItemWidth - JYDefaultMargin;
-    buttonW = JYScreenWidth / 375.0 * buttonW;
     NSInteger itemsCount = self.tmpKeys.count;
+    buttonW =  4*15+30;
 //    if (itemsCount * ItemWidth < self.width) {
 //        CGFloat width = self.isShowSortButton ? (self.width - self.height) : self.width;
 //        buttonW = width / itemsCount;
@@ -252,7 +252,7 @@
             UIButton *button = [self.itemsDic objectForKey:key];
             button.tag = i;
             CGFloat buttonX = i * (buttonW + JYDefaultMargin / 2) + JYDefaultMargin;
-            button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+            button.frame = CGRectMake(buttonX, 7, buttonW, 30);
             self.itemW = buttonW;
             button.layer.cornerRadius = button.height/2.0;
         }

@@ -12,7 +12,7 @@
 
 
 @interface JYStatementView () <UITableViewDelegate, UITableViewDataSource, JYModuleTwoCellDelegate> {
-    
+   
 }
 
 @property (nonatomic, strong) UITableView *tableView;

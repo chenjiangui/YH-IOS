@@ -17,7 +17,6 @@
     UITableView *_tableView;
     JYModuleTwoView *moduleTwoView;
     User *user;
-    
 }
 
 @property (nonatomic, strong) JYModuleTwoModel *moduleTwoModel;

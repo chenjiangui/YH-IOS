@@ -50,7 +50,7 @@
         _tipsLabel = [[UILabel alloc]init];
         _tipsLabel.text = @"栏目切换";
         _tipsLabel.textColor = [UIColor whiteColor];
-        _tipsLabel.font = [UIFont systemFontOfSize:22];
+        _tipsLabel.font = [UIFont boldSystemFontOfSize:22];
         _tipsLabel.adjustsFontSizeToFitWidth = YES;
         _tipsLabel.textAlignment = NSTextAlignmentCenter;
         _tipsLabel.hidden = YES;
@@ -291,7 +291,7 @@
     [super layoutSubviews];
     
     CGFloat rootScrollViewX = 0;
-    CGFloat rootScrollViewY = self.navBarH;
+    CGFloat rootScrollViewY = self.navBarH+5;
     CGFloat rootScrollViewW = self.width;
     CGFloat rootScrollViewH = self.rootScrollViewHeight;
     self.rootScrollView.frame = CGRectMake(rootScrollViewX, rootScrollViewY, rootScrollViewW, rootScrollViewH);

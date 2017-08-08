@@ -58,6 +58,7 @@ static NSString *rowCellID = @"rowCell";
 - (JYFreezeWindowView *)freezeView {
     if (!_freezeView) {
         _freezeView = [[JYFreezeWindowView alloc] initWithFrame:self.bounds FreezePoint:kFreezePoint cellViewSize:CGSizeMake(100, kMianCellHeight)];
+       // _freezeView.backgroundColor = [UIColor redColor];
         _freezeView.flexibleHeight = self.flexibleHeight;
         _freezeView.delegate = self;
         _freezeView.dataSource = self;

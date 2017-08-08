@@ -51,9 +51,9 @@
         //设置根滚动视图的高度
         _cursor.rootScrollViewHeight = self.frame.size.height - (64);
         //默认值是白色
-        _cursor.titleNormalColor = JYColor_TextColor_Chief;
+        _cursor.titleNormalColor = [NewAppColor yhapp_4color];
         //默认值是白色
-        _cursor.titleSelectedColor = JYColor_ThemeColor_LightGreen;
+        _cursor.titleSelectedColor = [NewAppColor yhapp_3color];
         //是否显示排序按钮
         //_cursor.showSortbutton = YES;
         //默认的最小值是5，小于默认值的话按默认值设置
@@ -98,7 +98,7 @@
         for (JYSheetModel *sheetModel in ((JYExcelModel *)model).sheetList) {
             JYSheetView *tempSheetView = [[JYSheetView alloc] init];
             CGFloat height = [tempSheetView estimateViewHeight:sheetModel];
-            cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight) + 25;
+            cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight) + 58;
         }
     }
     //NSLog(@"cursorScroll ---> Height : %f", cursorScrollHeight);
