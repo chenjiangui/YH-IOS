@@ -67,26 +67,15 @@ static NSString *headerViewIdentifier = @"hederview";
     
     user = [[User alloc]init];
     self.version = [[Version alloc] init];
-    
-    
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
     [self.navigationController setNavigationBarHidden:false];
-    
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#32414b"]}] ;
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#32414b"]}] ;
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
-    
     UIImage *imageback = [[UIImage imageNamed:@"newnav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    
     bakImage.image = imageback;
-    
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
     [backBtn addTarget:self action:@selector(NewQuestionViewBack) forControlEvents:UIControlEventTouchUpInside];
     [backBtn addSubview:bakImage];
@@ -95,21 +84,13 @@ static NSString *headerViewIdentifier = @"hederview";
     self.navigationController.navigationBar.translucent = NO;
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
-
     [self setTableView];
 }
-
-
 -(void)setTableView
 {
-    
     QuestionTableView=[[UITableView alloc] init];
-    
     [self.view addSubview:QuestionTableView];
-    
-    
     QuestionTableView.scrollEnabled =NO; //设置tableview 不能滚动
-    
     [QuestionTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
     }];
@@ -118,12 +99,10 @@ static NSString *headerViewIdentifier = @"hederview";
     QuestionTableView.delegate = self;
     
 }
-
 #pragma  get GroupArray count  to set number of section
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 4;
@@ -145,7 +124,6 @@ static NSString *headerViewIdentifier = @"hederview";
     {
         return 50;
     }
-    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -162,7 +140,6 @@ static NSString *headerViewIdentifier = @"hederview";
         if (cell == nil) {//重新实例化对象的时候才添加button，队列中已有的cell上面是有button的
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             //添加按钮（或者其它控件）也可以写在继承自UITableViewCell的子类中,然后用子类来实例化这里的cell，将button作为子类的属性，这样添加button的触发事件的响应可以写在这里，target就是本类，方法也在本类中实现
-        
             UILabel *opinionLabel=[[UILabel alloc] init];
             opinionLabel.text=@"问题修改及改进意见：";
             opinionLabel.textColor=[UIColor colorWithHexString:@"#666666"];
@@ -171,7 +148,6 @@ static NSString *headerViewIdentifier = @"hederview";
             [cell addSubview:opinionLabel];
             UITextView *opinionTextview=[[UITextView alloc] init];
 //            opinionTextview.text=@"请描述您遇到的问题(1-500字)";
-            
 //            opinionTextview.font=[UIFont systemFontOfSize:15];
             opinionTextview.textAlignment=NSTextAlignmentLeft;
             opinionTextview.userInteractionEnabled=YES;
@@ -307,14 +283,18 @@ static NSString *headerViewIdentifier = @"hederview";
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     
     if ([questionProblemText length]==0) {
-         [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见为空" closeButtonTitle:nil duration:1.0f];
+//         [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见为空" closeButtonTitle:nil duration:1.0f];
+        [HudToolView showTopWithText:@"您的反馈意见为空" color:[NewAppColor yhapp_11color]];
+        return;
+    }
+    else if ([questionProblemText length]>=500) {
+//        [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见长度超长" closeButtonTitle:nil duration:1.0f];
+        [HudToolView showTopWithText:@"您的反馈意见长度超长" color:[NewAppColor yhapp_11color]];
+
         return;
     }
     else{
-    
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
-    
-    
     NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
@@ -343,7 +323,9 @@ static NSString *headerViewIdentifier = @"hederview";
             }];
             [alert addButton:@"取消" actionBlock:^(void) {
             }];
-            [alert showSuccess:self title:@"温馨提示" subTitle:@"提交成功" closeButtonTitle:nil duration:0.0f];
+//            [alert showSuccess:self title:@"温馨提示" subTitle:@"提交成功" closeButtonTitle:nil duration:0.0f];
+            [HudToolView showTopWithText:@"提交成功" color:[NewAppColor yhapp_1color]];
+
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 /*
                  * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -361,7 +343,9 @@ static NSString *headerViewIdentifier = @"hederview";
             }];
             [alert addButton:@"取消" actionBlock:^(void) {
             }];
-            [alert showSuccess:self title:@"温馨提示" subTitle:@"上传失败" closeButtonTitle:nil duration:0.0f];
+//            [alert showSuccess:self title:@"温馨提示" subTitle:@"上传失败" closeButtonTitle:nil duration:0.0f];
+            [HudToolView showTopWithText:@"上传失败" color:[NewAppColor yhapp_11color]];
+
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",@"上传失败了");
@@ -393,9 +377,6 @@ static NSString *headerViewIdentifier = @"hederview";
 }
 
 #pragma mark <UICollectionViewDataSource>
-
-
-
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 return 1;

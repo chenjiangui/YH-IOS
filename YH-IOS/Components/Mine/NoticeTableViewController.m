@@ -24,15 +24,11 @@
 @interface NoticeTableViewController ()<UITableViewDelegate,UITableViewDataSource,RightSwitchCellDelegate>
 {
     NSMutableArray *listArray;
-    
-    
     UILabel *topBottomView;
-    
     UILabel *centerShowView;
     UILabel *vhBottomView;
     NSArray* typeArray;
     User *user;
-
 }
 
 @property (nonatomic,strong)UITableView *tableView;

@@ -43,11 +43,10 @@
  */
 + (NSString *)sharedPath {
     NSString *shardPath = [[self basePath] stringByAppendingPathComponent:kSharedDirName];
-    
     if(![self checkFileExist:shardPath isDir:YES]) {
+        
         [[NSFileManager defaultManager] createDirectoryAtPath:shardPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    
     return shardPath;
 }
 

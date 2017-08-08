@@ -18,12 +18,9 @@
 #import "YHLocation.h"
 #import <CoreLocation/CoreLocation.h>
 
-#import "RMessage.h"
-#import "RMessageView.h"
-
 #define kSloganHeight [[UIScreen mainScreen]bounds].size.height / 6
 
-@interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,RMessageProtocol,CLLocationManagerDelegate>
+@interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) UIImageView *logoView;
@@ -44,7 +41,7 @@
 
 
 @property (nonatomic, strong)UITextField *passwordNumber;
-
+@property (nonatomic, strong)UITextField  *peopleNumber;
 
 
 @property (nonatomic, copy)NSString *peopleNumString;
@@ -61,8 +58,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [RMessage setDefaultViewController:self.navigationController];
-    [RMessage setDelegate:self];
     [self startLocation];
     UIImageView *Logo =[[UIImageView alloc] init];
     [self.view addSubview:Logo];
@@ -72,45 +67,64 @@
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(100, 100));
     }];
-    UITextField *peopleNumber=[[UITextField alloc] init];
-    [self.view addSubview:peopleNumber];
-    peopleNumber.font=[UIFont systemFontOfSize:15];
-    peopleNumber.textAlignment=NSTextAlignmentLeft;
+    
+    
+    
+    _PeopleUnderLine = [[UIView alloc]init];
+    _PeopleUnderLine.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
+    [self.view addSubview:_PeopleUnderLine];
+    [_PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(Logo.mas_bottom).offset(101);
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.size.mas_equalTo(CGSizeMake(245, 1));
+    }];
+    
+    
+    _peopleLogo=[[UIImageView alloc] init];
+    [_peopleLogo setImage:[UIImage imageNamed:@"login_name"]];
+    [self.view addSubview:_peopleLogo];
+    [_peopleLogo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(Logo.mas_bottom).offset(75);
+        make.left.mas_equalTo(_PeopleUnderLine.mas_left);
+        make.size.mas_equalTo(CGSizeMake(14, 18));
+    }];
+    
+    _peopleNumber=[[UITextField alloc] init];
+    [self.view addSubview:_peopleNumber];
+    _peopleNumber.font=[UIFont systemFontOfSize:15];
+    _peopleNumber.textAlignment=NSTextAlignmentLeft;
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     if (![userDict[@"user_name"] isEqualToString:@""] && userDict[@"user_name"]) {
-        peopleNumber.text = userDict[@"user_num"];
+        _peopleNumber.text = userDict[@"user_num"];
         _peopleNumString=userDict[@"user_num"];
     }
     else
     {
-        peopleNumber.placeholder=@"员工号";
+        _peopleNumber.placeholder=@"员工号";
     }
-    peopleNumber.borderStyle = UITextBorderStyleNone;
-    [peopleNumber addTarget:self action:@selector(peopleNumberChange:) forControlEvents:UIControlEventEditingChanged];
-    [peopleNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+    _peopleNumber.borderStyle = UITextBorderStyleNone;
+    [_peopleNumber addTarget:self action:@selector(peopleNumberChange:) forControlEvents:UIControlEventEditingChanged];
+    [_peopleNumber addTarget:self action:@selector(peopleDidBegin:) forControlEvents:UIControlEventEditingDidBegin];
+    [_peopleNumber addTarget:self action:@selector(peopleDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
+    [_peopleNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_peopleLogo.mas_centerY);
         make.top.mas_equalTo(Logo.mas_bottom).offset(76);
-        make.left.mas_equalTo(self.view.mas_left).offset(94);
+        make.left.mas_equalTo(_peopleLogo.mas_right).offset(15);
         make.size.mas_equalTo(CGSizeMake(245, 30));
     }];
-    UIImageView *peopleLogo=[[UIImageView alloc] init];
-    [peopleLogo setImage:[UIImage imageNamed:@"login_name"]];
-    [self.view addSubview:peopleLogo];
-    [peopleLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(Logo.mas_bottom).offset(76);
-       make.centerY.mas_equalTo(peopleNumber.mas_centerY);
-        make.left.mas_equalTo(self.view.mas_left).offset(65);
+    
+    
+    _PasswordLogo=[[UIImageView alloc] init];
+    [_PasswordLogo setImage:[UIImage imageNamed:@"login_password"]];
+    [self.view addSubview:_PasswordLogo];
+    [_PasswordLogo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(20);
+        make.left.mas_equalTo(_peopleLogo);
         make.size.mas_equalTo(CGSizeMake(14, 18));
     }];
-   _PeopleUnderLine = [[UIView alloc]init];
-    _PeopleUnderLine.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
-    [self.view addSubview:_PeopleUnderLine];
-    [_PeopleUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(peopleLogo.mas_left);
-        make.top.mas_equalTo(peopleLogo.mas_bottom).offset(8);
-        make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(245, 1));
-    }];
+    
+    
     _passwordNumber=[[UITextField alloc] init];
     [self.view addSubview:_passwordNumber];
     [_passwordNumber setSecureTextEntry:YES];
@@ -118,38 +132,39 @@
     _passwordNumber.textAlignment=NSTextAlignmentLeft;
     _passwordNumber.textColor=[UIColor colorWithHexString:@"#666666"];
     [_passwordNumber addTarget:self action:@selector(PasswordDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [_passwordNumber addTarget:self action:@selector(changePwdLine:) forControlEvents:UIControlEventEditingDidBegin];
+    [_passwordNumber addTarget:self action:@selector(PasswordDidBegin:) forControlEvents:UIControlEventEditingDidBegin];
+    [_passwordNumber addTarget:self action:@selector(PasswordDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
+    
     [_passwordNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(peopleNumber.mas_left);
-        make.top.mas_equalTo(peopleNumber.mas_bottom).offset(20);
+        make.left.mas_equalTo(_peopleNumber.mas_left);
+        make.centerY.mas_equalTo(_PasswordLogo.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(245, 30));
     }];
+    
     _PasswordUnderLine = [[UIView alloc]init];
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PasswordUnderLine];
     [_PasswordUnderLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_PeopleUnderLine.mas_left);
-        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(47);
+        //        make.left.mas_equalTo(_PeopleUnderLine.mas_left);
+        make.top.mas_equalTo(_PasswordLogo.mas_bottom).offset(8);
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(245, 1));
     }];
-    UIImageView *PasswordLogo=[[UIImageView alloc] init];
-    [PasswordLogo setImage:[UIImage imageNamed:@"login_password"]];
-    [self.view addSubview:PasswordLogo];
-    [PasswordLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(20);
-        make.left.mas_equalTo(self.view.mas_left).offset(65);
-        make.size.mas_equalTo(CGSizeMake(14, 18));
-    }];
-    UIButton *deleteLogo=[[UIButton alloc] init];
-    [deleteLogo setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
-    [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:deleteLogo];
-    [deleteLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_PeopleUnderLine.mas_bottom).offset(25);
-        make.right.mas_equalTo(self.view.mas_right).offset(-74);
-        make.size.mas_equalTo(CGSizeMake(10, 10));
-    }];
+    
+    
+    
+    //    UIButton *deleteLogo=[[UIButton alloc] init];
+    //    [deleteLogo setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
+    //    [deleteLogo addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
+    //    [self.view addSubview:deleteLogo];
+    //    [deleteLogo mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.centerY.mas_equalTo(_PasswordLogo);
+    //        make.right.mas_equalTo(_PasswordUnderLine).offset(-8);
+    //        make.size.mas_equalTo(CGSizeMake(10, 10));
+    //    }];
+    //
+    
+    
     UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
     logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
@@ -171,7 +186,7 @@
     [forGotPwd addTarget:self action:@selector(jumpToFindPassword) forControlEvents:UIControlEventTouchDown];
     [forGotPwd setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
     [self.view addSubview:forGotPwd];
-  
+    
     UIView *line=[[UIView alloc] init];
     [line setBackgroundColor:[UIColor colorWithHexString:@"bcbcbc"]];
     [self.view addSubview:line];
@@ -197,7 +212,6 @@
         make.left.mas_equalTo(line.mas_right).offset(16);
         // make.size.mas_equalTo(CGSizeMake(55,13));
     }];
-    
     
     
     //    self.bgView = [[UIImageView alloc] initWithFrame:self.view.frame];
@@ -320,27 +334,73 @@
 -(void)peopleNumberChange:(UITextField*)PeopleNumber
 {
     // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
-    _peopleNumString=PeopleNumber.text;
     _PeopleUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
+    
+    _peopleNumString=PeopleNumber.text;
 }
 
+-(void)peopleDidBegin:(UITextField*)PeopleNumber
+{
+    // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
+    _peopleNumString=PeopleNumber.text;
+    _PeopleUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
+    
+    _PeopleDelete=[[UIButton alloc] init];
+    [_PeopleDelete setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
+    [_PeopleDelete addTarget:self action:@selector(deleteNumber) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:_PeopleDelete];
+    [_PeopleDelete mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_peopleLogo);
+        make.right.mas_equalTo(_PeopleUnderLine).offset(-8);
+        make.size.mas_equalTo(CGSizeMake(10, 10));
+    }];
+}
 
+-(void)peopleDidEnd:(UITextField*)PeopleNumber
+{
+    _PeopleUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
+    [_PeopleDelete removeFromSuperview];
+}
 
 -(void)PasswordDidChange:(UITextField*)PasswordNumber
 {
     _passwordNumString=PasswordNumber.text;
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
+    
 }
--(void)changePwdLine:(UITextField*)PasswordNumber
+-(void)PasswordDidBegin:(UITextField*)PeopleNumber
 {
+    // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
+    _passwordNumString=PeopleNumber.text;
     _PasswordUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
+    
+    _PasswoedDelete=[[UIButton alloc] init];
+    [_PasswoedDelete setBackgroundImage:[UIImage imageNamed:@"btn_empty"] forState:UIControlStateNormal];
+    [_PasswoedDelete addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:_PasswoedDelete];
+    [_PasswoedDelete mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_PasswordLogo);
+        make.right.mas_equalTo(_PasswordUnderLine).offset(-8);
+        make.size.mas_equalTo(CGSizeMake(10, 10));
+    }];
 }
+
+-(void)PasswordDidEnd:(UITextField*)PeopleNumber
+{
+    _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
+    [_PasswoedDelete removeFromSuperview];
+}
+
 -(void)deleteOldPassword
 {
     _passwordNumber.text=@"";
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
 }
-
+-(void)deleteNumber
+{
+    _peopleNumber.text=@"";
+    _PeopleUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
+}
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
 {
@@ -378,19 +438,14 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *newLocation = locations[0];
-    
     // 获取当前所在的城市名
     CLLocationCoordinate2D oldCoordinate = newLocation.coordinate;
-    
     NSLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
     self.userlatitude = [NSString stringWithFormat:@"%.6f",oldCoordinate.latitude];
     self.userLongitude = [NSString stringWithFormat:@"%.6f", oldCoordinate.longitude];
     //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
     [manager stopUpdatingLocation];
-    
 }
-
-
 //布局视图
 - (void)layoutView {
     for (UIView *view in [self.bgView subviews]) {
@@ -473,15 +528,16 @@
 
 // 点击注册按钮
 -(void)clickRegisterBtn {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"申请注册"
-                                                                   message:@"请到数据化运营平台申请开通账号"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {}];
-    
-    [alert addAction:defaultAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    [HudToolView showTopWithText:@"请到数据化运营平台申请开通账号" color:[NewAppColor yhapp_11color]];
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"申请注册"
+//                                                                   message:@"请到数据化运营平台申请开通账号"
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//                                                          handler:^(UIAlertAction * action) {}];
+//    
+//    [alert addAction:defaultAction];
+//    [self presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -497,33 +553,16 @@
         [self.progressHUD hide:YES afterDelay:1.5];
         return;
     }
-    [self showProgressHUD:@"验证中"];
+    [HudToolView hideLoadingInView:self.view];
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
-    
     NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
-    
-    
-    
     [self.progressHUD hide:YES];
-    
     if (!(msg.length == 0)) {
         if (self.navigationController.navigationBarHidden) {
             [self.navigationController setNavigationBarHidden:NO];
         }
         [HudToolView showTopWithText:msg correct:false];
-//        [RMessage showNotificationInViewController:self.navigationController
-//                                             title:msg
-//                                          subtitle:nil
-//                                         iconImage:nil
-//                                              type:RMessageTypeError
-//                                    customTypeName:nil
-//                                          duration:RMessageDurationAutomatic
-//                                          callback:nil
-//                                       buttonTitle:nil
-//                                    buttonCallback:nil
-//                                        atPosition:RMessagePositionNavBarOverlay
-//                              canBeDismissedByUser:YES];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             // 用户行为记录, 单独异常处理，不可影响用户体验
@@ -548,7 +587,8 @@
         });
         return;
     }
-    [self showProgressHUD:@"跳转中"];
+   [HudToolView hideLoadingInView:self.view];
+    
     [self jumpToDashboardView];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

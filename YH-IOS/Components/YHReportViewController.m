@@ -20,6 +20,7 @@
 #import "YHScanStoreViewController.h"
 #import "SubjectOutterViewController.h"
 #import "JYDemoViewController.h"
+#import "NewSubjectViewController.h"
 #import "RefreshTool.h"
 
 @interface YHReportViewController () <RefreshToolDelegate>
@@ -249,7 +250,9 @@
             if (isInnerLink) {
                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 
-                SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+                
+//                NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
                 subjectView.bannerName = item.listName;
                 subjectView.link = targeturl;
                 subjectView.commentObjectType = ObjectTypeAnalyse;
@@ -287,13 +290,11 @@
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     if(!userDict[kStoreIDsCUName] || [userDict[kStoreIDsCUName] count] == 0) {
         [[[UIAlertView alloc] initWithTitle:kWarningTitleText message:kWarningNoStoreText delegate:nil cancelButtonTitle:kSureBtnText otherButtonTitles:nil] show];
-        
         return;
     }
     
     if(![self cameraPemission]) {
         [[[UIAlertView alloc] initWithTitle:kWarningTitleText message:kWarningNoCaremaText delegate:nil cancelButtonTitle:kSureBtnText otherButtonTitles:nil] show];
-        
         return;
     }
     [self presentViewController:[SubLBXScanViewController instance] animated:YES completion:nil];

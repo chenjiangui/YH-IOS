@@ -18,5 +18,9 @@
 @property (nonatomic, assign) BOOL allowRotation;
 + (AppDelegate*)shareAppdelegate;
 
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex:(NSDictionary *)userInfo;
+
+
 @end
 

@@ -46,7 +46,6 @@
 //图片总数量限制
 @property(nonatomic,assign) NSInteger maxCount;
 
-
 //初始化collectionView
 - (void)initPickerView;
 //修改collectionView的位置

@@ -68,6 +68,8 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+  
 }
 
 - (LineChartData *)dataWithCount:(int)count range:(double)range
