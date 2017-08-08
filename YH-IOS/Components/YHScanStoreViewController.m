@@ -30,6 +30,7 @@
 //        responseCallback(@"SubjectViewController - Response for message from ObjC");
 //    }];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webview];
+    [self.bridge setWebViewDelegate:self];
     [self addWebViewJavascriptBridge];
     [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://development.shengyiplus.com:4568/patrol/inspection/default.html"]]];
     // Do any additional setup after loading the view.

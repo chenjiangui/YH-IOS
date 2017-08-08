@@ -44,6 +44,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //        responseCallback(@"DashboardViewController - Response for message from ObjC");
 //    }];
 self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
         
@@ -152,6 +153,16 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     //[refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
     //[self.browser.scrollView addSubview:refreshControl]; //<- this is point to use. Add "scrollView" property.
 }
+
+
+
+
+
+
+
+
+
+
 
 
 //标识点

@@ -31,9 +31,9 @@
         //设置根滚动视图的高度
         _cursor.rootScrollViewHeight = self.frame.size.height - 40;
         //默认值是白色
-        _cursor.titleNormalColor = [UIColor blackColor];
+        _cursor.titleNormalColor = [NewAppColor yhapp_3color];
         //默认值是白色
-        _cursor.titleSelectedColor = [UIColor blackColor];
+        _cursor.titleSelectedColor = [NewAppColor yhapp_10color];
         _cursor.backgroudSelectedColor = [UIColor colorWithHexString:@"#00a4e9"];
         //是否显示排序按钮
         //_cursor.showSortbutton = YES;

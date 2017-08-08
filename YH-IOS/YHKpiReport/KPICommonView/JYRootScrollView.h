@@ -36,7 +36,7 @@ typedef enum{
 
 - (CGFloat)rootScrollView:(JYRootScrollView *)rootScrollView marginForType:(JYRootScrollViewMarginType)type;
 @end
-
+  
 @interface JYRootScrollView : UIScrollView
 
 @property (nonatomic, weak) id <JYRootScrollViewDateSource>rootScrollViewDateSource;

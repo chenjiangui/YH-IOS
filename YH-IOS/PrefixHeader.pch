@@ -93,7 +93,7 @@
 
 #define JYDefaultMargin (8.0)
 #define kBarHeight (JYDefaultMargin * 3)
-
+#define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 
 #define JYColor_LightGray_White ([UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1.0])
 #define JYColor_TextColor_Gray ([UIColor colorWithHexString:@"#999999"])

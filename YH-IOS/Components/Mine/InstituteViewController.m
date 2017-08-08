@@ -38,6 +38,7 @@
 //        responseCallback(@"SubjectViewController - Response for message from ObjC");
 //    }];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+    [self.bridge setWebViewDelegate:self];
     [self addWebViewJavascriptBridge];
 }
 

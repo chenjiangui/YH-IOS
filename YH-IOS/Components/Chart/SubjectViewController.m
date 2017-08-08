@@ -64,7 +64,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewDidLoad {
     [super viewDidLoad];
      [self startLocation];
-    self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"] mutableCopy];
+    self.iconNameArray =[ @[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
@@ -104,10 +104,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
     //[self idColor];
     [WebViewJavascriptBridge enableLogging];
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        responseCallback(@"SubjectViewController - Response for message from ObjC");
-//    }];
+    /*self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        responseCallback(@"SubjectViewController - Response for message from ObjC");
+    }];*/
+    
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
+    
     [self addWebViewJavascriptBridge];
 }
 
@@ -118,7 +121,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
-    [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    [HudToolView showLoadingInView:self.view];
     // self.bannerView.height = 0;
    // self.browser.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
     [self.navigationController setNavigationBarHidden:false];
@@ -138,8 +141,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     
     self.title =self.bannerName;
@@ -158,6 +159,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self isLoadHtmlFromService];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
+
+
 // 弹出框
 #pragma mark - Action
 - (void)onRightBtn:(id)sender{
@@ -168,24 +171,23 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }else{
         [self hidePopMenuWithAnimation:YES];
     }
+    
 }
+
 - (void)showPopMenu{
-    CGFloat itemH = 40;
+    CGFloat itemH = 50;
     CGFloat w = 120;
     CGFloat h = self.iconNameArray.count*itemH;
-    CGFloat x = SCREEN_WIDTH -9-120;
-    CGFloat y = -9;
+    CGFloat x = SCREEN_WIDTH - 9-120;
+    CGFloat y = 1;
     
     _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
     _popView.iconNameArray =self.iconNameArray;
     _popView.itemNameArray =self.itemNameArray;
     _popView.itemH     = itemH;
-    _popView.fontSize  = 14.0f;
-    _popView.fontColor = [NewAppColor yhapp_10color];
+    _popView.fontSize  = 16.0f;
+    _popView.fontColor = [UIColor whiteColor];
     _popView.canTouchTabbar = YES;
-    _popView.iconLeftSpace=15;
-    _popView.iconW=19;
-    _popView.itemNameLeftSpace=32;
     [_popView show];
     
     WeakSelf;
@@ -194,25 +196,26 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             
             NSLog(@"点击第%ld行",(long)row);
             if (!row) {
-                [self actionWebviewScreenShot];
+                
             }
             else if(row == 1){
-                [self actionWriteComment];
             }
             else if(row == 2){
-                [self handleRefresh];
+                
             }
             else if(row == 3){
+                
             }
         }
+        
         weakSelf.rBtnSelected = NO;
     }];
-
 }
 
 - (void)hidePopMenuWithAnimation:(BOOL)animate{
     [_popView hideWithAnimation:animate];
 }
+
 
 //标识点
 
@@ -280,7 +283,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 - (void)backAction{
-    [self hidePopMenuWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
         [self.browser cleanForDealloc];
@@ -392,15 +394,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         url = parts[0];
         timestamp = parts[1];
     }
+    
+    
     if([url hasSuffix:suffix]) {
         url = [url stringByDeletingPathExtension];
     }
+    
     while([url hasPrefix:@"/"]) {
         url = [url substringWithRange:NSMakeRange(1,url.length-1)];
     }
+    
     for(NSString *str in blackList) {
         url = [url stringByReplacingOccurrencesOfString:str withString:@"_"];
     }
+    
     if(![url hasSuffix:suffix]) {
         url = [NSString stringWithFormat:@"%@%@", url, suffix];
     }
@@ -529,7 +536,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+       /* NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
@@ -542,14 +549,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+       /* weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
-        }
+        }*/
     }];
-    
-    
-    
      /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
          if ([data[@"state"] isEqualToString:@"show"]) {
              [self.navigationController.navigationBar setHidden:NO];
@@ -602,7 +606,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     */
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+       NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", weakSelf.javascriptPath];
@@ -612,6 +616,27 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         responseCallback(selectedItem);
     }];
+    [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+        NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
+        
+        [data[@"items"] writeToFile:searchItemsPath atomically:YES];
+        self.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+        self.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
+        
+        /**
+         *  判断筛选的条件: data[@"items"] 数组不为空
+         *  报表第一次加载时，此处为判断筛选功能的关键点
+         */
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        if(weakSelf.isSupportSearch) {
+            [weakSelf displayBannerTitleAndSearchIcon];
+        }
+
+    }];
+
     
     [self.bridge registerHandler:@"showAlert" handler:^(id data, WVJBResponseCallback responseCallback){
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:data[@"title"]
@@ -751,7 +776,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
             [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
-            [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+             [HudToolView hideLoadingInView:self.view];
+           // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
             self.isLoadFinish = !self.browser.isLoading;
         });
     });
@@ -887,6 +913,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
 }
+
+
 #pragma mark - ibaction block
 - (IBAction)actionBack:(id)sender {
     [super dismissViewControllerAnimated:YES completion:^{
@@ -1163,7 +1191,4 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSLog(@"%@", exception);
     }
 }
-
-
-
 @end

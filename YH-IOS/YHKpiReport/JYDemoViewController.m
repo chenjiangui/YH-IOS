@@ -10,17 +10,23 @@
 #import "JYModuleTwoModel.h"
 #import "JYModuleTwoView.h"
 #import "User.h"
+#import "YHPopMenuView.h"
+#import "RefreshTool.h"
 
 
-@interface JYDemoViewController ()  {
+@interface JYDemoViewController () <RefreshToolDelegate> {
     
     UITableView *_tableView;
     JYModuleTwoView *moduleTwoView;
     User *user;
-    
 }
 
 @property (nonatomic, strong) JYModuleTwoModel *moduleTwoModel;
+@property (nonatomic, strong) YHPopMenuView *popView;
+@property (nonatomic, assign) BOOL rBtnSelected;
+@property (nonatomic, strong) NSMutableArray *iconNameArray;
+@property (nonatomic, strong) NSMutableArray *itemNameArray;
+@property (nonatomic, strong) RefreshTool* reTool;
 
 @end
 
@@ -29,10 +35,77 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     user = [[User alloc]init];
+    self.iconNameArray =[ @[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+    self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithHexString:@"#eeeff1"];
+    [self getData:true];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
+}
+
+
+- (void)getData:(BOOL)loading{
+    if (loading) {
+        [HudToolView showLoadingInView:self.view];
+    }
     [self getData];
 }
+
+// 弹出框
+#pragma mark - Action
+- (void)onRightBtn:(id)sender{
+    
+    _rBtnSelected = !_rBtnSelected;
+    if (_rBtnSelected) {
+        [self showPopMenu];
+    }else{
+        [self hidePopMenuWithAnimation:YES];
+    }
+    
+}
+
+- (void)showPopMenu{
+    CGFloat itemH = 50;
+    CGFloat w = 120;
+    CGFloat h = self.iconNameArray.count*itemH;
+    CGFloat x = SCREEN_WIDTH - 9-120;
+    CGFloat y = 1;
+    
+    _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    _popView.iconNameArray =self.iconNameArray;
+    _popView.itemNameArray =self.itemNameArray;
+    _popView.itemH     = itemH;
+    _popView.fontSize  = 16.0f;
+    _popView.fontColor = [UIColor whiteColor];
+    _popView.canTouchTabbar = YES;
+    [_popView show];
+    
+    WeakSelf;
+    [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
+        if (!isCanceled) {
+            
+            NSLog(@"点击第%ld行",(long)row);
+            if (!row) {
+                
+            }
+            else if(row == 1){
+            }
+            else if(row == 2){
+                
+            }
+            else if(row == 3){
+                
+            }
+        }
+        
+        weakSelf.rBtnSelected = NO;
+    }];
+}
+
+- (void)hidePopMenuWithAnimation:(BOOL)animate{
+    [_popView hideWithAnimation:animate];
+}
+
 
 - (JYModuleTwoModel *)moduleTwoModel {
     if (!_moduleTwoModel) {
@@ -56,13 +129,14 @@
         NSArray *array = responseObject;
         _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
         [self moduleTwoList];
+        [HudToolView hideLoadingInView:self.view];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR- %@",error);
         NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
         NSData *data = [NSData dataWithContentsOfFile:path];
         NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        
+        [HudToolView hideLoadingInView:self.view];
         _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
         [self moduleTwoList];
     }];
