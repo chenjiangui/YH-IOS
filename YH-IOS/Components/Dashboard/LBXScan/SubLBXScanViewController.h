@@ -37,7 +37,7 @@
 //@property (nonatomic, strong) UIButton *btnManualInput;
 //
 
-
++ (instancetype)instance;
 
 
 @end
