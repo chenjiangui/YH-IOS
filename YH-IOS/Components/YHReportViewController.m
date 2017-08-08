@@ -209,6 +209,7 @@
         }
         else if ([targeturl rangeOfString:@"template/1/"].location != NSNotFound) {
             JYDemoViewController *superChaerCtrl = [[JYDemoViewController alloc]init];
+            superChaerCtrl.title = item.listName;
             superChaerCtrl.urlLink = targeturl;
             // UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:superChaerCtrl];
             logParams[kActionALCName]   = @"点击/专题/报表";

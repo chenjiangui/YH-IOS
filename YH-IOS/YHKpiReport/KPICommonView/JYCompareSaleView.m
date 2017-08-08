@@ -103,13 +103,12 @@
     [ratio setTitleColor:self.singleValueModel.arrowToColor forState:UIControlStateNormal];
     
     if (ratio.selected) {
+           [ratio setTitle:self.singleValueModel.floatRatio forState:UIControlStateNormal];
         //actualLB.text = self.singleValueModel.floatRatio;
-        NSString *selectedStr = [NSString stringWithFormat:@"%.2f", [self.singleValueModel.mainData floatValue] - [self.singleValueModel.subData floatValue]];
-        [ratio setTitle:selectedStr forState:UIControlStateNormal];
     }
     else {
-        //actualLB.text = self.singleValueModel.mainData;
-        [ratio setTitle:self.singleValueModel.floatRatio forState:UIControlStateNormal];
+        NSString *selectedStr = [NSString stringWithFormat:@"%.2f", [self.singleValueModel.mainData floatValue] - [self.singleValueModel.subData floatValue]];
+        [ratio setTitle:selectedStr forState:UIControlStateNormal];
     }
     
     CGSize size = [ratio.currentTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, JYViewHeight/2.0) options:0 attributes:@{NSFontAttributeName : ratio.titleLabel.font} context:nil].size;
