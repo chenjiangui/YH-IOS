@@ -94,6 +94,7 @@
 		3BEBB3701F2597EE007FB66D /* RefreshToolDownPullHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBB36E1F2597EE007FB66D /* RefreshToolDownPullHeader.m */; };
 		911114961F38B7C800E3366E /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 911114951F38B7C800E3366E /* YHPopMenuView.m */; };
 		9111149D1F38CC4100E3366E /* YHArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9111149C1F38CC4100E3366E /* YHArrow.m */; };
+		911123A81F39A5F000A09D83 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 911123A71F39A5F000A09D83 /* YHMutileveHeaderView.m */; };
 		911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 911291241EE8EBA900A0B529 /* YHNetworkTool.m */; };
 		9114619E1EEA63B4006A35AF /* MineInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114619C1EEA63B4006A35AF /* MineInfoTableViewCell.m */; };
 		9114619F1EEA63B4006A35AF /* MineInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9114619D1EEA63B4006A35AF /* MineInfoTableViewCell.xib */; };
@@ -259,8 +260,6 @@
 		91EF8DE21EF3B27C00333746 /* YHTopicFooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE01EF3B27C00333746 /* YHTopicFooterCollectionReusableView.m */; };
 		91EF8DE31EF3B27C00333746 /* YHTopicFooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DE11EF3B27C00333746 /* YHTopicFooterCollectionReusableView.xib */; };
 		91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE61EF3BA4D00333746 /* ListPage.m */; };
-		91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */; };
-		91EF8DEC1EF3DB1200333746 /* YHMutileveHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
 		B67592801F29965200E89B65 /* NewMineQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B675927F1F29965200E89B65 /* NewMineQuestionController.m */; };
 		B67593631F29CBEE00E89B65 /* HWCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B675935D1F29CBEE00E89B65 /* HWCollectionViewCell.m */; };
@@ -866,6 +865,8 @@
 		911114951F38B7C800E3366E /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHPopMenuView.m; path = PopView/YHPopMenuView.m; sourceTree = "<group>"; };
 		9111149B1F38CC4100E3366E /* YHArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHArrow.h; sourceTree = "<group>"; };
 		9111149C1F38CC4100E3366E /* YHArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHArrow.m; sourceTree = "<group>"; };
+		911123A61F39A5F000A09D83 /* YHMutileveHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMutileveHeaderView.h; sourceTree = "<group>"; };
+		911123A71F39A5F000A09D83 /* YHMutileveHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveHeaderView.m; sourceTree = "<group>"; };
 		911291231EE8EBA900A0B529 /* YHNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNetworkTool.h; sourceTree = "<group>"; };
 		911291241EE8EBA900A0B529 /* YHNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNetworkTool.m; sourceTree = "<group>"; };
 		9114619B1EEA63B4006A35AF /* MineInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -1177,9 +1178,6 @@
 		91EF8DE11EF3B27C00333746 /* YHTopicFooterCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHTopicFooterCollectionReusableView.xib; sourceTree = "<group>"; };
 		91EF8DE51EF3BA4D00333746 /* ListPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListPage.h; sourceTree = "<group>"; };
 		91EF8DE61EF3BA4D00333746 /* ListPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPage.m; sourceTree = "<group>"; };
-		91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHMutileveHeaderView.h; sourceTree = "<group>"; };
-		91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHMutileveHeaderView.m; sourceTree = "<group>"; };
-		91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHMutileveHeaderView.xib; sourceTree = "<group>"; };
 		B675927E1F29965200E89B65 /* NewMineQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionController.h; sourceTree = "<group>"; };
 		B675927F1F29965200E89B65 /* NewMineQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineQuestionController.m; sourceTree = "<group>"; };
 		B675935C1F29CBEE00E89B65 /* HWCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2740,9 +2738,8 @@
 				91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */,
 				91DB24AA1EF2840400FC8413 /* YHTopImageCollectionViewCell.h */,
 				91DB24AB1EF2840400FC8413 /* YHTopImageCollectionViewCell.m */,
-				91EF8DE81EF3DB1200333746 /* YHMutileveHeaderView.h */,
-				91EF8DE91EF3DB1200333746 /* YHMutileveHeaderView.m */,
-				91EF8DEA1EF3DB1200333746 /* YHMutileveHeaderView.xib */,
+				911123A61F39A5F000A09D83 /* YHMutileveHeaderView.h */,
+				911123A71F39A5F000A09D83 /* YHMutileveHeaderView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -4715,7 +4712,6 @@
 				F62456CD1EA5FB21006834D2 /* HomeIndexVC.xib in Resources */,
 				F62457311EA5FBB1006834D2 /* BubbleChartViewController.xib in Resources */,
 				C4DB7D811C02EC0500DA534E /* Main.storyboard in Resources */,
-				91EF8DEC1EF3DB1200333746 /* YHMutileveHeaderView.xib in Resources */,
 				F62457411EA5FBB2006834D2 /* LineChart2ViewController.xib in Resources */,
 				91D77F381EEAA4D1007405A0 /* LeftIamgeTableViewCell.xib in Resources */,
 				3B717DAA1F285DA300858E0E /* HomeScrollHeaderCell.xib in Resources */,
@@ -4799,7 +4795,6 @@
 				911114961F38B7C800E3366E /* YHPopMenuView.m in Sources */,
 				91E6CFA81EFB6B8C00507B7E /* TAAnimatedDotView.m in Sources */,
 				3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */,
-				91EF8DEB1EF3DB1200333746 /* YHMutileveHeaderView.m in Sources */,
 				F62457E51EA5FD01006834D2 /* DataManager.m in Sources */,
 				91BA005D1F2721A500943596 /* UIViewController+PPTopMostController.m in Sources */,
 				C4DB7DC21C02EE3800DA534E /* ExtendNSLogFunctionality.m in Sources */,
@@ -5032,6 +5027,7 @@
 				3B7FCF281F3441BC006EE972 /* TestModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
 				91DB243F1EED7A3000FC8413 /* UIView+building.m in Sources */,
+				911123A81F39A5F000A09D83 /* YHMutileveHeaderView.m in Sources */,
 				C4EFE4BE1C99812B0009411A /* WebViewJavascriptBridgeBase.m in Sources */,
 				F624572C1EA5FBB1006834D2 /* AnotherBarChartViewController.m in Sources */,
 				915A8D111F1E0BA500262311 /* JYSheetModel.m in Sources */,
