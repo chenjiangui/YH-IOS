@@ -158,7 +158,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 // 弹出框
-
 #pragma mark - Action
 - (void)onRightBtn:(id)sender{
     
@@ -173,10 +172,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)showPopMenu{
     CGFloat itemH = 50;
-    CGFloat w = 150;
-    CGFloat h = 4*itemH;
-    CGFloat r = 15;
-    CGFloat x = SCREEN_WIDTH - w - r;
+    CGFloat w = 120;
+    CGFloat h = self.iconNameArray.count*itemH;
+    CGFloat x = SCREEN_WIDTH - 9-120;
     CGFloat y = 1;
     
     _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
