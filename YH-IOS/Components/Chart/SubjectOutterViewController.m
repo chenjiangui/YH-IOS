@@ -119,6 +119,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //        responseCallback(@"SubjectViewController - Response for message from ObjC");
 //    }];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
     [self addWebViewJavascriptBridge];
     [self isLoadHtmlFromService];
 }

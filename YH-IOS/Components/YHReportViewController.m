@@ -20,7 +20,6 @@
 #import "YHScanStoreViewController.h"
 #import "SubjectOutterViewController.h"
 #import "JYDemoViewController.h"
-#import "NewSubjectViewController.h"
 #import "RefreshTool.h"
 
 @interface YHReportViewController () <RefreshToolDelegate>
