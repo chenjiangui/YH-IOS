@@ -117,7 +117,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
-    [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    [HudToolView showLoadingInView:self.view];
     // self.bannerView.height = 0;
    // self.browser.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
     [self.navigationController setNavigationBarHidden:false];
@@ -763,6 +763,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
             [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
+             [HudToolView hideLoadingInView:self.view];
            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
             self.isLoadFinish = !self.browser.isLoading;
         });

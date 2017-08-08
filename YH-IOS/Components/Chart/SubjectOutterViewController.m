@@ -139,7 +139,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 -(void)addNavigationView{
     self.navigationBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+   // [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     self.navigationBar.barTintColor = [UIColor colorWithHexString:@"#f9f9f9f"];
@@ -649,7 +649,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)loadOuterLink {
-    
+    [HudToolView showLoadingInView:self.view];
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
@@ -1023,6 +1023,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
     self.isLoadFinish = YES;
+    [HudToolView hideLoadingInView:self.view];
     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
     if ([browerDict[@"allow_brower_copy"] boolValue]) {
         return;
