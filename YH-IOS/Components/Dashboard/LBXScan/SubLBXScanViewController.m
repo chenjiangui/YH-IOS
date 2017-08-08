@@ -29,6 +29,33 @@
 
 @implementation SubLBXScanViewController
 
++ (instancetype)instance{
+    LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
+    //矩形区域中心上移，默认中心点为屏幕中心点
+    style.centerUpOffset = 44;
+    //扫码框周围4个角的类型,设置为外挂式
+    style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Outer;
+    //扫码框周围4个角绘制的线条宽度
+    style.photoframeLineW = 5;
+    //扫码框周围4个角的宽度
+    style.photoframeAngleW = 24;
+    //扫码框周围4个角的高度
+    style.photoframeAngleH = 24;
+    style.colorAngle = RGBA(0, 255, 255, 1);
+    //扫码框内 动画类型 --线条上下移动
+    style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
+    style.xScanRetangleOffset = 57.5;
+    //线条上下移动图片
+    style.animationImage = [UIImage imageNamed:@"scan_line"];
+    style.colorRetangleLine = [UIColor clearColor];
+    //SubLBXScanViewController继承自LBXScanViewController
+    //添加一些扫码或相册结果处理
+    SubLBXScanViewController *vc = [[SubLBXScanViewController alloc] init];;
+    vc.style = style;
+    vc.isVideoZoom = YES;
+    return vc;
+}
+
 - (UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = [[UILabel alloc] init];
