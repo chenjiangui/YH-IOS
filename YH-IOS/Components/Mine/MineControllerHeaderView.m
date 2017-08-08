@@ -25,7 +25,7 @@
         for (int i=0; i<btns.count; i++) {
             UIButton* button = btns[i];
             button.tag = i+1;
-            button.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
             [button setTitle:titles[i] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor colorWithHexString:@"bcbcbc"] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor colorWithHexString:@"32414b"] forState:UIControlStateSelected];
@@ -50,17 +50,15 @@
 }
 
 - (void)updateWithScale:(CGFloat)scale{
-    if (scale>=1 && scale<2.0) {
-        _lightView.backgroundColor = [NewAppColor yhapp_1color];
+    if (scale>=0 && scale<=2) {
         self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
-    }
-    else if (scale>=0 && scale<1.0){
-        _lightView.backgroundColor = [NewAppColor yhapp_18color];
-        self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
-    }
-    else {
-        _lightView.backgroundColor = [UIColor colorWithHexString:@"00a4e9"];
-        self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
+        if (scale<0.5) {
+            self.lightView.backgroundColor = [NewAppColor yhapp_11color];
+        }else if (scale>1.5) {
+            self.lightView.backgroundColor = [NewAppColor yhapp_1color];
+        }else{
+            self.lightView.backgroundColor = [NewAppColor yhapp_2color];
+        }
     }
 }
 
@@ -95,6 +93,7 @@
     if (!_lightView) {
         _lightView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3.0)/2.0-12, 64-7, 24, 3)];
         [_lightView cornerRadius:1.5];
+        _lightView.backgroundColor = [NewAppColor yhapp_11color];
        // _lightView.backgroundColor = [UIColor colorWithHexString:@"00a4e9"];
     }
     return _lightView;

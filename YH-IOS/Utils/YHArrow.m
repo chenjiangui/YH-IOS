@@ -13,7 +13,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
     if (self) {
-        self.frame = CGRectMake(0, 0, 10, 5);
+        self.frame = CGRectMake(0, 0, 12, 5);
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
@@ -25,8 +25,8 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     // 三角形
     CGContextMoveToPoint(ctx, 0, 5);
-    CGContextAddLineToPoint(ctx, 5, 0);
-    CGContextAddLineToPoint(ctx, 10, 5);
+    CGContextAddLineToPoint(ctx, 6, 0);
+    CGContextAddLineToPoint(ctx, 12, 5);
     [[NewAppColor yhapp_5color] set];
     CGContextClosePath(ctx);
     CGContextFillPath(ctx);

@@ -177,6 +177,7 @@ static const CGFloat kItemH = 44.0f;//item高度
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.showsVerticalScrollIndicator = NO;
     tableView.bounces = NO;
+    _tableView.layer.cornerRadius = 3;
     [tableView registerClass:[CellForMenuItem class] forCellReuseIdentifier:NSStringFromClass([CellForMenuItem class])];
     [self addSubview:tableView];
     _tableView = tableView;
@@ -195,9 +196,9 @@ static const CGFloat kItemH = 44.0f;//item高度
     }];
     
     [_arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(weakSelf).mas_offset(self.menuViewX+(self.menuViewW-26));
+        make.left.mas_equalTo(weakSelf).mas_offset(self.menuViewX+(self.menuViewW-16));
         make.top.mas_equalTo(weakSelf).mas_offset(self.menuViewY-5);
-        make.width.mas_equalTo(10);
+        make.width.mas_equalTo(12);
         make.height.mas_equalTo(5);
     }];
     
@@ -209,14 +210,14 @@ static const CGFloat kItemH = 44.0f;//item高度
 #pragma mark - Lazy Load
 - (NSArray *)itemNameArray{
     if (!_itemNameArray) {
-        _itemNameArray = [NSArray new];
+        _itemNameArray = [NSMutableArray new];
     }
     return _itemNameArray;
 }
 
 - (NSArray *)iconNameArray{
     if (!_iconNameArray) {
-        _iconNameArray = [NSArray new];
+        _iconNameArray = [NSMutableArray new];
     }
     return _iconNameArray;
 }
