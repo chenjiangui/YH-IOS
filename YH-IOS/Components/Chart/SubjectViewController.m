@@ -64,7 +64,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewDidLoad {
     [super viewDidLoad];
      [self startLocation];
-    self.iconNameArray =[ @[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+    self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"] mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
@@ -138,6 +138,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     
     self.title =self.bannerName;
@@ -156,8 +158,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self isLoadHtmlFromService];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
-
-
 // 弹出框
 #pragma mark - Action
 - (void)onRightBtn:(id)sender{
@@ -168,23 +168,24 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }else{
         [self hidePopMenuWithAnimation:YES];
     }
-    
 }
-
 - (void)showPopMenu{
-    CGFloat itemH = 50;
+    CGFloat itemH = 40;
     CGFloat w = 120;
     CGFloat h = self.iconNameArray.count*itemH;
-    CGFloat x = SCREEN_WIDTH - 9-120;
-    CGFloat y = 1;
+    CGFloat x = SCREEN_WIDTH -9-120;
+    CGFloat y = -9;
     
     _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
     _popView.iconNameArray =self.iconNameArray;
     _popView.itemNameArray =self.itemNameArray;
     _popView.itemH     = itemH;
-    _popView.fontSize  = 16.0f;
-    _popView.fontColor = [UIColor whiteColor];
+    _popView.fontSize  = 14.0f;
+    _popView.fontColor = [NewAppColor yhapp_10color];
     _popView.canTouchTabbar = YES;
+    _popView.iconLeftSpace=15;
+    _popView.iconW=19;
+    _popView.itemNameLeftSpace=32;
     [_popView show];
     
     WeakSelf;
@@ -193,26 +194,25 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             
             NSLog(@"点击第%ld行",(long)row);
             if (!row) {
-                
+                [self actionWebviewScreenShot];
             }
             else if(row == 1){
+                [self actionWriteComment];
             }
             else if(row == 2){
-                
+                [self handleRefresh];
             }
             else if(row == 3){
-                
             }
         }
-        
         weakSelf.rBtnSelected = NO;
     }];
+
 }
 
 - (void)hidePopMenuWithAnimation:(BOOL)animate{
     [_popView hideWithAnimation:animate];
 }
-
 
 //标识点
 
@@ -280,6 +280,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 - (void)backAction{
+    [self hidePopMenuWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
         [self.browser cleanForDealloc];
@@ -750,7 +751,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
             [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
-           // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
+            [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
             self.isLoadFinish = !self.browser.isLoading;
         });
     });
@@ -1162,4 +1163,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSLog(@"%@", exception);
     }
 }
+
+
+
 @end

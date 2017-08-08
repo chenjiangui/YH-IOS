@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0D415A1F32C09600E279F9 /* ScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41591F32C09600E279F9 /* ScreenHeaderView.m */; };
-		3B0D415F1F32C56F00E279F9 /* OneButtonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D415E1F32C56F00E279F9 /* OneButtonCollectionCell.m */; };
-		3B0D41621F32CEC100E279F9 /* YHScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41611F32CEC100E279F9 /* YHScreenController.m */; };
-		3B0D41651F32FB0500E279F9 /* SelectLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41641F32FB0500E279F9 /* SelectLocationView.m */; };
 		3B0D41691F32FD2100E279F9 /* SimpleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D41681F32FD2100E279F9 /* SimpleTableViewController.m */; };
 		3B0D416C1F3326DF00E279F9 /* ScreenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D416B1F3326DF00E279F9 /* ScreenModel.m */; };
 		3B30EEDA1F25F60500A702EC /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EED71F25F60500A702EC /* UITableView+SDAutoTableViewCellHeight.m */; };
@@ -372,6 +368,10 @@
 		B67593651F29CBEE00E89B65 /* HWImagePickerSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */; };
 		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
 		B69018651F2C37170018F3B1 /* NewFindPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */; };
+		B6CB15991F39688D00FA3E2E /* OneButtonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CB15921F39688D00FA3E2E /* OneButtonCollectionCell.m */; };
+		B6CB159A1F39688D00FA3E2E /* ScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CB15941F39688D00FA3E2E /* ScreenHeaderView.m */; };
+		B6CB159B1F39688D00FA3E2E /* SelectLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CB15961F39688D00FA3E2E /* SelectLocationView.m */; };
+		B6CB159C1F39688D00FA3E2E /* YHScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CB15981F39688D00FA3E2E /* YHScreenController.m */; };
 		B6CF9BED1F3631650022BE84 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CF9BEC1F3631650022BE84 /* WebViewJavascriptBridge_JS.m */; };
 		B6E7B3521F29D2CE008B48BF /* MFlowLayOut.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */; };
 		B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3371F29D2CE008B48BF /* MHeaderImaCell.m */; };
@@ -782,14 +782,6 @@
 
 /* Begin PBXFileReference section */
 		12271BD9C7ACC15E638BF692 /* Pods-YH-IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YH-IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-YH-IOS/Pods-YH-IOS.release.xcconfig"; sourceTree = "<group>"; };
-		3B0D41581F32C09600E279F9 /* ScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenHeaderView.h; sourceTree = "<group>"; };
-		3B0D41591F32C09600E279F9 /* ScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenHeaderView.m; sourceTree = "<group>"; };
-		3B0D415D1F32C56F00E279F9 /* OneButtonCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneButtonCollectionCell.h; sourceTree = "<group>"; };
-		3B0D415E1F32C56F00E279F9 /* OneButtonCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneButtonCollectionCell.m; sourceTree = "<group>"; };
-		3B0D41601F32CEC100E279F9 /* YHScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHScreenController.h; sourceTree = "<group>"; };
-		3B0D41611F32CEC100E279F9 /* YHScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHScreenController.m; sourceTree = "<group>"; };
-		3B0D41631F32FB0500E279F9 /* SelectLocationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocationView.h; sourceTree = "<group>"; };
-		3B0D41641F32FB0500E279F9 /* SelectLocationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocationView.m; sourceTree = "<group>"; };
 		3B0D41671F32FD2100E279F9 /* SimpleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableViewController.h; sourceTree = "<group>"; };
 		3B0D41681F32FD2100E279F9 /* SimpleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableViewController.m; sourceTree = "<group>"; };
 		3B0D416A1F3326DF00E279F9 /* ScreenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenModel.h; sourceTree = "<group>"; };
@@ -1390,6 +1382,14 @@
 		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
 		B69018631F2C37170018F3B1 /* NewFindPasswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFindPasswordCell.h; sourceTree = "<group>"; };
 		B69018641F2C37170018F3B1 /* NewFindPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFindPasswordCell.m; sourceTree = "<group>"; };
+		B6CB15911F39688D00FA3E2E /* OneButtonCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneButtonCollectionCell.h; sourceTree = "<group>"; };
+		B6CB15921F39688D00FA3E2E /* OneButtonCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneButtonCollectionCell.m; sourceTree = "<group>"; };
+		B6CB15931F39688D00FA3E2E /* ScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenHeaderView.h; sourceTree = "<group>"; };
+		B6CB15941F39688D00FA3E2E /* ScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenHeaderView.m; sourceTree = "<group>"; };
+		B6CB15951F39688D00FA3E2E /* SelectLocationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocationView.h; sourceTree = "<group>"; };
+		B6CB15961F39688D00FA3E2E /* SelectLocationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocationView.m; sourceTree = "<group>"; };
+		B6CB15971F39688D00FA3E2E /* YHScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHScreenController.h; sourceTree = "<group>"; };
+		B6CB15981F39688D00FA3E2E /* YHScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHScreenController.m; sourceTree = "<group>"; };
 		B6CF9BEB1F3631650022BE84 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
 		B6CF9BEC1F3631650022BE84 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
 		B6E7B3341F29D2CE008B48BF /* MFlowLayOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFlowLayOut.h; sourceTree = "<group>"; };
@@ -2195,21 +2195,6 @@
 				3B763AF21F2637CC00D5E965 /* UINavigationController+FDFullscreenPopGesture.m */,
 			);
 			path = FDFullscreenPopGesture;
-			sourceTree = "<group>";
-		};
-		3BAC7A311F31C93A00A1636A /* 筛选 */ = {
-			isa = PBXGroup;
-			children = (
-				3B0D41581F32C09600E279F9 /* ScreenHeaderView.h */,
-				3B0D41591F32C09600E279F9 /* ScreenHeaderView.m */,
-				3B0D415D1F32C56F00E279F9 /* OneButtonCollectionCell.h */,
-				3B0D415E1F32C56F00E279F9 /* OneButtonCollectionCell.m */,
-				3B0D41601F32CEC100E279F9 /* YHScreenController.h */,
-				3B0D41611F32CEC100E279F9 /* YHScreenController.m */,
-				3B0D41631F32FB0500E279F9 /* SelectLocationView.h */,
-				3B0D41641F32FB0500E279F9 /* SelectLocationView.m */,
-			);
-			path = "筛选";
 			sourceTree = "<group>";
 		};
 		3BAC8E161F284A8900A01A12 /* UMSocial_Sdk_5.2.1 */ = {
@@ -3317,6 +3302,21 @@
 			name = NewPhotoSelector;
 			sourceTree = "<group>";
 		};
+		B6CB15901F39688D00FA3E2E /* 筛选 */ = {
+			isa = PBXGroup;
+			children = (
+				B6CB15911F39688D00FA3E2E /* OneButtonCollectionCell.h */,
+				B6CB15921F39688D00FA3E2E /* OneButtonCollectionCell.m */,
+				B6CB15931F39688D00FA3E2E /* ScreenHeaderView.h */,
+				B6CB15941F39688D00FA3E2E /* ScreenHeaderView.m */,
+				B6CB15951F39688D00FA3E2E /* SelectLocationView.h */,
+				B6CB15961F39688D00FA3E2E /* SelectLocationView.m */,
+				B6CB15971F39688D00FA3E2E /* YHScreenController.h */,
+				B6CB15981F39688D00FA3E2E /* YHScreenController.m */,
+			);
+			path = "筛选";
+			sourceTree = "<group>";
+		};
 		B6E7B3331F29D2CE008B48BF /* CollectionViewInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -3608,6 +3608,7 @@
 		C4C628381C0C1ED6000AD5D8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B6CB15901F39688D00FA3E2E /* 筛选 */,
 				B61529681F30A3FE00B1A5AA /* Shared */,
 				C4C628401C0C1ED6000AD5D8 /* Login */,
 				91BB7B8C1F29C4F6001934FA /* Category */,
@@ -5287,7 +5288,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6C1B698DDFC5C340B1595665 /* [CP] Copy Pods Resources */ = {
@@ -5360,7 +5361,6 @@
 				91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */,
 				F68C25DD1EC2D4790069C041 /* JYLandscapeBar.m in Sources */,
 				F68C25851EC2D44F0069C041 /* JYBaseCollectionViewCell.m in Sources */,
-				3B0D41651F32FB0500E279F9 /* SelectLocationView.m in Sources */,
 				3B4868FE1F2B1F07003AF8D8 /* NSData+SDDataCache.m in Sources */,
 				9169BC631F00FB9A00419E52 /* GuidePageViewController.m in Sources */,
 				F624579E1EA5FBE1006834D2 /* UINavigationBar+Category.m in Sources */,
@@ -5384,7 +5384,6 @@
 				915A8D121F1E0BA500262311 /* JYSingleValueModel.m in Sources */,
 				F62457401EA5FBB2006834D2 /* LineChart2ViewController.m in Sources */,
 				B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */,
-				3B0D41621F32CEC100E279F9 /* YHScreenController.m in Sources */,
 				91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */,
 				F64903BC1DB5CD9B0001DD2B /* UserInfoViewController.m in Sources */,
 				3B0D416C1F3326DF00E279F9 /* ScreenModel.m in Sources */,
@@ -5529,6 +5528,7 @@
 				9118AE981F26FF1500DD3FD3 /* UserMessageTableViewCell.m in Sources */,
 				B6E7B3571F29D2CE008B48BF /* JJPhoto.m in Sources */,
 				91AB66A61F28A20F0077A0CF /* MineQuestionViewController.m in Sources */,
+				B6CB15991F39688D00FA3E2E /* OneButtonCollectionCell.m in Sources */,
 				C4ECB2801C3119E900F7947B /* NSString+MD5.m in Sources */,
 				F62456CC1EA5FB21006834D2 /* HomeIndexVC.m in Sources */,
 				9118AEA01F26FF1F00DD3FD3 /* MineDetailTableViewCell.m in Sources */,
@@ -5563,6 +5563,7 @@
 				3B4868F91F2B1C75003AF8D8 /* HomeNoticeMessageCell.m in Sources */,
 				F624564F1EA5FACD006834D2 /* PSTAlertController.m in Sources */,
 				91E6CFB11EFB89A400507B7E /* YHKPIModel.m in Sources */,
+				B6CB159C1F39688D00FA3E2E /* YHScreenController.m in Sources */,
 				3B7FCF281F3441BC006EE972 /* TestModel.m in Sources */,
 				911291251EE8EBA900A0B529 /* YHNetworkTool.m in Sources */,
 				91DB243F1EED7A3000FC8413 /* UIView+building.m in Sources */,
@@ -5596,6 +5597,7 @@
 				B62DD12A1F2EE05500B7E8EB /* NewSubjectViewController.m in Sources */,
 				91BB7B861F29B592001934FA /* NewAppColor.m in Sources */,
 				915A8CD81F1E0B9400262311 /* JYBannerView.m in Sources */,
+				B6CB159A1F39688D00FA3E2E /* ScreenHeaderView.m in Sources */,
 				F62457B91EA5FC24006834D2 /* TCBaseAppDelegate.mm in Sources */,
 				F62457A91EA5FBE1006834D2 /* UIViewController+Category.m in Sources */,
 				F68C25951EC2D44F0069C041 /* JYSaleView.m in Sources */,
@@ -5617,7 +5619,6 @@
 				9145097E1F02257100ED82D6 /* ThreeSelectViewController.m in Sources */,
 				F624572E1EA5FBB1006834D2 /* BarChartViewController.m in Sources */,
 				F62456491EA5FACD006834D2 /* IQUIView+IQKeyboardToolbar.m in Sources */,
-				3B0D415A1F32C09600E279F9 /* ScreenHeaderView.m in Sources */,
 				F62457321EA5FBB1006834D2 /* CandleStickChartViewController.m in Sources */,
 				C4C628431C0C1ED6000AD5D8 /* SubjectViewController.m in Sources */,
 				915A8D0E1F1E0BA500262311 /* JYMainDataModel.m in Sources */,
@@ -5753,6 +5754,7 @@
 				3B717DA91F285DA300858E0E /* HomeScrollHeaderCell.m in Sources */,
 				F62457561EA5FBB2006834D2 /* SinusBarChartViewController.m in Sources */,
 				F68C255C1EC2D4420069C041 /* JYHomeViewController.m in Sources */,
+				B6CB159B1F39688D00FA3E2E /* SelectLocationView.m in Sources */,
 				C488E6A61C0F03C800EB946D /* BaseViewController.m in Sources */,
 				F63D49F91EB329A20004BCC8 /* DoubleClickSuperChartCell.m in Sources */,
 				91B70D681EF8C84600C02F16 /* JYSigleValueView.m in Sources */,

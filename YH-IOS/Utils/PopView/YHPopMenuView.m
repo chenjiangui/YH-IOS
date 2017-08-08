@@ -53,7 +53,7 @@ static const CGFloat kIconLeftSpace = 15;    //icon左边距离
     [self.contentView addSubview:self.lbName];
     
     self.viewBotLine = [UIView new];
-    self.viewBotLine.backgroundColor = [NewAppColor yhapp_2color];
+    self.viewBotLine.backgroundColor = [NewAppColor yhapp_5color];
     [self.contentView addSubview:self.viewBotLine];
     
     [self layoutUI];
@@ -109,7 +109,6 @@ static const CGFloat kIconLeftSpace = 15;    //icon左边距离
     CGFloat itemNameLeftSpace = [_dictConfig[@"itemNameLeftSpace"] floatValue];
     itemNameLeftSpace = itemNameLeftSpace?itemNameLeftSpace:kItemNameLeftSpace;
     
-
     WeakSelf
     [_imgvIcon mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contentView).offset(iconLeftSpace);
@@ -177,8 +176,9 @@ static const CGFloat kItemH = 44.0f;//item高度
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.showsVerticalScrollIndicator = NO;
     tableView.bounces = NO;
-    _tableView.layer.cornerRadius = 3;
+    tableView.layer.cornerRadius = 3;
     [tableView registerClass:[CellForMenuItem class] forCellReuseIdentifier:NSStringFromClass([CellForMenuItem class])];
+
     [self addSubview:tableView];
     _tableView = tableView;
     
@@ -242,7 +242,6 @@ static const CGFloat kItemH = 44.0f;//item高度
     return _config;
 }
 
-
 #pragma mark - Public
 - (void)dismissHandler:(dismissBlock)handler{
     _dBlock = handler;
@@ -268,7 +267,6 @@ static const CGFloat kItemH = 44.0f;//item高度
         }];
         
        // [UIView animateWithDuration:0.2 animations:^{
-           
             [weakSelf.tableView layoutIfNeeded];
        // }completion:^(BOOL finished) {
             
@@ -326,8 +324,24 @@ static const CGFloat kItemH = 44.0f;//item高度
     }else{
         cell.viewBotLine.hidden = NO;
     }
-    
     cell.dictConfig = self.config;
+    
+    cell.userInteractionEnabled=YES;
+    
+    UIView *cellBackGround=[[UIView alloc] init];
+    
+    [cellBackGround setBackgroundColor:[NewAppColor yhapp_6color]];
+    
+    cell.backgroundView=cellBackGround;
+    
+    UIView *cellSelectBack=[[UIView alloc] init];
+    
+    [cellSelectBack setBackgroundColor:[NewAppColor yhapp_5color]];
+    
+    cell.selectedBackgroundView=cellSelectBack;
+    
+ 
+    
     return cell;
 
 }
@@ -341,6 +355,7 @@ static const CGFloat kItemH = 44.0f;//item高度
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (_dBlock) {
         _dBlock(NO,indexPath.row);
     }

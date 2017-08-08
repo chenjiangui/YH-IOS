@@ -43,15 +43,14 @@
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
  
     NSString *filePath = [[FileUtils userspace] stringByAppendingPathComponent:@"PushInfo.plist"];
-    PushInfo=[NSMutableArray alloc];
+    PushInfo=[NSMutableArray array];
     PushInfo = [NSMutableArray arrayWithContentsOfFile:filePath];
-    NSLog(@"%@",PushInfo);
+//    NSLog(@"%@",PushInfo);
 //    PushInfo=[NSMutableArray array];
 //    for (int i=0; i<userInfo.count; i++) {
 //        NSString *info=[[[userInfo objectAtIndex:i] objectForKey:@"aps"] objectForKey:@"alert"];
 //        [PushInfo addObject:info];
 //    }
-
     [self setTableView];
 }
 
@@ -97,13 +96,23 @@
     }
     else
     {
-        
-        NewPushTableCell* cell = [NewPushTableCell cellWithTableView:tableView needXib:false];
+        static NSString *Identifier = @"PushCell";
+        NewPushTableCell *cell=[tableView dequeueReusableCellWithIdentifier:Identifier];
+        if (cell == nil) {
+            cell = [[NewPushTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+            
+        }
         [cell UserInfo:PushInfo[indexPath.row]];
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
         UIView *cellBackGround=[[UIView alloc] init];
         [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
         cell.selectedBackgroundView = cellBackGround;
+//        NewPushTableCell* cell = [NewPushTableCell cellWithTableView:tableView needXib:false];
+//        [cell UserInfo:PushInfo[indexPath.row]];
+//        [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
+//        UIView *cellBackGround=[[UIView alloc] init];
+//        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+//        cell.selectedBackgroundView = cellBackGround;
         return cell;
     }
 }
@@ -121,8 +130,9 @@
         NSString *path = [FileUtils userspace];
         NSString *plistPath = [path stringByAppendingPathComponent:@"PushInfo.plist"];
         [PushInfo writeToFile:plistPath atomically:YES];
+        [PushTableview reloadData];
     }
-    [PushTableview reloadData];
+   
     NSString *remoteType = PushInfo[indexPath.row][@"type"];
     if ([remoteType isEqualToString:@"kpi"]) {
         return;

@@ -18,32 +18,18 @@
     {
         _infoTitle=[[UILabel alloc] init];
         [self.contentView addSubview:_infoTitle];
-        [_infoTitle setFont:[UIFont boldSystemFontOfSize:15]];
-        _infoTitle.textAlignment = NSTextAlignmentLeft;
-        [_infoTitle setTextColor:[NewAppColor yhapp_6color]];
-        
-        
+
         _infoContent=[[UILabel alloc] init];
         [self.contentView addSubview:_infoContent];
-        [_infoContent setTextColor:[NewAppColor yhapp_3color]];
-        [_infoContent setFont:[UIFont systemFontOfSize:12]];
-        _infoContent.numberOfLines=2;
-        _infoContent.textAlignment = NSTextAlignmentLeft;
-        
         
         _pushTime=[[UILabel alloc] init];
         [self.contentView addSubview:_pushTime];
-        [_pushTime setFont:[UIFont systemFontOfSize:11]];
-        [_pushTime setTextColor:[NewAppColor yhapp_4color]];
-        _pushTime.textAlignment = NSTextAlignmentLeft;
-        
-        
+
         [_infoTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView).offset(16);
             make.top.mas_equalTo(self.contentView).offset(16);
         }];
-        
-        
+    
         [_infoContent mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(_infoTitle.mas_bottom).offset(10);
             make.left.mas_equalTo(self.contentView).offset(16);
@@ -51,7 +37,6 @@
 //            make.height.mas_equalTo(30);
             
         }];
-        
         
         [_pushTime mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView.mas_left).offset(16);
@@ -73,28 +58,68 @@
     _infoContent.text=[[Pushinfo objectForKey:@"aps"] objectForKey:@"alert"];
     _pushTime.text=[Pushinfo objectForKey:@"PushTime"];
     [_infoContent sizeToFit];
+    
+    
+    _readState=[[UIButton alloc] init];
+    [_readState setBackgroundColor:[NewAppColor yhapp_11color]];
+    [self.contentView addSubview:_readState];
+    [_readState mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(6, 6));
+        make.left.mas_equalTo(_infoTitle.mas_right).offset(12);
+        make.centerY.mas_equalTo(_infoTitle.mas_centerY);
+    }];
+    _readState.layer.cornerRadius = 3;
+    _readState.clipsToBounds = YES;
     if ([[Pushinfo objectForKey:@"readState"] isEqualToString:@"false"]) {
-        _readState=[[UIButton alloc] init];
-        [_readState setBackgroundColor:[NewAppColor yhapp_11color]];
-        [self.contentView addSubview:_readState];
-        [_readState mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(6, 6));
-            make.left.mas_equalTo(_infoTitle.mas_right).offset(12);
-            make.centerY.mas_equalTo(_infoTitle.mas_centerY);
-        }];
-        _readState.layer.cornerRadius = 3;
-        _readState.clipsToBounds = YES;
+        _readState.hidden=NO;
+        
+        [_infoTitle setFont:[UIFont boldSystemFontOfSize:15]];
+        _infoTitle.textAlignment = NSTextAlignmentLeft;
+        [_infoTitle setTextColor:[NewAppColor yhapp_6color]];
+        
+        [_infoContent setTextColor:[NewAppColor yhapp_3color]];
+        [_infoContent setFont:[UIFont systemFontOfSize:12]];
+        _infoContent.numberOfLines=2;
+        _infoContent.textAlignment = NSTextAlignmentLeft;
+        
+        
+        [_pushTime setFont:[UIFont systemFontOfSize:11]];
+        [_pushTime setTextColor:[NewAppColor yhapp_4color]];
+        _pushTime.textAlignment = NSTextAlignmentLeft;
+    }
+    else if ([[Pushinfo objectForKey:@"readState"] isEqualToString:@"true"])
+    {
+        [_infoTitle setFont:[UIFont boldSystemFontOfSize:15]];
+        _infoTitle.textAlignment = NSTextAlignmentLeft;
+        [_infoTitle setTextColor:[NewAppColor yhapp_4color]];
+        
+        [_infoContent setFont:[UIFont systemFontOfSize:12]];
+        _infoContent.numberOfLines=2;
+        _infoContent.textAlignment = NSTextAlignmentLeft;
+        [_infoContent setTextColor:[NewAppColor yhapp_4color]];
+        
+        [_pushTime setFont:[UIFont systemFontOfSize:11]];
+        _pushTime.textAlignment = NSTextAlignmentLeft;
+        [_pushTime setTextColor:[NewAppColor yhapp_4color]];
+         _readState.hidden=YES;
     }
     else
     {
+        [_infoTitle setFont:[UIFont boldSystemFontOfSize:15]];
+        _infoTitle.textAlignment = NSTextAlignmentLeft;
         [_infoTitle setTextColor:[NewAppColor yhapp_4color]];
+        
+        [_infoContent setFont:[UIFont systemFontOfSize:12]];
+        _infoContent.numberOfLines=2;
+        _infoContent.textAlignment = NSTextAlignmentLeft;
         [_infoContent setTextColor:[NewAppColor yhapp_4color]];
+        
+        [_pushTime setFont:[UIFont systemFontOfSize:11]];
+        _pushTime.textAlignment = NSTextAlignmentLeft;
         [_pushTime setTextColor:[NewAppColor yhapp_4color]];
+        _readState.hidden=YES;
     }
 }
-
-
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];
