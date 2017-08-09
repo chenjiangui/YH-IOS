@@ -139,7 +139,6 @@
     [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
     
     
-    
     NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     if ([FileUtils checkFileExist:pushConfigPath isDir:NO]) {
         self.remoteDict = [[FileUtils readConfigFile:pushConfigPath] copy];
@@ -174,6 +173,11 @@
     }
     
   }
+
+- (UIInterfaceOrientationMask )application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 -(void)jumpToDetailViewWithDict:(NSDictionary*)dict{
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

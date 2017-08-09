@@ -39,7 +39,8 @@
     _topLab.text = SafeText(item.hightLightData.number);
     _topRightLab.text = SafeText(item.hightLightData.compare);
     _tipView.hidden = IsEmptyText(_bottomLab.text);
-    _topRightLab.textColor = _topRightLab.text.floatValue <= 0 ? UIColorHex(f57658):UIColorHex(91c941);
+    NSString *colorText = WarnColor[item.hightLightData.arrow];
+    _topRightLab.textColor = [UIColor colorWithHexString:colorText];
 }
 
 @end
