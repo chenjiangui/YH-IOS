@@ -30,7 +30,7 @@
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
-@interface SubjectViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,UIWebViewDelegate,CLLocationManagerDelegate>
+@interface SubjectViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,UIWebViewDelegate,CLLocationManagerDelegate,WKNavigationDelegate>
 {
     NSMutableDictionary *betaDict;
     UIImageView *navBarHairlineImageView;
@@ -65,13 +65,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewDidLoad {
     [super viewDidLoad];
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
     [self addWebViewJavascriptBridge];
 
-    
-    [self addWebViewJavascriptBridge];
     [self startLocation];
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
@@ -781,23 +779,33 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         __block NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
-            htmlPath = [HttpUtils urlConvertToLocal:self.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];
+            htmlPath = [HttpUtils urlConvertToLocal:weakSelf.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];
         }
+
         else {
             NSString *htmlName = [HttpUtils urlTofilename:self.urlString suffix:@".html"][0];
             htmlPath = [[FileUtils sharedPath] stringByAppendingPathComponent:htmlName];
+            
+         //  NSString *htmlName = [HttpUtils urlTofilename:weakSelf.urlString suffix:@".html"][0];
+         //  htmlPath = [weakSelf.assetsPath stringByAppendingPathComponent:htmlName];
+            
+
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
             
-            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:[FileUtils sharedPath]]];
+            //[self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:[FileUtils sharedPath]]];
+            NSURL* baseurl = [NSURL fileURLWithPath:htmlPath];
+           // NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseurl];
+           // [self.browser loadRequest:request];
             
-            /*NSURL* baseurl = [NSURL fileURLWithPath:htmlPath];
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseurl];
-             [self.browser loadRequest:request];
-**/
+            [self.browser loadFileURL:baseurl allowingReadAccessToURL:[NSURL fileURLWithPath:[FileUtils sharedPath]]];
+            
+
+
+            
             //[self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
              [HudToolView hideLoadingInView:self.view];
            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];

@@ -35,7 +35,7 @@
 @property (strong, nonatomic) NSString *sharedPath;
 @property (strong, nonatomic) User *user;
 
-@property (strong, nonatomic) SDWebView *browser;
+@property (strong, nonatomic) WKWebView *browser;
 
 - (void)clearBrowserCache;
 - (void)showLoading:(LoadingType)loadingType;

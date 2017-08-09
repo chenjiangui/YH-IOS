@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.user = [[User alloc] init];
-    self.browser = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)];
+    self.browser = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)];
     self.browser.layer.borderColor = [UIColor whiteColor].CGColor;
    // self.browser.scrollView.bounces = NO;
     self.view.layer.borderColor = [UIColor whiteColor].CGColor;

@@ -96,7 +96,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     // navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
     //[self.view addSubview:self.browser];
-    self.browser.webDelegate = self;
+//    self.browser.webDelegate = self;
 //    self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
@@ -119,7 +119,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
 //        responseCallback(@"SubjectViewController - Response for message from ObjC");
 //    }];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
       responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
     [self addWebViewJavascriptBridge];
