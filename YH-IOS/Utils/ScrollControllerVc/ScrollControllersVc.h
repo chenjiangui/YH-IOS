@@ -22,6 +22,7 @@ typedef void(^CommonBack)(id item);
 
 @property (nonatomic, strong) NSArray* titles;
 
+@property (nonatomic, strong) NSArray* controllers;
 
 @property (nonatomic, assign) CGFloat lableW; //必须set
 @property (nonatomic, assign) CGFloat lableH; //必须set
