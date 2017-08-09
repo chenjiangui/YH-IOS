@@ -319,8 +319,8 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     [super dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CLOSE_VIEW" object:nil userInfo:nil];
         [self.browser stopLoading];
-        [self.browser cleanForDealloc];
-        self.browser.delegate = nil;
+//        [self.browser cleanForDealloc];
+//        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;
@@ -336,7 +336,7 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
 }
 
 - (void)dealloc {
-    self.browser.delegate = nil;
+//    self.browser.delegate = nil;
     self.browser = nil;
     [self.progressHUD hide:YES];
     self.progressHUD = nil;
@@ -674,8 +674,8 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     [super dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CLOSE_VIEW" object:nil userInfo:nil];
         [self.browser stopLoading];
-        [self.browser cleanForDealloc];
-        self.browser.delegate = nil;
+//        [self.browser cleanForDealloc];
+//        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;

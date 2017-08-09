@@ -281,7 +281,7 @@
 
     NSError *error = nil;
     NSString *filename = [self urlTofilename:urlString suffix:@".html"][0];
-    NSString *filepath = [assetsPath stringByAppendingPathComponent:filename];
+    NSString *filepath = [[FileUtils sharedPath] stringByAppendingPathComponent:filename];
     
     NSString *assetLocalPath;
     NSData *htmlData = [htmlContent dataUsingEncoding:NSUTF8StringEncoding];

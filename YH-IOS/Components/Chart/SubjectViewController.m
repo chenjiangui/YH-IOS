@@ -24,6 +24,7 @@
 #import "SelectDataModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "YHPopMenuView.h"
+#import "WKWebViewJavascriptBridge.h"
 
 #define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
@@ -63,10 +64,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     [self startLocation];
+    [WKWebViewJavascriptBridge enableLogging];
+    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
+    [self addWebViewJavascriptBridge];
+    [self startLocation];
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
-   self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
+    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
     [self hiddenShadow];
     
@@ -84,8 +89,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
    // navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
     //[self.view addSubview:self.browser];
-    self.browser.delegate = self;
-    self.browser.delegate = self;
+//    self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
         /*
@@ -99,19 +103,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         /*
          *  外部链接，支持手势放大缩小
          */
-        self.browser.scalesPageToFit = YES;
+//        self.browser.scalesPageToFit = YES;
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
     //[self idColor];
-    [WebViewJavascriptBridge enableLogging];
     /*self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];*/
-    
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
-    [self.bridge setWebViewDelegate:self];
-    
-    [self addWebViewJavascriptBridge];
+
 }
 
 -(void)awakeFromNib{
@@ -121,7 +120,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
-    [HudToolView showLoadingInView:self.view];
+//    [HudToolView showLoadingInView:self.view];
     // self.bannerView.height = 0;
    // self.browser.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
     [self.navigationController setNavigationBarHidden:false];
@@ -287,8 +286,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [_popView hideWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
-        [self.browser cleanForDealloc];
-        self.browser.delegate = nil;
+//        [self.browser cleanForDealloc];
+//        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;
@@ -771,13 +770,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         else {
             NSString *htmlName = [HttpUtils urlTofilename:self.urlString suffix:@".html"][0];
-            htmlPath = [weakSelf.assetsPath stringByAppendingPathComponent:htmlName];
+            htmlPath = [[FileUtils sharedPath] stringByAppendingPathComponent:htmlName];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
+            
+            [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:[FileUtils sharedPath]]];
+            
+            /*NSURL* baseurl = [NSURL fileURLWithPath:htmlPath];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:baseurl];
+             [self.browser loadRequest:request];
+**/
+            //[self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
              [HudToolView hideLoadingInView:self.view];
            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
             self.isLoadFinish = !self.browser.isLoading;
@@ -921,8 +927,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (IBAction)actionBack:(id)sender {
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
-        [self.browser cleanForDealloc];
-        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;
@@ -1091,6 +1095,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 #pragma mark - UIWebview delegate
+
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
     self.isLoadFinish = YES;
@@ -1133,6 +1139,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - UIWebview delegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSLog(@"%@", [NSString stringWithFormat:@"%@",request.URL]);
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
         if (![[url scheme] hasPrefix:@";file"] && ![[url relativeString] hasPrefix:@"http://222.76.27.51"]) {

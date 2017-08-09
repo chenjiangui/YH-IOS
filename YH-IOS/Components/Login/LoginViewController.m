@@ -542,6 +542,7 @@
 
 //add: 登录按钮事件
 - (void)loginBtnClick {
+    [self jumpToDashboardView];
 
     if (self.peopleNumString == 0) {
         [self showProgressHUD:@"请输入用户名 " mode: MBProgressHUDModeText];

@@ -105,8 +105,8 @@
 -(void)backAction {
     [self dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
-        [self.browser cleanForDealloc];
-        self.browser.delegate = nil;
+//        [self.browser cleanForDealloc];
+//        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;
@@ -138,7 +138,7 @@
 }
 
 - (void)dealloc {
-    self.browser.delegate = nil;
+//    self.browser.delegate = nil;
     self.browser = nil;
     [self.progressHUD hide:YES];
     self.progressHUD = nil;
