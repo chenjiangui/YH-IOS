@@ -146,13 +146,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self displayBannerViewButtonsOrNot];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
-
-
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
      [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
 }
-
 -(void)addNavigationView{
     self.navigationBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
    // [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
@@ -310,8 +307,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     UIGraphicsEndImageContext();
     return image;
 }
-
-
 
 - (void)backAction{
     [self hidePopMenuWithAnimation:NO];

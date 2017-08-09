@@ -20,4 +20,7 @@
 - (void)addLeftImage:(UIImage*)image imageFrame:(CGRect)frame distance:(CGFloat)distance textFileHeight:(CGFloat)height;
 - (void)addLeftPaddinText:(NSString *)text width:(CGFloat)ftValue height:(CGFloat)height
                     color:(UIColor *)color font:(float)font;
+
+
+
 @end

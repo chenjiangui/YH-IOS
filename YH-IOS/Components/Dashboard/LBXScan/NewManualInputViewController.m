@@ -9,11 +9,12 @@
 #import "NewManualInputViewController.h"
 #import "ScanResultViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "LineTextFiled.h"
 
 @interface NewManualInputViewController ()
 {
-    UIView *inputView;
-    UITextField *InputNum;
+    UIView *InputView;
+    LineTextFiled *InputNum;
     UIButton *OpenLight;
     UILabel *OpenLabel;
     UIButton *quest;
@@ -33,7 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"手动输入条码";
-    [self.view setBackgroundColor:[NewAppColor yhapp_5color]];
+    [self.view setBackgroundColor:[[NewAppColor yhapp_5color] colorWithAlphaComponent:0.5]];
 //    self.view.alpha=0.5;
     
 
@@ -66,21 +67,19 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    [self addTopItems];
-    [self addframe];
+    [self setupUI];
 }
 
 
-- (void)addTopItems{
-    [self.view sd_addSubviews:@[self.inputView,self.InputNum,self.OpenLightbtn,self.OpenLabel]];
-}
--(void)addframe
+-(void)setupUI
 {
+    [self.view sd_addSubviews:@[self.InputView,self.InputNum,self.OpenLightbtn,self.OpenLabel]];
+
     
     [InputNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(inputView.mas_left).offset(57);
-        make.centerX.mas_equalTo(inputView.mas_centerX);
-        make.centerY.mas_equalTo(inputView.mas_centerY);
+        make.left.mas_equalTo(InputView.mas_left).offset(57);
+        make.centerX.mas_equalTo(InputView.mas_centerX);
+        make.centerY.mas_equalTo(InputView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(self.view.bounds.size.width,50));
     }];
     
@@ -89,15 +88,16 @@
         make.centerX.mas_equalTo(self.view);
     }];
     [OpenLight mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(inputView.mas_bottom).offset(28);
+        make.top.mas_equalTo(InputView.mas_bottom).offset(28);
         make.centerX.mas_equalTo(self.view);
         make.size.mas_equalTo(CGSizeMake(57, 57));
     }];
-    [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [InputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.mas_topMargin).offset(108);
         //        make.left.mas_equalTo(self.view.mas_left).offset(16);
         make.centerX.mas_equalTo(self.view);
-        make.size.mas_equalTo(CGSizeMake(344, 52));
+        make.left.mas_equalTo(self.view).offset(16);
+        make.height.mas_equalTo(52);
     }];
 }
 
@@ -197,7 +197,6 @@
 - (UILabel *)OpenLabel{
     if (!OpenLabel) {
         OpenLabel =[[UILabel alloc] init];
-        [self.view addSubview:OpenLabel];
         OpenLabel.text=@"打开手电筒";
         OpenLabel.textColor=[UIColor whiteColor];
         OpenLabel.font=[UIFont systemFontOfSize:12];
@@ -209,7 +208,6 @@
 - (UIButton *)OpenLightbtn{
     if (!OpenLight) {
         OpenLight =[[UIButton alloc] init];
-        [self.view addSubview:OpenLight];
         [OpenLight addTarget:self action:@selector(OpenLight) forControlEvents:UIControlEventTouchUpInside];
         OpenLight.tag=100;
         [OpenLight setBackgroundImage:[UIImage imageNamed:@"btn_lightoff"] forState:UIControlStateNormal];
@@ -217,31 +215,23 @@
     return OpenLight;
 }
 
-- (UIView *)inputView{
-    if (!inputView) {
-        inputView=[[UIView alloc] init];
-        [self.view addSubview:inputView];
-        inputView.backgroundColor=[NewAppColor yhapp_1color];
-        inputView.alpha=0.6;
-        inputView.layer.cornerRadius=8;
+- (UIView *)InputView{
+    if (!InputView) {
+        InputView=[[UIView alloc] init];
+        InputView.backgroundColor=[NewAppColor yhapp_1color];
+        InputView.alpha=0.6;
+        InputView.layer.cornerRadius=8;
     }
-    return inputView;
+    return InputView;
 }
-- (UITextField *)InputNum{
+- (LineTextFiled *)InputNum{
     if (!InputNum) {
-        InputNum=[[UITextField alloc] init];
-        
-        [self.view addSubview:InputNum];
-        
+        InputNum=[[LineTextFiled alloc] init];
         //    [InputNum setValue:[UIFont systemFontOfSize:40] forKeyPath:@"ALTGOT2N.TTF"];
-        
-        InputNum.textColor=[NewAppColor yhapp_10color];
-        
-        InputNum.tintColor= [NewAppColor yhapp_7color];
-        
-        InputNum.font=[UIFont systemFontOfSize:40];
-        
-//        InputNum.font = [UIFont fontWithName:@"ALTGOT2N" size:80];
+        InputNum.textColor =[NewAppColor yhapp_10color];
+        InputNum.tintColor = [NewAppColor yhapp_7color];
+        InputNum.textAlignment = NSTextAlignmentCenter;
+        InputNum.font  = [UIFont fontWithName:CustomFontName size:40];
         [InputNum addTarget:self action:@selector(InputNumChange:) forControlEvents:UIControlEventEditingChanged];
         
         InputNum.keyboardType=UIKeyboardTypeNumberPad;
