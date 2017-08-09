@@ -70,6 +70,9 @@
         [HudToolView hideLoadingInView:self.view];
         if ([model.code isEqualToString:@"201"]) {
             [self getData:YES isDownPull:YES];
+            if (isFav) {
+                [HudToolView showTopWithText:@"收藏成功" correct:true];
+            }
         }
     }];
 }
