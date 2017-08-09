@@ -17,7 +17,6 @@
 @interface ScrollControllersVc ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView* titleScrollView;
 @property (nonatomic, strong) UIScrollView* controllersScrollView;
-@property (nonatomic, strong) NSArray* controllers;
 @property (nonatomic, strong) UIView* hightLightView;
 @end
 
