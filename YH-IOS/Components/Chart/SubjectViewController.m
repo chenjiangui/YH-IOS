@@ -196,7 +196,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             NSLog(@"点击第%ld行",(long)row);
-            NSString *itemName = self.dropMenuTitles[row];
+            NSString *itemName = self.itemNameArray[row];
             
             if([itemName isEqualToString:kDropCommentText]) {
                 [self actionWriteComment];
@@ -439,6 +439,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.popView hideWithAnimation:YES];
     
     /*
      * 其他页面,禁用横屏
@@ -550,23 +551,23 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-       /* NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        self.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+        self.iconNameArray = [@[@"pop_share",@"pop_talk",@"pop_flash",@"pop_screen"] mutableCopy];
         self.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-       /* weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
-        }*/
+        }
     }];
      /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
          if ([data[@"state"] isEqualToString:@"show"]) {
@@ -631,7 +632,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         responseCallback(selectedItem);
     }];
     [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+       /* NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
@@ -648,10 +649,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+       /* weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
-        }
+        }*/
 
     }];
 
