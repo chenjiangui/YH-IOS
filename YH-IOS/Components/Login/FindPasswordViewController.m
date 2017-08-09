@@ -295,7 +295,7 @@
 }
 - (void)clearBrowserCache {
     [self.webView stopLoading];
-    }
+   }
 - (void)dismissFindPwd {
     [self dismissViewControllerAnimated:YES completion:^{
         self.webView.delegate = nil;

@@ -318,8 +318,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CLOSE_VIEW" object:nil userInfo:nil];
         [self.browser stopLoading];
-//        [self.browser cleanForDealloc];
-//        self.browser.delegate = nil;
+        [self.browser cleanForDealloc];
+        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;
@@ -335,7 +335,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)dealloc {
-//    self.browser.delegate = nil;
+    self.browser.delegate = nil;
     self.browser = nil;
     [self.progressHUD hide:YES];
     self.progressHUD = nil;
@@ -673,8 +673,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CLOSE_VIEW" object:nil userInfo:nil];
         [self.browser stopLoading];
-//        [self.browser cleanForDealloc];
-//        self.browser.delegate = nil;
+        [self.browser cleanForDealloc];
+        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;

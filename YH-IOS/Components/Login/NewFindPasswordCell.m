@@ -106,8 +106,9 @@ static  NSString *PhoneString;
 }
 -(void)upTodata
 {
-
-         NSString *userNum = PeopleString;
+    
+    
+    NSString *userNum = PeopleString;
          NSString *userPhone = PhoneString;
          NSLog(@"%@%@",userNum,userPhone);
             if (userNum && userPhone) {

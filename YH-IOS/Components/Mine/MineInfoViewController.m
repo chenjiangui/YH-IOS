@@ -66,7 +66,6 @@
     titleIameArray = @[@"list_ic_person",@"list_ic_department"];
     self.leftImageArray = @[@[],@[@"icon_section",@"login_jobno"],@[@"icon_collection",@"icon_news"],@[@"icon_setting",@"icon_password",@"icon_feedback"]];
     secondArray = @[SafeText(user.groupName),SafeText(user.userNum)];
-
     seconImageArray = @[@"list_ic_set"];
      [self setupTableView];
 }

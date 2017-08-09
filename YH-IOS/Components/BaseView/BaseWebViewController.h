@@ -20,23 +20,17 @@
 #import "UIWebview+Clean.h"
 #import "LTHPasscodeViewController.h"
 #import "ExtendNSLogFunctionality.h"
-#import "SDWebView.h"
-#import "WKWebViewJavascriptBridge.h"
-
-
 
 
 @interface BaseWebViewController : UIViewController<UIWebViewDelegate>
 
-@property WKWebViewJavascriptBridge* bridge;
+@property WebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSString *assetsPath;
 @property (strong, nonatomic) NSString *sharedPath;
 @property (strong, nonatomic) User *user;
-
-@property (strong, nonatomic) WKWebView *browser;
-
+@property (strong, nonatomic) UIWebView *browser;
 - (void)clearBrowserCache;
 - (void)showLoading:(LoadingType)loadingType;
 - (void)jumpToLogin;

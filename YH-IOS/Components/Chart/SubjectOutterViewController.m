@@ -23,13 +23,12 @@
 #import "SelectDataModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "YHPopMenuView.h"
-#import "SDWebView.h"
 
 #define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
-@interface SubjectOutterViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,UIWebViewDelegate,CLLocationManagerDelegate,UINavigationControllerDelegate,UINavigationBarDelegate,WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
+@interface SubjectOutterViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,UIWebViewDelegate,CLLocationManagerDelegate,UINavigationControllerDelegate,UINavigationBarDelegate>
 {
     NSMutableDictionary *betaDict;
     UIImageView *navBarHairlineImageView;
@@ -98,6 +97,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     //[self.view addSubview:self.browser];
 //    self.browser.webDelegate = self;
 //    self.browser.delegate = self;
+    self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
         /*
@@ -111,7 +111,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         /*
          *  外部链接，支持手势放大缩小
          */
-//        self.browser.scalesPageToFit = YES;
+        self.browser.scalesPageToFit = YES;
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
     //[self idColor];
@@ -119,9 +119,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
 //        responseCallback(@"SubjectViewController - Response for message from ObjC");
 //    }];
-    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
       responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
+
     [self addWebViewJavascriptBridge];
     [self isLoadHtmlFromService];
 }
@@ -314,8 +315,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self hidePopMenuWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
-//        [self.browser cleanForDealloc];
-//        self.browser.delegate = nil;
+        [self.browser cleanForDealloc];
+        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;
@@ -464,9 +465,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)dealloc {
     NSLog(@"%@",[NSString stringWithFormat:@"%@------>%@", NSStringFromClass(self.class),@"销毁了"]);
-//    [self.browser cleanForDealloc];
+    [self.browser cleanForDealloc];
     [self.browser stopLoading];
-//    self.browser.delegate = nil;
+    self.browser.delegate = nil;
     self.browser = nil;
     [self.progressHUD hide:YES];
     self.progressHUD = nil;
@@ -727,7 +728,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)loadOuterLink {
-//    [HudToolView showLoadingInView:self.view];
+    [HudToolView showLoadingInView:self.view];
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
@@ -928,8 +929,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (IBAction)actionBack:(id)sender {
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
-//        [self.browser cleanForDealloc];
-//        self.browser.delegate = nil;
+        [self.browser cleanForDealloc];
+        self.browser.delegate = nil;
         self.browser = nil;
         [self.progressHUD hide:YES];
         self.progressHUD = nil;

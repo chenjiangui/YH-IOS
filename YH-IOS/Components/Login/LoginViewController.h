@@ -22,8 +22,6 @@
 #import "ExtendNSLogFunctionality.h"
 
 
-
-
 @interface LoginViewController : UIViewController
 
 @property (nonatomic, strong) UIImageView *PasswordLogo;
