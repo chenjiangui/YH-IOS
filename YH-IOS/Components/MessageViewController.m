@@ -54,10 +54,10 @@
 
 - (void)loadWebView {
     [WebViewJavascriptBridge enableLogging];
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        responseCallback(@"DashboardViewController - Response for message from ObjC");
-//    }];
-self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];    
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        responseCallback(@"DashboardViewController - Response for message from ObjC");
+    }];
+ 
     [self addWebViewJavascriptBridge];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];

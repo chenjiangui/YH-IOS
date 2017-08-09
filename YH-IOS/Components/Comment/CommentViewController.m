@@ -22,10 +22,10 @@
     self.urlString = [NSString stringWithFormat:kCommentMobilePath, kBaseUrl, [FileUtils currentUIVersion], self.objectID, @(self.commentObjectType)];
     
     [WebViewJavascriptBridge enableLogging];
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        responseCallback(@"Response for message from ObjC");
-//    }];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];    
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        responseCallback(@"Response for message from ObjC");
+    }];
+ 
     [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
         /*
          * 用户行为记录, 单独异常处理，不可影响用户体验

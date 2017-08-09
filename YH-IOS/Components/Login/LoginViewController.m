@@ -452,7 +452,6 @@
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     self.sideblank = (self.view.frame.size.width - 40) / 2;
-    
     NSDictionary *ViewDict = NSDictionaryOfVariableBindings(_logoView, _sloganLabel, _loginButton, _loginPasswordImage, _loginUserImage, _seperateView1, _seperateView2, _userNameText, _userPasswordText,_versionLabel,_findPassword,_registerBtn);
     // [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_logoView]-|" options:0 metrics:nil views:ViewDict]];
     [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_logoView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
@@ -543,6 +542,7 @@
 
 //add: 登录按钮事件
 - (void)loginBtnClick {
+
     if (self.peopleNumString == 0) {
         [self showProgressHUD:@"请输入用户名 " mode: MBProgressHUDModeText];
         [self.progressHUD hide:YES afterDelay:1.5];
