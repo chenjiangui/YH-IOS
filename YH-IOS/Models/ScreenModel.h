@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString* category;
 @property (nonatomic, strong) NSString* rank_index;
 @property (nonatomic, strong) NSString* server_param;
+@property (nonatomic, strong) ScreenModel* items;
 
 @end
 

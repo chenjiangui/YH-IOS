@@ -14,6 +14,8 @@
 
 - (instancetype)initWithDataList:(NSArray*)dataList;
 
+- (void)reload:(NSArray*)dataList;
+
 - (void)show;
 - (void)hide;
 

@@ -24,6 +24,8 @@
 #import "SelectDataModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "YHPopMenuView.h"
+#import "ScreenModel.h"
+#import "SelectLocationView.h"
 
 #define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
@@ -56,7 +58,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, assign) BOOL rBtnSelected;
 @property (nonatomic, strong) NSMutableArray *iconNameArray;
 @property (nonatomic, strong) NSMutableArray *itemNameArray;
-
+/* 筛选视图 **/
+@property (nonatomic, strong) SelectLocationView* screenView;
 @end
 
 @implementation SubjectViewController
@@ -631,11 +634,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
-        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
+        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
+        
+        ScreenModel* model = [ScreenModel mj_objectWithKeyValues:data];
+        ScreenModel* addressModels = [NSArray getObjectInArray:model.items.data keyPath:@"type" equalValue:@"location"];
+        [weakSelf.screenView reload:addressModels.data];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        self.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
-        self.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
+        weakSelf.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+        weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
@@ -959,7 +966,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)actionDisplaySearchItems {
-    
+    [self.screenView show];
+    return;
    ThreeSelectViewController *selectorView = [[ThreeSelectViewController alloc]init];
     UINavigationController *commentCtrl = [[UINavigationController alloc]initWithRootViewController:selectorView];
     selectorView.bannerName = self.bannerName;
@@ -1203,4 +1211,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSLog(@"%@", exception);
     }
 }
+
+#pragma mark - lazy
+- (SelectLocationView *)screenView{
+    if (!_screenView) {
+        _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
+    }
+    return _screenView;
+}
+
+
 @end

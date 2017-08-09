@@ -39,6 +39,13 @@
     [self.sl_popupController dismiss];
 }
 
+- (void)reload:(NSArray *)dataList{
+    self.dataList = dataList;
+    [self.scrollVc updateControllers:@[self.oneVc] titles:@[@"请选择"]];
+    [self.scrollVc scrollWithIndex:0];
+    [self.oneVc updateDateList:dataList];
+}
+
 - (instancetype)initWithDataList:(NSArray *)dataList{
     self = [self initWithFrame:CGRectZero];
     self.size = CGSizeMake(SCREEN_WIDTH, 400);
