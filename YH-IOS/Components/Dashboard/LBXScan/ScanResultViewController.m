@@ -17,6 +17,7 @@
 #import "DropTableViewCell.h"
 #import "DropViewController.h"
 #import "CommentViewController.h"
+#import "YHPopMenuView.h"
 
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
@@ -31,6 +32,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (strong, nonatomic) NSArray *dropMenuIcons;
 @property (strong, nonatomic)     NSString *storeID;
 @property (strong, nonatomic) NSString *javascriptPath;
+@property (nonatomic, strong) YHPopMenuView *popView;
+@property (nonatomic, assign) BOOL rBtnSelected;
+@property (nonatomic, strong) NSMutableArray *iconNameArray;
+@property (nonatomic, strong) NSMutableArray *itemNameArray;
 
 @end
 
@@ -40,6 +45,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super viewDidLoad];
        self.storeID = @"-1";
     [WebViewJavascriptBridge enableLogging];
+    self.iconNameArray =[ @[@"pop_share",@"筛选",@"pop_flash"]  mutableCopy];
+    self.itemNameArray =[ @[@"分享",@"筛选",@"刷新"] mutableCopy];
 //    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
 //        responseCallback(@"DashboardViewController - Response for message from ObjC");
 //    }];
@@ -75,7 +82,7 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     [self clearBrowserCache];
     [self loadHtml];
 }
@@ -155,6 +162,95 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
 }
 
 
+
+// 弹出框
+#pragma mark - Action
+- (void)onRightBtn:(id)sender{
+    
+    _rBtnSelected = !_rBtnSelected;
+    if (_rBtnSelected) {
+        [self showPopMenu];
+    }else{
+        [self hidePopMenuWithAnimation:YES];
+    }
+    
+}
+
+- (void)showPopMenu{
+    CGFloat itemH = 40;
+    CGFloat w = 120;
+    CGFloat h = self.iconNameArray.count*itemH;
+    CGFloat x = SCREEN_WIDTH -9-120;
+    CGFloat y = -9;
+    
+    _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    _popView.iconNameArray =self.iconNameArray;
+    _popView.itemNameArray =self.itemNameArray;
+    _popView.itemH     = itemH;
+    _popView.fontSize  = 14.0f;
+    _popView.fontColor = [NewAppColor yhapp_10color];
+    _popView.canTouchTabbar = YES;
+    _popView.iconLeftSpace=15;
+    _popView.iconW=19;
+    _popView.itemNameLeftSpace=32;
+    [_popView show];
+    
+    WeakSelf;
+    [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
+        if (!isCanceled) {
+            
+            NSLog(@"点击第%ld行",(long)row);
+            if (!row) {
+                [self actionWebviewScreenShot];
+            }
+            else if(row == 1){
+                
+                SelectStoreViewController *select = [[SelectStoreViewController alloc] init];
+                UINavigationController* selectCtrl = [[UINavigationController alloc]initWithRootViewController:select];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    /*
+                     * 用户行为记录, 单独异常处理，不可影响用户体验
+                     */
+                    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                    logParams[kActionALCName] = @"点击/扫码/筛选";
+                    [APIHelper actionLog:logParams];
+                });
+                [self.navigationController presentViewController:selectCtrl animated:YES completion:nil];
+
+                
+            }
+            else if(row == 2){
+                [self loadInnerLink];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    /*
+                     * 用户行为记录, 单独异常处理，不可影响用户体验
+                     */
+                    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                    logParams[kActionALCName] = @"刷新/扫码/浏览器";
+                    [APIHelper actionLog:logParams];
+                });
+            }
+            else if(row == 3){
+                
+            }
+        }
+        
+        weakSelf.rBtnSelected = NO;
+    }];
+}
+
+- (void)hidePopMenuWithAnimation:(BOOL)animate{
+    [_popView hideWithAnimation:animate];
+}
+
+
+
+
+
+
+
+
+
 //标识点
 - (void)idColor {
     UIView* idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
@@ -219,6 +315,7 @@ self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
 
 
 -(void)backAction{
+    [self hidePopMenuWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CLOSE_VIEW" object:nil userInfo:nil];
         [self.browser stopLoading];

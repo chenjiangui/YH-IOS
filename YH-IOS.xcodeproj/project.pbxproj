@@ -262,11 +262,13 @@
 		91EF8DE31EF3B27C00333746 /* YHTopicFooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EF8DE11EF3B27C00333746 /* YHTopicFooterCollectionReusableView.xib */; };
 		91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE61EF3BA4D00333746 /* ListPage.m */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
+		B62C4ADB1F3AAC7800E0C50B /* LineTextFiled.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C4ADA1F3AAC7800E0C50B /* LineTextFiled.m */; };
 		B67592801F29965200E89B65 /* NewMineQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B675927F1F29965200E89B65 /* NewMineQuestionController.m */; };
 		B67593631F29CBEE00E89B65 /* HWCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B675935D1F29CBEE00E89B65 /* HWCollectionViewCell.m */; };
 		B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B675935E1F29CBEE00E89B65 /* HWCollectionViewCell.xib */; };
 		B67593651F29CBEE00E89B65 /* HWImagePickerSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */; };
 		B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */; };
+		B6CB159F1F39B41700FA3E2E /* NewManualInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CB159E1F39B41700FA3E2E /* NewManualInputViewController.m */; };
 		B6E7B3521F29D2CE008B48BF /* MFlowLayOut.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */; };
 		B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B3371F29D2CE008B48BF /* MHeaderImaCell.m */; };
 		B6E7B3551F29D2CE008B48BF /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E7B33C1F29D2CE008B48BF /* JJMainScrollView.m */; };
@@ -1178,6 +1180,8 @@
 		91EF8DE11EF3B27C00333746 /* YHTopicFooterCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHTopicFooterCollectionReusableView.xib; sourceTree = "<group>"; };
 		91EF8DE51EF3BA4D00333746 /* ListPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListPage.h; sourceTree = "<group>"; };
 		91EF8DE61EF3BA4D00333746 /* ListPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPage.m; sourceTree = "<group>"; };
+		B62C4AD91F3AAC7800E0C50B /* LineTextFiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineTextFiled.h; sourceTree = "<group>"; };
+		B62C4ADA1F3AAC7800E0C50B /* LineTextFiled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineTextFiled.m; sourceTree = "<group>"; };
 		B675927E1F29965200E89B65 /* NewMineQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionController.h; sourceTree = "<group>"; };
 		B675927F1F29965200E89B65 /* NewMineQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineQuestionController.m; sourceTree = "<group>"; };
 		B675935C1F29CBEE00E89B65 /* HWCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1187,6 +1191,8 @@
 		B67593601F29CBEE00E89B65 /* HWImagePickerSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWImagePickerSheet.m; sourceTree = "<group>"; };
 		B676BB3C1F282AD700AF363A /* NewMineResetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineResetPwdController.h; sourceTree = "<group>"; };
 		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
+		B6CB159D1F39B41700FA3E2E /* NewManualInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewManualInputViewController.h; sourceTree = "<group>"; };
+		B6CB159E1F39B41700FA3E2E /* NewManualInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewManualInputViewController.m; sourceTree = "<group>"; };
 		B6E7B3341F29D2CE008B48BF /* MFlowLayOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFlowLayOut.h; sourceTree = "<group>"; };
 		B6E7B3351F29D2CE008B48BF /* MFlowLayOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFlowLayOut.m; sourceTree = "<group>"; };
 		B6E7B3361F29D2CE008B48BF /* MHeaderImaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHeaderImaCell.h; sourceTree = "<group>"; };
@@ -2979,6 +2985,8 @@
 				C46F6A951D0671C900C561CE /* SubLBXScanViewController.m */,
 				F6EC68CE1E53F560008E0B5F /* ManualInputViewController.h */,
 				F6EC68CF1E53F560008E0B5F /* ManualInputViewController.m */,
+				B6CB159D1F39B41700FA3E2E /* NewManualInputViewController.h */,
+				B6CB159E1F39B41700FA3E2E /* NewManualInputViewController.m */,
 			);
 			name = BarCodeScan;
 			path = LBXScan;
@@ -3874,6 +3882,8 @@
 				F624578D1EA5FBE0006834D2 /* UIView.m */,
 				F624578E1EA5FBE0006834D2 /* UIViewController+Category.h */,
 				F624578F1EA5FBE0006834D2 /* UIViewController+Category.m */,
+				B62C4AD91F3AAC7800E0C50B /* LineTextFiled.h */,
+				B62C4ADA1F3AAC7800E0C50B /* LineTextFiled.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -4985,6 +4995,7 @@
 				F655484B1E8CE04200B4048C /* UserInfoModel.m in Sources */,
 				3B4868EB1F2AECE5003AF8D8 /* ToolModel.m in Sources */,
 				F62457E71EA5FD01006834D2 /* ALView+PureLayout.m in Sources */,
+				B6CB159F1F39B41700FA3E2E /* NewManualInputViewController.m in Sources */,
 				F68C25DE1EC2D4790069C041 /* JYLineChartView.m in Sources */,
 				F62457501EA5FBB2006834D2 /* PositiveNegativeBarChartViewController.m in Sources */,
 				91D4D6941F08C0360087783C /* SectionHeaderView.m in Sources */,
@@ -5025,6 +5036,7 @@
 				B6E7B3561F29D2CE008B48BF /* JJOneScrollView.m in Sources */,
 				F65548511E8CE21E00B4048C /* MainBaseViewController.m in Sources */,
 				F62457EB1EA5FD01006834D2 /* AddShopCarsAnimationTool.m in Sources */,
+				B62C4ADB1F3AAC7800E0C50B /* LineTextFiled.m in Sources */,
 				C4DB7DB01C02EC3D00DA534E /* AppDelegate.m in Sources */,
 				C4CF3B581C1AC75C00F58E1E /* CommentViewController.m in Sources */,
 				914F3F211EE92BCE004B2C25 /* MineController.m in Sources */,

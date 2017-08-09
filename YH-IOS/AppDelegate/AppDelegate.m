@@ -399,6 +399,7 @@ void UncaughtExceptionHandler(NSException * exception) {
 
 #pragma mark - 判断用户是否登录
 - (BOOL)isLogin {
+    
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     return [userDict[@"is_login"] boolValue];

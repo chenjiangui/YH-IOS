@@ -13,7 +13,7 @@
 #import <SCLAlertView.h>
 #import "ScanResultViewController.h"
 #import "ManualInputViewController.h"
-
+#import "NewManualInputViewController.h"
 @interface SubLBXScanViewController ()
 
 @property (nonatomic, strong) UILabel* titleLab;
@@ -244,6 +244,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
 //- (void)drawBottomItems {
 //    if (_bottomItemsView) return;
 //    
@@ -295,6 +296,7 @@
 //    [_bottomItemsView addSubview:_btnPhoto];
 //    [_bottomItemsView addSubview:_btnManualInput];
 //}
+
 
 - (void)showError:(NSString*)str {
     [[[UIAlertView alloc] initWithTitle:@"提示" message:str delegate:nil cancelButtonTitle:@"知道" otherButtonTitles:nil] show];
@@ -368,7 +370,6 @@
 }
 
 #pragma mark -底部功能项
-
 - (void)myQRCode {
     MyQRViewController *vc = [MyQRViewController new];
     [self presentViewController:vc animated:YES completion:nil];
@@ -376,10 +377,17 @@
 
 // 手动输入
 - (void)manualInput {
-    ManualInputViewController *manualInput = [[ManualInputViewController alloc]init];
-    manualInput.fromViewController = @"click";
-    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
-    [self presentViewController:manulCtrl animated:YES completion:nil];
+    
+//    ManualInputViewController *manualInput = [[ManualInputViewController alloc]init];
+//    manualInput.fromViewController = @"click";
+//    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
+//    [self presentViewController:manulCtrl animated:YES completion:nil];
+
+    NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
+    [self.navigationController pushViewController:NewManual animated:YES];
+    
+    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
+   [self presentViewController:manulCtrl animated:YES completion:nil];
 }
 
 @end

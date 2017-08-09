@@ -101,12 +101,10 @@ const static CGFloat lineHeight = 40; //一行的高度
         });
     });
 }
-
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     self.formView.frame = self.view.bounds;
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -207,13 +205,14 @@ const static CGFloat lineHeight = 40; //一行的高度
 
 
 
-
+- (void)backAction{
+    [_popView hideWithAnimation:NO];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)hidePopMenuWithAnimation:(BOOL)animate{
     [_popView hideWithAnimation:animate];
 }
-
-
 
 #pragma 下拉菜单功能块
 - (void)initDropMenu {
