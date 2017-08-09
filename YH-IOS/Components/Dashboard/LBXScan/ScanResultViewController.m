@@ -198,12 +198,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             
-            NSLog(@"点击第%ld行",(long)row);
-            if (!row) {
-                [self actionWebviewScreenShot];
-            }
-            else if(row == 1){
-                
+            NSString *itemName = self.itemNameArray[row];
+            
+            if([itemName isEqualToString:kDropSearchText]) {
                 SelectStoreViewController *select = [[SelectStoreViewController alloc] init];
                 UINavigationController* selectCtrl = [[UINavigationController alloc]initWithRootViewController:select];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -215,10 +212,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                     [APIHelper actionLog:logParams];
                 });
                 [self.navigationController presentViewController:selectCtrl animated:YES completion:nil];
-
-                
             }
-            else if(row == 2){
+            else if([itemName isEqualToString:kDropShareText]) {
+                [self actionWebviewScreenShot];
+            }
+            else if ([itemName isEqualToString:kDropRefreshText]) {
                 [self loadInnerLink];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     /*
@@ -228,9 +226,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                     logParams[kActionALCName] = @"刷新/扫码/浏览器";
                     [APIHelper actionLog:logParams];
                 });
-            }
-            else if(row == 3){
-                
             }
         }
         

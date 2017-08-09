@@ -161,7 +161,7 @@
         model4.identifier = @"3";
         model4.message = @"报表评论";
         model4.isSelected = true;
-        _typesArray = @[model1,model2,model3,model4];
+        _typesArray = @[model4,model3,model2,model1];
     }
     return _typesArray;
 }
