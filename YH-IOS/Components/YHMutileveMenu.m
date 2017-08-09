@@ -79,7 +79,8 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
         self.rightCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(adaptWidth(80), 0, SCREEN_WIDTH-adaptWidth(80),SCREEN_HEIGHT-49- 64) collectionViewLayout:flowLayout];
 
         [self.rightCollection registerClass:YHTopImageCollectionViewCell.class forCellWithReuseIdentifier:@"collectionCell"];
-        [self.rightCollection registerNib:[UINib nibWithNibName:@"YHMutileveHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:mutileresuedHeader];
+      //  [self.rightCollection registerNib:[UINib nibWithNibName:@"YHMutileveHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:mutileresuedHeader];
+        [self.rightCollection registerClass:[YHMutileveHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"YHMutileveHeaderView"];
         self.rightCollection.delegate =self;
         self.rightCollection.dataSource = self;
         [self addSubview:self.rightCollection];
@@ -175,7 +176,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    CGSize size = CGSizeMake(kScreenWidth-100-20, 30);
+    CGSize size = CGSizeMake(kScreenWidth-100-20, 44);
     return size;
 }
 
@@ -192,8 +193,10 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        YHMutileveHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:mutileresuedHeader forIndexPath:indexPath];
-        headerView.titleLabel.text =_allData[_selectIndex].listpage[indexPath.section].group_name;
+       // YHMutileveHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:mutileresuedHeader forIndexPath:indexPath];
+        YHMutileveHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"YHMutileveHeaderView" forIndexPath:indexPath];
+        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.titleLable.text =_allData[_selectIndex].listpage[indexPath.section].group_name;
         return headerView;
     }
     else{

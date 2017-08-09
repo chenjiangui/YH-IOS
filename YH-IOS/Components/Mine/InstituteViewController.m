@@ -34,9 +34,11 @@
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"SubjectViewController - Response for message from ObjC");
-    }];
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        responseCallback(@"SubjectViewController - Response for message from ObjC");
+//    }];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+    [self.bridge setWebViewDelegate:self];
     [self addWebViewJavascriptBridge];
 }
 
@@ -72,6 +74,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+
 }
 
 

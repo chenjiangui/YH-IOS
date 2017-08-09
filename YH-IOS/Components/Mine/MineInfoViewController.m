@@ -31,7 +31,7 @@
 #import "NewMineResetPwdController.h"
 #import "NewMineQuestionController.h"
 #import "MyFavArticleController.h"
-
+#import "NewPushTableView.h"
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
 {
     NSArray *titleArray;
@@ -62,9 +62,9 @@
     user = [[User alloc]init];
     _mineHeaderView = [[MineHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 280)];
     _mineHeaderView.delegate =self;
-    self.userArray = @[@[],@[@"归属部门",@"工号"],@[@"文章收藏"],@[@"设置",@"修改密码",@"问题反馈"]];
+    self.userArray = @[@[],@[@"归属部门",@"工号"],@[@"文章收藏",@"消息"],@[@"设置",@"修改密码",@"问题反馈"]];
     titleIameArray = @[@"list_ic_person",@"list_ic_department"];
-    self.leftImageArray = @[@[],@[@"icon_section",@"login_jobno"],@[@"icon_collection"],@[@"icon_setting",@"icon_password",@"icon_feedback"]];
+    self.leftImageArray = @[@[],@[@"icon_section",@"login_jobno"],@[@"icon_collection",@"icon_news"],@[@"icon_setting",@"icon_password",@"icon_feedback"]];
     
     secondArray = @[user.groupName,user.userNum];
     seconImageArray = @[@"list_ic_set"];
@@ -239,7 +239,7 @@
         return 2;
     }
     else if (section == 2){
-        return 1;
+        return 2;
     }
     else if (section == 3){
         return 3;
@@ -277,6 +277,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (indexPath.section == 0 && indexPath.row == 0){
        UserAvaTableViewCell* Cell = [[UserAvaTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"userAva"];
         if (self.userDict != nil) {
@@ -295,6 +296,8 @@
            if (self.userAvaImage != nil) {
               [Cell.avaterImageView setImage:self.userAvaImage forState:UIControlStateNormal];
           }
+//            else
+//                [Cell.avaterImageView setImage:[UIImage imageNamed:@"face_default"] forState:UIControlStateNormal];
         }
          MJWeakSelf;
         [[Cell.avaterImageView rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -312,11 +315,9 @@
            }
         return Cell;
     }
-    
     else if (indexPath.section == 1) {
       MineTwoLabelTableViewCell*  Cell = (MineTwoLabelTableViewCell *)[[MineTwoLabelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaltCell"];
         Cell.userInteractionEnabled = NO;
-        
         Cell.leftLabel.text = self.userArray[indexPath.section][indexPath.row];
         Cell.leftImageView.image = [[UIImage imageNamed:self.leftImageArray[indexPath.section][indexPath.row]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         Cell.rightLabel.text =secondArray[indexPath.row];
@@ -335,6 +336,10 @@
         MineDetailTableViewCell *Cell = [[MineDetailTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaulttwo"];
         Cell.leftLabel.text = self.userArray[indexPath.section][indexPath.row];
         Cell.leftImageView.image = [[UIImage imageNamed:self.leftImageArray[indexPath.section][indexPath.row]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        Cell.selectedBackgroundView = cellBackGround;
         return Cell;
     }
 }
@@ -386,8 +391,15 @@
         settingCtrl.title = @"设置";
         [RootNavigationController pushViewController:settingCtrl animated:YES hideBottom:YES];
     }else if (indexPath.section == 2){
-        MyFavArticleController* vc = [[MyFavArticleController alloc] init];
-        [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
+        if (indexPath.row==0) {
+            MyFavArticleController* vc = [[MyFavArticleController alloc] init];
+            [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
+        }
+        else
+        {
+            NewPushTableView* PushVc= [[NewPushTableView alloc] init];
+            [RootNavigationController pushViewController:PushVc animated:YES hideBottom:YES];
+        }
     }
     [self.minetableView deselectRowAtIndexPath:indexPath animated:YES];
 }

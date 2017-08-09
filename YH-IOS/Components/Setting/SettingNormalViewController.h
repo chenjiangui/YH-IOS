@@ -10,7 +10,7 @@
 
 @interface SettingNormalViewController : UIViewController
 
-@property(nonatomic,strong) NSDictionary* infodict;
+@property(nonatomic,strong) NSMutableDictionary* infodict;
 @property(nonatomic,strong) NSArray* indictKey;
 
 @end

@@ -21,7 +21,9 @@
 #import "DropTableViewCell.h"
 #import "DropViewController.h"
 #import "CommentViewController.h"
+#import "YHPopMenuView.h"
 
+#define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 const static CGFloat lineHeight = 40; //一行的高度
 
 @interface SuperChartVc () <FDelegate,FDataSource,DropViewDelegate,DropViewDataSource,UIPopoverPresentationControllerDelegate>
@@ -41,12 +43,22 @@ const static CGFloat lineHeight = 40; //一行的高度
 @property (strong, nonatomic) NSArray *dropMenuTitles;
 @property (strong, nonatomic) NSArray *dropMenuIcons;
 @property (nonatomic, assign) NSInteger rowNum;
+@property (nonatomic, strong) YHPopMenuView *popView;
+@property (nonatomic, assign) BOOL rBtnSelected;
+@property (nonatomic, strong) NSMutableArray *iconNameArray;
+@property (nonatomic, strong) NSMutableArray *itemNameArray;
+
 
 @end
 
 @implementation SuperChartVc
 
 - (void)viewDidLoad {
+    
+    self.iconNameArray =[ @[@"选列",@"筛选",@"行高",@"pop_share",@"pop_talk",@"pop_flash"] mutableCopy];
+    self.itemNameArray =[ @[@"选列",@"筛选",@"行高",@"分享",@"评论",@"刷新"] mutableCopy];
+    
+    
     [super viewDidLoad];
     _isSort = NO;
     _isdownImage = YES;
@@ -112,7 +124,7 @@ const static CGFloat lineHeight = 40; //一行的高度
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"Banner-Setting"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"Banner-Setting"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     self.title = self.bannerTitle;
 }
 /** 展示菜单 */
@@ -132,6 +144,77 @@ const static CGFloat lineHeight = 40; //一行的高度
 }
 
 
+
+// 弹出框
+#pragma mark - Action
+- (void)onRightBtn:(id)sender{
+    
+    _rBtnSelected = !_rBtnSelected;
+    if (_rBtnSelected) {
+        [self showPopMenu];
+    }else{
+        [self hidePopMenuWithAnimation:YES];
+    }
+}
+- (void)showPopMenu{
+    CGFloat itemH = 40;
+    CGFloat w = 120;
+    CGFloat h = self.iconNameArray.count*itemH;
+    CGFloat x = SCREEN_WIDTH -9-120;
+    CGFloat y = -9;
+    
+    _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    _popView.iconNameArray =self.iconNameArray;
+    _popView.itemNameArray =self.itemNameArray;
+    _popView.itemH     = itemH;
+    _popView.fontSize  = 14.0f;
+    _popView.fontColor = [NewAppColor yhapp_10color];
+    _popView.canTouchTabbar = YES;
+    _popView.iconLeftSpace=15;
+    _popView.iconW=19;
+    _popView.itemNameLeftSpace=32;
+    [_popView show];
+    
+    WeakSelf;
+    [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
+        if (!isCanceled) {
+            
+            NSLog(@"点击第%ld行",(long)row);
+            if (!row) {
+            [self selectList];
+            }
+            else if(row == 1){
+            [self FilterAction];
+            }
+            else if(row == 2){
+                
+            [self selectLineSpace];
+            }
+            else if(row == 3){
+            [self actionWebviewScreenShot];
+            }
+            else if(row == 4){
+            [self actionWriteComment];
+            }
+            else if(row == 5){
+            [self getSuperChartData];
+            }
+        }
+        weakSelf.rBtnSelected = NO;
+    }];
+    
+}
+
+
+
+
+
+- (void)hidePopMenuWithAnimation:(BOOL)animate{
+    [_popView hideWithAnimation:animate];
+}
+
+
+
 #pragma 下拉菜单功能块
 - (void)initDropMenu {
     NSMutableArray *tmpTitles = [NSMutableArray array];
@@ -143,7 +226,7 @@ const static CGFloat lineHeight = 40; //一行的高度
     [tmpTitles addObject:@"行高"];
     [tmpIcons addObject:@"行高"];
     if(kSubjectShare) {
-        [tmpTitles addObject:kDropShareText];
+//        [tmpTitles addObject:kDropShareText];
         [tmpIcons addObject:@"Subject-Share"];
     }
     if(kSubjectComment) {
@@ -246,6 +329,8 @@ const static CGFloat lineHeight = 40; //一行的高度
     }];
     
 }
+
+
 
 - (void)actionWriteComment{
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

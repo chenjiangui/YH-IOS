@@ -22,7 +22,9 @@
 #import "RootTableController.h"
 #import "SelectDataModel.h"
 #import <CoreLocation/CoreLocation.h>
+#import "YHPopMenuView.h"
 
+#define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
@@ -54,6 +56,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong) UINavigationItem * navigationBarTitle;
 @property (nonatomic, strong) UINavigationBar *navigationBar;
 
+
+@property (nonatomic, strong) YHPopMenuView *popView;
+@property (nonatomic, assign) BOOL rBtnSelected;
+@property (nonatomic, strong) NSMutableArray *iconNameArray;
+@property (nonatomic, strong) NSMutableArray *itemNameArray;
+
+
 @end
 
 @implementation SubjectOutterViewController
@@ -61,6 +70,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startLocation];
+    
+    self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"icon_copylink",@"pop_flash"] mutableCopy];
+    self.itemNameArray =[ @[@"分享",@"评论",@"拷贝链接",@"刷新"] mutableCopy];
+    
+    
     self.isLoadFinish = NO;
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f9f9f9"];
     self.browser.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
@@ -101,9 +115,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
     //[self idColor];
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"SubjectViewController - Response for message from ObjC");
-    }];
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        responseCallback(@"SubjectViewController - Response for message from ObjC");
+//    }];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
     [self addWebViewJavascriptBridge];
     [self isLoadHtmlFromService];
 }
@@ -155,18 +171,82 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     bakImage.image = imageback;
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
     [_backBtn addSubview:bakImage];
-    [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     space.width = -10;
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     self.navigationBarTitle.leftBarButtonItem = leftItem;
     [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.rightItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(dropTableView:)];
+    self.rightItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     self.navigationBarTitle.rightBarButtonItem = _rightItem;
     self.title =self.bannerName;
 
 }
+
+
+// 弹出框
+#pragma mark - Action
+- (void)onRightBtn:(id)sender{
+    
+    _rBtnSelected = !_rBtnSelected;
+    if (_rBtnSelected) {
+        [self showPopMenu];
+    }else{
+        [self hidePopMenuWithAnimation:YES];
+    }
+}
+- (void)showPopMenu{
+    CGFloat itemH = 40;
+    CGFloat w = 120;
+    CGFloat h = self.iconNameArray.count*itemH;
+    CGFloat x = SCREEN_WIDTH -9-120;
+    CGFloat y = -9;
+    
+    _popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    _popView.iconNameArray =self.iconNameArray;
+    _popView.itemNameArray =self.itemNameArray;
+    _popView.itemH     = itemH;
+    _popView.fontSize  = 14.0f;
+    _popView.fontColor = [NewAppColor yhapp_10color];
+    _popView.canTouchTabbar = YES;
+    _popView.iconLeftSpace=15;
+    _popView.iconW=19;
+    _popView.itemNameLeftSpace=22;
+    [_popView show];
+    
+    WeakSelf;
+    [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
+        if (!isCanceled) {
+            
+            NSLog(@"点击第%ld行",(long)row);
+            if (!row) {
+                [self actionWebviewScreenShot];
+            }
+            else if(row == 1){
+                [self actionWriteComment];
+            }
+            else if(row == 2){
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = self.link;
+                if (![pasteboard.string isEqualToString:@""]) {
+                    [ViewUtils showPopupView:self.view Info:@"链接复制成功"];
+                }
+            }
+            else if(row == 3){
+               [self handleRefresh];
+            }
+        }
+        weakSelf.rBtnSelected = NO;
+    }];
+    
+}
+
+- (void)hidePopMenuWithAnimation:(BOOL)animate{
+    [_popView hideWithAnimation:animate];
+}
+
+
+
 
 //标识点
 
@@ -234,6 +314,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 - (void)backAction{
+    [self hidePopMenuWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
         [self.browser cleanForDealloc];

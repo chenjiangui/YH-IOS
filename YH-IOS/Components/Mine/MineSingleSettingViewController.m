@@ -18,7 +18,7 @@
 #import "LoginViewController.h"
 #import "ThurSayViewController.h"
 #import "ThurSayTableViewCell.h"
-
+#import "NewPushTableView.h"
 @interface MineSingleSettingViewController ()<UITableViewDelegate,UITableViewDataSource,UserHeadViewDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     NSArray *userInfoArray;
@@ -157,7 +157,9 @@
         }];
         
         
-        
+        UIView *cellBackGround=[[UIView alloc] init];
+        [cellBackGround setBackgroundColor:[NewAppColor yhapp_8color]];
+        cell.selectedBackgroundView = cellBackGround;
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -184,6 +186,7 @@
 }
 */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 1:{
             NSDictionary *infodict = @{@"锁屏设置":@"",@"微信分享长图":@"", @"报表操作":@"", @"清理缓存":@""};
@@ -214,33 +217,12 @@
             settingNormalView.title = userInfoArray[indexPath.row];
             [self.navigationController pushViewController:settingNormalView animated:YES];
         }
-           
             break;
         case 2:{
-            NSString *pushConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kPushConfigFileName];
-            NSMutableDictionary *pushDict = [FileUtils readConfigFile:pushConfigPath];
-            NSString* pushstate = pushDict[@"push_valid"] && [pushDict[@"push_valid"] boolValue] ? @"true" : @"false";
-            NSDictionary *devideDict = [self pushdeviceDict];
-            NSString *pushDataPath = [[FileUtils userspace] stringByAppendingPathComponent:@"pushData.plist"];
-            NSMutableDictionary *pushData = [FileUtils readConfigFile:pushDataPath];
-            NSDictionary*  pushDatavalue = pushData;
-            if ([[pushData allKeys]count] == 0) {
-                pushDatavalue = @{@"暂无数据":@"0"};
-            }
-            
-            NSDictionary *infodict;
-            NSArray* infoArray = @[@"消息推送",@"关联的设备列表",@"推送的消息列表"];
-            if (!devideDict || [devideDict allKeys].count == 0) {
-                infodict = @{@"消息推送":pushstate,@"关联的设备列表":@"" ,@"推送的消息列表":pushDatavalue};
-            }
-            else{
-                infodict = @{@"消息推送":pushstate,@"关联的设备列表":devideDict[@"devices"] ,@"推送的消息列表":pushDatavalue};
-            }
-            SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
-            settingNormalView.infodict  = infodict;
-            settingNormalView.indictKey = infoArray;
-            settingNormalView.title = userInfoArray[indexPath.row];
-            [self.navigationController pushViewController:settingNormalView animated:YES];
+          //推送消息文本
+            NewPushTableView *pushTableView=[[NewPushTableView alloc]init];
+            [self.navigationController pushViewController:pushTableView animated:YES];
+       
         }
             break;
         case 3:{

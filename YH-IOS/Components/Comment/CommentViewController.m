@@ -22,10 +22,10 @@
     self.urlString = [NSString stringWithFormat:kCommentMobilePath, kBaseUrl, [FileUtils currentUIVersion], self.objectID, @(self.commentObjectType)];
     
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"Response for message from ObjC");
-    }];
-    
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        responseCallback(@"Response for message from ObjC");
+//    }];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];    
     [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
         /*
          * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -81,11 +81,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:false];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
        self.navigationController.navigationBar.translucent = NO;
     //@{}代表Dictionary
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:kThemeColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 40)];
     UIImage *imageback = [[UIImage imageNamed:@"Banner-Back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -116,6 +116,8 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+   
+
 }
 
 #pragma mark - UIWebview pull down to refresh

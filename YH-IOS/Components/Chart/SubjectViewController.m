@@ -104,9 +104,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
     //[self idColor];
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+    /*self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
-    }];
+    }];*/
+    
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
+    
     [self addWebViewJavascriptBridge];
 }
 
@@ -532,7 +536,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+       /* NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
@@ -545,10 +549,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+       /* weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
-        }
+        }*/
     }];
      /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
          if ([data[@"state"] isEqualToString:@"show"]) {
@@ -602,18 +606,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     */
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
-       /* NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
-        NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
-        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
-        NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", weakSelf.javascriptPath];
-        NSString *selectedItem = NULL;
-        if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
-            selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
-        }
-        responseCallback(selectedItem);*/
-    }];
-    [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+       NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", weakSelf.javascriptPath];
@@ -622,6 +615,26 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
         responseCallback(selectedItem);
+    }];
+    [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+        NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+        weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
+        NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", self.javascriptPath];
+        
+        [data[@"items"] writeToFile:searchItemsPath atomically:YES];
+        self.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
+        self.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
+        
+        /**
+         *  判断筛选的条件: data[@"items"] 数组不为空
+         *  报表第一次加载时，此处为判断筛选功能的关键点
+         */
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        if(weakSelf.isSupportSearch) {
+            [weakSelf displayBannerTitleAndSearchIcon];
+        }
+
     }];
 
     

@@ -29,6 +29,7 @@
 #import <Bugly/Bugly.h>
 #import <DMPasscode/DMPasscode.h>
 
+#import "ZJNewFeatureController.h"
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
@@ -43,7 +44,12 @@
         BOOL _showingPasscode;
 }
 @property (nonatomic,assign) BOOL isReApp;
+
 @end
+
+NSString *readState=@"false";
+NSMutableDictionary *PushInfoMUDic;
+NSMutableDictionary *PushUserInfo;
 
 @implementation AppDelegate
 
@@ -80,15 +86,10 @@ void UncaughtExceptionHandler(NSException * exception) {
 -(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     
     if (self.allowRotation == YES) {
-        
         return UIInterfaceOrientationMaskAll;
-        
     }else{
-        
         return UIInterfaceOrientationMaskPortrait;
-        
     }
-    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -116,8 +117,12 @@ void UncaughtExceptionHandler(NSException * exception) {
         [FileUtils removeFile:assetsPath];
         cachedHeaderPath  = [NSString stringWithFormat:@"%@/%@", [FileUtils dirPath:kHTMLDirName], kCachedHeaderConfigFileName];
         [[NSUserDefaults standardUserDefaults] setObject:app_Version forKey:@"firstStart"];
-        GuidePageViewController *guidePage = [[GuidePageViewController alloc]init];
-        [self.window setRootViewController:guidePage];
+//        GuidePageViewController *guidePage = [[GuidePageViewController alloc]init];
+//        [self.window setRootViewController:guidePage];
+    
+        ZJNewFeatureController *NewFeatur=[[ZJNewFeatureController alloc] init];
+        [self.window setRootViewController:NewFeatur];
+        
         [FileUtils removeFile:cachedHeaderPath];
          NSString *distPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"dist"];
         if ([ FileUtils checkFileExist:distPath isDir:YES]) {
@@ -129,7 +134,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     NSDictionary* userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if(userInfo){//推送信息
        NSDictionary* userInfo1  = [userInfo copy];//[userInfo copy]
-        NSLog(@"%@",userInfo);
+        NSLog(@"%@",userInfo1);
     }
     
     //[self.window setRootViewController:initViewController];
@@ -174,7 +179,6 @@ void UncaughtExceptionHandler(NSException * exception) {
         [application registerUserNotificationSettings:setting];
     }
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
     return YES;
 }
 
@@ -185,38 +189,32 @@ void UncaughtExceptionHandler(NSException * exception) {
 
 - (void)savePushDict:(NSDictionary *)dict {
     if(!dict) { return; }
-    
     NSMutableDictionary *pushMessageDict = [NSMutableDictionary dictionaryWithDictionary:dict];
     pushMessageDict[kStatePushColumn] = @(NO);
     NSString *pushConfigPath= [[FileUtils basePath] stringByAppendingPathComponent:kPushMessageFileName];
     [pushMessageDict writeToFile:pushConfigPath atomically:YES];
 }
-
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [UMessage registerDeviceToken:deviceToken];
     NSString *pushToken = [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
                            stringByReplacingOccurrencesOfString: @">" withString: @""]
                           stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
+    NSLog(@"设备%@",pushToken);
     NSString *pushConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kPushConfigFileName];
     NSMutableDictionary *pushDict = [FileUtils readConfigFile:pushConfigPath];
     if(pushToken.length != 64 || (pushDict[@"push_valid"] && [pushDict[@"push_valid"] boolValue])) {
         return;
     }
-    
     pushDict[@"push_device_token"] = pushToken;
     pushDict[@"push_valid"] = @(NO);
     [pushDict writeToFile:pushConfigPath atomically:YES];
-    NSLog(@"设备%@",pushToken);
+    
 }
-
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //如果注册不成功，打印错误信息，可以在网上找到对应的解决方案
     //如果注册成功，可以删掉这个方法
     NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
 }
-
 /**
  *  <#Description#>
  *
@@ -229,10 +227,17 @@ void UncaughtExceptionHandler(NSException * exception) {
      },
      state: true_or_false // 接收参数时设置为 `false`
  */
+//iOS10以下使用这个方法接收通知
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [self savePushDict:userInfo];
-    NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
-    [userInfo writeToFile:pushConfigPath atomically:YES];
+    NSLog(@"远程推送数据：%@",userInfo);
+    PushInfoMUDic =[[NSMutableDictionary alloc] init];
+    [PushInfoMUDic setDictionary:userInfo];
+    
+//    NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
+//    [userInfo writeToFile:pushConfigPath atomically:YES];
+    PushUserInfo=[[NSMutableDictionary alloc] init];
+    [PushUserInfo setDictionary:userInfo];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"remotepush" object:nil userInfo:userInfo];
     [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"receiveRemote"];
     // 关闭友盟自带的弹出框
@@ -247,7 +252,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     }
 }
 
-
+//iOS10新增：处理后台点击通知的代理方法
 - (void)actionSetup {
     [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
         if (success) {
@@ -255,28 +260,88 @@ void UncaughtExceptionHandler(NSException * exception) {
         }
     }];
 }
-
-
-
 - (void) userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
 {
     /* SystemSoundID soundID = 1008;//具体参数详情下面贴出来
      //播放声音
      AudioServicesPlaySystemSound(soundID);*/
-    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+    [userInfo setDictionary:response.notification.request.content.userInfo];
+    [userInfo setObject:@"true" forKey:@"readState"];
     NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     [userInfo writeToFile:pushConfigPath atomically:YES];
+    NSMutableDictionary *InfoDic=[[NSMutableDictionary alloc] init];
+    [InfoDic setDictionary:userInfo];
+    [InfoDic setObject:[self getTime] forKey:@"PushTime"];
+    readState=@"true";
+    [InfoDic setObject:readState forKey:@"readState"];
+    //read
+    NSString *path = [FileUtils userspace];
+    NSString *plistPath = [path stringByAppendingPathComponent:@"PushInfo.plist"];
+    NSMutableArray *InfoArray=[NSMutableArray arrayWithContentsOfFile:plistPath];
+    if (InfoArray==nil) {
+        NSMutableArray *Info=[NSMutableArray array];
+        [Info addObject:InfoDic];
+        [Info writeToFile:plistPath atomically:YES];
+        //        NSLog(@"保存的数据：%@",Info);
+    }
+    else
+    {
+        [InfoArray addObject:InfoDic];
+        [InfoArray writeToFile:plistPath atomically:YES];
+        //        NSLog(@"保存的数据：%@",InfoArray);
+    }
      [self checkIsLoginThenJump];
    // [[NSNotificationCenter defaultCenter] postNotificationName:@"remotepush" object:nil];
 }
 
 #pragma mark - 程序在运行时候接收到通知
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+   //立即查看
+    NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     if (buttonIndex == 1) {
+        readState=@"true";
         [self checkIsLoginThenJump];
+        [PushInfoMUDic setObject:readState forKey:@"readState"];
+        [self saveUserinfo:PushInfoMUDic];
+        [PushUserInfo setObject:readState forKey:@"readState"];
+        [PushUserInfo writeToFile:pushConfigPath atomically:YES];
         //[alertView removeFromSuperview];
     }
+    else
+    {
+        readState=@"false";
+        [PushInfoMUDic setObject:readState forKey:@"readState"];
+        [PushUserInfo setObject:readState forKey:@"readState"];
+        [PushUserInfo writeToFile:pushConfigPath atomically:YES];
+        [self saveUserinfo:PushInfoMUDic];
+    }
 }
+//存储数据
+-(void)saveUserinfo:(NSMutableDictionary *)userInfo
+{
+    NSMutableDictionary *InfoDic=[[NSMutableDictionary alloc] init];
+    InfoDic=userInfo;
+    [InfoDic setDictionary:userInfo];
+    [InfoDic setObject:[self getTime] forKey:@"PushTime"];
+    //read
+    NSString *path = [FileUtils userspace];
+    NSString *plistPath = [path stringByAppendingPathComponent:@"PushInfo.plist"];
+    NSMutableArray *InfoArray=[NSMutableArray arrayWithContentsOfFile:plistPath];
+    if (InfoArray==nil) {
+        NSMutableArray *Info=[NSMutableArray array];
+        [Info addObject:InfoDic];
+        [Info writeToFile:plistPath atomically:YES];
+        //        NSLog(@"保存的数据：%@",Info);
+    }
+    else
+    {
+        [InfoArray addObject:InfoDic];
+        [InfoArray writeToFile:plistPath atomically:YES];
+        //        NSLog(@"保存的数据：%@",InfoArray);
+    }
+}
+
 // 获取当前页面显示的类
 - (UIViewController *)getCurrentVC {
     UIViewController *result = nil;
@@ -290,13 +355,11 @@ void UncaughtExceptionHandler(NSException * exception) {
             }
         }
     }
-    
     UIView *frontView = [[window subviews] objectAtIndex:0];
     id nextResponder = [frontView nextResponder];
     result = [nextResponder isKindOfClass:[UIViewController class]] ? nextResponder : window.rootViewController;
     return result;
 }
-
 - (void)jumpToThurSay {
     if ([[self getCurrentVC] isMemberOfClass:[LoginViewController class]]) {
         return;
@@ -401,6 +464,7 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (NSString *)passcode {
+    readState=@"true";
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     if([userDict[@"is_login"] boolValue] && [userDict[@"use_gesture_password"] boolValue]) {
@@ -440,12 +504,10 @@ void UncaughtExceptionHandler(NSException * exception) {
     NSString *localVersion = @"noexist";
     if([FileUtils checkFileExist:versionConfigPath isDir:NO]) {
         localVersion = [NSString stringWithContentsOfFile:versionConfigPath encoding:NSUTF8StringEncoding error:nil];
-        
         if(localVersion && [localVersion isEqualToString:currentVersion]) {
             isUpgrade = NO;
         }
     }
-    
     if(isUpgrade) {
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *sharedPath = [FileUtils sharedPath], *bundleZipPath, *zipPath, *assetFileName;
@@ -555,5 +617,16 @@ void UncaughtExceptionHandler(NSException * exception) {
 #pragma mark - UMeng Social Callback
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
+}
+
+-(NSString *)getTime
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY/MM/dd hh:mm:ss"];
+    NSString *DateTime = [formatter stringFromDate:date];
+    return DateTime;
 }
 @end

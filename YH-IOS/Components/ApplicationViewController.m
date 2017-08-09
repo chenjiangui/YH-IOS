@@ -60,10 +60,11 @@
 
 - (void)loadWebView {
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"DashboardViewController - Response for message from ObjC");
-    }];
-    
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        responseCallback(@"DashboardViewController - Response for message from ObjC");
+//    }];
+//    
+self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
     [self addWebViewJavascriptBridge];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -264,7 +265,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   // Dispose of any resources that can be recreated.
 }
 
 

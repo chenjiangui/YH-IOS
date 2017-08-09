@@ -82,6 +82,8 @@
 
 @property (nonatomic, strong) HudToolView* netBugView;
 
+@property (strong, nonatomic) NSMutableDictionary *remoteDict;
+
 @end
 
 @implementation JYHomeViewController
@@ -135,7 +137,68 @@
 //    [self idColor];
     [self getData:YES];
     [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
+    
+    
+    
+    NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
+    if ([FileUtils checkFileExist:pushConfigPath isDir:NO]) {
+        self.remoteDict = [[FileUtils readConfigFile:pushConfigPath] copy];
+        NSLog(@"%@",_remoteDict);
+        [self DealRemote];
+        [FileUtils removeFile:pushConfigPath];
+    }
 }
+
+-(void)DealRemote{
+    NSString *remoteType = _remoteDict[@"type"];
+    NSString *remoteState=_remoteDict[@"readState"];
+    if ([remoteState isEqualToString:@"true"]) {
+        if ([remoteType isEqualToString:@"kpi"]) {
+            return;
+        }
+        else if ([remoteType isEqualToString:@"report"]){
+            [self jumpToDetailViewWithDict:_remoteDict];
+        }
+        else if ([remoteType isEqualToString:@"message"]){
+            self.tabBarController.selectedIndex = 3;
+        }
+        else if ([remoteType isEqualToString:@"analyse"]){
+            self.tabBarController.selectedIndex = 1;
+        }
+        else if ([remoteType isEqualToString:@"app"]){
+            self.tabBarController.selectedIndex = 2;
+        }
+        else{
+            return;
+        }
+    }
+    
+  }
+
+-(void)jumpToDetailViewWithDict:(NSDictionary*)dict{
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+    subjectView.bannerName =dict[@"title"];
+    subjectView.link = dict[@"url"];
+    subjectView.commentObjectType = [dict[@"obj_type"] intValue];
+    subjectView.objectID = dict[@"obj_id"];
+    /* else if ([data[@"link"] rangeOfString:@"template/"].location != NSNotFound){
+     if ([data[@"link"] rangeOfString:@"template/5/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/1/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/2/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/3/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/4/"].location == NSNotFound) {
+     SCLAlertView *alert = [[SCLAlertView alloc] init];
+     [alert addButton:@"下一次" actionBlock:^(void) {}];
+     [alert addButton:@"立刻升级" actionBlock:^(void) {
+     NSURL *url = [NSURL URLWithString:[kPgyerUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+     [[UIApplication sharedApplication] openURL:url];
+     }];
+     [alert showSuccess:self title:@"温馨提示" subTitle:@"您当前的版本暂不支持该模块，请升级之后查看" closeButtonTitle:nil duration:0.0f];
+     }
+     }*/
+    
+    UINavigationController *subjectCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+    [self presentViewController:subjectCtrl animated:YES completion:nil];
+}
+
 
 - (void)test{ //对项目无用 一个测试 cjg
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Test" ofType:@"plist"];

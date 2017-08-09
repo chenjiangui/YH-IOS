@@ -10,8 +10,6 @@
 
 @interface MineControllerHeaderView ()
 
-
-
 @end
 
 @implementation MineControllerHeaderView
@@ -91,7 +89,6 @@
     }
     return _btn2;
 }
-
 - (UIView *)lightView{
     if (!_lightView) {
         _lightView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3.0)/2.0-12, 64-7, 24, 3)];
@@ -101,7 +98,6 @@
     }
     return _lightView;
 }
-
 - (UIView *)lineView{
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
@@ -109,6 +105,4 @@
     }
     return _lineView;
 }
-
-
 @end

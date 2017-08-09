@@ -296,6 +296,7 @@
     if (cell) {
         cell.textLabel.text = userInfoArray[indexPath.row];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
 }
@@ -313,6 +314,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+
     switch (indexPath.row) {
         case 0:{
             NSString *userRole =[NSString stringWithFormat:@"%@", user.roleName];
@@ -389,6 +392,7 @@
         }
             break;
         default:
+            
             break;
     }
 }

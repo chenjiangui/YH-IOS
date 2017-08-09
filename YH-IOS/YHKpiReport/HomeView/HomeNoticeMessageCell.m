@@ -98,7 +98,7 @@
 
 - (UIImageView *)imageV{
     if (!_imageV) {
-        _imageV = [[UIImageView alloc] initWithImage:@"icon_news".imageFromSelf];
+        _imageV = [[UIImageView alloc] initWithImage:@"icon_new".imageFromSelf];
     }
     return _imageV;
 }

@@ -21,6 +21,7 @@
 #import "LTHPasscodeViewController.h"
 #import "ExtendNSLogFunctionality.h"
 
+
 @interface BaseWebViewController : UIViewController<UIWebViewDelegate>
 
 @property WebViewJavascriptBridge* bridge;

@@ -6,6 +6,11 @@
 //  Copyright © 2017年 com.intfocus. All rights reserved.
 //
 
+#if MY_DEBUG_ENV
+[[PLeakSniffer sharedInstance] installLeakSniffer];
+//[[PLeakSniffer sharedInstance] addIgnoreList:@[@"MySingletonController"]];
+#endif
+
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
@@ -24,7 +29,7 @@
 #import "MainTabbarViewController.h"
 #import "NewAppColor.h"
 #import "HudToolView.h"
-
+#import "JYHudView.h"
 
 #pragma mark - 分类
 #import "NSString+Category.h"
@@ -83,6 +88,7 @@
 
 // 自适应设备高度
 #define adaptHeight(h) (SCREEN_HEIGHT / 667 * (h))
+
 
 
 #define JYDefaultMargin (8.0)

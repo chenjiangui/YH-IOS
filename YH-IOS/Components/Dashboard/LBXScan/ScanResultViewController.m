@@ -40,9 +40,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super viewDidLoad];
        self.storeID = @"-1";
     [WebViewJavascriptBridge enableLogging];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"DashboardViewController - Response for message from ObjC");
-    }];
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        responseCallback(@"DashboardViewController - Response for message from ObjC");
+//    }];
+self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
         
