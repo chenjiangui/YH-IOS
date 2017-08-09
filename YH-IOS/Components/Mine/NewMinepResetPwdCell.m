@@ -166,8 +166,24 @@ static  NSString *RequstPwdString;
 {
     RequstPwdString=RequestTextField.text;
 }
+
+//延时执行函数
+-(void)delayMethod
+{
+    self.contentView.userInteractionEnabled=YES;
+    [HudToolView hideLoadingInView:self.window];
+    
+}
+
 -(void)saveBtn
 {
+    self.contentView.userInteractionEnabled=NO;
+    
+    [HudToolView showLoadingInView:self.window];
+    
+    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
+    
     user = [[User alloc]init];
     if (![oldPwdString.md5 isEqualToString:user.password]) {
         [HudToolView showTopWithText:@"密码输入错误" color:[NewAppColor yhapp_11color]];
