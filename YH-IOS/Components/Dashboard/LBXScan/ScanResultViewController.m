@@ -47,17 +47,16 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [WebViewJavascriptBridge enableLogging];
     self.iconNameArray =[ @[@"pop_share",@"筛选",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"筛选",@"刷新"] mutableCopy];
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        responseCallback(@"DashboardViewController - Response for message from ObjC");
-//    }];
-self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
-    [self.bridge setWebViewDelegate:self];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+     responseCallback(@"DashboardViewController - Response for message from ObjC");
+   }];
+
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
         
         [self loadHtml];
     }];
-    [self idColor];
+   // [self idColor];
      [self addWebViewJavascriptBridge];
     self.htmlPath = [FileUtils sharedDirPath:kBarCodeScanFolderName FileName:kBarCodeScanFileName];
     self.htmlContent = [NSString stringWithContentsOfFile:self.htmlPath encoding:NSUTF8StringEncoding error:nil];

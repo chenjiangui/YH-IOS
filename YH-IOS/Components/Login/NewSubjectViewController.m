@@ -158,19 +158,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
     //[self idColor];
     [WebViewJavascriptBridge enableLogging];
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        responseCallback(@"SubjectViewController - Response for message from ObjC");
-//    }];
-    
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
-    
-    [self.bridge setWebViewDelegate:self];
-    
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        responseCallback(@"SubjectViewController - Response for message from ObjC");
+    }];
 }
-
-
-
-
 
 #pragma mark - private method
 - (void)registerNativeFunctions

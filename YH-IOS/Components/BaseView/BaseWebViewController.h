@@ -25,6 +25,7 @@
 
 
 
+
 @interface BaseWebViewController : UIViewController<UIWebViewDelegate>
 
 @property WKWebViewJavascriptBridge* bridge;

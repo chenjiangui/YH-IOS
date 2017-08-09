@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="QZf-SQ-ITK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bg_startup" translatesAutoresizingMaskIntoConstraints="NO" id="QZf-SQ-ITK">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
                             </imageView>
                         </subviews>
@@ -41,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Background" width="375" height="667"/>
+        <image name="bg_startup" width="750" height="1334"/>
     </resources>
 </document>

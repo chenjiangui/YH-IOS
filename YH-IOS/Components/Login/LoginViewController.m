@@ -554,7 +554,7 @@
         [self.progressHUD hide:YES afterDelay:1.5];
         return;
     }
-    [HudToolView hideLoadingInView:self.view];
+    [HudToolView showLoadingInView:self.view];
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
@@ -564,6 +564,7 @@
             [self.navigationController setNavigationBarHidden:NO];
         }
         [HudToolView showTopWithText:msg correct:false];
+        [HudToolView hideLoadingInView:self.view];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             // 用户行为记录, 单独异常处理，不可影响用户体验

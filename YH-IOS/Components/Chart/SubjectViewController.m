@@ -64,9 +64,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [WKWebViewJavascriptBridge enableLogging];
-    self.bridge = [WKWebViewJavascriptBridge bridgeForWebView:self.browser];
-    [self.bridge setWebViewDelegate:self];
+    [WebViewJavascriptBridge enableLogging];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        responseCallback(@"SubjectViewController - Response for message from ObjC");
+    }];
+    [self addWebViewJavascriptBridge];
+
+    
     [self addWebViewJavascriptBridge];
     [self startLocation];
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"]  mutableCopy];
@@ -89,7 +93,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
    // navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
     //[self.view addSubview:self.browser];
-//    self.browser.delegate = self;
+
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
         /*
@@ -107,10 +111,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
     //[self idColor];
-    /*self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        responseCallback(@"SubjectViewController - Response for message from ObjC");
-    }];*/
 
+   /* self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
+    [self.bridge setWebViewDelegate:self];*/
+    
+    
 }
 
 -(void)awakeFromNib{
@@ -170,7 +175,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }else{
         [self hidePopMenuWithAnimation:YES];
     }
-    
 }
 
 - (void)showPopMenu{
@@ -194,18 +198,28 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [_popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             NSLog(@"点击第%ld行",(long)row);
-            if (!row) {
-               [self actionWebviewScreenShot];
-            }
-            else if(row == 1){
+            NSString *itemName = self.dropMenuTitles[row];
+            
+            if([itemName isEqualToString:kDropCommentText]) {
                 [self actionWriteComment];
             }
-            else if(row == 2){
+            else if([itemName isEqualToString:kDropSearchText]) {
+                [self actionDisplaySearchItems];
+            }
+            else if([itemName isEqualToString:kDropShareText]) {
+                [self actionWebviewScreenShot];
+            }
+            else if ([itemName isEqualToString:kDropRefreshText]){
                 [self handleRefresh];
             }
-            else if(row == 3){
-                
+            else if ([itemName isEqualToString:kDropCopyLinkText]){
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = self.link;
+                if (![pasteboard.string isEqualToString:@""]) {
+                    [ViewUtils showPopupView:self.view Info:@"链接复制成功"];
+                }
             }
+
         }
         
         weakSelf.rBtnSelected = NO;
@@ -215,6 +229,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)hidePopMenuWithAnimation:(BOOL)animate{
     [_popView hideWithAnimation:animate];
 }
+
 
 
 //标识点
@@ -1093,6 +1108,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         viewController.templateID  = self.templateID;
     }
 }
+
 
 #pragma mark - UIWebview delegate
 
