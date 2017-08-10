@@ -16,7 +16,7 @@
 - (void)awakeFromNib {
     // Initialization code
     [super awakeFromNib];
-    [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_select@2x.png"] forState:UIControlStateSelected];
+    [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_select.png"] forState:UIControlStateSelected];
 }
 
 - (void)setBtnSelectedHandle:(MBoolBlock)block {
