@@ -81,8 +81,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      [self startLocation];
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
-    self.browser = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) ];
-
+    self.browser = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) ];    
     [self.view addSubview:_browser];
     self.browser.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
@@ -159,7 +158,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     bakImage.image = imageback;
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
     [_backBtn addSubview:bakImage];
-    [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     space.width = -20;
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
@@ -377,6 +375,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)backAction{
+    [_popView hideWithAnimation:NO];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
         self.browser.UIDelegate = nil;
@@ -990,7 +989,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - ibaction block
 - (IBAction)actionBack:(id)sender {
-     [_popView hideWithAnimation:YES];
     [super dismissViewControllerAnimated:YES completion:^{
         [self.browser stopLoading];
 //        [self.browser cleanForDealloc];
