@@ -248,9 +248,8 @@
                 }
             });
             
-            NSString *version = [UIDevice currentDevice].systemVersion;
             
-            if (version.doubleValue>=9.0) {                
+            if (YHAPPVERSION>=9.0) {                
                 if (isInnerLink) {
                     
                     NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];

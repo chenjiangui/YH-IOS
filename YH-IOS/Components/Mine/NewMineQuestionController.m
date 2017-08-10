@@ -303,10 +303,11 @@ static NSString *headerViewIdentifier = @"hederview";
                               @"platform":@"ios",
                               @"platform_version":self.version.platform
                               };
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:postString parameters:parames constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [self getBigImageArray];
         for (int i = 0; i < self.bigImageArray.count; i++) {
             UIImage *image = self.bigImageArray[i];
             NSData *data = UIImagePNGRepresentation(image);
@@ -483,10 +484,10 @@ return 1;
 - (UIImage*)getBigIamgeWithALAsset:(ALAsset*)set{
     //压缩
     // 需传入方向和缩放比例，否则方向和尺寸都不对
-    UIImage *img = [UIImage imageWithCGImage:set.defaultRepresentation.fullResolutionImage
-                                       scale:set.defaultRepresentation.scale
-                                 orientation:(UIImageOrientation)set.defaultRepresentation.orientation];
-    NSData *imageData = UIImageJPEGRepresentation(img, 0.5);
+    
+    ALAssetRepresentation * representation = [set defaultRepresentation];
+    UIImage *img = [UIImage imageWithCGImage:[representation fullScreenImage] scale:1.0 orientation:UIImageOrientationDownMirrored];
+    NSData *imageData = UIImagePNGRepresentation(img);
     [_bigImgDataArray addObject:imageData];
     
       NSLog(@"%f,%f",_pickerCollectionView.bounds.size.width,_pickerCollectionView.bounds.size.height);
@@ -575,6 +576,7 @@ return 1;
     UIImage *compressedImage = [UIImage imageWithData:imageData];
     return compressedImage;
 }
+
 //获得大图
 - (NSArray*)getBigImageArrayWithALAssetArray:(NSArray*)ALAssetArray{
     _bigImgDataArray = [NSMutableArray array];
@@ -585,6 +587,7 @@ return 1;
     _bigImageArray = bigImgArr;
     return _bigImageArray;
 }
+
 #pragma mark - 获得选中图片各个尺寸
 - (NSArray*)getALAssetArray{
     return _arrSelected;

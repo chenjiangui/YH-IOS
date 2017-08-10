@@ -124,7 +124,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
 
     [self addWebViewJavascriptBridge];
-    [self isLoadHtmlFromService];
 }
 
 -(void)awakeFromNib{
@@ -135,6 +134,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
+    [self isLoadHtmlFromService];
     //  navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     /*
      * 主题页面,允许横屏
