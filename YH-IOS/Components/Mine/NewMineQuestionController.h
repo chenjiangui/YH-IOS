@@ -17,7 +17,7 @@
 
 @end
 
-@interface NewMineQuestionController : UIViewController
+@interface NewMineQuestionController : YHBaseViewController
 
 @property (nonatomic, assign) id<HWPublishBaseViewDelegate> delegate;
 

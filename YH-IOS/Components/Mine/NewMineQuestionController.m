@@ -17,8 +17,9 @@
 #import "SCLAlertView.h"
 #import "Version.h"
 #import "APIHelper.h"
+#import "UITextView+Placeholder.h"
 
-@interface NewMineQuestionController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JJPhotoDelegate,HWImagePickerSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface NewMineQuestionController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JJPhotoDelegate,HWImagePickerSheetDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 {
     UITableView *QuestionTableView;
     UIButton *saveBtn;
@@ -64,35 +65,20 @@ static NSString *headerViewIdentifier = @"hederview";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     user = [[User alloc]init];
     self.version = [[Version alloc] init];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.navigationController setNavigationBarHidden:false];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#32414b"]}] ;
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
-    UIImage *imageback = [[UIImage imageNamed:@"newnav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    bakImage.image = imageback;
-    [bakImage setContentMode:UIViewContentModeScaleAspectFit];
-    [backBtn addTarget:self action:@selector(NewQuestionViewBack) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn addSubview:bakImage];
-    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    space.width = -20;
-    self.navigationController.navigationBar.translucent = NO;
-    UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
     [self setTableView];
 }
 -(void)setTableView
 {
     QuestionTableView=[[UITableView alloc] init];
+    QuestionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:QuestionTableView];
     QuestionTableView.scrollEnabled =NO; //设置tableview 不能滚动
     [QuestionTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
+//        make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
+        make.edges.mas_equalTo(self.view);
     }];
     [QuestionTableView setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"]];
     QuestionTableView.dataSource = self;
@@ -131,7 +117,7 @@ static NSString *headerViewIdentifier = @"hederview";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
 
-        return self.view.frame.size.height-360;
+    return 0;//self.view.frame.size.height-360;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
@@ -141,29 +127,23 @@ static NSString *headerViewIdentifier = @"hederview";
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             //添加按钮（或者其它控件）也可以写在继承自UITableViewCell的子类中,然后用子类来实例化这里的cell，将button作为子类的属性，这样添加button的触发事件的响应可以写在这里，target就是本类，方法也在本类中实现
             UILabel *opinionLabel=[[UILabel alloc] init];
-            opinionLabel.text=@"问题修改及改进意见：";
-            opinionLabel.textColor=[UIColor colorWithHexString:@"#666666"];
-            opinionLabel.font=[UIFont systemFontOfSize:15];
-            opinionLabel.textAlignment=NSTextAlignmentLeft;
+            opinionLabel.text = @"问题修改及改进意见：";
+            opinionLabel.textColor = [NewAppColor yhapp_3color];
+            opinionLabel.font = [UIFont systemFontOfSize:15];
+            opinionLabel.textAlignment = NSTextAlignmentLeft;
             [cell addSubview:opinionLabel];
-            UITextView *opinionTextview=[[UITextView alloc] init];
+            UITextView *opinionTextview = [[UITextView alloc] init];
 //            opinionTextview.text=@"请描述您遇到的问题(1-500字)";
 //            opinionTextview.font=[UIFont systemFontOfSize:15];
-            opinionTextview.textAlignment=NSTextAlignmentLeft;
-            opinionTextview.userInteractionEnabled=YES;
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineSpacing = 8;// 字体的行间距
-            NSDictionary *attributes = @{
-                                         NSFontAttributeName:[UIFont systemFontOfSize:15],
-                                         NSParagraphStyleAttributeName:paragraphStyle
-                                         };
-                opinionTextview.attributedText = [[NSAttributedString alloc] initWithString:@"请描述您遇到的问题(1-500字)" attributes:attributes];
-            
-            opinionTextview.textColor=[UIColor colorWithHexString:@"bcbcbc"];
-            
+            opinionTextview.textAlignment = NSTextAlignmentLeft;
+            opinionTextview.font = [UIFont systemFontOfSize:15];
+            opinionTextview.placeholderLabel.font = [UIFont boldSystemFontOfSize:15];
+            opinionTextview.placeholder = @"请描述您遇到的问题(1-500字)";
+            opinionTextview.userInteractionEnabled = YES;
+            opinionTextview.textColor=[NewAppColor yhapp_4color];
             opinionTextview.delegate=self;
-            opinionTextview.autoresizingMask = UIViewAutoresizingFlexibleHeight;
             opinionTextview.keyboardType = UIKeyboardTypeDefault;
+            opinionTextview.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0);
             [cell addSubview:opinionTextview];
             [opinionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(cell.mas_top).offset(16);
@@ -189,15 +169,16 @@ static NSString *headerViewIdentifier = @"hederview";
             //此部分 需要宝峰技术支持
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
             layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-            layout.headerReferenceSize=CGSizeMake(cell.contentView.frame.size.width,15);
-            layout.itemSize = CGSizeMake(40,40);
-            layout.minimumLineSpacing = 20;
-            layout.sectionInset=  UIEdgeInsetsMake(20, 16,20, 20);
-            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width,cell.contentView.frame.size.height) collectionViewLayout:layout];
+//            layout.headerReferenceSize=CGSizeMake(cell.contentView.frame.size.width,15);
+            layout.sectionInset=  UIEdgeInsetsMake(12, 16,20, 20);
+            layout.minimumLineSpacing = 4;
+            layout.minimumInteritemSpacing = 4;
+            layout.itemSize = CGSizeMake(56,56);
+            self.pickerCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,110) collectionViewLayout:layout];
             if (_showInView) {
                 [_showInView addSubview:self.pickerCollectionView];
             }else{
-                [cell.contentView addSubview:self.pickerCollectionView];
+                [cell addSubview:self.pickerCollectionView];
             }
              [self initPickerView];
         }
@@ -375,6 +356,7 @@ static NSString *headerViewIdentifier = @"hederview";
     pushImageName = @"plus.png";
     _pickerCollectionView.scrollEnabled = NO;
     [self.pickerCollectionView  registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIdentifier];
+    [self.pickerCollectionView reloadData];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -383,9 +365,10 @@ static NSString *headerViewIdentifier = @"hederview";
 return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _imageArray.count+1;
+    return  _imageArray.count==3? _imageArray.count:_imageArray.count+1;
 }
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     // Register nib file for the cell
     UINib *nib = [UINib nibWithNibName:@"HWCollectionViewCell" bundle: [NSBundle mainBundle]];
@@ -417,6 +400,8 @@ return 1;
     return cell;
 }
 
+
+
 //  返回头视图
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -429,31 +414,24 @@ return 1;
         return header;
     }
     return nil;
-}  
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    return CGSizeMake(SCREEN_WIDTH, 30);
+}
+
 -(UILabel*)addContent
 {
     UILabel *oscreenshotLabel=[[UILabel alloc] init];
     oscreenshotLabel.text=@"页面截图(最多3张)：";
-    oscreenshotLabel.textColor=[UIColor colorWithHexString:@"#666666"];
+    oscreenshotLabel.textColor=[NewAppColor yhapp_3color];
     oscreenshotLabel.font=[UIFont systemFontOfSize:15];
-    oscreenshotLabel.frame=CGRectMake(16,16, self.view.frame.size.width, 15);
+    oscreenshotLabel.frame=CGRectMake(16,15, self.view.frame.size.width, 15);
     return oscreenshotLabel;
         //headerLaber=oscreenshotLabel;
 }
 
 #pragma mark <UICollectionViewDelegate>
-////定义每个UICollectionView 的大小
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return CGSizeMake(([UIScreen mainScreen].bounds.size.width-64) /4 ,([UIScreen mainScreen].bounds.size.width-64) /4);
-////    return CGSizeMake(60, 60);
-//}
-//
-////定义每个UICollectionView 的 margin
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    return UIEdgeInsetsMake(20, 8, 20, 8);
-//}
 
 #pragma mark - 图片cell点击事件
 //点击图片看大图
@@ -514,8 +492,8 @@ return 1;
     [_imageArray removeObjectAtIndex:sender.tag];
     [_arrSelected removeObjectAtIndex:sender.tag];
     
-    
-    [self.pickerCollectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:sender.tag inSection:0]]];
+    [self.pickerCollectionView reloadData];
+//    [self.pickerCollectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:sender.tag inSection:0]]];
     
     for (NSInteger item = sender.tag; item <= _imageArray.count; item++) {
         HWCollectionViewCell *cell = (HWCollectionViewCell*)[self.pickerCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:0]];
@@ -528,7 +506,7 @@ return 1;
 
 #pragma mark - 改变view，collectionView高度
 - (void)changeCollectionViewHeight{
-    
+    return;
     if (_collectionFrameY) {
         _pickerCollectionView.frame = CGRectMake(0, _collectionFrameY, [UIScreen mainScreen].bounds.size.width, (((float)[UIScreen mainScreen].bounds.size.width-64.0) /4.0 +20.0)* ((int)(_arrSelected.count)/4 +1)+20.0);
     }
@@ -610,7 +588,6 @@ return 1;
 -(void)NewQuestionViewBack
 {
     [self.navigationController popViewControllerAnimated:YES];
-    [super didReceiveMemoryWarning];
 }
 
 

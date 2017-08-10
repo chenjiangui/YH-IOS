@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,37 +21,36 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZiX-rq-HMB">
-                        <rect key="frame" x="5" y="5" width="60" height="60"/>
+                        <rect key="frame" x="15" y="15" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="60" id="8d3-TG-bU2"/>
-                            <constraint firstAttribute="width" constant="60" id="vvh-7R-sjD"/>
+                            <constraint firstAttribute="width" constant="40" id="EJC-cr-Wwo"/>
+                            <constraint firstAttribute="width" secondItem="ZiX-rq-HMB" secondAttribute="height" multiplier="1:1" id="Pux-mW-nsd"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgH-El-Rwp">
-                        <rect key="frame" x="50" y="0.0" width="20" height="20"/>
+                        <rect key="frame" x="43" y="3" width="24" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="De3-Qs-RQD"/>
-                            <constraint firstAttribute="height" constant="20" id="qmq-np-W18"/>
+                            <constraint firstAttribute="height" constant="24" id="NJt-sj-wBc"/>
+                            <constraint firstAttribute="width" constant="24" id="oHT-Vs-0Wy"/>
                         </constraints>
-                        <state key="normal" title="Button" image="close.png"/>
+                        <state key="normal" image="btn_deletepic"/>
                     </button>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ZiX-rq-HMB" secondAttribute="bottom" constant="5" id="31t-K2-0sg"/>
-                <constraint firstItem="ZiX-rq-HMB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="8xt-Ol-o99"/>
-                <constraint firstItem="rgH-El-Rwp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Iji-rJ-WqS"/>
-                <constraint firstItem="ZiX-rq-HMB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="Ik1-lr-umS"/>
-                <constraint firstAttribute="trailing" secondItem="rgH-El-Rwp" secondAttribute="trailing" id="UBd-3x-uty"/>
-                <constraint firstAttribute="trailing" secondItem="ZiX-rq-HMB" secondAttribute="trailing" constant="5" id="mCj-l6-OOV"/>
+                <constraint firstItem="ZiX-rq-HMB" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="0Le-bE-S2D"/>
+                <constraint firstItem="rgH-El-Rwp" firstAttribute="centerX" secondItem="ZiX-rq-HMB" secondAttribute="trailing" id="8hd-hg-d2z"/>
+                <constraint firstItem="rgH-El-Rwp" firstAttribute="centerY" secondItem="ZiX-rq-HMB" secondAttribute="top" id="nUf-3H-a8x"/>
+                <constraint firstItem="ZiX-rq-HMB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="zY2-7w-6GH"/>
             </constraints>
             <connections>
                 <outlet property="closeButton" destination="rgH-El-Rwp" id="e9t-bS-GLr"/>
                 <outlet property="profilePhoto" destination="ZiX-rq-HMB" id="7ko-3Z-uQI"/>
             </connections>
+            <point key="canvasLocation" x="3" y="84"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="close.png" width="20" height="20"/>
+        <image name="btn_deletepic" width="16" height="16"/>
     </resources>
 </document>
