@@ -13,6 +13,7 @@
 #import "YHHttpRequestAPI.h"
 #import "NoticeWarningModel.h"
 #import "YHWarningNoticeHeaderView.h"
+#import "NoticeDetailViewController.h"
 
 @interface YHWarningNoticeController () <UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -107,6 +108,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NoticeDetailViewController *noticeDetail = [[NoticeDetailViewController alloc]init];
+    BaseModel *itemmodel = self.dataList[indexPath.row];
+    noticeDetail.noticeID = itemmodel.identifier;
+    [RootNavigationController pushViewController:noticeDetail animated:YES hideBottom:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }

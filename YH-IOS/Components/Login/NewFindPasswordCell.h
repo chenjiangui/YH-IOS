@@ -19,15 +19,19 @@
 #import "FileUtils+Assets.h"
 
 @interface NewFindPasswordCell : UITableViewCell
+
+@property WebViewJavascriptBridge* bridge;
 @property (nonatomic, strong) UIView *navBar;
 @property (nonatomic, strong) UILabel *versionLabel;
 @property (nonatomic, strong) Version *version;
 @property (nonatomic, strong) UIWebView *webView;
-@property WebViewJavascriptBridge* bridge;
-@property (strong, nonatomic) User *user;
-@property (strong, nonatomic) NSString *assetsPath;
+@property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSString *assetsPath;
+@property (nonatomic, strong) UIButton *upDataBtn;
+
 -(void)PeopleNumberDidChange:(UITextField*)PeopleNumber;
 -(void)PhoneNumberDidChange:(UITextField*)PhoneNumber;
 -(void)upTodata;
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andType:(NSString*)type;
+
 @end

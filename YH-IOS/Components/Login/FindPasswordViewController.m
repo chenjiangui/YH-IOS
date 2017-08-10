@@ -219,12 +219,57 @@
     else{
         static NSString *Identifier = @"Cell4";
         NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
+        
         if (cell == nil) {
             cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"upDataBtn"];
         }
         return cell;
     }
 }
+
+-(void)upTodata
+{
+    
+    [HudToolView showLoadingInView:self.view];
+    
+    NSString *userNum = PeopleString;
+    NSString *userPhone = PhoneString;
+    NSLog(@"%@%@",userNum,userPhone);
+    if (userNum && userPhone) {
+        HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
+        NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"info"]];
+        SCLAlertView *alert = [[SCLAlertView alloc] init];
+        if ([reponse.statusCode isEqualToNumber:@(201)]) {
+            [HudToolView hideLoadingInView:self.view];
+            [alert addButton:@"重新登录" actionBlock:^(void){
+            }];
+            [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
+            [self  dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                /*
+                 * 用户行为记录, 单独异常处理，不可影响用户体验
+                 */
+                @try {
+                    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                    logParams[@"action"] = @"找回密码";
+                    [APIHelper actionLog:logParams];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"%@", exception);
+                }
+            });
+        }
+        else {
+            [HudToolView showTopWithText:message color:[NewAppColor yhapp_11color]];
+        }
+    }
+    else
+    {
+        [HudToolView hideLoadingInView:self.view];
+        [HudToolView showTopWithText:@"信息有误，请重新输入" color:[NewAppColor yhapp_11color]];
+    }
+}
+
 - (void)backAction{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
