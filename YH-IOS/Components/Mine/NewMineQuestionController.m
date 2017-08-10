@@ -18,7 +18,7 @@
 #import "Version.h"
 #import "APIHelper.h"
 
-@interface NewMineQuestionController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JJPhotoDelegate,HWImagePickerSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource,HWPublishBaseViewDelegate>
+@interface NewMineQuestionController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,JJPhotoDelegate,HWImagePickerSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 {
     UITableView *QuestionTableView;
     UIButton *saveBtn;
@@ -278,31 +278,23 @@ static NSString *headerViewIdentifier = @"hederview";
 }
 
 
-//延时执行函数
--(void)delayMethod
-{
-    self.view.userInteractionEnabled=YES;
-    [HudToolView hideLoadingInView:self.view];
-    
-}
 -(void)saveBtn
 {
-    [HudToolView showLoadingInView:self.view];
-    self.view.userInteractionEnabled=NO;
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
     if ([questionProblemText length]==0) {
 //         [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见为空" closeButtonTitle:nil duration:1.0f];
         [HudToolView showTopWithText:@"您的反馈意见为空" color:[NewAppColor yhapp_11color]];
-        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
-
         return;
     }
     else if ([questionProblemText length]>=500) {
 //        [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见长度超长" closeButtonTitle:nil duration:1.0f];
         [HudToolView showTopWithText:@"您的反馈意见长度超长" color:[NewAppColor yhapp_11color]];
-        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
         return;
     }
     else{
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
@@ -311,24 +303,30 @@ static NSString *headerViewIdentifier = @"hederview";
                               @"platform":@"ios",
                               @"platform_version":self.version.platform
                               };
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:postString parameters:parames constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [self getBigImageArray];
-        for (int i = 0; i < _bigImageArray.count; i++) {
-            UIImage *image = _bigImageArray[i];
+        for (int i = 0; i < self.bigImageArray.count; i++) {
+            UIImage *image = self.bigImageArray[i];
             NSData *data = UIImagePNGRepresentation(image);
-            NSLog(@"%@+%@",[NSString stringWithFormat:@"image%d",i],[NSString stringWithFormat:@"image%d.png",i]);
             [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"image%d",i] fileName:[NSString stringWithFormat:@"image%d.png",i] mimeType:@"multipart/form-data"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
         NSLog(@"%@",dic);
+        [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
         if ([dic[@"code"] isEqualToNumber:@(201)]) {
+            
+            [alert addButton:@"确定" actionBlock:^(void) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            [alert addButton:@"取消" actionBlock:^(void) {
+            }];
+//            [alert showSuccess:self title:@"温馨提示" subTitle:@"提交成功" closeButtonTitle:nil duration:0.0f];
             [HudToolView showTopWithText:@"提交成功" color:[NewAppColor yhapp_1color]];
-            [self NewQuestionViewBack];
-            [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 /*
                  * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -339,15 +337,21 @@ static NSString *headerViewIdentifier = @"hederview";
             });
         }
         else{
+            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert addButton:@"重试" actionBlock:^(void) {
+                [self saveBtn];
+            }];
+            [alert addButton:@"取消" actionBlock:^(void) {
+            }];
 //            [alert showSuccess:self title:@"温馨提示" subTitle:@"上传失败" closeButtonTitle:nil duration:0.0f];
             [HudToolView showTopWithText:@"上传失败" color:[NewAppColor yhapp_11color]];
-            [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",@"上传失败了");
-         [HudToolView showTopWithText:@"上传失败，请重试" color:[NewAppColor yhapp_11color]];
-        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+        [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+        [ViewUtils showPopupView:self.view Info:@"上传失败，请重试"];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -404,7 +408,7 @@ return 1;
     //添加图片cell点击事件
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProfileImage:)];
     singleTap.numberOfTapsRequired = 1;
-    cell.profilePhoto.userInteractionEnabled = YES;
+    cell.profilePhoto .userInteractionEnabled = YES;
     [cell.profilePhoto  addGestureRecognizer:singleTap];
     cell.closeButton.tag = [indexPath item];
     [cell.closeButton addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
@@ -480,10 +484,10 @@ return 1;
 - (UIImage*)getBigIamgeWithALAsset:(ALAsset*)set{
     //压缩
     // 需传入方向和缩放比例，否则方向和尺寸都不对
-    UIImage *img = [UIImage imageWithCGImage:set.defaultRepresentation.fullResolutionImage
-                                       scale:set.defaultRepresentation.scale
-                                 orientation:(UIImageOrientation)set.defaultRepresentation.orientation];
-    NSData *imageData = UIImageJPEGRepresentation(img, 0.5);
+    
+    ALAssetRepresentation * representation = [set defaultRepresentation];
+    UIImage *img = [UIImage imageWithCGImage:[representation fullScreenImage] scale:1.0 orientation:UIImageOrientationDownMirrored];
+    NSData *imageData = UIImagePNGRepresentation(img);
     [_bigImgDataArray addObject:imageData];
     
       NSLog(@"%f,%f",_pickerCollectionView.bounds.size.width,_pickerCollectionView.bounds.size.height);
@@ -572,6 +576,7 @@ return 1;
     UIImage *compressedImage = [UIImage imageWithData:imageData];
     return compressedImage;
 }
+
 //获得大图
 - (NSArray*)getBigImageArrayWithALAssetArray:(NSArray*)ALAssetArray{
     _bigImgDataArray = [NSMutableArray array];
@@ -582,10 +587,12 @@ return 1;
     _bigImageArray = bigImgArr;
     return _bigImageArray;
 }
+
 #pragma mark - 获得选中图片各个尺寸
 - (NSArray*)getALAssetArray{
     return _arrSelected;
 }
+
 - (NSArray*)getBigImageArray{
     
     return [self getBigImageArrayWithALAssetArray:_arrSelected];

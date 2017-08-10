@@ -24,21 +24,12 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:NO];
     [self.tabBarController.tabBar setHidden:YES];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
     self.user = [[User alloc]init];
-    _bgView = [[UIView alloc]init];
-    _bgView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:_bgView];
-    
-    
-    [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.top).mas_offset(64);
-        make.left.mas_equalTo(self.view.left).mas_offset(10);
-        make.right.mas_equalTo(self.view.right).mas_offset(-10);
-        make.bottom.mas_equalTo(self.view.bottom).mas_offset(-10);
-    }];
+    [self setupUI];
    // [self setupToolUI];
     // Do any additional setup after loading the view.
 }
@@ -133,50 +124,50 @@
     
     UILabel *titieLable = [[UILabel alloc]init];
     titieLable.text = self.messageNotice.title;
-    titieLable.font = [UIFont boldSystemFontOfSize:16];
-    titieLable.textColor = [UIColor colorWithHexString:@"#000"];
+    titieLable.font = [UIFont boldSystemFontOfSize:22.5];
+    titieLable.textColor = [NewAppColor yhapp_6color];
     titieLable.textAlignment = NSTextAlignmentLeft;
-    [_bgView addSubview:titieLable];
+    [self.view addSubview:titieLable];
     
     UILabel *timeLable = [[UILabel alloc]init];
     timeLable.textColor = [UIColor colorWithHexString:@"#6e6e6e"];
     timeLable.font = [UIFont systemFontOfSize:11];
     timeLable.textAlignment = NSTextAlignmentRight;
     timeLable.text =self.messageNotice.time;
-    [_bgView addSubview:timeLable];
+   // [_bgView addSubview:timeLable];
     
     UIWebView *contentLable = [[UIWebView alloc]init];
+    contentLable.backgroundColor = [NewAppColor yhapp_clearcolor];
    // contentLable.textColor = [UIColor colorWithHexString:@"#6e6e6e"];
   //  contentLable.font = [UIFont systemFontOfSize:12];
     //contentLable.userInteractionEnabled = NO;
    // contentLable.text  = self.messageNotice.content;
     [contentLable loadHTMLString:self.messageNotice.content baseURL:nil];
-    [_bgView addSubview:contentLable];
+    [self.view addSubview:contentLable];
     
 
     
     
     [titieLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.superview.top).mas_offset(20);
-        make.left.mas_equalTo(self.view.superview.left).mas_offset(0);
-        make.height.mas_equalTo(24);
-        make.width.mas_equalTo(180);
+        make.top.mas_equalTo(self.view.top).mas_offset(14);
+        make.left.mas_equalTo(self.view.left).mas_offset(20);
+        make.right.mas_equalTo(self.view.mas_right).mas_offset(-20);
     }];
     
-    
-    [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.superview.top).mas_offset(20);
-        make.right.mas_equalTo(self.view.superview.right).mas_offset(0);
-        make.height.mas_equalTo(24);
-        make.width.mas_equalTo(140);
-    }];
+//    
+//    [timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.view.superview.top).mas_offset(20);
+//        make.right.mas_equalTo(self.view.superview.right).mas_offset(0);
+//        make.height.mas_equalTo(24);
+//        make.width.mas_equalTo(140);
+//    }];
     
     
     [contentLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view.superview.top).mas_offset(50);
-        make.right.mas_equalTo(self.view.superview.right).mas_offset(-10);
-        make.bottom.mas_offset(self.view.superview.bottom).mas_offset(0);
-        make.left.mas_equalTo(self.view.superview.left).mas_offset(10);
+        make.top.mas_equalTo(titieLable.mas_bottom).mas_offset(30);
+        make.right.mas_equalTo(self.view.right).mas_offset(-20);
+        make.bottom.mas_offset(self.view.mas_bottom).mas_offset(-10);
+        make.left.mas_equalTo(self.view.left).mas_offset(20);
     }];
 }
 

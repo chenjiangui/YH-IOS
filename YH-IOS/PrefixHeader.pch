@@ -75,6 +75,9 @@
 #define kSNumber @"number"
 
 
+// 系统
+#define YHAPPVERSION [[UIDevice currentDevice].systemVersion doubleValue]
+
 #define JYScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define JYScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define JYViewWidth CGRectGetWidth(self.bounds)
