@@ -108,12 +108,10 @@ static bool logging = false;
             if (!handler) {
                 [NSException raise:@"WVJBNoHandlerException" format:@"No handler for message from JS: %@", message];
             }
-            
             handler(message[@"data"], responseCallback);
         }
     }
 }
-
 - (void)injectJavascriptFile:(BOOL)shouldInject {
     if(shouldInject){
         NSBundle *bundle = _resourceBundle ? _resourceBundle : [NSBundle mainBundle];

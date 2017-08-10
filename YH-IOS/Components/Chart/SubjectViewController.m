@@ -88,6 +88,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
     //[self.view addSubview:self.browser];
     self.browser.delegate = self;
+    self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
         /*
@@ -110,8 +111,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
     
-   /* self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser];
-    [self.bridge setWebViewDelegate:self];*/
     
     [self addWebViewJavascriptBridge];
 }
@@ -173,6 +172,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }else{
         [self hidePopMenuWithAnimation:YES];
     }
+    
 }
 
 - (void)showPopMenu{
@@ -204,19 +204,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             else if([itemName isEqualToString:kDropSearchText]) {
                 [self actionDisplaySearchItems];
             }
-            else if([itemName isEqualToString:kDropShareText]) {
-                [self actionWebviewScreenShot];
-            }
-            else if ([itemName isEqualToString:kDropRefreshText]){
-                [self handleRefresh];
-            }
-            else if ([itemName isEqualToString:kDropCopyLinkText]){
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = self.link;
-                if (![pasteboard.string isEqualToString:@""]) {
-                    [ViewUtils showPopupView:self.view Info:@"链接复制成功"];
-                }
-            }
 
         }
         
@@ -227,7 +214,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)hidePopMenuWithAnimation:(BOOL)animate{
     [_popView hideWithAnimation:animate];
 }
-
 
 
 //标识点
@@ -1107,7 +1093,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         viewController.templateID  = self.templateID;
     }
 }
-
 
 #pragma mark - UIWebview delegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

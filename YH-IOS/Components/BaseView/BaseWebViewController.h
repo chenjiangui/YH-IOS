@@ -30,9 +30,7 @@
 @property (strong, nonatomic) NSString *assetsPath;
 @property (strong, nonatomic) NSString *sharedPath;
 @property (strong, nonatomic) User *user;
-
 @property (strong, nonatomic) UIWebView *browser;
-
 - (void)clearBrowserCache;
 - (void)showLoading:(LoadingType)loadingType;
 - (void)jumpToLogin;

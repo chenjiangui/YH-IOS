@@ -158,7 +158,7 @@
 }
 
 + (BOOL) isNetworkAvailable3 {
-  __block  BOOL isExistenceNetwork = YES;
+    __block  BOOL isExistenceNetwork = YES;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
@@ -252,7 +252,7 @@
     if(![self checkFileExist:filePath isDir:NO]) {
         [HttpUtils clearHttpResponeHeader:urlString assetsPath:assetsPath];
     }
-
+    
     HttpResponse *httpResponse = [self checkResponseHeader:urlString assetsPath:assetsPath];
     
     if([httpResponse.statusCode isEqualToNumber:@(200)]) {
@@ -278,10 +278,13 @@
  *  @return html路径
  */
 + (NSString *)urlConvertToLocal:(NSString *)urlString content:(NSString *)htmlContent assetsPath:(NSString *)assetsPath writeToLocal:(NSString *)writeToLocal {
-
+    
     NSError *error = nil;
     NSString *filename = [self urlTofilename:urlString suffix:@".html"][0];
-    NSString *filepath = [assetsPath stringByAppendingPathComponent:filename];
+    NSString *filepath = [[FileUtils sharedPath] stringByAppendingPathComponent:filename];
+    
+    
+    NSString *filepathSets= [assetsPath stringByAppendingPathComponent:filename];
     
     NSString *assetLocalPath;
     NSData *htmlData = [htmlContent dataUsingEncoding:NSUTF8StringEncoding];
@@ -321,6 +324,8 @@
     
     [htmlContent writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
+     [htmlContent writeToFile:filepathSets atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
     return filepath;
 }
 
@@ -342,11 +347,11 @@
     NSError *error = nil;
     NSString *filename = [self urlTofilename:urlString suffix:@".html"][0];
     NSString *filepath = [assetsPath stringByAppendingPathComponent:filename];
-
+    
     NSString *assetLocalPath, *tagUrl;
     NSData *htmlData = [htmlContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *doc = [[TFHpple alloc] initWithHTMLData:htmlData];
-
+    
     // <script src="../*.js"></script>
     NSArray *elements = [doc searchWithXPathQuery:@"//script"];
     for(TFHppleElement *element in elements) {
@@ -437,7 +442,7 @@
         htmlContent = [htmlContent stringByReplacingOccurrencesOfString:href withString:[self urlConcatHyplink:urlString path:href]];
     }
     
-
+    
     [htmlContent writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
     return filepath;
@@ -449,9 +454,9 @@
     NSString *filepath = [assetsPath stringByAppendingPathComponent:filename];
     
     HttpResponse *httpResponse = [self checkResponseHeader:tagUrl assetsPath:assetsPath];
-
+    
     if([httpResponse.statusCode isEqualToNumber:@(200)] ||
-      ([httpResponse.statusCode isEqualToNumber:@(304)] && ![self checkFileExist:filepath isDir:NO])) {
+       ([httpResponse.statusCode isEqualToNumber:@(304)] && ![self checkFileExist:filepath isDir:NO])) {
         
         NSString *assetContent = nil;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
@@ -466,11 +471,11 @@
 
 + (void)writeAssetFile:(NSString *)assetUrl filePath:(NSString *)filePath assetContent:(NSString *)assetContent {
     NSString *assetExt = [filePath pathExtension];
-	    
+    
     if([self include:@[@"js", @"css"] object:assetExt]) {
         
         assetContent = assetContent ?: [self httpGet:assetUrl].string;
-
+        
         [assetContent writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
     else if([self include:@[@"png", @"jpg", @"jpeg", @"gif", @"ico", @"icon", @"zip"] object:assetExt]) {
@@ -636,11 +641,11 @@
     if([self checkFileExist:userAgentPath isDir:NO]) {
         userAgent = [NSString stringWithContentsOfFile:userAgentPath encoding:NSUTF8StringEncoding error:nil];
     }
-//    else {
-//        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-//        userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-//        [userAgent writeToFile:userAgentPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-//    }
+    //    else {
+    //        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    //        userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    //        [userAgent writeToFile:userAgentPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    //    }
     
     return userAgent;
 }
@@ -660,11 +665,11 @@
     
     NSString *gravatarConfigPath = [FileUtils dirPath:kConfigDirName FileName:kGravatarConfigFileName];
     [FileUtils writeJSON:gravatarDict Into:gravatarConfigPath];
-
+    
     // 测试用 url
- //   NSURL *imageurl = [NSURL URLWithString:@"http:192.168.0.137:3000/api/v1/user/1/render/program"];
+    //   NSURL *imageurl = [NSURL URLWithString:@"http:192.168.0.137:3000/api/v1/user/1/render/program"];
     NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
- //  AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:imageurl];
+    //  AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:imageurl];
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     AFHTTPRequestOperation *op = [manager POST:uploadPath parameters:@{} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"gravatar" fileName:imageName mimeType:@"image/jpg"];

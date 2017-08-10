@@ -104,8 +104,20 @@ static  NSString *PhoneString;
 {
     PhoneString=PhoneNumber.text;
 }
+//延时执行函数
+-(void)delayMethod
+{
+    self.contentView.userInteractionEnabled=YES;
+    [HudToolView hideLoadingInView:self.window];
+    
+}
 -(void)upTodata
 {
+    self.contentView.userInteractionEnabled=NO;
+    
+    [HudToolView showLoadingInView:self.window];
+    
+    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
          NSString *userNum = PeopleString;
          NSString *userPhone = PhoneString;

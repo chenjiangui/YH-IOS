@@ -21,6 +21,7 @@
 #import "SubjectOutterViewController.h"
 #import "JYDemoViewController.h"
 #import "RefreshTool.h"
+#import "NewSubjectViewController.h"
 
 @interface YHReportViewController () <RefreshToolDelegate>
 {
@@ -246,30 +247,63 @@
                     NSLog(@"%@", exception);
                 }
             });
-            if (isInnerLink) {
-                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                
-                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                
-//                NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
-                subjectView.bannerName = item.listName;
-                subjectView.link = targeturl;
-                subjectView.commentObjectType = ObjectTypeAnalyse;
-                subjectView.objectID = @(item.itemID);
-                UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-                [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
+            
+            NSString *version = [UIDevice currentDevice].systemVersion;
+            
+            if (version.doubleValue>=9.0) {                
+                if (isInnerLink) {
+                    
+                    NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
+                    subjectView.bannerName = item.listName;
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeAnalyse;
+                    subjectView.objectID = @(item.itemID);
+                    UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+                    [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                }
+                else{
+                    
+                    SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
+                    subjectView.bannerName = item.listName;
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeAnalyse;
+                    subjectView.objectID = @(item.itemID);
+                    //UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+                    
+                    [weakSelf.navigationController presentViewController:subjectView animated:YES completion:nil];
+                }
             }
-            else{
-                
-                SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
-                subjectView.bannerName = item.listName;
-                subjectView.link = targeturl;
-                subjectView.commentObjectType = ObjectTypeAnalyse;
-                subjectView.objectID = @(item.itemID);
-                //UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-                
-                [weakSelf.navigationController presentViewController:subjectView animated:YES completion:nil];
+            else
+            {
+                if (isInnerLink) {
+                    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    
+                    SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+                    subjectView.bannerName = item.listName;
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeAnalyse;
+                    subjectView.objectID = @(item.itemID);
+                    UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+                    [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                }
+                else{
+                    
+                    SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
+                    subjectView.bannerName = item.listName;
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeAnalyse;
+                    subjectView.objectID = @(item.itemID);
+                    //UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+                    
+                    [weakSelf.navigationController presentViewController:subjectView animated:YES completion:nil];
+                }
+
             }
+            
+            
+            
+            
+            
         }
     }
 }

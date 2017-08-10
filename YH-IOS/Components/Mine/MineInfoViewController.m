@@ -72,6 +72,7 @@
         user.userNum = 0;
     }
     secondArray = @[user.groupName,  user.userNum];
+
     seconImageArray = @[@"list_ic_set"];
      [self setupTableView];
 }

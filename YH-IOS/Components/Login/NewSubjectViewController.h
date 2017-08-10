@@ -13,8 +13,7 @@
 #import "APIHelper.h"
 #import "FileUtils+Assets.h"
 #import <MBProgressHUD.h>
-#import "WebViewJavascriptBridge.h"
-//use wkwebview
+#import "WKWebViewJavascriptBridge.h"
 #import "UMSocialControllerService.h"
 #import "HttpResponse.h"
 #import <SCLAlertView.h>
@@ -23,6 +22,7 @@
 #import "LTHPasscodeViewController.h"
 #import "ExtendNSLogFunctionality.h"
 #import <WebKit/WebKit.h>
+#import "SDWebView.h"
 
 #define WeakSelf  __weak typeof(*&self) weakSelf = self;
 
@@ -30,14 +30,14 @@
 
 
 //@property (assign) id <WebViewJavascriptBridgeBaseDelegate> bridgeDelegate;
-@property WebViewJavascriptBridge* bridge;
+@property WKWebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSString *assetsPath;
 @property (strong, nonatomic) NSString *sharedPath;
 @property (strong, nonatomic) User *user;
 
-@property (strong, nonatomic) WKWebView *browser;
+@property (strong, nonatomic) SDWebView *browser;
 
 - (void)clearBrowserCache;
 - (void)showLoading:(LoadingType)loadingType;
