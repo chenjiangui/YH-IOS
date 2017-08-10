@@ -1500,10 +1500,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self addWebViewJavascriptBridge];
     
     
-    
-    
-    
-    
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.images.length"] completionHandler:^(id _Nullable response, NSError * _Nullable error) {
         
         

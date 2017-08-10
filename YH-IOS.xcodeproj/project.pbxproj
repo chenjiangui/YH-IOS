@@ -1200,8 +1200,8 @@
 		B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineResetPwdController.m; sourceTree = "<group>"; };
 		B6CB159D1F39B41700FA3E2E /* NewManualInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewManualInputViewController.h; sourceTree = "<group>"; };
 		B6CB159E1F39B41700FA3E2E /* NewManualInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewManualInputViewController.m; sourceTree = "<group>"; };
-		B6E43FF51F3AF9C70077360D /* NewSubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSubjectViewController.h; sourceTree = "<group>"; };
-		B6E43FF61F3AF9C70077360D /* NewSubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSubjectViewController.m; sourceTree = "<group>"; };
+		B6E43FF51F3AF9C70077360D /* NewSubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewSubjectViewController.h; path = ../Login/NewSubjectViewController.h; sourceTree = "<group>"; };
+		B6E43FF61F3AF9C70077360D /* NewSubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewSubjectViewController.m; path = ../Login/NewSubjectViewController.m; sourceTree = "<group>"; };
 		B6E43FFE1F3B02C50077360D /* SDBrowserdConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserdConfig.h; sourceTree = "<group>"; };
 		B6E43FFF1F3B02C50077360D /* SDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageView.h; sourceTree = "<group>"; };
 		B6E440001F3B02C50077360D /* SDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageView.m; sourceTree = "<group>"; };
@@ -3227,6 +3227,8 @@
 				C4C6283C1C0C1ED6000AD5D8 /* SubjectViewController.m */,
 				918302611F1B98690039B8CD /* SubjectOutterViewController.h */,
 				918302621F1B98690039B8CD /* SubjectOutterViewController.m */,
+				B6E43FF51F3AF9C70077360D /* NewSubjectViewController.h */,
+				B6E43FF61F3AF9C70077360D /* NewSubjectViewController.m */,
 			);
 			name = Subject;
 			path = Chart;
@@ -3252,8 +3254,6 @@
 				C4C628421C0C1ED6000AD5D8 /* LoginViewController.m */,
 				F691E5E21E28835C00BDC73E /* FindPasswordViewController.h */,
 				F691E5E31E28835C00BDC73E /* FindPasswordViewController.m */,
-				B6E43FF51F3AF9C70077360D /* NewSubjectViewController.h */,
-				B6E43FF61F3AF9C70077360D /* NewSubjectViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";

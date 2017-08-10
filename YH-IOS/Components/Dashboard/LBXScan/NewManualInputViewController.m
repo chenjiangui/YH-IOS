@@ -73,7 +73,7 @@
 
 -(void)setupUI
 {
-    [self.view sd_addSubviews:@[self.InputView,self.InputNum,self.OpenLightbtn,self.OpenLabel]];
+    [self.view sd_addSubviews:@[self.InputView,self.InputNum,self.OpenLightbtn]];
 
     
     [InputNum mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -194,23 +194,41 @@
     }
 }
 
-- (UILabel *)OpenLabel{
-    if (!OpenLabel) {
-        OpenLabel =[[UILabel alloc] init];
-        OpenLabel.text=@"打开手电筒";
-        OpenLabel.textColor=[UIColor whiteColor];
-        OpenLabel.font=[UIFont systemFontOfSize:12];
-        
-    }
-    return OpenLabel;
-}
-
+//- (UILabel *)OpenLabel{
+//    if (!OpenLabel) {
+//        OpenLabel =[[UILabel alloc] init];
+//        OpenLabel.text=@"打开手电筒";
+//        OpenLabel.textColor=[UIColor whiteColor];
+//        OpenLabel.font=[UIFont systemFontOfSize:12];
+//        
+//    }
+//    return OpenLabel;
+//}
+//
+//- (UIButton *)OpenLightbtn{
+//    if (!OpenLight) {
+//        OpenLight =[[UIButton alloc] init];
+//        [OpenLight addTarget:self action:@selector(OpenLight) forControlEvents:UIControlEventTouchUpInside];
+//        OpenLight.tag=100;
+//        [OpenLight setBackgroundImage:[UIImage imageNamed:@"btn_lightoff"] forState:UIControlStateNormal];
+//    }
+//    return OpenLight;
+//}
 - (UIButton *)OpenLightbtn{
     if (!OpenLight) {
-        OpenLight =[[UIButton alloc] init];
-        [OpenLight addTarget:self action:@selector(OpenLight) forControlEvents:UIControlEventTouchUpInside];
-        OpenLight.tag=100;
-        [OpenLight setBackgroundImage:[UIImage imageNamed:@"btn_lightoff"] forState:UIControlStateNormal];
+        
+        OpenLight = [UIButton buttonWithType:UIButtonTypeCustom];
+        OpenLight.titleLabel.font = [UIFont systemFontOfSize:15];
+        [OpenLight setTitle:@"开启手电筒" forState:UIControlStateNormal];
+        [OpenLight setTitle:@"关闭手电筒" forState:UIControlStateSelected];
+        [OpenLight setImage:@"btn_lightoff".imageFromSelf forState:UIControlStateNormal];
+        [OpenLight setImage:@"btn_lighton".imageFromSelf forState:UIControlStateHighlighted];
+        [OpenLight setImage:@"btn_lighton".imageFromSelf forState:UIControlStateSelected];
+        [OpenLight setTitleColor:[NewAppColor yhapp_7color] forState:UIControlStateHighlighted];
+        [OpenLight setTitleColor:[NewAppColor yhapp_7color] forState:UIControlStateSelected];
+//        [OpenLight addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+//            [weakSelf openOrCloseFlash];
+//        }];
     }
     return OpenLight;
 }
