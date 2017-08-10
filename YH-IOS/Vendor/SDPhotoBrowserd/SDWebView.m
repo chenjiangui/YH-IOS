@@ -216,8 +216,8 @@
 - (UIProgressView *)progressView {
     if(!_progressView) {
         _progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
-        _progressView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 3);
-        _progressView.progressTintColor = [UIColor blueColor];
+        _progressView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 4);
+        _progressView.progressTintColor = [NewAppColor yhapp_1color];
         _progressView.trackTintColor = [UIColor clearColor];
         [self addSubview:_progressView];
     }

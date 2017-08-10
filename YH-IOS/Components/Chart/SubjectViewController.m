@@ -27,7 +27,6 @@
 #import "ScreenModel.h"
 #import "SelectLocationView.h"
 
-#define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifier";
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
@@ -1202,8 +1201,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (SelectLocationView *)screenView{
     if (!_screenView) {
         _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
+        WeakSelf;
         _screenView.selectBlock = ^(ScreenModel* item) {
-            
+            NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
+            NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID]];
+            [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
         };
     }
     return _screenView;

@@ -257,25 +257,32 @@ static NSString *headerViewIdentifier = @"hederview";
     textView.textColor=[UIColor colorWithHexString:@"#32414b"];
     questionProblemText=textView.text;
 }
-
+//延时执行函数
+-(void)delayMethod
+{
+    self.view.userInteractionEnabled=YES;
+    [HudToolView hideLoadingInView:self.view];
+    
+}
 
 -(void)saveBtn
 {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
+        [HudToolView showLoadingInView:self.view];
+        
+        self.view.userInteractionEnabled=NO;
     
     if ([questionProblemText length]==0) {
-//         [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见为空" closeButtonTitle:nil duration:1.0f];
         [HudToolView showTopWithText:@"您的反馈意见为空" color:[NewAppColor yhapp_11color]];
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
         return;
     }
     else if ([questionProblemText length]>=500) {
-//        [alert showSuccess:self title:@"温馨提示" subTitle:@"您的反馈意见长度超长" closeButtonTitle:nil duration:1.0f];
         [HudToolView showTopWithText:@"您的反馈意见长度超长" color:[NewAppColor yhapp_11color]];
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
         return;
     }
     else{
-    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
@@ -300,13 +307,12 @@ static NSString *headerViewIdentifier = @"hederview";
         [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
         if ([dic[@"code"] isEqualToNumber:@(201)]) {
             
-            [alert addButton:@"确定" actionBlock:^(void) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
-            [alert addButton:@"取消" actionBlock:^(void) {
-            }];
-//            [alert showSuccess:self title:@"温馨提示" subTitle:@"提交成功" closeButtonTitle:nil duration:0.0f];
             [HudToolView showTopWithText:@"提交成功" color:[NewAppColor yhapp_1color]];
+
+            
+            [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+            
+            [self NewQuestionViewBack];
 
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 /*
@@ -318,21 +324,19 @@ static NSString *headerViewIdentifier = @"hederview";
             });
         }
         else{
-            [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"重试" actionBlock:^(void) {
-                [self saveBtn];
-            }];
-            [alert addButton:@"取消" actionBlock:^(void) {
-            }];
-//            [alert showSuccess:self title:@"温馨提示" subTitle:@"上传失败" closeButtonTitle:nil duration:0.0f];
             [HudToolView showTopWithText:@"上传失败" color:[NewAppColor yhapp_11color]];
+
+            [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+           
 
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",@"上传失败了");
-        [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-        [ViewUtils showPopupView:self.view Info:@"上传失败，请重试"];
+  
+        [HudToolView showTopWithText:@"上传失败，请重试" color:[NewAppColor yhapp_11color]];
+
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验

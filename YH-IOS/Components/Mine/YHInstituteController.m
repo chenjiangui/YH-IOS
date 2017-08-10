@@ -129,10 +129,8 @@
     instiDetail.userId = [NSString stringWithFormat:@"%@",user.userID];
     instiDetail.dataId = model.identifier;
     [RootNavigationController pushViewController:instiDetail animated:YES hideBottom:YES];
-    
-
-    
 }
+
 #pragma mark - lazy init
 - (UITableView *)tableView{
     if (!_tableView) {

@@ -74,18 +74,16 @@
     secondArray = @[user.groupName,  user.userNum];
 
     seconImageArray = @[@"list_ic_set"];
-     [self setupTableView];
+    [self setupTableView];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-}
-
--(void)viewDidAppear:(BOOL)animated{
     [self BindDate];
     [self getData];
 }
+
 
 -(void)getData{
     RACSignal *requestSingal = [self.requestCommane execute:nil];
@@ -181,13 +179,13 @@
     self.minetableView.delegate = self;
     self.minetableView.dataSource = self;
     self.minetableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.minetableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getData];
-    }];
    // UINib *mineInfoCell = [UINib nibWithNibName:@"MineInfoTableViewCell" bundle:nil];
     //[self.minetableView registerNib:mineInfoCell forCellReuseIdentifier:@"MineInfoTableViewCell"];
     self.minetableView.tableFooterView = [self LogoutFooterView];
     
+    [self.minetableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
   //  [self.mineHeaderView.avaterImageView sd_setImageWithURL:self.person.icon];
 }
 
@@ -401,7 +399,7 @@
             MyFavArticleController* vc = [[MyFavArticleController alloc] init];
             [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
         }
-        else
+        else  
         {
             NewPushTableView* PushVc= [[NewPushTableView alloc] init];
             [RootNavigationController pushViewController:PushVc animated:YES hideBottom:YES];

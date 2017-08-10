@@ -9,6 +9,8 @@
 #import "MyFavArticleController.h"
 #import "YHHttpRequestAPI.h"
 #import "ArticlesModel.h"
+#import "YHInstituteDetailViewController.h"
+#import "User.h"
 
 @interface MyFavArticleController ()
 
@@ -33,6 +35,7 @@
     if (downPull) {
         page = 1;
     }
+    
     [YHHttpRequestAPI yh_getFavArticleListPage:page Finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
         [HudToolView hideLoadingInView:self.view];
         [self.reTool endRefreshDownPullEnd:true topPullEnd:true reload:false noMore:false];
@@ -49,6 +52,16 @@
         }
     }];
 
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YHInstituteDetailViewController *instiDetail = [[YHInstituteDetailViewController alloc]init];
+    ArticlesModel* model = self.dataList[indexPath.row];
+    User* user = [[User alloc]init];
+    instiDetail.userId = [NSString stringWithFormat:@"%@",user.userID];
+    instiDetail.dataId = model.acticleId;
+    [RootNavigationController pushViewController:instiDetail animated:YES hideBottom:YES];
 }
 
 - (void)collecArticle:(ArticlesModel *)articlesModel isFav:(BOOL)isFav{
