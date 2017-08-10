@@ -166,7 +166,7 @@
     [contentLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(titieLable.mas_bottom).mas_offset(30);
         make.right.mas_equalTo(self.view.right).mas_offset(-20);
-        make.bottom.mas_offset(self.view.mas_bottom).mas_offset(-10);
+        make.bottom.mas_equalTo(self.view.mas_bottom).mas_offset(-10);
         make.left.mas_equalTo(self.view.left).mas_offset(20);
     }];
 }
