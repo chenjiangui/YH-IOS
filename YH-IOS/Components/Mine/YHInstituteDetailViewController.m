@@ -7,9 +7,10 @@
 //
 
 #import "YHInstituteDetailViewController.h"
+#import "SDWebView.h"
 
-@interface YHInstituteDetailViewController ()<UIWebViewDelegate>
-@property (nonatomic,strong)UIWebView *webView;
+@interface YHInstituteDetailViewController ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
+@property (nonatomic,strong)SDWebView *webView;
 
 @end
 
@@ -19,13 +20,11 @@
     [super viewDidLoad];
     NSString *kpiString = [NSString stringWithFormat:@"%@/mobile/v2/user/%@/article/%@",kBaseUrl,self.userId,self.dataId];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kpiString]];
-    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    self.webView.delegate = self;
-    [MRProgressOverlayView showOverlayAddedTo:_webView title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    self.webView = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.webView.webDelegate = self;
     [_webView loadRequest:request];
     [self.view addSubview:_webView];
-   // [MRProgressOverlayView dismissOverlayForView:self.webView animated:YES];
- //   // Do any additional setup after loading the view.
+  
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -40,27 +39,10 @@
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     space.width = -20;
     self.navigationController.navigationBar.translucent = NO;
-    UILabel *banBtn = [[UILabel alloc]initWithFrame:CGRectMake(34, 2, 30, 40)];
-    banBtn.text = @"返回";
-    banBtn.textColor = [UIColor colorWithHexString:@"#000"];
-    banBtn.font = [UIFont systemFontOfSize:14];
-    [backBtn addSubview:banBtn];
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)webViewDidFinishLoad:(UIWebView *)webView {
-    [MRProgressOverlayView dismissOverlayForView:self.webView animated:YES];
-}
-
--(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [MRProgressOverlayView dismissOverlayForView:self.webView animated:YES];
-}
 
 -(void)backAction {
     [self.navigationController popViewControllerAnimated:YES];

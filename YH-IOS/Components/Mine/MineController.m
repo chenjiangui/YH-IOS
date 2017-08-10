@@ -238,6 +238,7 @@
     if (!_scrollVc) {
         _scrollVc = [[ScrollControllersVc alloc] initWithControllers:@[self.warningVc,self.instituteVc,self.mineInfoVc]];
         _scrollVc.view.frame = self.view.bounds;
+        [self addChildViewController:_scrollVc];
         MJWeakSelf;
         _scrollVc.scaleBack = ^(NSNumber* item) {
 //            DLog(@"%f",item.floatValue);
