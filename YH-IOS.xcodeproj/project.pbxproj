@@ -3220,6 +3220,8 @@
 		C4C6283A1C0C1ED6000AD5D8 /* Subject */ = {
 			isa = PBXGroup;
 			children = (
+				B6E43FF51F3AF9C70077360D /* NewSubjectViewController.h */,
+				B6E43FF61F3AF9C70077360D /* NewSubjectViewController.m */,
 				91D4D6821F08BF970087783C /* NewSelectView */,
 				914509731F02244800ED82D6 /* SelectView */,
 				C4E93F0C1D38BFC000DBEC90 /* ReportSelector */,

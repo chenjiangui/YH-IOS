@@ -13,6 +13,7 @@
 #import "YHHttpRequestAPI.h"
 #import "NoticeWarningModel.h"
 #import "YHWarningNoticeHeaderView.h"
+#import "NoticeDetailViewController.h"
 
 @interface YHWarningNoticeController () <UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -107,6 +108,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NoticeDetailViewController *noticeDetail = [[NoticeDetailViewController alloc]init];
+    BaseModel *itemmodel = self.dataList[indexPath.row];
+    noticeDetail.noticeID = itemmodel.identifier;
+    [RootNavigationController pushViewController:noticeDetail animated:YES hideBottom:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
@@ -161,7 +166,7 @@
         model4.identifier = @"3";
         model4.message = @"报表评论";
         model4.isSelected = true;
-        _typesArray = @[model1,model2,model3,model4];
+        _typesArray = @[model4,model3,model2,model1];
     }
     return _typesArray;
 }

@@ -134,8 +134,8 @@
         MJWeakSelf;
         _flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _flashBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_flashBtn setTitle:@"开启手电筒" forState:UIControlStateNormal];
         [_flashBtn setTitle:@"关闭手电筒" forState:UIControlStateSelected];
+        [_flashBtn setTitle:@"开启手电筒" forState:UIControlStateNormal];
         [_flashBtn setImage:@"btn_lightoff".imageFromSelf forState:UIControlStateNormal];
         [_flashBtn setImage:@"btn_lighton".imageFromSelf forState:UIControlStateHighlighted];
         [_flashBtn setImage:@"btn_lighton".imageFromSelf forState:UIControlStateSelected];

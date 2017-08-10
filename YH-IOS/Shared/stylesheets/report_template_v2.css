@@ -181,6 +181,7 @@ a.no-style:link {
 
 
 
+
 /*
  *  报表表格固定表头
  */
@@ -247,6 +248,7 @@ a.no-style:link {
 
 
 
+
 /*cbh*/
 
 .before-qin:before {}
@@ -260,6 +262,7 @@ a.no-style:link {
     background: url('../images/btn_inf.png') left top no-repeat;
     background-size: 100%;
 }
+
 
 
 
@@ -378,6 +381,7 @@ background-color: white;
 
 
 
+
 }
 abbr[data-original-title],
 abbr[title] {
@@ -419,6 +423,7 @@ img.comment-avatar {
 
 
 
+
 /*
  * thursday say
  */
@@ -437,6 +442,7 @@ img.comment-avatar {
     color: darkgray;
     text-align: center;
 }
+
 
 
 
@@ -673,6 +679,7 @@ img.comment-avatar {
 
 
 
+
 /* ham SingleValue */
 
 /*.area {
@@ -781,6 +788,7 @@ img.comment-avatar {
     top: 34px;
     color: ＃323232;
 }
+
 
 
 
@@ -1187,6 +1195,7 @@ table.dataTable thead td {
 
 
 
+
 /*
 table.dataTable thead th, table.dataTable thead td{  vertical-align: middle; border-bottom: 1px solid #E2E2E2;}
 tr td, th td{ white-space: nowrap !important; font-size: 12px; word-wrap:break-word; overflow: hidden;  }
@@ -1320,8 +1329,309 @@ table.fixedHeader-floating thead .sorting_desc {
 table.dataTable thead .sorting,
 table.fixedHeader-floating thead .sorting {
     background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
-    /*background: #f1f1f1;*/
+    background: #f1f1f1;
 }
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+
 
 
 
@@ -1391,6 +1701,7 @@ table.fixedHeader-floating thead .sorting {
     width: 0;
     height: 0
 }
+
 
 
 

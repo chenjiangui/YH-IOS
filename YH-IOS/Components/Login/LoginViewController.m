@@ -128,6 +128,7 @@
     _passwordNumber=[[UITextField alloc] init];
     [self.view addSubview:_passwordNumber];
     [_passwordNumber setSecureTextEntry:YES];
+    _passwordNumber.placeholder = @"密码";
     _passwordNumber.font=[UIFont systemFontOfSize:16];
     _passwordNumber.textAlignment=NSTextAlignmentLeft;
     _passwordNumber.textColor=[UIColor colorWithHexString:@"#666666"];
@@ -551,9 +552,9 @@
 //add: 登录按钮事件
 - (void)loginBtnClick {
 
-    self.view.userInteractionEnabled=NO;
-    
     [HudToolView showLoadingInView:self.view];
+    
+    self.view.userInteractionEnabled=NO;
     
     
     if ([self.peopleNumString length]==0) {
@@ -565,9 +566,9 @@
     else if ([self.passwordNumString length] == 0) {
         [HudToolView showTopWithText:@"请输入密码" correct:false];
         [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
-
         return;
     }
+    
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];

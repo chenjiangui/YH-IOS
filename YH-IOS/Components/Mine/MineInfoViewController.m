@@ -65,7 +65,14 @@
     self.userArray = @[@[],@[@"归属部门",@"工号"],@[@"文章收藏",@"消息"],@[@"设置",@"修改密码",@"问题反馈"]];
     titleIameArray = @[@"list_ic_person",@"list_ic_department"];
     self.leftImageArray = @[@[],@[@"icon_section",@"login_jobno"],@[@"icon_collection",@"icon_news"],@[@"icon_setting",@"icon_password",@"icon_feedback"]];
-    secondArray = @[SafeText(user.groupName),SafeText(user.userNum)];
+    if (user.groupName == nil) {
+        user.groupName = @(0);
+    }
+    if (user.userNum == nil) {
+        user.userNum = 0;
+    }
+    secondArray = @[user.groupName,  user.userNum];
+
     seconImageArray = @[@"list_ic_set"];
      [self setupTableView];
 }

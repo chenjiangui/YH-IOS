@@ -28,8 +28,8 @@
         [self.btnCheckMark addTarget:self action:@selector(actionBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.btnCheckMark];
         
-        [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_select"] forState:UIControlStateSelected];
-        [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_nomal"] forState:UIControlStateNormal];
+        [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_select.png"] forState:UIControlStateSelected];
+        [self.btnCheckMark setImage:[UIImage imageNamed:@"ico_check_nomal.png"] forState:UIControlStateNormal];
     }
     return self;
 }

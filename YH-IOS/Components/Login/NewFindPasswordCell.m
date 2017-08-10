@@ -125,12 +125,9 @@ static  NSString *PhoneString;
             if (userNum && userPhone) {
                 HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
                 NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"info"]];
-                SCLAlertView *alert = [[SCLAlertView alloc] init];
                 if ([reponse.statusCode isEqualToNumber:@(201)]) {
-                    [alert addButton:@"重新登录" actionBlock:^(void){
-                    }];
                     [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
-                    [[self viewController] dismissModalViewControllerAnimated:YES];
+                    [[self viewController] dismissViewControllerAnimated:YES completion:nil];
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         /*
                          * 用户行为记录, 单独异常处理，不可影响用户体验
