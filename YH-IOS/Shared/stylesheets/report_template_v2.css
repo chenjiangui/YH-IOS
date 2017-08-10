@@ -9,19 +9,26 @@
  *
  * fixed: SingleValue 计算值小数位未约束，导致爆屏
  */
+
 body:before {
     background: white;
 }
-ul,ol {list-style:none;}
+
+ul,
+ol {
+    list-style: none;
+}
+
 .page-body {
     background: #FFF none repeat scroll 0% 0%;
     padding: 1px 0px 24px;
 }
 
-h5.row-title, h6.row-title {
-    line-height: 17px;
-    margin: 0px 0px;
-    padding: 9px 10px 9px 14px;
+h5.row-title,
+h6.row-title {
+    œ line-height: 17px;
+    margin: 5px 0px;
+    padding: 0px 10px 0px 14px;
     display: inline-block;
     color: #595b57;
     font-weight: 400;
@@ -31,7 +38,12 @@ h5.row-title, h6.row-title {
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
-h1.row-title::before, h2.row-title::before, h3.row-title::before, h4.row-title::before, h5.row-title::before, h6.row-title::before {
+h1.row-title::before,
+h2.row-title::before,
+h3.row-title::before,
+h4.row-title::before,
+h5.row-title::before,
+h6.row-title::before {
     display: block;
     content: "";
     position: absolute;
@@ -101,7 +113,8 @@ h1.row-title::before, h2.row-title::before, h3.row-title::before, h4.row-title::
     opacity: 0.5;
 }
 
-a.no-style:hover, a.no-style:link {
+a.no-style:hover,
+a.no-style:link {
     text-decoration: none;
     color: white;
 }
@@ -114,24 +127,24 @@ a.no-style:hover, a.no-style:link {
     /*cbh*/
     background-color: #51aa38;
     border: 0px solid white;
-/*cbh*/
+    /*cbh*/
     border-right-color: #EEE;
-/*cbh*/
+    /*cbh*/
     border-bottom-color: #EEE;
-/*cbh*/
+    /*cbh*/
     color: #fff;
-    padding: 0 10px;
+    padding: 0px;
 }
 
-.dashboard-box .box-days .day-container.highlight,.dashboard-box .box-days .day-container.highlight:hover {
+.dashboard-box .box-days .day-container.highlight,
+.dashboard-box .box-days .day-container.highlight:hover {
     /* background-color: white; */
     /* border: 1px solid #fbfbfb; */
-/*cbh*/
+    /*cbh*/
     /* border-right-color: #eee; */
-/*newcbh*/
+    /*newcbh*/
     background: #51aa38;
-
-/*cbh*/
+    /*cbh*/
 }
 
 .water-mark {
@@ -148,9 +161,31 @@ a.no-style:hover, a.no-style:link {
     opacity: 0.4;
     filter: alpha(opacity=40);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
  *  报表表格固定表头
  */
+
 .fixed-header {
     position: relative;
     padding-top: 32px;
@@ -167,7 +202,8 @@ a.no-style:hover, a.no-style:link {
     table-layout: fixed;
 }
 
-.fixed-header th,  .fixed-header .table thead > tr > th {
+.fixed-header th,
+.fixed-header .table thead>tr>th {
     height: 0;
     line-height: 0;
     padding-top: 0;
@@ -191,35 +227,87 @@ a.no-style:hover, a.no-style:link {
     color: darkgray;
 }
 
-.bg-qin {
+.bg-qin {}
 
-}/*cbh*/
-.before-qin:before {
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*cbh*/
+
+.before-qin:before {}
 
 .qin {
-    width: 15px; height: 15px; display: block; margin-top: 11px; line-height: 15px; background: url('../images/btn_inf.png') left top no-repeat; background-size: 100%;
-}/*cbh*/
+    width: 15px;
+    height: 15px;
+    display: block;
+    margin-top: 11px;
+    line-height: 15px;
+    background: url('../images/btn_inf.png') left top no-repeat;
+    background-size: 100%;
+}
 
 
-h1.row-title::before, h2.row-title::before, h3.row-title::before, h4.row-title::before, h5.row-title::before, h6.row-title::before {
-    background-color: #53a93f;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*cbh*/
+
+h1.row-title::before,
+h2.row-title::before,
+h3.row-title::before,
+h4.row-title::before,
+h5.row-title::before,
+h6.row-title::before {
+    background-color: #53a93f;
+    /*cbh*/
     height: 20px;
     margin-top: 7px;
     margin-bottom: 7px;
     margin-left: -4px!important;
     display: none;
-/*cbh*/
+    /*cbh*/
 }
 
-h5.row-title, h6.row-title {
+h5.row-title,
+h6.row-title {
     color: #595b57;
-/*cbh*/
+    /*cbh*/
     font-size: 16px;
     display: block;
-    padding: 5px;
+    padding: 0px 10px;
 }
 
 .icon-list {
@@ -249,13 +337,11 @@ h5.row-title, h6.row-title {
 
 .icon-list li a {
     text-decoration: none;
-    color: #323232;
-    //cbh
+    color: #323232; //cbh
 }
 
 .icon-list .icon {
-    display: block;
-    // width: 60px;
+    display: block; // width: 60px;
     height: 40px;
     margin: 25px auto;
     background-size: contain;
@@ -273,35 +359,71 @@ h5.row-title, h6.row-title {
     font-size: 12px;
     padding: 4px 0px 0;
 }
-//.tab-content {
-    background-color: white;
-}
 
-abbr[data-original-title], abbr[title] {
+//.tab-content {
+background-color: white;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+abbr[data-original-title],
+abbr[title] {
     cursor: none;
     border-bottom: 0px dotted #777;
 }
-
 img.comment-avatar {
     margin-top: 10px;
     margin-left: 7px;
 }
-
 .no-padding-left: {
     padding-left: 0px;
 }
-
+.no-margin-right: {
+    margin-right: 0px;
+}
+.no-padding-left: {
+    padding-left: 0px;
+}
 .no-margin-right: {
     margin-right: 0px;
 }
 
-.no-padding-left: {
-    padding-left: 0px;
-}
 
-.no-margin-right: {
-    margin-right: 0px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
  * thursday say
  */
@@ -309,19 +431,36 @@ img.comment-avatar {
     padding-left: 10px;
     padding-right: 10px;
 }
-
 .thursday-say-timestamp {
     color: lightgray;
     display: block;
     text-align: right;
     margin-top: -10px;
 }
-
 .thursday-not-say {
     margin-top: 100px;
     color: darkgray;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
  * kpi display arrow
@@ -335,38 +474,50 @@ img.comment-avatar {
 .kpi-item-col {
     margin-left: 2%;
     margin-bottom: 2%;
-    width:47%;
-    height:auto;
-    background:#fff;
-    color:#333;
+    width: 47%;
+    height: auto;
+    background: #fff;
+    color: #333;
     border-radius: 5;
     /*-moz-box-shadow: 2px 2px 10px #909090;*/
     /*-webkit-box-shadow: 2px 2px 10px #909090;*/
     /*box-shadow:1px 1px 4px #979797;*/
 }
 .databox .kpi-databox-number {
-    font-size: 16px;/*ham*/
+    font-size: 16px;
+    /*ham*/
+
     width: 60%;
-    line-height: 30px;/*ham*/
-    color: #323232;/*cbh fontcolor ham*/
+    line-height: 30px;
+    /*ham*/
+
+    color: #323232;
+    /*cbh fontcolor ham*/
     /*margin-top: 3px;*/
-    float: left;/*ham*/
-    font-weight: normal;/*cbh*/
+
+    float: left;
+    /*ham*/
+
+    font-weight: normal;
+    /*cbh*/
+
     margin-top: -8px!important;
     margin-left: 4px!important;
     font-family: PingFang SC!important;
 }
-.databox .databox-vertical .databox-top, .text-align-left {
+.databox .databox-vertical .databox-top,
+.text-align-left {
     text-align: left!important;
 }
-.databox .databox-vertical .databox-top, .text-align-center {
+.databox .databox-vertical .databox-top,
+.text-align-center {
     text-align: center!important;
 }
 .databox .databox-text {
-    margin:4px 4px 2px!important;
+    margin: 4px 4px 2px!important;
 }
 .databox.kpi-radius-bordered {
-    border:solid 1px #D8D8D8;
+    border: solid 1px #D8D8D8;
     border-radius: 5px;
 }
 .databox .kpi-number {
@@ -405,7 +556,7 @@ img.comment-avatar {
     border-right-style: solid;
     border-right-color: transparent;
     border-top-style: solid;
-    border-top-color: rgba(234, 67, 53,100);
+    border-top-color: rgba(234, 67, 53, 100);
     margin-right: 5%;
     border-bottom-style: initial;
     border-bottom-color: initial;
@@ -417,7 +568,7 @@ img.comment-avatar {
     border-right-style: solid;
     border-right-color: transparent;
     border-top-style: solid;
-    border-top-color: rgba(52,168,83,100);
+    border-top-color: rgba(52, 168, 83, 100);
     margin-right: 5%;
     border-bottom-style: initial;
     border-bottom-color: initial;
@@ -429,7 +580,7 @@ img.comment-avatar {
     border-right-style: solid;
     border-right-color: transparent;
     border-top-style: solid;
-    border-top-color: rgba(251,188,5,100);
+    border-top-color: rgba(251, 188, 5, 100);
     margin-right: 5%;
     border-bottom-style: initial;
     border-bottom-color: initial;
@@ -441,7 +592,7 @@ img.comment-avatar {
     border-right-style: solid;
     border-right-color: transparent;
     border-bottom-style: solid;
-    border-bottom-color: rgba(234, 67, 53,100);
+    border-bottom-color: rgba(234, 67, 53, 100);
     margin-right: 10%;
     border-top-style: initial;
     border-top-color: initial;
@@ -453,7 +604,7 @@ img.comment-avatar {
     border-right-style: solid;
     border-right-color: transparent;
     border-bottom-style: solid;
-    border-bottom-color: rgba(52,168,83,100);
+    border-bottom-color: rgba(52, 168, 83, 100);
     margin-right: 5%;
     border-top-style: initial;
     border-top-color: initial;
@@ -465,7 +616,7 @@ img.comment-avatar {
     border-right-style: solid;
     border-right-color: transparent;
     border-bottom-style: solid;
-    border-bottom-color: rgba(251,188,5,100);
+    border-bottom-color: rgba(251, 188, 5, 100);
     margin-right: 5%;
     border-top-style: initial;
     border-top-color: initial;
@@ -477,33 +628,60 @@ img.comment-avatar {
 .databox .databox-number {
     display: block;
     font-size: 17px;
-    line-height: 28px;/*cbh*/
-    margin: 4px;/*cbh*/
+    line-height: 28px;
+    /*cbh*/
+
+    margin: 4px;
+    /*cbh*/
+
     position: relative;
-    font-family: 'Lucida Sans','trebuchet MS',Arial,Helvetica;
-    /*font-weight: 700*//*cbh*/
+    font-family: 'Lucida Sans', 'trebuchet MS', Arial, Helvetica;
+    /*font-weight: 700*/
+    /*cbh*/
 }
 .kpi-data-unit {
     font-size: 13px;
 }
-
 @media only screen and (max-width: 320px) {
     .kpi-arrow-data {
         font-size: 14px;
         width: 66%;
     }
+
     .databox .databox-number {
         font-size: 14px;
     }
+
     .databox .kpi-databox-number {
         font-size: 14px;
     }
+
     .kpi-data-unit {
         font-size: 10px;
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ham SingleValue */
+
 /*.area {
     padding: 2px;
     visibility: inherit;
@@ -513,8 +691,7 @@ img.comment-avatar {
     height: 300px;
 }*/
 .block {
-    width: 100%
-    height: 300px;
+    width: 100% height: 300px;
     background-color: #fff;
 }
 .block-liner {
@@ -526,11 +703,10 @@ img.comment-avatar {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-
-
 .block-header {
     font-size: 17px;
     /*font-weight: normal;*/
+
     line-height: 25px;
     padding-left: 15px;
     vertical-align: middle;
@@ -543,7 +719,6 @@ img.comment-avatar {
     position: relative;
     box-sizing: border-box;
 }
-
 .triangle-down {
     border-width: 9px 6px 0px;
     border-left-style: solid;
@@ -604,13 +779,33 @@ img.comment-avatar {
     bottom: 0;
     display: inline-block;
     /*float: left;*/
+
     left: 0;
     /*overflow: hidden;*/
     /*position: absolute;*/
+
     right: 0;
     top: 34px;
     color: ＃323232;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*.total-label {
@@ -630,6 +825,7 @@ img.comment-avatar {
     right: 0;
     /*width: 50%;*/
     /*text-align: right;*/
+
     margin-right: 70px;
     height: 37px;
     z-index: 20;
@@ -637,6 +833,7 @@ img.comment-avatar {
 .field-label {
     font-size: 14px;
     /*font-weight: bold;*/
+
     height: 22px;
     float: left;
     margin-left: 20px;
@@ -650,16 +847,19 @@ img.comment-avatar {
 .field-value-label {
     font-size: 14px;
     /*font-weight: normal;*/
+
     height: 27px;
     position: absolute;
     /*right: 20px;*/
     /*text-align: right;*/
+
     top: 30px;
     /*width: 45%;*/
 }
 .total-label {
     font-size: 14px;
     /*font-weight: normal;*/
+
     height: 22px;
     margin-left: 20px;
     float: left;
@@ -673,10 +873,12 @@ img.comment-avatar {
 .total-value-label {
     font-size: 14px;
     /*font-weight: normal;*/
+
     height: 22px;
     position: absolute;
     /*right: 20px;*/
     /*text-align: right;*/
+
     top: 48px;
     /*width: 50%;*/
 }
@@ -684,12 +886,15 @@ img.comment-avatar {
     /*width: auto;*/
     /*left: 10px;*/
     /*right: 10px;*/
+
     top: 50%;
     margin-top: 61px;
     /*margin-left: 130px;*/
+
     font-size: 40px;
     /*text-align: center;*/
     /*display: block;*/
+
     line-height: 120px;
     height: 120px;
     /*vertical-align: middle;*/
@@ -697,51 +902,312 @@ img.comment-avatar {
 .trend-wrapper {
     line-height: 114px;
 }
-.databox .databox-stat{ position: initial; margin: 0; padding: 0; top: 0; height: 44px; line-height: 44px; float: left; }
-.databox .databox-stat .stat-text{  font-size: 14px; color: #595b57; }
-#tabNav:before{ display: none; margin: 0; padding: 0; }
-.tab-part{ margin-top: 10px; }
-.tabledialog{ width: 100%; position: fixed; top: 0px; left: 0; background: #fff; z-index: 19999999; }
-.tabledialog .header{ height: 40px; line-height: 40px; width: 100%; position: relative; text-align: center; font-size: 16px; padding: 0; margin:0px auto; }
-.tabledialog .header .close{ position: absolute; right: 0px; top: 5px; width: 30px; height: 30px; display: block; float: right; margin-right: 5px; }
-.tabledialog .header .close span{ font-size: 30px; line-height: 30px; }
-.tabledialog .tablebody{ width: 100%; display: block; overflow-y: scroll; }
-.tabledialog .tablebody .tablediv{ width: 100%; height: 100%; }
-.widget-body { -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
-.table.dataTable.no-footer{ border-bottom: 0px solid #111;  }
-table.dataTable thead th, table.dataTable thead td{  vertical-align: middle; padding: 8px 10px; border-bottom: 1px solid #E2E2E2;}
-tr td, th td{ white-space: nowrap !important; font-size: 12px;  }
+.databox .databox-stat {
+    position: initial;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    height: 44px;
+    line-height: 44px;
+    float: left;
+}
+.databox .databox-stat .stat-text {
+    font-size: 14px;
+    color: #595b57;
+}
+#tabNav:before {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+.tab-part {
+    margin-top: 10px;
+}
+.tabledialog {
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    background: #fff;
+    z-index: 19999999;
+}
+.tabledialog .header {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    font-size: 16px;
+    padding: 0;
+    margin: 0px auto;
+}
+.tabledialog .header .close {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    float: right;
+    margin-right: 5px;
+}
+.tabledialog .header .close span {
+    font-size: 30px;
+    line-height: 30px;
+}
+.tabledialog .tablebody {
+    width: 100%;
+    display: block;
+    overflow-y: scroll;
+}
+.tabledialog .tablebody .tablediv {
+    width: 100%;
+    height: 100%;
+}
+.widget-body {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.container-fluid {
+    margin: 0px auto;
+    padding: 0;
+    width: 100%;
+}
+.compareDivArea {
+    background: #fff;
+    padding: 10px;
+}
+.compareDivArea .compareArea {
+    display: block;
+    width: 80%;
+    height: 60px;
+    margin: 10px auto;
+    margin-bottom: 0;
+    overflow: hidden;
+    color: #595b57;
+}
+.compareDivArea .compareArea .compareMain {
+    width: 30%;
+    height: 60px;
+    float: left;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+.compareDivArea .compareArea .compareLabel {
+    width: 40%;
+    height: 60px;
+    float: left;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    line-height: 70px;
+    color: #333;
+}
+.compareDivArea .compareArea .compareSub {
+    width: 30%;
+    height: 60px;
+    float: left;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+.compareDivArea .compareArea .compareMain .compare_total,
+.compareDivArea .compareArea .compareSub .compare_total {
+    font-size: 18px;
+    padding: 2px;
+    color: #333;
+}
+.compareDivArea .compareData {
+    display: block;
+    width: 80%;
+    margin: 0px auto;
+    text-align: center;
+    height: 60px;
+    font-size: 40px;
+}
+.compareDivArea .compareData .triangle {
+    display: none;
+    width: 180px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0px auto;
+    float: initial;
+    text-align: center;
+    overflow: hidden;
+}
+.compareDivArea .compareData .active {
+    display: block;
+    width: 180px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0px auto;
+    float: initial;
+    text-align: center;
+    overflow: hidden;
+}
+.compareDivArea .compareData .triangle .arrow {
+    width: 12px;
+    height: 60px;
+    float: right;
+    display: inline-table;
+    position: relative;
+}
+.compareDivArea .compareData .triangle .arrow .triangle_up,
+.compareDivArea .compareData .triangle .arrow .triangle_down {
+    position: absolute;
+    float: right;
+    left: 0;
+    top: 26px;
+}
+.chart_compare_reslut {
+    display: none;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px #e6e6e6 solid;
+}
+.chart_compare_reslut .selName {
+    padding: 15px 0 0 15px;
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+.chart_compare_reslut .chart_compare_data {
+    padding: 5px 15px;
+    width: 98%;
+}
+.chart_compare_reslut .chart_compare_data div {
+    width: 25%;
+    float: left;
+}
+.chart_compare_reslut .chart_compare_data div.data-c {
+    width: 110px;
+}
+.chart_compare_reslut .chart_compare_data div span {
+    width: 100%;
+    display: block;
+}
+.chart_compare_reslut .chart_compare_data div.data-a span.data-val {
+    font-size: 22px;
+    color: #4688b5;
+}
+.chart_compare_reslut .chart_compare_data div.data-b span.data-val {
+    font-size: 22px;
+    color: #71a3ed;
+}
+.chart_compare_reslut .chart_compare_data div.data-c span.data-val {
+    font-size: 22px;
+    color: #91c941;
+}
+.chart_compare_reslut .chart_compare_data div.data-a span.data-name,
+.chart_compare_reslut .chart_compare_data div.data-a span.data-name,
+.chart_compare_reslut .chart_compare_data div.data-a span.data-name {
+    color: #595b57;
+}
+.chart_compare_reslut .chart_compare_data div.data-c span.data-val .arrow {
+    width: 12px;
+    height: 9px;
+    float: right;
+    margin-top: 10px;
+}
+.bargraphDivArea,
+.bg-white {
+    background: #fff;
+    padding: 5px 0;
+}
+.bargraph_table tr td:nth-child(3) {
+    padding: 0 3px;
+    background: #fff;
+    border: none;
+}
+.normal-table tr td.active {
+    -webkit-box-shadow: 0px 0 0 #737373 inset;
+    -moz-box-shadow: 0px 0 0 #737373 inset;
+    box-shadow: 0px 0 0 #737373 inset;
+    /*  background: url('../images/bargtab_active_icon.png') 2px center no-repeat; */
+}
+.distance {
+    width: 100%;
+    height: 34px;
+}
+.distance .val_a,
+.distance .val_b {
+    height: 34px;
+    float: left;
+}
+.distance .val_a {
+    border-right: 0px #ddd solid;
+}
+.distance .val_a .valBar {
+    background: #91c941;
+    margin-top: 4px;
+    height: 25px;
+    float: right;
+    display: block;
+}
+.distance .val_b .valBar {
+    background: #f4bc45;
+    margin-top: 4px;
+    height: 25px;
+    float: left;
+    display: block;
+}
+.distance .leftbkg {
+    background: url('../images/bgline.jpg') right top repeat-y;
+}
+.distance .rightbkg {
+    background: url('../images/bgline.jpg') left top repeat-y;
+}
+.dashboard-box .box-tabbs .tabbable .tab-content {
+    margin-top: 0px;
+}
+.databox .databox-cell.bordered-right {
+    border: none;
+}
+.table.dataTable.no-footer {
+    border-bottom: 0px solid #111;
+}
+table.dataTable thead th,
+table.dataTable thead td {
+    white-space: nowrap !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+table.dataTable thead th, table.dataTable thead td{  vertical-align: middle; border-bottom: 1px solid #E2E2E2;}
+tr td, th td{ white-space: nowrap !important; font-size: 12px; word-wrap:break-word; overflow: hidden;  }
 table.dataTable thead th, table.dataTable thead td{ white-space: nowrap !important; }
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{ vertical-align: middle; }
 .dataTables_wrapper.no-footer .dataTables_scrollBody{ border-bottom: 1px solid #E2E2E2;  }
-.container-fluid{ margin: 0px auto; padding: 0; width: 100%;  }
-.compareDivArea{ background: #fff; padding: 10px; }
-.compareDivArea .compareArea{ display: block; width: 80%; height: 60px; margin: 10px auto; margin-bottom: 0; overflow: hidden; color: #595b57; }
-.compareDivArea .compareArea .compareMain{ width: 30%; height: 60px; float: left;  display: block; overflow: hidden; text-align: center; }
-.compareDivArea .compareArea .compareLabel{ width: 40%; height: 60px; float: left; display: block; overflow: hidden; text-align: center; line-height: 70px; color: #333;}
-.compareDivArea .compareArea .compareSub{ width: 30%; height: 60px; float: left; display: block; overflow: hidden; text-align: center; }
-.compareDivArea .compareArea .compareMain .compare_total,.compareDivArea .compareArea .compareSub .compare_total{ font-size:18px; padding: 2px; color: #333;}
-.compareDivArea .compareData{ display: block; width: 80%; margin: 0px auto; text-align: center; height: 60px; font-size: 40px;  }
-.compareDivArea .compareData .triangle{ display: none; width: 180px; height: 60px; line-height: 60px; margin: 0px auto; float: initial; text-align: center; overflow: hidden; }
-.compareDivArea .compareData .active{ display: block; width: 180px; height: 60px; line-height: 60px; margin: 0px auto; float: initial; text-align: center; overflow: hidden; }
-.compareDivArea .compareData .triangle .arrow{ width: 12px; height: 60px; float: right; display: inline-table; position: relative; }
-.compareDivArea .compareData .triangle .arrow .triangle_up,.compareDivArea .compareData .triangle .arrow .triangle_down{ position: absolute; float: right; left: 0; top: 26px; }
-.chart_compare_reslut{ display: none; background: #fff; position: absolute; top: 0;  width: 100%; height: 100px; border-bottom: 1px #e6e6e6 solid; }
-.chart_compare_reslut .selName{ padding: 15px 0 0 15px; width: 100%; display: block; font-size: 16px; color: #333; }
-.chart_compare_reslut .chart_compare_data{padding: 5px 15px; width: 98%; }
-.chart_compare_reslut .chart_compare_data div{ width: 25%; float: left; }
-.chart_compare_reslut .chart_compare_data div.data-c{ width: 110px; }
-.chart_compare_reslut .chart_compare_data div span{  width: 100%; display: block; }
-.chart_compare_reslut .chart_compare_data div.data-a span.data-val{ font-size: 22px; color:#4688b5;}
-.chart_compare_reslut .chart_compare_data div.data-b span.data-val{ font-size: 22px; color:#71a3ed;}
-.chart_compare_reslut .chart_compare_data div.data-c span.data-val{ font-size: 22px; color:#91c941; }
-.chart_compare_reslut .chart_compare_data div.data-a span.data-name,
-.chart_compare_reslut .chart_compare_data div.data-a span.data-name,
-.chart_compare_reslut .chart_compare_data div.data-a span.data-name{ color: #595b57; }
-.chart_compare_reslut .chart_compare_data div.data-c span.data-val .arrow{ width: 12px; height: 9px; float: right;     margin-top: 10px; }
-.bargraphDivArea,.bg-white{ background: #fff; padding: 5px 0; }
-.bargraph_table tr td:nth-child(3){ padding: 0 3px; background: #fff; border:none; }
-
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd{ background-color: #FFFFFF;  }
+table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.stripe tbody tr.odd>.sorting_1{ background-color: #FFFFFF;  }
+table.dataTable.display tbody tr.even>.sorting_1, table.dataTable.order-column.stripe tbody tr.even>.sorting_1{ background-color: #FFFFFF;  }
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+    border-top: 1px solid #eee;
+}
 table.bargraph_table.display tbody tr.odd>.sorting_1, table.bargraph_table.order-column.stripe tbody tr.odd>.sorting_1{ background: #fff; border:none; }
 table.bargraph_table.stripe tbody tr.odd, table.bargraph_table.display tbody tr.odd{ background: #fff; }
 table.bargraph_table.display tbody tr.even>.sorting_1, table.bargraph_table.order-column.stripe tbody tr.even>.sorting_1{background: #fff; border:none;}
@@ -749,26 +1215,628 @@ table.bargraph_table.row-border tbody th, table.bargraph_table.row-border tbody 
 table.bargraph_table.hover tbody tr:hover, table.bargraph_table.display tbody tr:hover{ background: #fff; }
 table.bargraph_table.display tbody tr.active td{ color: #4688b5; }
 table.bargraph_table.display tbody tr.active td:first-child{ background: url('../images/tab_active_icon.png') 2px center no-repeat; }
-table.bargraph_table tbody th, table.bargraph_table tbody td{ padding: 8px 15px; }
-table.bargraph_table thead th, table.bargraph_table thead td{ padding: 8px 15px; }
+table.bargraph_table tbody th, table.bargraph_table tbody td{  }
+table.bargraph_table thead th, table.bargraph_table thead td{  }
 table.bargraph_table tr.active td:first-child{  -webkit-box-shadow: 0px 0 0 #737373 inset; -moz-box-shadow: 0px 0 0 #737373 inset; box-shadow: 0px 0 0 #737373 inset;}
-table.normal-table tr td:first-child{ -webkit-box-shadow: 0px 0 0 #737373 inset; -moz-box-shadow: 0px 0 0 #737373 inset; box-shadow: 0px 0 0 #737373 inset; padding: 8px 15px;  }
-table.normal-table thead tr th:first-child{ padding: 8px 15px; }
-.normal-table tr td.active{-webkit-box-shadow: 0px 0 0 #737373 inset; -moz-box-shadow: 0px 0 0 #737373 inset; box-shadow: 0px 0 0 #737373 inset; padding: 8px 15px;  background: url('../images/bargtab_active_icon.png') 2px center no-repeat; }
-.distance{ width: 100%; height: 33px; }
-.distance .val_a,.distance .val_b{ height: 33px; float: left; }
-.distance .val_a{ border-right: 1px #ddd solid; }
-.distance .val_a .valBar{ background: #91c941; margin-top: 4px; height: 25px; float: right; display: block; }
-.distance .val_b .valBar{ background: #f4bc45; margin-top: 4px; height: 25px; float: left; display: block; }
-.dashboard-box .box-tabbs .tabbable .tab-content{ margin-top: 0px; }
-.databox .databox-cell.bordered-right{ border: none; }
+table.normal-table tr td:first-child{ -webkit-box-shadow: 0px 0 0 #737373 inset; -moz-box-shadow: 0px 0 0 #737373 inset; box-shadow: 0px 0 0 #737373 inset;   }
+table.normal-table thead tr th:first-child{  }
+table.dataTable{}
+table.dataTable thead th, table.dataTable thead td,
+table.dataTable tbody th, table.dataTable tbody td{ overflow: hidden; border-right: 1px solid #eee;
+ padding: 8px 15px; }
+ */
+table.bargraph_table tr.active td:first-child {
+    -webkit-box-shadow: 0px 0 0 #737373 inset;
+    -moz-box-shadow: 0px 0 0 #737373 inset;
+    box-shadow: 0px 0 0 #737373 inset;
+}
+table.bargraph_table.display tbody tr.odd>.sorting_1,
+table.bargraph_table.order-column.stripe tbody tr.odd>.sorting_1 {
+    background: #fff;
+    border: none;
+}
+table.bargraph_table.stripe tbody tr.odd,
+table.bargraph_table.display tbody tr.odd {
+    background: #fff;
+}
+table.bargraph_table.display tbody tr.even>.sorting_1,
+table.bargraph_table.order-column.stripe tbody tr.even>.sorting_1 {
+    background: #fff;
+    border: none;
+}
+table.bargraph_table.row-border tbody th,
+table.bargraph_table.row-border tbody td,
+table.bargraph_table.display tbody th,
+table.bargraph_table.display tbody td {
+    border: none;
+}
+table.bargraph_table.hover tbody tr:hover,
+table.bargraph_table.display tbody tr:hover {
+    background: #fff;
+}
+table.bargraph_table.display tbody tr.active td {
+    color: #4688b5;
+}
+table.bargraph_table.display tbody tr.active td:first-child {
+    background: url('../images/tab_active_icon.png') 2px center no-repeat;
+}
+table.bargraph_table tbody th,
+table.bargraph_table tbody td {}
+table.bargraph_table thead th,
+table.bargraph_table thead td {}
+table.dataTable tbody tr td img {
+    vertical-align: baseline;
+}
+.tab-content-v3 table.dataTable thead tr th:nth-child(1),
+.tabledialog table.dataTable thead tr th:nth-child(1) {
+    text-align: center;
+}
+.tab-content-v3 table.dataTable tbody tr td,
+.tabledialog table.dataTable tbody tr td {
+    text-align: center;
+}
+.tab-content-v3 table.dataTable tbody tr td:nth-child(1),
+.tabledialog table.dataTable tbody tr td:nth-child(1) {
+    text-align: left;
+}
+.tab-content-v3 table.dataTable tbody tr td a img {
+    display: none;
+}
+.tab-content-v3 table.dataTable tbody tr td a {
+    display: block;
+    padding-left: 15px;
+    background: url('../images/bargtab_active_icon.png') left center no-repeat;
+}
+table.dataTable tbody tr td,
+table.dataTable tbody tr td:hover,
+table.dataTable tbody tr td:hover,
+table.dataTable tbody tr:hover,
+table.dataTable tbody tr:hover {
+    background: #fff;
+}
+table.dataTable thead th td:hover,
+table.dataTable thead tr td,
+table.dataTable tbody tr td:hover,
+table.dataTable tbody tr td {
+    background: #fff;
+}
+table.dataTable thead th,
+table.dataTable thead td,
+table.dataTable tbody th,
+table.dataTable tbody td {
+    border-right: 0px solid #eee;
+    border-bottom: 0px solid #eee;
+}
+table.dataTable tbody tr.even>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.even>.sorting_1,
+table.dataTable tbody tr.odd>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
+    background: #fff;
+}
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+    border-bottom: 1px solid #EEE;
+}
+table.dataTable thead .sorting_asc,
 table.fixedHeader-floating thead .sorting_asc {
-    background: #f1f1f1 url("../javascripts/DataTables/DataTables-1.10.15/images/sort_asc.png") center right no-repeat;
-    /* background: #FBFBFB; */
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
 }
+table.dataTable thead .sorting_desc,
 table.fixedHeader-floating thead .sorting_desc {
-    background: #f1f1f1 url("../javascripts/DataTables/DataTables-1.10.15/images/sort_desc.png") center right no-repeat ;
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
 }
+table.dataTable thead .sorting,
 table.fixedHeader-floating thead .sorting {
-    background: #f1f1f1 url("../javascripts/DataTables/DataTables-1.10.15/images/sort_both.png") center right no-repeat ;
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+table.dataTable thead .sorting_asc,
+table.fixedHeader-floating thead .sorting_asc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_asc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting_desc,
+table.fixedHeader-floating thead .sorting_desc {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_desc.png") 90% 50% no-repeat;
+    background-size: 9px;
+}
+table.dataTable thead .sorting,
+table.fixedHeader-floating thead .sorting {
+    background: #f1f1f1 url("../stylesheets/DataTables/DataTables-1.10.15/images/sort_both.png") 100% 50% no-repeat;
+    background: #f1f1f1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*2017/7/24 20：52 改动*/
+.widget {
+    background: #ffffff;
+    overflow: hidden;
+}
+.dashboard-box .box-days .day-container.highlight .day {
+    background: #00A4E9;
+    color: #ffffff;
+}
+.dashboard-box .box-days .day-container .day {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 1px 15px 0 15px;
+    font-size: 15px;
+    font-family: 'PingFangSC-Medium', 'Lucida Sans', 'trebuchet MS', 'Arial', 'Helvetica';
+    height: 25px;
+    line-height: 25px;
+    color: #666666;
+}
+.dashboard-box .box-days .day-container {
+    background-color: #ffffff;
+    border: 0px solid white;
+    border-right-color: #EEE;
+    border-bottom-color: #EEE;
+    padding: 0px;
+    height: 25px;
+    line-height: 25px;
+}
+.dashboard-box .box-days .day-container.highlight,
+.dashboard-box .box-days .day-container.highlight:hover {
+    background: #ffffff;
+}
+.dashboard-box .box-days {
+    overflow: hidden;
+    padding: 0 0;
+    background: #ffffff;
+    width: 100%;
+    display: block;
+}
+#wrapper01 {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+}
+#tabNav::-webkit-scrollbar {
+    width: 0;
+    height: 0
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*移动端滚动条消失*/
+
+/*
+12
+34
+dataTables_scrollHead   12
+dataTables_scrollBody   34
+DTFC_LeftHeadWrapper    1
+DTFC_LeftBodyWrapper    3
+*/
+th,
+td {
+    vertical-align: middle!important;
+    text-align: center!important;
+    box-sizing: border-box!important;
+}
+ul.nav-tabs {
+    padding-left: 13px;
+}
+.nav-tabs li.active a {
+    color: #00a4e9!important;
+    background: url(../images/box-tabbs-active.png) 50% bottom no-repeat!important;
+    font-weight: 800;
+}
+.nav-tabs li a {
+    color: #bcbcbc;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.DTFC_LeftBodyWrapper td.active {
+    color: #71a3ed!important;
+}
+.DTFC_LeftHeadWrapper th {
+    text-align: left!important;
+    padding: 0 15px 0 25px!important;
+}
+.DTFC_LeftHeadWrapper th,
+.DTFC_LeftBodyWrapper td {
+    text-align: left!important;
+}
+.dataTables_scrollHead th:nth-child(1) {
+    text-align: left!important;
+    padding-left: 25px!important;
+}
+.dataTables_scrollBody td:nth-child(1) {
+    text-align: left!important;
+}
+.DTFC_LeftBodyWrapper td {
+    padding: 0 15px 0 25px!important;
+}
+.DTFC_LeftWrapper,
+.DTFC_LeftHeadWrapper,
+.DTFC_LeftBodyWrapper,
+.DTFC_LeftBodyLiner {
+    width: 123px!important;
+    padding-right: 0!important;
+}
+.dataTables_scrollBody td:nth-child(1),
+.dataTables_scrollHead th:nth-child(1) {
+    display: inline-table!important;
+    width: 123px!important;
+}
+.DTFC_LeftHeadWrapper th,
+.dataTables_scrollHead th {
+    height: 45px;
+}
+.dataTables_scrollBody td,
+.DTFC_LeftBodyWrapper td {
+    height: 55px;
+}
+.DTFC_LeftBodyWrapper,
+.DTFC_LeftHeadWrapper {
+    border-right: 1px solid #e6e6e6!important;
+}
+.dataTables_scrollHead,
+.DTFC_LeftHeadWrapper {
+    border-top: 1px solid #e6e6e6!important;
+    border-bottom: 1px solid #e6e6e6!important;
+}
+.dataTables_scrollBody {
+    font-weight: 800;
+}
+.dataTables_scrollBody table {
+    border-collapse: collapse;
+}
+.dataTables_scrollBody table tr:not(:nth-child(1)) {
+    border-top: 1px solid #ddd;
+}
+.DTFC_LeftBodyLiner td.active {
+    padding-left: 10px!important;
+}
+.dataTables_scrollBody tr {
+    background: #fff!important;
+}
+#table_bargraph_2_wrapper td:nth-child(1),
+#table_bargraph_2_wrapper th:nth-child(1) {
+    padding-left: 25px;
+    display: table-cell!important;
+    width: 123px!important;
+}
+.dataTables_scrollHead th,
+.DTFC_LeftBodyWrapper td,
+.DTFC_LeftHeadWrapper th {
+    /*font-size: 13px!important;*/
+    /*课组销售额对标  字太多 会对不起 */
+}
+.dataTables_scrollBody td {
+    font-size: 14px;
+    font-weight: 800;
+}
+#table_bargraph_2_wrapper .dataTables_scrollHead th:last-child {
+    width: 50%!important;
+}
+#table_bargraph_2_wrapper .dataTables_scrollBody td:last-child {
+    width: 50%!important;
+}
+.dataTables_scrollBody tr td:nth-child(1) {
+    color: #fff!important;
 }

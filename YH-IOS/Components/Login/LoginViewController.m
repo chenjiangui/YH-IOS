@@ -36,7 +36,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;
-
+@property(nonatomic, strong)UIButton *logoInBtn;
 
 
 
@@ -128,6 +128,7 @@
     _passwordNumber=[[UITextField alloc] init];
     [self.view addSubview:_passwordNumber];
     [_passwordNumber setSecureTextEntry:YES];
+    _passwordNumber.placeholder = @"密码";
     _passwordNumber.font=[UIFont systemFontOfSize:16];
     _passwordNumber.textAlignment=NSTextAlignmentLeft;
     _passwordNumber.textColor=[UIColor colorWithHexString:@"#666666"];
@@ -165,16 +166,16 @@
     //
     
     
-    UIButton *logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
-    logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
-    [logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [logoInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [logoInBtn setBackgroundImage:@"btn_login".imageFromSelf forState:UIControlStateNormal];
-    logoInBtn.clipsToBounds=YES;
-    logoInBtn.titleEdgeInsets = UIEdgeInsetsMake(-6, 0, 6, 0);
-    [self.view addSubview:logoInBtn];
-    [logoInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    _logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
+    _logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
+    [_logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_logoInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_logoInBtn setBackgroundImage:@"btn_login".imageFromSelf forState:UIControlStateNormal];
+    _logoInBtn.clipsToBounds=YES;
+    _logoInBtn.titleEdgeInsets = UIEdgeInsetsMake(-6, 0, 6, 0);
+    [self.view addSubview:_logoInBtn];
+    [_logoInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_PasswordUnderLine.mas_bottom).offset(24);
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.size.mas_equalTo(@"btn_login".imageFromSelf.size);
@@ -399,6 +400,7 @@
 -(void)deleteNumber
 {
     _peopleNumber.text=@"";
+    _peopleNumString=@"";
     _PeopleUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
 }
 // 支持设备自动旋转
@@ -539,31 +541,47 @@
 //    [self presentViewController:alert animated:YES completion:nil];
 }
 
+//延时执行函数
+-(void)delayMethod
+{
+  self.view.userInteractionEnabled=YES;
+  [HudToolView hideLoadingInView:self.view];
+
+}
 
 //add: 登录按钮事件
 - (void)loginBtnClick {
 
-    if (self.peopleNumString == 0) {
-        [self showProgressHUD:@"请输入用户名 " mode: MBProgressHUDModeText];
-        [self.progressHUD hide:YES afterDelay:1.5];
-        return;
-    }
-    if (self.passwordNumString == 0) {
-        [self showProgressHUD:@"请输入密码 " mode: MBProgressHUDModeText];
-        [self.progressHUD hide:YES afterDelay:1.5];
-        return;
-    }
     [HudToolView showLoadingInView:self.view];
+    
+    self.view.userInteractionEnabled=NO;
+    
+    
+    if ([self.peopleNumString length]==0) {
+        [HudToolView showTopWithText:@"请输入用户名" correct:false];
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
+        return;
+    }
+    else if ([self.passwordNumString length] == 0) {
+        [HudToolView showTopWithText:@"请输入密码" correct:false];
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
+        return;
+    }
+    
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
-    [self.progressHUD hide:YES];
     if (!(msg.length == 0)) {
         if (self.navigationController.navigationBarHidden) {
             [self.navigationController setNavigationBarHidden:NO];
         }
         [HudToolView showTopWithText:msg correct:false];
-        [HudToolView hideLoadingInView:self.view];
+        
+//        [HudToolView hideLoadingInView:self.view];
+     [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
+
+        _logoInBtn.userInteractionEnabled=YES;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             // 用户行为记录, 单独异常处理，不可影响用户体验
@@ -600,6 +618,7 @@
         logParams[kActionALCName] = @"登录";
         [APIHelper actionLog:logParams];
     });
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

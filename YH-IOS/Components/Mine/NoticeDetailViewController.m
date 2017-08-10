@@ -26,7 +26,7 @@
     [self.tabBarController.tabBar setHidden:YES];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f7fef5"];
-    self.view.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
     self.user = [[User alloc]init];
     _bgView = [[UIView alloc]init];
     _bgView.backgroundColor = [UIColor whiteColor];

@@ -1,0 +1,94 @@
+
+	#app{
+		width: 9.468rem;
+		background: #f7fef5;
+		padding: 0.266rem;
+		color: #000000;
+	}
+	.content{
+		background: #fff;
+		border-radius:0.1rem ;
+		padding: 0.133rem 0.266rem;
+		min-height: 17rem;
+		overflow: hidden;
+	}
+	.content-title{
+		font-size: 32px;
+		font-weight: bold;
+		margin-bottom: 0.266rem;
+	}
+	.content-main{
+		margin-bottom: 0.573rem;
+		line-height: 0.44rem;
+		text-indent: 2em;
+		text-align:justify;
+	}
+	.content-foot{
+		height: 2rem;
+	}
+	.content-comment{
+		height: 3rem;
+		position: fixed;
+		left: 0; 
+		top: 0; 
+		right: 0;
+		bottom: 0;
+		background: #fff;
+		padding: 0.5rem 0.3rem 0 0.3rem;
+		margin: auto 0.3rem 0 0.3rem;
+	}
+	.content-comment-collect{
+		position: relative;
+		
+		height: 0.9rem;
+		border-radius: 0.133rem;
+		background: #f5f5f5;
+		color: #959595;
+		font-size: 0.32rem;
+		line-height: 0.9rem;
+		padding: 0 0.133rem;
+	}
+	.collect,.share,.cancel-collect{
+		float: right;
+		width: 0.666rem;
+		height: 0.8rem;
+		text-align: center;
+		font-size: 0.24rem;
+		line-height: 1.3rem;
+		margin-top: 0.04rem;
+	}
+	.collect{
+		background: url(../images/btn_save_b.png) no-repeat center 0.02rem;
+	}
+	.share{
+		margin-left: 0.133rem;
+		background: url(../images/-btn_share.png) no-repeat center 0.02rem;
+	}
+	
+	.cancel-collect{
+		background: url(../images/btn_save.png) no-repeat center 0.02rem;
+	}
+	.content-inp{
+		margin-top:0.346rem ;
+	}
+	.content-inp div{
+		border: 0.015rem solid #535353;
+		/*height: 0.716rem;*/
+		line-height: 0.716rem;
+		padding: 0 0.2rem;
+		border-radius: 0.05rem;
+		float: left;
+		width: 6.6rem;
+		resize: none;
+	}
+	.content-inp button{
+		float: right;
+		width: 1.466rem;
+		height: 0.746rem;
+		background: #6aa657;
+		color: #fff;
+		border: none;
+		font-size: 0.4rem;
+		border-radius: 0.05rem;
+		margin-left: 0.133rem;
+	}

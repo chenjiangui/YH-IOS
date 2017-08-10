@@ -115,7 +115,7 @@
         [_topRightBtn setTitle:@"筛选" forState:UIControlStateNormal];
         [_topRightBtn setTitleColor:[NewAppColor yhapp_6color] forState:UIControlStateNormal];
         [_topRightBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_topRightBtn setImage:@"pop_screen".imageFromSelf forState:UIControlStateNormal];
+        [_topRightBtn setImage:@"pop_screen1".imageFromSelf forState:UIControlStateNormal];
         MJWeakSelf;
         [_topRightBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
             if (weakSelf.screenBlock) {

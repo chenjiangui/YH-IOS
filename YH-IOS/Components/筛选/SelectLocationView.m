@@ -16,15 +16,10 @@
 @interface SelectLocationView ()
 @property (nonatomic, strong) ScrollControllersVc* scrollVc;
 @property (nonatomic, strong) SimpleTableViewController* oneVc;
-@property (nonatomic, strong) SimpleTableViewController* twoVc;
-@property (nonatomic, strong) SimpleTableViewController* threeVc;
 @property (nonatomic, strong) UILabel* titleLab;
 @property (nonatomic, strong) UIButton* closeBtn;
 @property (nonatomic, strong) NSArray* dataList;
-@property (nonatomic, strong) ScreenModel* oneModel;
-@property (nonatomic, strong) ScreenModel* twoModel;
-@property (nonatomic, strong) ScreenModel* threeModel;
-
+@property (nonatomic, assign) NSInteger index;
 @end
 
 @implementation SelectLocationView
@@ -37,6 +32,13 @@
 
 - (void)hide{
     [self.sl_popupController dismiss];
+}
+
+- (void)reload:(NSArray *)dataList{
+    self.dataList = dataList;
+    [self.scrollVc updateControllers:@[self.oneVc] titles:@[@"请选择"]];
+    [self.scrollVc scrollWithIndex:0];
+    [self.oneVc updateDateList:dataList];
 }
 
 - (instancetype)initWithDataList:(NSArray *)dataList{
@@ -73,7 +75,11 @@
 
 - (ScrollControllersVc *)scrollVc{
     if (!_scrollVc) {
+        MJWeakSelf;
         _scrollVc = [[ScrollControllersVc alloc] initWithControllers:@[] titles:@[]];
+        _scrollVc.selectBack = ^(NSNumber* item) {
+            weakSelf.index = item.integerValue;
+        };
         _scrollVc.lableW = 75;
         _scrollVc.lableH = 36;
     }
@@ -100,52 +106,36 @@
             [cell.actionBtn layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:12];
         };
         _oneVc.selectBlock = ^(NSIndexPath* item1, ScreenModel* item2) {
-            weakSelf.oneModel = item2;
-            [NSArray setValue:@(YES) keyPath:@"isSelected" deafaultValue:@(NO) index:item1.row inArray:weakSelf.oneVc.dataList];
-            [weakSelf.oneVc reload];
-            [weakSelf.twoVc updateDateList:item2.data];
-            [weakSelf.scrollVc updateControllers:@[weakSelf.oneVc,weakSelf.twoVc] titles:@[item2.name,@"请选择"]];
-            [weakSelf.scrollVc scrollWithIndex:1];
-        };
-    }
-    return _oneVc;
-}
-
-- (SimpleTableViewController *)twoVc{
-    if (!_twoVc) {
-        MJWeakSelf;
-        _twoVc = [[SimpleTableViewController alloc] initWithCellClass:[OneButtonTableViewCell class] xib:false];
-        _twoVc.cellBlock = self.oneVc.cellBlock;
-        _twoVc.selectBlock = ^(NSIndexPath* item1, ScreenModel* item2) {
-            weakSelf.twoModel = item2;
-            [NSArray setValue:@(YES) keyPath:@"isSelected" deafaultValue:@(NO) index:item1.row inArray:weakSelf.twoVc.dataList];
-            [weakSelf.twoVc reload];
-            [weakSelf.threeVc updateDateList:item2.data];
-            [weakSelf.scrollVc updateControllers:@[weakSelf.oneVc,weakSelf.twoVc,weakSelf.threeVc] titles:@[weakSelf.oneModel.name,weakSelf.twoModel.name,@"请选择"]];
-            [weakSelf.scrollVc scrollWithIndex:2];
-        };
-    }
-    return _twoVc;
-}
-
-- (SimpleTableViewController *)threeVc{
-    if (!_threeVc) {
-        MJWeakSelf;
-        _threeVc = [[SimpleTableViewController alloc] initWithCellClass:[OneButtonTableViewCell class] xib:false];
-        _threeVc.cellBlock = self.oneVc.cellBlock;
-        _threeVc.selectBlock = ^(NSIndexPath* item1, ScreenModel* item2) {
-            weakSelf.threeModel = item2;
-            [NSArray setValue:@(YES) keyPath:@"isSelected" deafaultValue:@(NO) index:item1.row inArray:weakSelf.threeVc.dataList];
-            [weakSelf.threeVc reload];
-            [weakSelf.scrollVc updateControllers:@[weakSelf.oneVc,weakSelf.twoVc,weakSelf.threeVc] titles:@[weakSelf.oneModel.name,weakSelf.twoModel.name,item2.name]];
-            [weakSelf.scrollVc scrollWithIndex:2];
-            if (weakSelf.selectBlock) {
-                [weakSelf hide];
-                weakSelf.selectBlock(item2);
+            [NSArray setValue:@(YES) keyPath:@"isSelected" deafaultValue:@(NO) index:item1.row inArray:((SimpleTableViewController*)weakSelf.scrollVc.controllers[weakSelf.index]).dataList];
+            for (SimpleTableViewController* simpleVc in weakSelf.scrollVc.controllers) {
+                [simpleVc reload];
+            }
+            
+            if (weakSelf.scrollVc.controllers.count) {
+                NSMutableArray* controllers = [weakSelf.scrollVc.controllers subarrayWithRange:NSMakeRange(0, weakSelf.index+1)].mutableCopy;
+                NSMutableArray* titles = [weakSelf.scrollVc.titles subarrayWithRange:NSMakeRange(0, weakSelf.index)].mutableCopy;
+                if (item2.data.count) {
+                    SimpleTableViewController* nextVc = [[SimpleTableViewController alloc] initWithCellClass:[OneButtonTableViewCell class] xib:false];
+                    nextVc.selectBlock = weakSelf.oneVc.selectBlock;
+                    nextVc.cellBlock = weakSelf.oneVc.cellBlock;
+                    [nextVc updateDateList:item2.data];
+                    [controllers addObject:nextVc];
+                    [titles appendObjects:@[SafeText(item2.name),@"请选择"]];
+                    NSInteger index = weakSelf.index + 1;
+                    [weakSelf.scrollVc updateControllers:controllers titles:titles];
+                    [weakSelf.scrollVc scrollWithIndex:index];
+                }else{
+                    [titles appendObjects:@[SafeText(item2.name)]];
+                    [weakSelf.scrollVc updateTitles:titles];
+                    if (weakSelf.selectBlock) {
+                        [weakSelf hide];
+                        weakSelf.selectBlock(item2);
+                    }
+                }
             }
         };
     }
-    return _threeVc;
+    return _oneVc;
 }
 
 - (UILabel *)titleLab{

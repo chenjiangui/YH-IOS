@@ -43,7 +43,9 @@
         NSRange range = [_bottomRightLab.text rangeOfString:item.hightLightData.number];
         [_bottomRightLab setLabelColor:UIColorHex(4688b5) StringFromLocation:range.location StringNeedLength:range.length + SafeText(item.unit).length];
     }
-    _topLeftLab.textColor = [SafeText(item.hightLightData.compare) removeString:@"%"].floatValue > 0 ? UIColorHex(91c941):UIColorHex(f57658);
+    //_topLeftLab.textColor = [SafeText(item.hightLightData.compare) removeString:@"%"].floatValue > 0 ? UIColorHex(91c941):UIColorHex(f57658);
+    NSString *colorText = WarnColor[item.hightLightData.arrow];
+    _topLeftLab.textColor = [UIColor colorWithHexString:colorText];
     NSMutableAttributedString* str = [[NSMutableAttributedString alloc] initWithString:SafeText(item.hightLightData.compare)];
     NSRange range = [SafeText(item.hightLightData.compare) rangeOfString:@"%"];
     if (range.length) {

@@ -90,7 +90,7 @@
 #define adaptHeight(h) (SCREEN_HEIGHT / 667 * (h))
 
 
-
+#define WarnColor  @[@"#ff0000",@"#F4BC45",@"#6aa657",@"#ff0000",@"#F4BC45",@"#6aa657"]
 #define JYDefaultMargin (8.0)
 #define kBarHeight (JYDefaultMargin * 3)
 #define WeakSelf  __weak __typeof(&*self)weakSelf = self;

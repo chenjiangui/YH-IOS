@@ -104,8 +104,20 @@ static  NSString *PhoneString;
 {
     PhoneString=PhoneNumber.text;
 }
+//延时执行函数
+-(void)delayMethod
+{
+    self.contentView.userInteractionEnabled=YES;
+    [HudToolView hideLoadingInView:self.window];
+    
+}
 -(void)upTodata
 {
+    self.contentView.userInteractionEnabled=NO;
+    
+    [HudToolView showLoadingInView:self.window];
+    
+    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
          NSString *userNum = PeopleString;
          NSString *userPhone = PhoneString;
@@ -113,12 +125,9 @@ static  NSString *PhoneString;
             if (userNum && userPhone) {
                 HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
                 NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"info"]];
-                SCLAlertView *alert = [[SCLAlertView alloc] init];
                 if ([reponse.statusCode isEqualToNumber:@(201)]) {
-                    [alert addButton:@"重新登录" actionBlock:^(void){
-                    }];
                     [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
-                    [[self viewController] dismissModalViewControllerAnimated:YES];
+                    [[self viewController] dismissViewControllerAnimated:YES completion:nil];
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         /*
                          * 用户行为记录, 单独异常处理，不可影响用户体验
