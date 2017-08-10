@@ -89,13 +89,12 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if(self.user.userID) {
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];
     }
-    
     [self startLocation];
     self.isLoadFinish = NO;
     [self hiddenShadow];
-    
     /**
      * 被始化页面样式
+     
      */
     //[self idColor];
     self.tabBarController.tabBar.hidden = YES;

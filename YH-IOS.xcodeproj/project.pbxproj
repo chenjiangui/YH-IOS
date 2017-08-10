@@ -2470,8 +2470,6 @@
 				911123D11F39B74400A09D83 /* MImgpicker */,
 				911123DF1F39B74400A09D83 /* NewPushTableCell.h */,
 				911123E01F39B74400A09D83 /* NewPushTableCell.m */,
-				911123E11F39B74400A09D83 /* NewPushTableView.h */,
-				911123E21F39B74400A09D83 /* NewPushTableView.m */,
 				911123C61F39B6AF00A09D83 /* NewMinepResetPwdCell.h */,
 				911123C71F39B6AF00A09D83 /* NewMinepResetPwdCell.m */,
 				911123C81F39B6AF00A09D83 /* NewMineQuestionCell.h */,
@@ -2608,6 +2606,8 @@
 				B676BB3D1F282AD700AF363A /* NewMineResetPwdController.m */,
 				B675927E1F29965200E89B65 /* NewMineQuestionController.h */,
 				B675927F1F29965200E89B65 /* NewMineQuestionController.m */,
+				911123E11F39B74400A09D83 /* NewPushTableView.h */,
+				911123E21F39B74400A09D83 /* NewPushTableView.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -3220,8 +3220,6 @@
 		C4C6283A1C0C1ED6000AD5D8 /* Subject */ = {
 			isa = PBXGroup;
 			children = (
-				B6E43FF51F3AF9C70077360D /* NewSubjectViewController.h */,
-				B6E43FF61F3AF9C70077360D /* NewSubjectViewController.m */,
 				91D4D6821F08BF970087783C /* NewSelectView */,
 				914509731F02244800ED82D6 /* SelectView */,
 				C4E93F0C1D38BFC000DBEC90 /* ReportSelector */,
