@@ -60,6 +60,10 @@
 #pragma mark - lazy and ui
 - (void)setupUI{
     [self.view sd_addSubviews:@[self.headerView,self.simpleVc.view]];
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(81);
+    }];
     [self.simpleVc.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self.simpleVc.view);
         make.height.mas_equalTo(244);
