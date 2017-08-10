@@ -73,8 +73,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"icon_copylink",@"pop_flash"] mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"拷贝链接",@"刷新"] mutableCopy];
-    
-    
     self.isLoadFinish = NO;
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f9f9f9"];
     self.browser.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
@@ -84,19 +82,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     /**
      * 被始化页面样式
      */
-    //[self idColor];
-   // self.tabBarController.tabBar.hidden = YES;
-    //self.bannerName = self.bannerName;
     /**
      * 服务器内链接需要做缓存、点击事件处理；
      */
     self.isInnerLink = !([self.link hasPrefix:@"http://"] || [self.link hasPrefix:@"https://"]);
     self.urlString   = self.link;
-    // navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-    //self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, 60, self.view.frame.size.width, self.view.frame.size.height + 40)];
-    //[self.view addSubview:self.browser];
-//    self.browser.webDelegate = self;
-//    self.browser.delegate = self;
     self.browser.delegate = self;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     if(self.isInnerLink) {
@@ -114,16 +104,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.browser.scalesPageToFit = YES;
         self.browser.contentMode = UIViewContentModeScaleAspectFit;
     }
-    //[self idColor];
-    [WebViewJavascriptBridge enableLogging];
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        responseCallback(@"SubjectViewController - Response for message from ObjC");
-//    }];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
       responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
+    [WebViewJavascriptBridge enableLogging];
 
     [self addWebViewJavascriptBridge];
+    [self isLoadHtmlFromService];
 }
 
 -(void)awakeFromNib{
@@ -134,7 +121,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
-    [self isLoadHtmlFromService];
     //  navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     /*
      * 主题页面,允许横屏
@@ -147,12 +133,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     // [self checkInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     [self displayBannerViewButtonsOrNot];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
+
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
 }
+
+
 -(void)addNavigationView{
     self.navigationBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
    // [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
