@@ -42,6 +42,7 @@
 #import "FileUtils+Assets.h"
 #import <Reachability/Reachability.h>
 #import "TestModel.h"
+#import "NewSubjectViewController.h"
 
 
 #define kJYNotifyHeight 40
@@ -282,7 +283,7 @@
 }
 //消息公告点击事件
 - (void)messageAction:(ToolModel*)model{
-  
+    self.tabBarController.selectedIndex = 3;
 }
 
 //扫描事件
@@ -1097,7 +1098,16 @@
                       NSLog(@"%@", exception);
                   }
               });
-
+              if (YHAPPVERSION >= 9.0) {
+                  NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
+                  subjectView.bannerName =title;
+                  subjectView.link = targeturl;
+                  subjectView.commentObjectType = ObjectTypeKpi;
+                  subjectView.objectID = [urlArray lastObject];
+                  UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+                  [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+              }
+              else{
               UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
               
               SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
@@ -1107,6 +1117,7 @@
               subjectView.objectID = [urlArray lastObject];
               UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
               [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+              }
           }
           else{
               logParams[kActionALCName]   = @"点击/生意概况/链接";
