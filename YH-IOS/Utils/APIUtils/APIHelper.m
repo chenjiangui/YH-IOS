@@ -121,8 +121,14 @@
  *  @return error msg when authentication failed
  */
 + (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password coordinate:(NSString *)coordinate{
-    //NSString *apistring = [NSString stringWithFormat:@""]
-    NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_AUTHENTICATION];
+    
+    NSString *alertMsg = @"";
+    
+    NSDictionary *deviceDict = @{@"api_token":ApiToken(YHAPI_USER_AUTHENTICATION),@"user_num":usernum,@"password":password};
+    
+   /* NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
     NSString *alertMsg = @"";
     
     NSMutableDictionary *deviceDict = [NSMutableDictionary dictionary];
@@ -134,7 +140,7 @@
         @"uuid": [OpenUDID value],
     };
     deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
-    deviceDict[@"coordinate"] = coordinate;
+    deviceDict[@"coordinate"] = coordinate;*/
 
     HttpResponse *response = [HttpUtils httpPost:urlString Params:deviceDict];
     

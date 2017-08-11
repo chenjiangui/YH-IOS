@@ -141,6 +141,11 @@
     }];
 }
 
-
++(void)yh_postUserMessageWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
+    NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_UPLOAD_DEVICEMESSAGE];
+    [BaseRequest postRequestWithUrl:url Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        
+      }];
+     }
 
 @end

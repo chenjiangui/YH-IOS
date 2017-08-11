@@ -92,5 +92,10 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
  */
 + (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish;
 
+/**
+ 上传用户信息
+ @param dict 上传的用户信息
+ */
++(void)yh_postUserMessageWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish;
 
 @end

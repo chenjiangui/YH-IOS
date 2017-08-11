@@ -17,6 +17,7 @@
 #import "MianTabBarViewController.h"
 #import "YHLocation.h"
 #import <CoreLocation/CoreLocation.h>
+#import "OpenUDID.h"
 
 #define kSloganHeight [[UIScreen mainScreen]bounds].size.height / 6
 
@@ -607,8 +608,21 @@
         });
         return;
     }
-   [HudToolView hideLoadingInView:self.view];
     
+   [HudToolView hideLoadingInView:self.view];
+    NSMutableDictionary *deviceDict = [NSMutableDictionary dictionary];
+    deviceDict[@"device"] = @{
+                              @"name": [[UIDevice currentDevice] name],
+                              @"platform": @"ios",
+                              @"os": [Version machineHuman],
+                              @"os_version": [[UIDevice currentDevice] systemVersion],
+                              @"uuid": [OpenUDID value],
+                              };
+    deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+    deviceDict[@"coordinate"] = coordianteString;
+    [YHHttpRequestAPI yh_postUserMessageWithDict:deviceDict Finish:^(BOOL success, id model, NSString *jsonObjc) {
+        NSLog(@"上传成功");
+    }];
     [self jumpToDashboardView];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

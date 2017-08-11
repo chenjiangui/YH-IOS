@@ -11,10 +11,13 @@
 #ifndef YH_IOS_YHAPI_h
 #define UH_IOS_YHAPI_h
 
-/**登录*/
 
 /** 用户验证 */
 #define YHAPI_USER_AUTHENTICATION  @"/api/v1.1/user/authentication"
+
+/** 上传设备 */
+
+#define YHAPI_UPLOAD_DEVICEMESSAGE  @"/api/v1.1/app/device"
 
 /** 退出登录 */
 #define YHAPI_USER_LOGOUT          @"/api/v1.1/user/logout"

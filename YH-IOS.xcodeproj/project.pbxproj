@@ -126,6 +126,7 @@
 		913804AB1F3ACCF300FA154C /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 913804A51F3ACCF300FA154C /* WebViewJavascriptBridge.m */; };
 		913804AC1F3ACCF300FA154C /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 913804A71F3ACCF300FA154C /* WebViewJavascriptBridgeBase.m */; };
 		913804AD1F3ACCF300FA154C /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 913804A91F3ACCF300FA154C /* WKWebViewJavascriptBridge.m */; };
+		9142F1F01F3D9CAF00DE38A8 /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */; };
 		914465641F04BFB900795E54 /* TopHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */; };
 		914465681F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914465661F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m */; };
 		914465691F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914465671F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib */; };
@@ -928,6 +929,8 @@
 		913804A81F3ACCF300FA154C /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		913804A91F3ACCF300FA154C /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		9142F1E81F3D85CB00DE38A8 /* YHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAPI.h; sourceTree = "<group>"; };
+		9142F1EE1F3D9CAF00DE38A8 /* DeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceModel.h; sourceTree = "<group>"; };
+		9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
 		914465621F04BFB900795E54 /* TopHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		914465651F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHToptopicHeaderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -2451,6 +2454,15 @@
 			name = MD5Model;
 			sourceTree = "<group>";
 		};
+		9142F1ED1F3D9C8E00DE38A8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9142F1EE1F3D9CAF00DE38A8 /* DeviceModel.h */,
+				9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		914509731F02244800ED82D6 /* SelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3262,6 +3274,7 @@
 		C4C628401C0C1ED6000AD5D8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				9142F1ED1F3D9C8E00DE38A8 /* Model */,
 				911123BB1F39B4BE00A09D83 /* NewFindPasswordCell.h */,
 				911123BC1F39B4BE00A09D83 /* NewFindPasswordCell.m */,
 				C4C628411C0C1ED6000AD5D8 /* LoginViewController.h */,
@@ -4878,6 +4891,7 @@
 				F62457401EA5FBB2006834D2 /* LineChart2ViewController.m in Sources */,
 				B6E7B3531F29D2CE008B48BF /* MHeaderImaCell.m in Sources */,
 				3B0D41621F32CEC100E279F9 /* YHScreenController.m in Sources */,
+				9142F1F01F3D9CAF00DE38A8 /* DeviceModel.m in Sources */,
 				91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */,
 				F64903BC1DB5CD9B0001DD2B /* UserInfoViewController.m in Sources */,
 				3B0D416C1F3326DF00E279F9 /* ScreenModel.m in Sources */,
