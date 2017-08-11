@@ -103,6 +103,7 @@
         MJWeakSelf;
         _userIconSheetView.selectBlock = ^(NSNumber* item) {
             [weakSelf.userIconSheetView hide];
+            [weakSelf clickNote:@"更新图像"];
             UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
             imagePickerController.delegate = weakSelf;
             imagePickerController.allowsEditing = YES;
@@ -126,6 +127,7 @@
         _favSheetView.colors = @[[NewAppColor yhapp_17color]];
         MJWeakSelf;
         _favSheetView.selectBlock = ^(NSNumber* item) {
+            [weakSelf clickNote:@"退出登录"];
             [weakSelf.favSheetView hide];
             if (item.integerValue == 0) {
                 [weakSelf jumpToLogin];
@@ -377,8 +379,9 @@
         
         NewMineResetPwdController *mineResetPwdCtrl = [[NewMineResetPwdController alloc]init];
         mineResetPwdCtrl.title = @"修改密码";
-
+   
         [RootNavigationController pushViewController:mineResetPwdCtrl animated:YES hideBottom:YES];
+        [self clickNote:@"修改密码"];
     }
     else if ((indexPath.section == 3)&&(indexPath.row == 2)){
 //        MineQuestionViewController *mineQuestionCtrl = [[MineQuestionViewController  alloc]init];
@@ -388,26 +391,41 @@
         NewMineQuestionController *mineQuestionCtrl = [[NewMineQuestionController  alloc]init];
         mineQuestionCtrl.title = @"问题反馈";
         [RootNavigationController pushViewController:mineQuestionCtrl animated:YES hideBottom:YES];
+        [self clickNote:@"问题反馈"];
         
     }
     else if ((indexPath.section ==3)&&(indexPath.row ==0)){
         MineSingleSettingViewController *settingCtrl = [[MineSingleSettingViewController alloc]init];
         settingCtrl.title = @"设置";
         [RootNavigationController pushViewController:settingCtrl animated:YES hideBottom:YES];
+        [self clickNote:@"设置"];
     }else if (indexPath.section == 2){
         if (indexPath.row==0) {
             MyFavArticleController* vc = [[MyFavArticleController alloc] init];
             [RootNavigationController pushViewController:vc animated:YES hideBottom:YES];
+            [self clickNote:@"文章收藏"];
         }
         else  
         {
             NewPushTableView* PushVc= [[NewPushTableView alloc] init];
             [RootNavigationController pushViewController:PushVc animated:YES hideBottom:YES];
+            [self clickNote:@"消息"];
         }
     }
     [self.minetableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+-(void)clickNote:(NSString *)string{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        /*
+         * 用户行为记录, 单独异常处理，不可影响用户体验
+         */
+        NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+        logParams[kActionALCName] = [NSString stringWithFormat:@"点击/个人信息/%@",string];
+        [APIHelper actionLog:logParams];
+    });
+}
 
 - (void)jumpToLogin {
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];

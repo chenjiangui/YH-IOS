@@ -90,6 +90,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];
     }
     [self startLocation];
+    self.title = _bannerName;
     self.isLoadFinish = NO;
     [self hiddenShadow];
     /**
@@ -670,7 +671,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
-        self.title =selectedItem;
+        if (selectedItem != nil && selectedItem.length != 0) {
+            self.title =selectedItem;
+        }
         responseCallback(selectedItem);
     }];
     

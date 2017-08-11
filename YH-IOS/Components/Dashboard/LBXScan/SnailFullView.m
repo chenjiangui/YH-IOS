@@ -259,7 +259,8 @@
 /** 返回*/
 -(void)backAction
 {
-    self.didClickFullView(self);
+    WeakSelf;
+    self.didClickFullView(weakSelf);
 }
 
 - (void)closeClicked:(UIButton *)sender {

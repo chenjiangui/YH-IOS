@@ -319,7 +319,7 @@ static NSString *headerViewIdentifier = @"hederview";
                  * 用户行为记录, 单独异常处理，不可影响用户体验
                  */
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-                logParams[kActionALCName] = @"点击/问题反馈成功";
+                logParams[kActionALCName] = @"点击/问题反馈/成功";
                 [APIHelper actionLog:logParams];
             });
         }
@@ -342,7 +342,7 @@ static NSString *headerViewIdentifier = @"hederview";
              * 用户行为记录, 单独异常处理，不可影响用户体验
              */
             NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-            logParams[kActionALCName] = @"点击/问题反馈失败";
+            logParams[kActionALCName] = @"点击/问题反馈/失败";
             [APIHelper actionLog:logParams];
         });
     }];

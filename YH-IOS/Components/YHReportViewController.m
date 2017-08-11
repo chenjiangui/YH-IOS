@@ -232,26 +232,25 @@
         }
 
         else{ //跳转事件
-            logParams[kActionALCName]   = @"点击/报表/报表";
-            logParams[kObjIDALCName]    = @(item.itemID);
-            logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
-            logParams[kObjTitleALCName] =  item.listName;
-            /*
-             * 用户行为记录, 单独异常处理，不可影响用户体验
-             */
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                @try {
-                    [APIHelper actionLog:logParams];
-                }
-                @catch (NSException *exception) {
-                    NSLog(@"%@", exception);
-                }
-            });
             
             
             if (YHAPPVERSION>=9.0) {                
                 if (isInnerLink) {
-                    
+                    logParams[kActionALCName]   = @"点击/报表/报表";
+                    logParams[kObjIDALCName]    = @(item.itemID);
+                    logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
+                    logParams[kObjTitleALCName] =  item.listName;
+                    /*
+                     * 用户行为记录, 单独异常处理，不可影响用户体验
+                     */
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        @try {
+                            [APIHelper actionLog:logParams];
+                        }
+                        @catch (NSException *exception) {
+                            NSLog(@"%@", exception);
+                        }
+                    });
                     NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
                     subjectView.bannerName = item.listName;
                     subjectView.link = targeturl;
@@ -261,7 +260,21 @@
                     [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
                 }
                 else{
-                    
+                    logParams[kActionALCName]   = @"点击/报表/链接";
+                    logParams[kObjIDALCName]    = @(item.itemID);
+                    logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
+                    logParams[kObjTitleALCName] =  item.listName;
+                    /*
+                     * 用户行为记录, 单独异常处理，不可影响用户体验
+                     */
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        @try {
+                            [APIHelper actionLog:logParams];
+                        }
+                        @catch (NSException *exception) {
+                            NSLog(@"%@", exception);
+                        }
+                    });
                     SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
                     subjectView.bannerName = item.listName;
                     subjectView.link = targeturl;
@@ -275,6 +288,21 @@
             else
             {
                 if (isInnerLink) {
+                    logParams[kActionALCName]   = @"点击/报表/报表";
+                    logParams[kObjIDALCName]    = @(item.itemID);
+                    logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
+                    logParams[kObjTitleALCName] =  item.listName;
+                    /*
+                     * 用户行为记录, 单独异常处理，不可影响用户体验
+                     */
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        @try {
+                            [APIHelper actionLog:logParams];
+                        }
+                        @catch (NSException *exception) {
+                            NSLog(@"%@", exception);
+                        }
+                    });
                     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     
                     SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
@@ -286,7 +314,21 @@
                     [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
                 }
                 else{
-                    
+                    logParams[kActionALCName]   = @"点击/报表/链接";
+                    logParams[kObjIDALCName]    = @(item.itemID);
+                    logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
+                    logParams[kObjTitleALCName] =  item.listName;
+                    /*
+                     * 用户行为记录, 单独异常处理，不可影响用户体验
+                     */
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        @try {
+                            [APIHelper actionLog:logParams];
+                        }
+                        @catch (NSException *exception) {
+                            NSLog(@"%@", exception);
+                        }
+                    });
                     SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
                     subjectView.bannerName = item.listName;
                     subjectView.link = targeturl;
@@ -358,36 +400,17 @@
 }
 
 
-#pragma mark - 扫描商品二维码（模仿qq界面）
-
-
--(void)getdata{
-    __weak typeof(*&self) weakSelf = self;
-    user = [[User alloc]init];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:[NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,user.groupID,user.roleID]
-      parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          NSLog(@"下载成功");
-          NSArray *dic = responseObject[@"data"];
-          NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-          weakSelf.listArray = [array copy];
-          [weakSelf initCategoryMenu];
-      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          NSLog(@"Error: %@", error);
-      }];
-}
-
-
 -(void)getSomeThingNew {
     user = [[User alloc]init];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,user.groupID,user.roleID];
+    NSString *kpiUrl =  [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT];
+    NSDictionary *param = @{@"api_token":ApiToken(YHAPI_REPORT),@"group_id":user.groupID,@"role_id":user.roleID};
     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
     NSString*fileName =  @"home_report";
     
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:kpiUrl
-      parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+      parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
           [self.reTool endDownPullWithReload:false];
           [HudToolView hideLoadingInView:self.view];
@@ -399,103 +422,8 @@
           [HudToolView hideLoadingInView:self.view];
           [HudToolView showTopWithText:@"请求失败" color:[NewAppColor yhapp_11color]];
       }];
-    
-   /* if ([HttpUtils isNetworkAvailable3]) {
-        [HudToolView hideLoadingInView:self.view];
-        HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
-        if ([reponse.statusCode  isEqual: @200] || [HttpUtils isNetworkAvailable3]) {
-            NSData *data = reponse.received;
-            if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-                [FileUtils removeFile:javascriptPath];
-            }
-            [reponse.received writeToFile:javascriptPath atomically:YES];
-            NSArray *dic = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-            NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-            self.listArray = [array copy];
-            [self initCategoryMenu];
-        }
-        else{
-            NSData *data = [NSData dataWithContentsOfFile:javascriptPath];
-            NSArray *dic = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-            if (!data || dic.count == 0) {
-                SCLAlertView *alert = [[SCLAlertView alloc] init];
-                    [alert addButton:@"重新加载" actionBlock:^(void) {
-                        [self getSomeThingNewRefresh];
-                    }];
-                    [alert showSuccess:self title:@"温馨提示" subTitle:@"暂无数据" closeButtonTitle:nil duration:0.0f];
-            }
-          
-        }
-    }
-    else{
-        [HudToolView hideLoadingInView:self.view];
-        NSData *data = [NSData dataWithContentsOfFile:javascriptPath];
-        if (!data) {
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"重新加载" actionBlock:^(void) {
-                [self getSomeThingNewRefresh];
-            }];
-            [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
-        }
-        else {
-        NSArray *dic = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-        NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-        self.listArray = [array copy];
-        [self initCategoryMenu];
-        }
-    }*/
 }
 
-
--(void)getSomeThingNewRefresh {
-    user = [[User alloc]init];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/analyses",kBaseUrl,user.groupID,user.roleID];
-    NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
-    NSString*fileName =  @"home_report";
-    javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
-    if ([HttpUtils isNetworkAvailable3]) {
-        HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
-        if ([reponse.statusCode  isEqual: @200] || [HttpUtils isNetworkAvailable3]) {
-            NSData *data = reponse.received;
-            if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-                [FileUtils removeFile:javascriptPath];
-            }
-            [reponse.received writeToFile:javascriptPath atomically:YES];
-            NSArray *dic = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-            NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-            self.listArray = [array copy];
-            [self initCategoryMenu];
-        }
-        else{
-            NSData *data = [NSData dataWithContentsOfFile:javascriptPath];
-            NSArray *dic = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-            if (!data || dic.count == 0) {
-                SCLAlertView *alert = [[SCLAlertView alloc] init];
-                [alert addButton:@"重新加载" actionBlock:^(void) {
-                    [self getSomeThingNewRefresh];
-                }];
-                [alert showSuccess:self title:@"温馨提示" subTitle:@"暂无数据" closeButtonTitle:nil duration:0.0f];
-            }
-            
-        }
-    }
-    else{
-        NSData *data = [NSData dataWithContentsOfFile:javascriptPath];
-        if (!data) {
-            SCLAlertView *alert = [[SCLAlertView alloc] init];
-            [alert addButton:@"确定" actionBlock:^(void) {
-               // [self getSomeThingNewRefresh];
-            }];
-            [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
-        }
-        else {
-            NSArray *dic = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-            NSArray<ListPageList*> *array= [MTLJSONAdapter modelsOfClass:ListPageList.class fromJSONArray:dic error:nil];
-            self.listArray = [array copy];
-            [self initCategoryMenu];
-        }
-    }
-}
 
 
 @end

@@ -63,7 +63,7 @@
              */
             @try {
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-                logParams[kActionALCName]   = @"发表/评论";
+                logParams[kActionALCName]   = @"评论";
                 logParams[kObjTitleALCName] = self.bannerName;
                 [APIHelper actionLog:logParams];
             }

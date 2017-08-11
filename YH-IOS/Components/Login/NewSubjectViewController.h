@@ -27,6 +27,7 @@
 #define WeakSelf  __weak typeof(*&self) weakSelf = self;
 
 @interface NewSubjectViewController : UIViewController
+
 @property WKWebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;
 @property (strong, nonatomic) NSString *urlString;
