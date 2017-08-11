@@ -12,7 +12,7 @@
 
 + (NSDictionary *)mj_objectClassInArray{
     return @{
-             @"list":@"ArticlesModel"
+             @"data":@"ArticlesModel"
              };
 }
 

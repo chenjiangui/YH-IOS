@@ -73,20 +73,21 @@
         CGRect windowRect = CGRectMake((SCREEN_WIDTH-32)/2, (SCREEN_HEIGHT-32)/2, 32, 32);
         CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:self];
         self.loadingImageV.frame = viewRect;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //防止滚动时位置不正确问题
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.03 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGRect rect = [self.loadingImageV.superview convertRect:self.loadingImageV.frame toView:[HudToolView getTrueView:nil]];
             if (!CGRectEqualToRect(rect, windowRect)) {
                 [self layoutSubviews];
             }
         });
     }
-    if (self.viewType == HudToolViewTypeNetworkBug) {
-        CGFloat width = SCREEN_WIDTH;
-        CGFloat height = _loadingImageV.image.size.height + 14 + 12;
-        CGRect windowRect = CGRectMake((SCREEN_WIDTH-width)/2, (SCREEN_HEIGHT-height)/2, width, height);
-        CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:self];
-        self.contentView.frame = viewRect;
-    }
+//    if (self.viewType == HudToolViewTypeNetworkBug) {
+//        CGFloat width = SCREEN_WIDTH;
+//        CGFloat height = _loadingImageV.image.size.height + 14 + 12;
+//        CGRect windowRect = CGRectMake((SCREEN_WIDTH-width)/2, (SCREEN_HEIGHT-height)/2, width, height);
+//        CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:self];
+//        self.contentView.frame = viewRect;
+//    }
 }
 
 #pragma mark - HudToolViewTypeText
@@ -105,6 +106,7 @@
     }
     [self removeInView:nil viewType:HudToolViewTypeText];
     HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeText];
+    hud.textLab.font = [UIFont systemFontOfSize:13];
     hud.textLab.text = text;
     UIView* window = [self getTrueView:nil];
     [window addSubview:hud];
@@ -158,6 +160,11 @@
         [hud mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(view);
         }];
+        CGFloat width = SCREEN_WIDTH;
+        CGFloat height = hud.loadingImageV.image.size.height + 14 + 12;
+        CGRect windowRect = CGRectMake((SCREEN_WIDTH-width)/2, (SCREEN_HEIGHT-height)/2, width, height);
+        CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:hud];
+        hud.contentView.frame = viewRect;
         return hud;
     }
     return nil;
