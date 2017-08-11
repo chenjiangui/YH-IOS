@@ -22,7 +22,7 @@
 + (BOOL)handleResult:(id)model{
     if (model && [model isKindOfClass:[BaseModel class]]) {
         BaseModel* base = model;
-        if ([base.code isEqualToString:@"200"]) {
+        if ([base.code isEqualToString:@"200"] || [base.code isEqualToString:@"201"]) {
             return YES;
         }else{
             // to do show hud message

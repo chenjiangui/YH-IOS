@@ -12,7 +12,8 @@ typedef enum : NSUInteger {
     HudToolViewTypeText,
     HudToolViewTypeLoading,
     HudToolViewTypeTopText,
-    HudToolViewTypeEmpty
+    HudToolViewTypeEmpty,
+    HudToolViewTypeNetworkBug
 } HudToolViewType;
 
 @interface HudToolView : UIView
@@ -39,8 +40,8 @@ typedef enum : NSUInteger {
 + (void)showTopWithText:(NSString*)text
                 correct:(BOOL)correct;
 
-#pragma mark - 显示空数据
-+ (instancetype)view:(UIView*)view showEmpty:(BOOL)show;
+#pragma mark - 显示网络异常页
++ (instancetype)showNetworkBug:(BOOL)show view:(UIView*)view;
 
 #pragma mark - 显示app提示文字
 + (instancetype)showText:(NSString*)text

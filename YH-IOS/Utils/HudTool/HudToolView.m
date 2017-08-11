@@ -28,8 +28,8 @@
         case HudToolViewTypeTopText:
             [self setTopTextType];
             break;
-        case HudToolViewTypeEmpty:
-            [self setEmptyType];
+        case HudToolViewTypeNetworkBug:
+            [self setNetworkBugType];
             break;
         case HudToolViewTypeText:
             [self setTextType];
@@ -74,7 +74,7 @@
         CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:self];
         self.loadingImageV.frame = viewRect;
     }
-    if (self.viewType == HudToolViewTypeEmpty) {
+    if (self.viewType == HudToolViewTypeNetworkBug) {
         CGFloat width = SCREEN_WIDTH;
         CGFloat height = _loadingImageV.image.size.height + 14 + 12;
         CGRect windowRect = CGRectMake((SCREEN_WIDTH-width)/2, (SCREEN_HEIGHT-height)/2, width, height);
@@ -143,11 +143,11 @@
 }
 
 
-#pragma mark - HudToolViewTypeEmpty
-+ (instancetype)view:(UIView *)view showEmpty:(BOOL)show{
-    [self removeInView:view viewType:HudToolViewTypeEmpty];
+#pragma mark - HudToolViewTypeNetworkBug
++ (instancetype)showNetworkBug:(BOOL)show view:(UIView *)view{
+    [self removeInView:view viewType:HudToolViewTypeNetworkBug];
     if (show) {
-        HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeEmpty];
+        HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeNetworkBug];
         [view addSubview:hud];
         [hud mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(view);
@@ -157,7 +157,7 @@
     return nil;
 }
 
-- (void)setEmptyType{
+- (void)setNetworkBugType{
     [self sd_addSubviews:@[self.contentView]];
     [self.contentView sd_addSubviews:@[self.textLab,self.loadingImageV]];
     self.backgroundColor = [NewAppColor yhapp_8color];
