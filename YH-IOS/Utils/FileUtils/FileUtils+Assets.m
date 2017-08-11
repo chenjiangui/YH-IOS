@@ -30,7 +30,7 @@
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
-    NSError *error;
+    NSError *error; 
     NSString *zipName = [NSString stringWithFormat:@"%@.zip", fileName];
     NSString *zipPath = [sharedPath stringByAppendingPathComponent:zipName];
     if(![FileUtils checkFileExist:zipPath isDir:NO]) {

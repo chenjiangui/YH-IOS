@@ -148,7 +148,7 @@
     [BaseRequest postRequestWithUrl:url Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         finish(requestSuccess,response,responseJson);
       }];
-    
-     }
+
+}
 
 @end
