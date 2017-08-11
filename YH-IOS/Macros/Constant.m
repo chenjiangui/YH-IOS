@@ -33,7 +33,8 @@ NSString *const kActionLogAPIPath        = @"%@/api/v1/ios/logger";
 NSString *const kPushDeviceTokenAPIPath  = @"%@/api/v1/device/%@/push_token/%@";
 NSString *const kBarCodeScanAPIPath      = @"%@/api/v1/group/%@/role/%@/user/%@/store/%@/barcode_scan?code_info=%@&code_type=%@";
 NSString *const kDownloadAssetsAPIPath   = @"%@/api/v1/download/%@.zip";
-NSString *const kUploadGravatarAPIPath   =  @"/api/v1/device/%@/upload/user/%@/gravatar";
+NSString *const kUploadGravatarAPIPath   = @"/api/v1/device/%@/upload/user/%@/gravatar";
+NSString *const kGetMD5APIPath           = @"%@/api/v1.1/assets/md5";
 
 /**
  *  Mobile#View Path

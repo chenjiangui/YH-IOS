@@ -423,16 +423,9 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if ([DMPasscode isPasscodeSet] && !_showingPasscode) {
-        _showingPasscode = YES;
-        [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
-            if (success) {
-                [self jumpToDashboardView];
-            }else{
-               
-            }
-        }];
-    }
+    NSString *getMd5Str = [NSString stringWithFormat:kGetMD5APIPath,kBaseUrl];
+    NSString *api_token = [NSString stringWithFormat:@"%@%@%@",API_TOKEN,@"/api/v1.1/assets/md5",API_TOKEN];
+    NSString *apiString = [NSString stringWithFormat:@"%@?api_token=%@",getMd5Str,[api_token md5]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -567,6 +560,16 @@ void UncaughtExceptionHandler(NSException * exception) {
     [LTHPasscodeViewController useKeychain:NO];
     [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
     if ([LTHPasscodeViewController doesPasscodeExist] && [LTHPasscodeViewController didPasscodeTimerEnd]) {
+        if ([DMPasscode isPasscodeSet] && !_showingPasscode) {
+            _showingPasscode = YES;
+            [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
+                if (success) {
+                    [self jumpToDashboardView];
+                }else{
+                    
+                }
+            }];
+        }
         [[LTHPasscodeViewController sharedUser] showLockScreenWithAnimation:YES withLogout:NO andLogoutTitle:nil];
     }
 }

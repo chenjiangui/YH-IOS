@@ -670,8 +670,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
+        self.title =selectedItem;
         responseCallback(selectedItem);
     }];
+    
+    
     [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
@@ -1323,8 +1326,12 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (SelectLocationView *)screenView{
     if (!_screenView) {
         _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
+        WeakSelf;
         _screenView.selectBlock = ^(ScreenModel* item) {
-            
+            NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
+            NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID]];
+            [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            [weakSelf.browser reload];
         };
     }
     return _screenView;

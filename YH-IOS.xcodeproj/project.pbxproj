@@ -2440,6 +2440,13 @@
 			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
+		9142F1E01F3C64DD00DE38A8 /* MD5Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MD5Model;
+			sourceTree = "<group>";
+		};
 		914509731F02244800ED82D6 /* SelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3426,6 +3433,7 @@
 		C4DB7DC71C02EE8E00DA534E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9142F1E01F3C64DD00DE38A8 /* MD5Model */,
 				3B763AE81F26109F00D5E965 /* NoticeWarningModel.h */,
 				3B763AE91F26109F00D5E965 /* NoticeWarningModel.m */,
 				C48DC6F61C1E8FDD00CECB95 /* Version */,

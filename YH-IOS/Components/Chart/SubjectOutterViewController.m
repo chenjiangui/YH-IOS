@@ -171,7 +171,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 }
 
-
 // 弹出框
 #pragma mark - Action
 - (void)onRightBtn:(id)sender{
@@ -183,6 +182,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         [self hidePopMenuWithAnimation:YES];
     }
 }
+
 - (void)showPopMenu{
     CGFloat itemH = 40;
     CGFloat w = 120;
@@ -237,8 +237,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)hidePopMenuWithAnimation:(BOOL)animate{
     [_popView hideWithAnimation:animate];
 }
-
-
 
 
 //标识点

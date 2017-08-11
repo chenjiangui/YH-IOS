@@ -171,7 +171,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }else{
         [self hidePopMenuWithAnimation:YES];
     }
-    
 }
 
 - (void)showPopMenu{
@@ -1206,6 +1205,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID]];
             [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            [weakSelf handleRefresh];
         };
     }
     return _screenView;
