@@ -73,6 +73,12 @@
         CGRect windowRect = CGRectMake((SCREEN_WIDTH-32)/2, (SCREEN_HEIGHT-32)/2, 32, 32);
         CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:self];
         self.loadingImageV.frame = viewRect;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CGRect rect = [self.loadingImageV.superview convertRect:self.loadingImageV.frame toView:[HudToolView getTrueView:nil]];
+            if (!CGRectEqualToRect(rect, windowRect)) {
+                [self layoutSubviews];
+            }
+        });
     }
     if (self.viewType == HudToolViewTypeNetworkBug) {
         CGFloat width = SCREEN_WIDTH;

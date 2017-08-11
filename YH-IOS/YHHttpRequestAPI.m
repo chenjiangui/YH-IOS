@@ -107,16 +107,27 @@
 }
 
 + (void)yh_getHomeNoticeListFinish:(YHHttpRequestBlock)finish{
-    NSString *url = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1.1/user/notifications",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"api_token":ApiToken(@"/api/v1.1/user/notifications"),
+                          @"group_id":self.user.groupID,
+                          @"role_id":self.user.roleID
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
 }
 
 + (void)yh_getFavArticleListPage:(NSInteger)page Finish:(YHHttpRequestBlock)finish{
-    NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/page/%zd/limit/%@/favourite_articles",kBaseUrl,self.user.userID,page,defaultLimit];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1.1/my/favourited/articles",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"api_token":ApiToken(@"/api/v1.1/my/favourited/articles"),
+                          @"user_num":self.user.userNum,
+                          @"page":@(page),
+                          @"limit":defaultLimit,
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
