@@ -122,7 +122,7 @@
  */
 + (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password coordinate:(NSString *)coordinate{
     
-    /*NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_AUTHENTICATION];
+   /* NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_AUTHENTICATION];
     
     NSString *alertMsg = @"";
     
@@ -142,7 +142,7 @@
     deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     deviceDict[@"coordinate"] = coordinate;
 
-    HttpResponse *response = [HttpUtils httpPost:urlString Params:deviceDict];
+    HttpResponse *response = [HttpUtils httpPost:urlString Params:[deviceDict mutableCopy]];
     
     if(response.data[@"code"] && [response.data[@"code"] isEqualToNumber:@(200)]) {
         NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];

@@ -11,27 +11,35 @@
 
 @implementation User
 
-- (User *)init {
-    if(self = [super init]) {
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{
+             @"userName":@"user_name",
+             @"userNum":@"user_num",
+             @"password":@"user_md5",
+             @"gravatar":@"gravatar",
+             @"userID":@"user_id",
+             @"roleID":@"role_id",
+             @"roleName":@"role_name",
+             @"groupID":@"group_id",
+             @"groupName":@"group_name",
+             @"deviceID":@"user_device_id",
+             @"kpiIDs":@"kpi_ids",
+             @"analyseIDs":@"analyse_ids",
+             @"appIDs":@"app_ids"
+             };
+}
+
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
         NSString *configPath = [User configPath];
         if([FileUtils checkFileExist:configPath isDir:NO]) {
             NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:configPath];
-            self.userName   = dict[@"user_name"];
-            self.userNum    = dict[@"user_num"];
-            self.password   = dict[@"user_md5"];
-            self.gravatar   = dict[@"gravatar"];
-            self.userID     = dict[@"user_id"];
-            self.roleID     = dict[@"role_id"];
-            self.roleName   = dict[@"role_name"];
-            self.groupID    = dict[@"group_id"];
-            self.groupName  = dict[@"group_name"];
-            self.kpiIDs     = dict[@"kpi_ids"];
-            self.analyseIDs = dict[@"analyse_ids"];
-            self.appIDs     = dict[@"app_ids"];
-            self.deviceID   = dict[@"user_device_id"];
+            self = [self mj_setKeyValues:dict];
         }
     }
-    
     return self;
 }
 
@@ -72,30 +80,30 @@
     return alias;
 }
 
-- (NSNumber *)groupID{
+- (NSString *)groupID{
     if (!_groupID) {
-        _groupID = [[NSNumber alloc] init];
+        _groupID = [[NSString alloc] init];
     }
     return _groupID;
 }
 
--(NSNumber *)groupName{
+-(NSString *)groupName{
     if (!_groupName) {
-        _groupName =[[NSNumber alloc]init];
+        _groupName =[[NSString alloc]init];
     }
     return _groupName;
 }
 
--(NSNumber*)roleID{
+-(NSString*)roleID{
     if (!_roleID) {
-        _roleID =[[NSNumber alloc]init];
+        _roleID =[[NSString alloc]init];
     }
     return _roleID;
 }
 
--(NSNumber*)roleName{
+-(NSString*)roleName{
     if (!_roleName) {
-        _roleName = [[NSNumber alloc]init];
+        _roleName = [[NSString alloc]init];
     }
     return _roleName;
 }

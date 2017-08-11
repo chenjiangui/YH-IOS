@@ -276,4 +276,5 @@
     return _mineInfoVc;
 }
 
+
 @end

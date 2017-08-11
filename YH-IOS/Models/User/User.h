@@ -9,15 +9,15 @@
 #import "BaseModel.h"
 
 @interface User : BaseModel
-@property (strong, nonatomic) NSNumber *userID;
+@property (strong, nonatomic) NSString *userID;
 @property (strong, nonatomic) NSString *userNum;
 @property (strong, nonatomic) NSString *userName;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *gravatar;
-@property (strong, nonatomic) NSNumber *groupID;
-@property (strong, nonatomic) NSNumber *groupName;
-@property (strong, nonatomic) NSNumber *roleID;
-@property (strong, nonatomic) NSNumber *roleName;
+@property (strong, nonatomic) NSString *groupID;
+@property (strong, nonatomic) NSString *groupName;
+@property (strong, nonatomic) NSString *roleID;
+@property (strong, nonatomic) NSString *roleName;
 @property (strong, nonatomic) NSArray *kpiIDs;
 @property (strong, nonatomic) NSArray *analyseIDs;
 @property (strong, nonatomic) NSArray *appIDs;

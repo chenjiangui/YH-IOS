@@ -54,28 +54,14 @@
         self.lightView.centerX = self.width/6.0 + self.width/3.0*scale;
         if (scale<0.5) {
             self.lightView.backgroundColor = [NewAppColor yhapp_11color];
-            [self clickMessage:@"公告预警"];
         }else if (scale>1.5) {
             self.lightView.backgroundColor = [NewAppColor yhapp_1color];
-            [self clickMessage:@"数据学院"];
         }else{
             self.lightView.backgroundColor = [NewAppColor yhapp_2color];
-            [self clickMessage:@"个人信息"];
         }
     }
 }
 
--(void)clickMessage:(NSString *)str {
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        /*
-         * 用户行为记录, 单独异常处理，不可影响用户体验
-         */
-        NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-        logParams[kActionALCName] =[NSString stringWithFormat:@"点击/%@",str];
-        [APIHelper actionLog:logParams];
-    });
-}
 
 - (NSArray<UIButton *> *)btns{
     if (!_btns) {

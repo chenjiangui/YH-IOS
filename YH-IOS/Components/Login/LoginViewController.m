@@ -575,6 +575,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [HudToolView hideLoadingInView:self.view];
             if (!(msg.length == 0)) {
@@ -621,6 +622,20 @@
                 logParams[kActionALCName] = @"登录";
                 [APIHelper actionLog:logParams];
             });
+            
+            NSMutableDictionary *deviceDict = [NSMutableDictionary dictionary];
+            deviceDict[@"device"] = @{
+                                      @"name": [[UIDevice currentDevice] name],
+                                      @"platform": @"ios",
+                                      @"os": [Version machineHuman],
+                                      @"os_version": [[UIDevice currentDevice] systemVersion],
+                                      @"uuid": [OpenUDID value],
+                                      };
+            deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+            deviceDict[@"coordinate"] = coordianteString;
+            [YHHttpRequestAPI yh_postUserMessageWithDict:deviceDict Finish:^(BOOL success, id model, NSString *jsonObjc) {
+                NSLog(@"实现了");
+            }];
             [HudToolView hideLoadingInView:self.view];
             [self jumpToDashboardView];
 
