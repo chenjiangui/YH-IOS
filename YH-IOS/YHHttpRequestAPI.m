@@ -31,9 +31,11 @@
     NSDictionary* dic = @{
                           @"page":@(page),
                           @"type":typeStr,
-                          @"limit":defaultLimit
+                          @"limit":defaultLimit,
+                          @"api_token":ApiToken(@"/api/v1.1/my/notices"),
+                          @"user_num":SafeText(self.user.userNum)
                           };
-    NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/notices",kBaseUrl,[self user].userID];
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1.1/my/notices",kBaseUrl];
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         NoticeWarningModel* model = [NoticeWarningModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
@@ -49,9 +51,13 @@
 }
 
 + (void)yh_getArticleListWithKeyword:(NSString *)keyword page:(NSInteger)page finish:(YHHttpRequestBlock)finish{
-    NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/page/%zd/limit/%@/articles",kBaseUrl,[self user].userID,page,defaultLimit];
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1.1/my/articles",kBaseUrl];
     NSDictionary* dic = @{
-                          @"keyword":SafeText(keyword)
+                          @"keyword":SafeText(keyword),
+                          @"api_token":ApiToken(@"/api/v1.1/my/articles"),
+                          @"page":@(page),
+                          @"limit":defaultLimit,
+                          @"user_num":self.user.userID
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
@@ -60,16 +66,27 @@
 }
 
 + (void)yh_collectArticleWithArticleId:(NSString *)identifier isFav:(BOOL)isFav finish:(YHHttpRequestBlock)finish{
-        NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/article/%@/favourite_status/%@",kBaseUrl,[self user].userID,identifier,isFav ? @"1":@"2"];
-    [BaseRequest postRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1.1/my/article/favourite_status",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"favourite_status":isFav ? @"1":@"2",
+                          @"api_token":ApiToken(@"/api/v1.1/my/article/favourite_status"),
+                          @"user_num":self.user.userID,
+                          @"article_id":SafeText(identifier)
+                          };
+    [BaseRequest postRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
 }
 
 + (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish{
-    NSString *url = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, NSData* response, NSString *responseJson) {
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1.1/app/component/overview",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"api_token":ApiToken(@"/api/v1.1/app/component/overview"),
+                          @"group_id":self.user.groupID,
+                          @"role_id":self.user.roleID
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, NSData* response, NSString *responseJson) {
         NSDictionary* dic = [response mj_JSONObject];
         NSArray<YHKPIModel *> *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:dic[@"data"] error:nil];
         finish(requestSuccess,demolArray,responseJson);
@@ -77,24 +94,40 @@
 }
 
 + (void)yh_getToolListFinish:(YHHttpRequestBlock)finish{
-    NSString *url = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/app_covers",kBaseUrl,self.user.groupID,self.user.roleID];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1.1/app/component/toolbox",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"api_token":ApiToken(@"/api/v1.1/app/component/toolbox"),
+                          @"group_id":self.user.groupID,
+                          @"role_id":self.user.roleID
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
 }
 
 + (void)yh_getHomeNoticeListFinish:(YHHttpRequestBlock)finish{
-    NSString *url = [NSString stringWithFormat:@"%@/api/v1/role/%@/group/%@/user/%@/message",kBaseUrl,self.user.roleID,self.user.groupID,self.user.userID];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString *url = [NSString stringWithFormat:@"%@/api/v1.1/user/notifications",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"api_token":ApiToken(@"/api/v1.1/user/notifications"),
+                          @"group_id":self.user.groupID,
+                          @"role_id":self.user.roleID
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
 }
 
 + (void)yh_getFavArticleListPage:(NSInteger)page Finish:(YHHttpRequestBlock)finish{
-    NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/page/%zd/limit/%@/favourite_articles",kBaseUrl,self.user.userID,page,defaultLimit];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString* url = [NSString stringWithFormat:@"%@/api/v1.1/my/favourited/articles",kBaseUrl];
+    NSDictionary* dic = @{
+                          @"api_token":ApiToken(@"/api/v1.1/my/favourited/articles"),
+                          @"user_num":self.user.userNum,
+                          @"page":@(page),
+                          @"limit":defaultLimit,
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];

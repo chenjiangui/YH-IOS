@@ -28,8 +28,11 @@
         case HudToolViewTypeTopText:
             [self setTopTextType];
             break;
-        case HudToolViewTypeEmpty:
-            [self setEmptyType];
+        case HudToolViewTypeNetworkBug:
+            [self setNetworkBugType];
+            break;
+        case HudToolViewTypeText:
+            [self setTextType];
             break;
         default:
             break;
@@ -70,8 +73,14 @@
         CGRect windowRect = CGRectMake((SCREEN_WIDTH-32)/2, (SCREEN_HEIGHT-32)/2, 32, 32);
         CGRect viewRect = [[HudToolView getTrueView:nil] convertRect:windowRect toView:self];
         self.loadingImageV.frame = viewRect;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CGRect rect = [self.loadingImageV.superview convertRect:self.loadingImageV.frame toView:[HudToolView getTrueView:nil]];
+            if (!CGRectEqualToRect(rect, windowRect)) {
+                [self layoutSubviews];
+            }
+        });
     }
-    if (self.viewType == HudToolViewTypeEmpty) {
+    if (self.viewType == HudToolViewTypeNetworkBug) {
         CGFloat width = SCREEN_WIDTH;
         CGFloat height = _loadingImageV.image.size.height + 14 + 12;
         CGRect windowRect = CGRectMake((SCREEN_WIDTH-width)/2, (SCREEN_HEIGHT-height)/2, width, height);
@@ -80,11 +89,71 @@
     }
 }
 
-#pragma mark - HudToolViewTypeEmpty
-+ (instancetype)view:(UIView *)view showEmpty:(BOOL)show{
-    [self removeInView:view viewType:HudToolViewTypeEmpty];
+#pragma mark - HudToolViewTypeText
++ (instancetype)showText:(NSString*)text time:(NSTimeInterval)time isAutoTime:(BOOL)isAuto{
+    if (time<=0) {
+        time = 0.8;
+    }
+    if (isAuto) {
+        if (text.length<20) {
+            time = 1.2;
+        }else if (text.length>40){
+            time = 1.8;
+        }else{
+            time = 1.6;
+        }
+    }
+    [self removeInView:nil viewType:HudToolViewTypeText];
+    HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeText];
+    hud.textLab.text = text;
+    UIView* window = [self getTrueView:nil];
+    [window addSubview:hud];
+    [hud.textLab sizeToFit];
+    hud.sd_layout.bottomSpaceToView(window, 85).centerXEqualToView(window);
+    [hud setupAutoWidthWithRightView:hud.textLab rightMargin:20];
+    [hud setupAutoHeightWithBottomView:hud.textLab bottomMargin:10];
+    hud.alpha = 0;
+    hud.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    [UIView animateWithDuration:0.2 animations:^{
+        hud.alpha = 1;
+        hud.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.2 animations:^{
+                hud.alpha = 0;
+                hud.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            } completion:^(BOOL finished) {
+                if (hud && hud.superview) {
+                    [hud removeFromSuperview];
+                }
+            }];
+        });
+    }];
+    return hud;
+}
+
++ (instancetype)showText:(NSString*)text{
+    return [self showText:text time:0 isAutoTime:YES];
+}
+
+- (void)setTextType{
+    self.backgroundColor = [UIColorHex(222222) colorWithAlphaComponent:0.85];
+    [self cornerRadius:5];
+    [self sd_addSubviews:@[self.textLab]];
+    [_textLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(20);
+        make.top.mas_equalTo(self).offset(10);
+        make.width.mas_lessThanOrEqualTo(190);
+        make.height.mas_lessThanOrEqualTo(30);
+    }];
+}
+
+
+#pragma mark - HudToolViewTypeNetworkBug
++ (instancetype)showNetworkBug:(BOOL)show view:(UIView *)view{
+    [self removeInView:view viewType:HudToolViewTypeNetworkBug];
     if (show) {
-        HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeEmpty];
+        HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeNetworkBug];
         [view addSubview:hud];
         [hud mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(view);
@@ -94,7 +163,7 @@
     return nil;
 }
 
-- (void)setEmptyType{
+- (void)setNetworkBugType{
     [self sd_addSubviews:@[self.contentView]];
     [self.contentView sd_addSubviews:@[self.textLab,self.loadingImageV]];
     self.backgroundColor = [NewAppColor yhapp_8color];

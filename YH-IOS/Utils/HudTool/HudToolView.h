@@ -12,7 +12,8 @@ typedef enum : NSUInteger {
     HudToolViewTypeText,
     HudToolViewTypeLoading,
     HudToolViewTypeTopText,
-    HudToolViewTypeEmpty
+    HudToolViewTypeEmpty,
+    HudToolViewTypeNetworkBug
 } HudToolViewType;
 
 @interface HudToolView : UIView
@@ -27,13 +28,27 @@ typedef enum : NSUInteger {
 
 
 + (void)removeInView:(UIView*)view viewType:(HudToolViewType)viewType;
-// view nil为window
+#pragma mark - 显示或掩藏菊花图
 + (void)showLoadingInView:(UIView*)view;
+
 + (void)hideLoadingInView:(UIView*)view;
 
-+ (void)showTopWithText:(NSString*)text color:(UIColor*)color;
-+ (void)showTopWithText:(NSString*)text correct:(BOOL)correct;
+#pragma mark - 显示上方tip
++ (void)showTopWithText:(NSString*)text
+                  color:(UIColor*)color;
 
-+ (instancetype)view:(UIView*)view showEmpty:(BOOL)show;
++ (void)showTopWithText:(NSString*)text
+                correct:(BOOL)correct;
+
+#pragma mark - 显示网络异常页
++ (instancetype)showNetworkBug:(BOOL)show view:(UIView*)view;
+
+#pragma mark - 显示app提示文字
++ (instancetype)showText:(NSString*)text
+                    time:(NSTimeInterval)time
+              isAutoTime:(BOOL)isAuto;
+
++ (instancetype)showText:(NSString*)text;
+
 
 @end
