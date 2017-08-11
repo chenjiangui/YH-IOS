@@ -126,6 +126,23 @@
 //        }
 //    }];
 }
+
+
+//* post请求，参数加载 body 中
++ (void)postRequestWithUrl:(NSString *)url body:(NSDictionary *)params needHandle:(BOOL)needHandle requestBack:(RequestBack)requestBack{
+    [CurAfnManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", @"text/json", @"text/JavaScript",@"text/html",@"text/plain", nil]];
+    NSError *error;
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:url parameters:nil error:nil];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error: &error];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
+    [request setHTTPBody:tempJsonData];
+    [CurAfnManager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        
+    }];
+}
+
+
 //* get请求
 + (void)getRequestWithUrl:(NSString *)url Params:(NSDictionary *)params needHandle:(BOOL)needHandle requestBack:(RequestBack)requestBack{
     DLog(@"\n请求url*****************************************\n%@\n请求参数*************************************\n%@",url,params);

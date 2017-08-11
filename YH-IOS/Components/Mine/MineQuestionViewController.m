@@ -366,7 +366,7 @@ static NSString *const reUse = @"reUse";
 
 -(void)submitMyProblem{
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"正在上传" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
-    NSDictionary *parames = @{@"content":self.questionTextField.text,@"title":@"生意人问题反馈",@"user_num":user.userNum,@"app_version":self.version.current,@"platform":@"ios",@"platform_version":self.version.platform};
+    NSDictionary *parames = @{@"content":self.questionTextField.text,@"title":@"生意人问题反馈",@"user_num":SafeText(user.userNum),@"app_version":self.version.current,@"platform":@"ios",@"platform_version":self.version.platform};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

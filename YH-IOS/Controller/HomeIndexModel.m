@@ -33,12 +33,12 @@ NSString *jsons = @"[{\"period\":\"201605\",\"xaxis_order\":\"201605\",\"head\":
     NSString *jsonURL;
     NSString *baseString;
     if ([urlString hasPrefix:@"http"]) {
-        baseString = [NSString stringWithFormat:urlString,user.groupID];
+        baseString = [NSString stringWithFormat:urlString, SafeText(user.groupID)];
         jsonURL = [NSString stringWithFormat:@"%@",baseString];
     }
     else{
         NSArray *urlArray = [urlString componentsSeparatedByString:@"/"];
-         baseString = [NSString stringWithFormat:@"/api/v1/group/%@/template/%@/report/%@/json",user.groupID,urlArray[6],urlArray[8]];
+         baseString = [NSString stringWithFormat:@"/api/v1/group/%@/template/%@/report/%@/json",SafeText(user.groupID),urlArray[6],urlArray[8]];
         jsonURL = [NSString stringWithFormat:@"%@%@",kBaseUrl,baseString];
         
     }

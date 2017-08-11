@@ -94,7 +94,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          * /mobil/report/:report_id/group/:group_id
          * eg: /mobile/repoprt/1/group/%@
          */
-        NSString *urlPath = [NSString stringWithFormat:self.link, self.user.groupID];
+        NSString *urlPath = [NSString stringWithFormat:self.link, SafeText(self.user.groupID)];
         self.urlString =[NSString stringWithFormat:@"%@%@", kBaseUrl, urlPath];
     }
     else {
@@ -471,7 +471,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self addWebViewJavascriptBridge];
     
     if(self.isInnerLink) {
-        NSString *reportDataUrlString = [APIHelper reportDataUrlString:self.user.groupID templateID:self.templateID reportID:self.reportID];
+        NSString *reportDataUrlString = [APIHelper reportDataUrlString:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
         
         [HttpUtils clearHttpResponeHeader:reportDataUrlString assetsPath:self.assetsPath];
         [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
@@ -556,7 +556,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName,SafeText(weakSelf.user.groupID), weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
@@ -567,7 +567,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
         }
@@ -629,7 +629,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, self.user.groupID, self.templateID, self.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, SafeText(self.user.groupID), self.templateID, self.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", self.javascriptPath];
@@ -723,7 +723,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
-    NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", self.user.userNum, timestamp];
+    NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", SafeText(self.user.userNum), timestamp];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
     
     NSLog(@"%@", self.urlString);
@@ -755,13 +755,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      *  初次加载时，判断筛选功能的条件还未生效
      *  此处仅在第二次及以后才会生效
      */
-    self.isSupportSearch = [FileUtils reportIsSupportSearch:self.user.groupID templateID:self.templateID reportID:self.reportID];
+    self.isSupportSearch = [FileUtils reportIsSupportSearch:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
     if(self.isSupportSearch) {
         [self displayBannerTitleAndSearchIcon];
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [APIHelper reportData:self.user.groupID templateID:self.templateID reportID:self.reportID];
+        [APIHelper reportData:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
         
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:self.urlString assetsPath:self.assetsPath];
         
@@ -787,11 +787,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)displayBannerTitleAndSearchIcon {
     self.btnSearch.hidden = NO;
     
-    NSString *reportSelected = [FileUtils reportSelectedItem:self.user.groupID templateID:self.templateID reportID:self.reportID];
+    NSString *reportSelected = [FileUtils reportSelectedItem:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
     NSString *reportSelectedItem = [reportSelected stringByReplacingOccurrencesOfString:@"||" withString:@"•"];
     
     if(reportSelectedItem == NULL || [reportSelectedItem length] == 0) {
-        NSArray *reportSearchItems = [FileUtils reportSearchItems:self.user.groupID templateID:self.templateID reportID:self.reportID];
+        NSArray *reportSearchItems = [FileUtils reportSearchItems:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
         if([reportSearchItems count] > 0) {
             NSArray<SelectDataModel *>  *allarray = [MTLJSONAdapter modelsOfClass:SelectDataModel.class fromJSONArray:reportSearchItems error:nil];
             if (allarray[0].deep == 1) {

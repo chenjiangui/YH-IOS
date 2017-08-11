@@ -124,7 +124,7 @@ static  NSString *PhoneString;
          NSLog(@"%@%@",userNum,userPhone);
             if (userNum && userPhone) {
                 HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
-                NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"info"]];
+                NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"message"]];
                 if ([reponse.statusCode isEqualToNumber:@(201)]) {
                     [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
                     [[self viewController] dismissViewControllerAnimated:YES completion:nil];

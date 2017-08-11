@@ -94,7 +94,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          * /mobil/report/:report_id/group/:group_id
          * eg: /mobile/repoprt/1/group/%@
          */
-        NSString *urlPath = [NSString stringWithFormat:self.link, self.user.groupID];
+        NSString *urlPath = [NSString stringWithFormat:self.link, SafeText(self.user.groupID)];
         self.urlString =[NSString stringWithFormat:@"%@%@", kBaseUrl, urlPath];
     }
     else {
@@ -245,7 +245,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSArray *colors = @[@"00ffff", @"ffcd0a", @"fd9053", @"dd0929", @"016a43", @"9d203c", @"093db5", @"6a3906", @"192162", @"000000"];
     
     NSArray *colorViews = @[idColor0, idColor1, idColor2, idColor3, idColor4];
-    NSString *userID = [NSString stringWithFormat:@"%@", self.user.userID];
+    NSString *userID = [NSString stringWithFormat:@"%@", SafeText(self.user.userID)];
     
     NSString *color;
     NSInteger userIDIndex, numDiff = colorViews.count - userID.length;
@@ -450,7 +450,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self addWebViewJavascriptBridge];
     
     if(self.isInnerLink) {
-        NSString *reportDataUrlString = [APIHelper reportDataUrlString:self.user.groupID templateID:self.templateID reportID:self.reportID];
+        NSString *reportDataUrlString = [APIHelper reportDataUrlString:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
         
         [HttpUtils clearHttpResponeHeader:reportDataUrlString assetsPath:self.assetsPath];
         [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
@@ -535,7 +535,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
+        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, SafeText(weakSelf.user.groupID), weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
@@ -548,7 +548,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  判断筛选的条件: data[@"items"] 数组不为空
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
-        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
         }
@@ -729,7 +729,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
-    NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", self.user.userNum, timestamp];
+    NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", SafeText(self.user.userNum), timestamp];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
     
     NSLog(@"%@", self.urlString);
@@ -761,13 +761,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      *  初次加载时，判断筛选功能的条件还未生效
      *  此处仅在第二次及以后才会生效
      */
-    self.isSupportSearch = [FileUtils reportIsSupportSearch:self.user.groupID templateID:self.templateID reportID:self.reportID];
+    self.isSupportSearch = [FileUtils reportIsSupportSearch:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
     if(self.isSupportSearch) {
         [self displayBannerTitleAndSearchIcon];
     }
     __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [APIHelper reportData:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        [APIHelper reportData:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID];
         
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
         
@@ -1208,7 +1208,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         WeakSelf;
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
-            NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID]];
+            NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
             [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
             [weakSelf handleRefresh];
         };

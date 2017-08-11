@@ -149,7 +149,7 @@
     NSMutableArray* cleanArray = [[NSMutableArray alloc]init];
     NSLog(@"%@",fileList);
     User *user = [[User alloc]init];
-    NSString *userFileName = [NSString stringWithFormat:@"user-%@",user.userID];
+    NSString *userFileName = [NSString stringWithFormat:@"user-%@",SafeText(user.userID)];
     for (NSString* value in fileList) {
         if ([value hasPrefix:@"user-"] && ![value isEqualToString:userFileName] && ![value isEqualToString:@"user-(null)"]) {
             [cleanArray addObject:value];
@@ -172,7 +172,7 @@
     NSMutableArray* cleanArray = [[NSMutableArray alloc]init];
     NSLog(@"%@",fileList);
     User* user = [[User alloc]init];
-    NSString *userFileName = [NSString stringWithFormat:@"user-%@",user.userID];
+    NSString *userFileName = [NSString stringWithFormat:@"user-%@",SafeText(user.userID)];
     for (NSString* value in fileList) {
         if ([value hasPrefix:@"user-"] && ![value isEqualToString:userFileName] && ![value isEqualToString:@"user-(null)"]) {
             NSMutableDictionary *userDict;

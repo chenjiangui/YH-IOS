@@ -70,7 +70,7 @@
     fileList = [fileManager contentsOfDirectoryAtPath:firstSavePathArray[0] error:&error];
     NSMutableArray* cleanArray = [[NSMutableArray alloc]init];
     NSLog(@"%@",fileList);
-    NSString *userFileName = [NSString stringWithFormat:@"user-%@",user.userID];
+    NSString *userFileName = [NSString stringWithFormat:@"user-%@",SafeText(user.userID)];
     for (NSString* value in fileList) {
         if ([value hasPrefix:@"user-"] && ![value isEqualToString:userFileName]) {
             [cleanArray addObject:value];
@@ -82,7 +82,7 @@
 //惰性获取推送设备
 -(NSDictionary*)pushdeviceDict{
     if (!_pushdeviceDict) {
-        NSString *pushdeviceString = [NSString stringWithFormat:@"%@/api/v1/user/%@/devices",kBaseUrl,user.userNum];
+        NSString *pushdeviceString = [NSString stringWithFormat:@"%@/api/v1/user/%@/devices",kBaseUrl,SafeText(user.userNum)];
         HttpResponse *response = [HttpUtils httpGet:pushdeviceString];
         _pushdeviceDict = [[NSDictionary alloc]init];
         if ([response.statusCode isEqualToNumber:@(200)]) {

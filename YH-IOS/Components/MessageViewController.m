@@ -18,7 +18,7 @@
     [super viewDidLoad];
 
     NSString *uiVersion = [FileUtils currentUIVersion];
-    self.urlString = [NSString stringWithFormat:kMessageMobilePath, kBaseUrl, uiVersion, self.user.roleID, self.user.groupID, self.user.userID];
+    self.urlString = [NSString stringWithFormat:kMessageMobilePath, kBaseUrl, uiVersion, SafeText(self.user.roleID), SafeText(self.user.groupID), SafeText(self.user.userID)];
     self.commentObjectType = ObjectTypeMessage;
     self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-84)];
     [self.view addSubview: self.browser];

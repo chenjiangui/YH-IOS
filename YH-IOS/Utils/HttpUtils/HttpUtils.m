@@ -246,6 +246,36 @@
     return httpResponse;
 }
 
+
+/**
+ *  http#get 时 header  添加If-None-Match，避免静态文件重复加载
+ *
+ *  @param urlString  链接
+ *  @param assetsPath 缓存位置
+ *
+ *  @return HttpResponse
+ */
++ (HttpResponse *)checkResponseJsData:(NSString *)urlString assetsPath:(NSString *)assetsPath  dict:(NSDictionary *)dict{
+    NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
+    NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
+    
+    
+    HttpResponse *httpResponse = [self httpGet:urlString header:dict timeoutInterval:10.0];
+    
+    if(![httpResponse.statusCode isEqualToNumber:@(304)]) {
+        if(!cachedHeaderDict) {
+            cachedHeaderDict = [NSMutableDictionary dictionary];
+        }
+        
+        cachedHeaderDict[urlString] = httpResponse.response.allHeaderFields;
+        [cachedHeaderDict writeToFile:cachedHeaderPath atomically:YES];
+    }
+    NSLog(@"%@ - %@", urlString, httpResponse.statusCode);
+    
+    return httpResponse;
+}
+
+
 + (void)downloadAssetFile:(NSString *)urlString assetsPath:(NSString *)assetsPath {
     NSString *filePath = [assetsPath stringByAppendingPathComponent:[urlString lastPathComponent]];
     

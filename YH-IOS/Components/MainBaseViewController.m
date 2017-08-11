@@ -110,7 +110,7 @@
     NSArray *colors = @[@"00ffff", @"ffcd0a", @"fd9053", @"dd0929", @"016a43", @"9d203c", @"093db5", @"6a3906", @"192162", @"000000"];
     
     NSArray *colorViews = @[idColor0, idColor1, idColor2, idColor3, idColor4];
-    NSString *userID = [NSString stringWithFormat:@"%@", self.user.userID];
+    NSString *userID = [NSString stringWithFormat:@"%@", SafeText(self.user.userID)];
     
     NSString *color;
     NSInteger userIDIndex, numDiff = colorViews.count - userID.length;

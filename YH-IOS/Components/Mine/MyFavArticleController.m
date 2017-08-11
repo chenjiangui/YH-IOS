@@ -59,7 +59,7 @@
     YHInstituteDetailViewController *instiDetail = [[YHInstituteDetailViewController alloc]init];
     ArticlesModel* model = self.dataList[indexPath.row];
     User* user = [[User alloc]init];
-    instiDetail.userId = [NSString stringWithFormat:@"%@",user.userID];
+    instiDetail.userId = [NSString stringWithFormat:@"%@",SafeText(user.userID)];
     instiDetail.dataId = model.acticleId;
     [RootNavigationController pushViewController:instiDetail animated:YES hideBottom:YES];
 }

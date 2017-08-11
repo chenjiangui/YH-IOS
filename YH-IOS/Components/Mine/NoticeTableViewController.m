@@ -131,7 +131,7 @@
         return;
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *kpiString =[ NSString stringWithFormat:@"%@/api/v1/user/%@/type/%@/page/1/limit/10/notices", kBaseUrl,user.userNum,tyeString];
+    NSString *kpiString =[ NSString stringWithFormat:@"%@/api/v1/user/%@/type/%@/page/1/limit/10/notices", kBaseUrl,SafeText(user.userNum),tyeString];
     [manager GET:kpiString
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
@@ -166,7 +166,7 @@
         [tyeString appendString:[NSString stringWithFormat:@"%lu",(unsigned long)_typeChoiceArray.count-1]];
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *kpiurl =[ NSString stringWithFormat:@"%@/api/v1/user/%@/type/%@/page/1/limit/10/notices", kBaseUrl,user.userID,tyeString];
+    NSString *kpiurl =[ NSString stringWithFormat:@"%@/api/v1/user/%@/type/%@/page/1/limit/10/notices", kBaseUrl,SafeText(user.userID),tyeString];
     [manager GET:kpiurl
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
@@ -199,7 +199,7 @@
         [tyeString appendString:[NSString stringWithFormat:@"%lu",(unsigned long)_typeChoiceArray.count-1]];
     }
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:[ NSString stringWithFormat:@"%@/api/v1/user/%@/type/%@/page/%@/limit/10/notices", kBaseUrl,user.userID,tyeString,page]
+    [manager GET:[ NSString stringWithFormat:@"%@/api/v1/user/%@/type/%@/page/%@/limit/10/notices", kBaseUrl,SafeText(user.userID),tyeString,page]
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
           NSArray *dataArray = responseObject[@"data"];

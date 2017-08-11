@@ -403,7 +403,7 @@
 -(void)getSomeThingNew {
     user = [[User alloc]init];
     NSString *kpiUrl =  [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT];
-    NSDictionary *param = @{@"api_token":ApiToken(YHAPI_REPORT),@"group_id":user.groupID,@"role_id":user.roleID};
+    NSDictionary *param = @{@"api_token":ApiToken(YHAPI_REPORT),@"group_id":SafeText(user.groupID),@"role_id":SafeText(user.roleID)};
     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
     NSString*fileName =  @"home_report";
     
