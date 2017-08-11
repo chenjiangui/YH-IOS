@@ -22,6 +22,7 @@
 #define DEFAULT_IMAGE [UIImage imageWithColor:UIColorHex(f3f3f3)]
 
 #define CustomFontName @"AlternateGothicNo2BT-Regular"
+#define IosAPIToken @"e0e57df4d40eab55c7eb8bdd851ae328"
 
 //屏幕大小宏定义
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)

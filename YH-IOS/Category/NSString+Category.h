@@ -24,11 +24,14 @@
 /* ---- */
 #define empty(str)          (nil == str || [str length] < 1)
 
+#define ApiToken(str) [NSString apiToken:str]
 
 /**
  *  SDK自带的 NSString 类添加一些实用方法
  */
 @interface NSString (Category)
+
++ (NSString*)apiToken:(NSString*)url;
 
 + (NSAttributedString *)strToAttriWithStr:(NSString *)htmlStr;
 
