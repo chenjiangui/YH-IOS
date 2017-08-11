@@ -164,12 +164,13 @@
     //        make.size.mas_equalTo(CGSizeMake(10, 10));
     //    }];
     //
-    
-    
+    WeakSelf;
     _logoInBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [_logoInBtn setTitle:@"登录" forState:UIControlStateNormal];
     _logoInBtn.titleLabel.font = [UIFont systemFontOfSize: 16];
-    [_logoInBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_logoInBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        [weakSelf loginBtnClick];
+    }];
     [_logoInBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_logoInBtn setBackgroundImage:@"btn_login".imageFromSelf forState:UIControlStateNormal];
     _logoInBtn.clipsToBounds=YES;

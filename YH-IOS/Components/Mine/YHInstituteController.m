@@ -28,6 +28,8 @@
     [super viewDidLoad];
     [self setupUI];
     [self getData:YES isDownPull:YES];
+    [self showBottomTip:YES title:@"不积小流，无以成江海" image:@"pic_3".imageFromSelf];
+
 }
 
 
@@ -136,7 +138,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
+        _tableView.backgroundColor = [NewAppColor yhapp_clearcolor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

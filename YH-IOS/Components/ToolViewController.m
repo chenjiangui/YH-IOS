@@ -35,8 +35,8 @@
     self.title = @"工具箱";
     [self setupUI];
     [self getData:true];
+    [self showBottomTip:YES title:@"年轻不留白" image:@"pic_4".imageFromSelf];
 }
-
 - (void)getData:(BOOL)loading{
     if (loading) {
         [HudToolView showLoadingInView:self.view];
@@ -104,7 +104,7 @@
         layout.minimumLineSpacing = 0.5;
         layout.minimumInteritemSpacing = 0.5;
         _collection = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-        _collection.backgroundColor = self.view.backgroundColor;
+        _collection.backgroundColor =[NewAppColor yhapp_clearcolor];
         _collection.delegate = self;
         _collection.dataSource = self;
     }

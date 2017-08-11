@@ -36,9 +36,6 @@
     self.title = @"手动输入条码";
     [self.view setBackgroundColor:[[NewAppColor yhapp_5color] colorWithAlphaComponent:0.5]];
 //    self.view.alpha=0.5;
-    
-
-
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor whiteColor]}] ;
@@ -180,7 +177,6 @@
     quest.hidden=YES;
     [quest removeFromSuperview];
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    NSLog(@"%@",InputNumString);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
     if ([InputNumString length] != 0) {

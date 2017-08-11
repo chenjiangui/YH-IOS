@@ -14,6 +14,9 @@
 #import "ScanResultViewController.h"
 #import "ManualInputViewController.h"
 #import "NewManualInputViewController.h"
+#import "SnailPopupController.h"
+#import "SnailFullView.h"
+
 @interface SubLBXScanViewController ()
 
 @property (nonatomic, strong) UILabel* titleLab;
@@ -384,11 +387,61 @@
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
 //    [self presentViewController:manulCtrl animated:YES completion:nil];
 
-    NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
-    [self.navigationController pushViewController:NewManual animated:YES];
+
     
-    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
-   [self presentViewController:manulCtrl animated:YES completion:nil];
+//    NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
+//    [self.navigationController pushViewController:NewManual animated:YES];
+//    
+//    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
+//   [self presentViewController:manulCtrl animated:YES completion:nil];
+    
+    
+    
+
+
+    [self example5];
+    
+}
+- (void)example5 {
+    SnailFullView *full = [self fullView];
+    
+    full.didClickFullView = ^(SnailFullView * _Nonnull fullView) {
+        [self.sl_popupController dismiss];
+    };
+    
+    full.didClickItems = ^(SnailFullView *fullView, NSInteger index) {
+        self.sl_popupController.didDismiss = ^(SnailPopupController * _Nonnull popupController) {
+        };
+        
+        [fullView endAnimationsCompletion:^(SnailFullView *fullView) {
+            [self.sl_popupController dismiss];
+        }];
+    };
+    
+    self.sl_popupController = [SnailPopupController new];
+    self.sl_popupController.maskType = PopupMaskTypeBlackBlur;
+    self.sl_popupController.allowPan = YES;
+    [self.sl_popupController presentContentView:full];
+    
+    full.clickTapBlock=^(NSString *InputNumString){
+
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
+        scanResultVC.codeInfo = InputNumString;
+        scanResultVC.codeType = @"input";
+        UINavigationController *scanresult = [[UINavigationController alloc]initWithRootViewController:scanResultVC];
+        [self presentViewController:scanresult animated:YES completion:nil];
+    };
+}
+
+
+- (SnailFullView *)fullView {
+    
+    SnailFullView *fullView = [[SnailFullView alloc] initWithFrame:self.view.frame];
+    
+    fullView.backgroundColor=[[NewAppColor yhapp_5color] colorWithAlphaComponent:0.7];
+    
+    return fullView;
 }
 
 @end
