@@ -817,10 +817,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
     __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [APIHelper reportData:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
-        
+        [APIHelper reportData :weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
-        
          NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
             htmlPath = [HttpUtils urlConvertToLocal:weakSelf.urlString content:httpResponse.string assetsPath:weakSelf.assetsPath writeToLocal:kIsUrlWrite2Local];

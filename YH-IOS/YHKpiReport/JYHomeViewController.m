@@ -315,9 +315,9 @@
                 userDict[@"stylesheets_md5"]   = responseObject[@"data"][@"stylesheets_md5"];
                 userDict[@"advertisement_md5"] = responseObject[@"data"][@"advertisement_md5"];
                 [userDict writeToFile:userConfigPath atomically:YES];
+                [FileUtils writeJSON:userDict Into:userConfigPath];
         
         NSLog(@"%@",userDict[@"assets_md5"]);
-        [FileUtils writeJSON:userDict Into:userConfigPath];
         //开始监测是否有更新
         [self checkAssetsUpdate];
         
