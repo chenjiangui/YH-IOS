@@ -16,7 +16,6 @@
         NSString *configPath = [User configPath];
         if([FileUtils checkFileExist:configPath isDir:NO]) {
             NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:configPath];
-            
             self.userName   = dict[@"user_name"];
             self.userNum    = dict[@"user_num"];
             self.password   = dict[@"user_md5"];
@@ -71,6 +70,34 @@
     }
     
     return alias;
+}
+
+- (NSNumber *)groupID{
+    if (!_groupID) {
+        _groupID = [[NSNumber alloc] init];
+    }
+    return _groupID;
+}
+
+-(NSNumber *)groupName{
+    if (!_groupName) {
+        _groupName =[[NSNumber alloc]init];
+    }
+    return _groupName;
+}
+
+-(NSNumber*)roleID{
+    if (!_roleID) {
+        _roleID =[[NSNumber alloc]init];
+    }
+    return _roleID;
+}
+
+-(NSNumber*)roleName{
+    if (!_roleName) {
+        _roleName = [[NSNumber alloc]init];
+    }
+    return _roleName;
 }
 
 @end

@@ -613,8 +613,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         if([FileUtils checkFileExist:selectedItemPath isDir:NO]) {
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
+        if (selectedItem != nil && selectedItem.length != 0) {
+            self.title =selectedItem;
+        }
         responseCallback(selectedItem);
     }];
+    
+    
     [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];

@@ -560,7 +560,14 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 - (void)actionCheckUpgrade {
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        /*
+         * 用户行为记录, 单独异常处理，不可影响用户体验
+         */
+        NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+        logParams[kActionALCName] = @"点击/检测更新";
+        [APIHelper actionLog:logParams];
+    });
     [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:kPgyerAppId];
     [[PgyUpdateManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(appUpgradeMethod:)];
  

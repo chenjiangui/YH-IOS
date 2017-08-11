@@ -927,6 +927,7 @@
 		913804A71F3ACCF300FA154C /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
 		913804A81F3ACCF300FA154C /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		913804A91F3ACCF300FA154C /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		9142F1E81F3D85CB00DE38A8 /* YHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAPI.h; sourceTree = "<group>"; };
 		914465621F04BFB900795E54 /* TopHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		914465651F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHToptopicHeaderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -3129,6 +3130,7 @@
 				F62457C31EA5FD01006834D2 /* AppColor.m */,
 				91BB7B841F29B592001934FA /* NewAppColor.h */,
 				91BB7B851F29B592001934FA /* NewAppColor.m */,
+				9142F1E81F3D85CB00DE38A8 /* YHAPI.h */,
 				C49BB9AB1D8C2548004C9F70 /* Constant.h */,
 				912833001EE85A830071CE69 /* PrivateConstants.h */,
 				C49BB9A91D8C2538004C9F70 /* Constant.m */,

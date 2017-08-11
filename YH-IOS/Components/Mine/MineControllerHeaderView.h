@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "APIHelper.h"
 
 @interface MineControllerHeaderView : UIView
 @property (nonatomic, strong) UIButton* btn1;

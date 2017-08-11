@@ -121,6 +121,7 @@
  *  @return error msg when authentication failed
  */
 + (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password coordinate:(NSString *)coordinate{
+    //NSString *apistring = [NSString stringWithFormat:@""]
     NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
     NSString *alertMsg = @"";
     

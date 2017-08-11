@@ -30,6 +30,7 @@
 #import "NewAppColor.h"
 #import "HudToolView.h"
 #import "JYHudView.h"
+#import "YHAPI.h"
 
 #pragma mark - 分类
 #import "NSString+Category.h"

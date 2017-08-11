@@ -447,7 +447,7 @@ void UncaughtExceptionHandler(NSException * exception) {
         }
     }
     NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-    logParams[kActionALCName]   = [NSString stringWithFormat:@"解锁"];
+    logParams[kActionALCName]   = [NSString stringWithFormat:@"解屏/数字"];
     [APIHelper actionLog:logParams];
   //  MianTabBarViewController *mainTabbar = [[MianTabBarViewController alloc]init];
     //_window.rootViewController = mainTabbar;
@@ -565,6 +565,9 @@ void UncaughtExceptionHandler(NSException * exception) {
             [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
                 if (success) {
                     [self jumpToDashboardView];
+                    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                    logParams[kActionALCName]   = [NSString stringWithFormat:@"解屏/指纹"];
+                    [APIHelper actionLog:logParams];
                 }else{
                     
                 }

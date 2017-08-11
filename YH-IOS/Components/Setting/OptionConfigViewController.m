@@ -281,6 +281,14 @@
     [APIHelper userAuthentication:user.userNum password:user.password coordinate:coordianteString];
     
     [self checkAssetsUpdate];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        /*
+         * 用户行为记录, 单独异常处理，不可影响用户体验
+         */
+        NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+        logParams[kActionALCName] = @"点击/校正";
+        [APIHelper actionLog:logParams];
+    });
     
     // 第三方消息推送，设备标识
     self.isSuccess = [APIHelper pushDeviceToken: _userdict[kDeviceUUIDCUName]];
