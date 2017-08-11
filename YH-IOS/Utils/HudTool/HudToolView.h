@@ -27,13 +27,27 @@ typedef enum : NSUInteger {
 
 
 + (void)removeInView:(UIView*)view viewType:(HudToolViewType)viewType;
-// view nil为window
+#pragma mark - 显示或掩藏菊花图
 + (void)showLoadingInView:(UIView*)view;
+
 + (void)hideLoadingInView:(UIView*)view;
 
-+ (void)showTopWithText:(NSString*)text color:(UIColor*)color;
-+ (void)showTopWithText:(NSString*)text correct:(BOOL)correct;
+#pragma mark - 显示上方tip
++ (void)showTopWithText:(NSString*)text
+                  color:(UIColor*)color;
 
++ (void)showTopWithText:(NSString*)text
+                correct:(BOOL)correct;
+
+#pragma mark - 显示空数据
 + (instancetype)view:(UIView*)view showEmpty:(BOOL)show;
+
+#pragma mark - 显示app提示文字
++ (instancetype)showText:(NSString*)text
+                    time:(NSTimeInterval)time
+              isAutoTime:(BOOL)isAuto;
+
++ (instancetype)showText:(NSString*)text;
+
 
 @end

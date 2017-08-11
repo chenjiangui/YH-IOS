@@ -26,7 +26,7 @@
             return YES;
         }else{
             // to do show hud message
-            
+            [HudToolView showText:base.message];
             DLog(@"message ===  %@",base.message);
             return NO;
         }
