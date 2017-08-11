@@ -59,7 +59,7 @@
                           @"api_token":ApiToken(YHAPI_ARTICLE_LIST),
                           @"page":@(page),
                           @"limit":defaultLimit,
-                          @"user_num":self.user.userID
+                          @"user_num":SafeText(self.user.userNum)
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
@@ -72,7 +72,7 @@
     NSDictionary* dic = @{
                           @"favourite_status":isFav ? @"1":@"2",
                           @"api_token":ApiToken(YHAPI_USER_COLLECTION_STATE),
-                          @"user_num":self.user.userID,
+                          @"user_num":SafeText(self.user.userNum) ,
                           @"article_id":SafeText(identifier)
                           };
     [BaseRequest postRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -85,8 +85,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_BUSINESS_GENRERAL];
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_BUSINESS_GENRERAL),
-                          @"group_id":self.user.groupID,
-                          @"role_id":self.user.roleID
+                          @"group_id":SafeText(self.user.groupID) ,
+                          @"role_id":SafeText(self.user.roleID)
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, NSData* response, NSString *responseJson) {
         NSDictionary* dic = [response mj_JSONObject];
@@ -99,8 +99,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_TOOLBOX];
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_TOOLBOX),
-                          @"group_id":self.user.groupID,
-                          @"role_id":self.user.roleID
+                          @"group_id":SafeText(self.user.groupID),
+                          @"role_id":SafeText(self.user.roleID)
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
@@ -112,8 +112,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_NOTICE_LIST];
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_USER_NOTICE_LIST),
-                          @"group_id":self.user.groupID,
-                          @"role_id":self.user.roleID
+                          @"group_id":SafeText(self.user.groupID) ,
+                          @"role_id":SafeText(self.user.roleID)
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
@@ -125,7 +125,7 @@
     NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_COLLECTION_LIST];
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_USER_COLLECTION_LIST),
-                          @"user_num":self.user.userNum,
+                          @"user_num":SafeText(self.user.userNum) ,
                           @"page":@(page),
                           @"limit":defaultLimit,
                           };
