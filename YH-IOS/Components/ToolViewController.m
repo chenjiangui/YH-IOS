@@ -47,15 +47,20 @@
         if ([BaseModel handleResult:model]) {
             self.dataList = model.data;
             [self.collection reloadData];
+        }else{
+
         }
+        [HudToolView showNetworkBug:!([BaseModel handleResult:model]||self.dataList.count) view:self.view].touchBlock = ^(id item) {
+            [self getData:YES];
+        };
     }];
 }
 
 #pragma mark - 点击事件
 - (void)toolClickAction:(ToolModel*)model{
-    YHScreenController* vc = [[YHScreenController alloc] init];
-    [self pushViewController:vc animation:YES hideBottom:YES];
-    return;
+//    YHScreenController* vc = [[YHScreenController alloc] init];
+//    [self pushViewController:vc animation:YES hideBottom:YES];
+//    return;
     [self jumpToSubjectView:model];
 }
 

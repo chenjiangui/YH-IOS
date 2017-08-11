@@ -80,6 +80,9 @@
             }
             [_reTool endRefreshDownPullEnd:YES topPullEnd:YES reload:YES noMore:[(BaseModel*)model isNoMore]];
         }
+        [HudToolView showNetworkBug:!([BaseModel handleResult:model]||self.dataList.count) view:self.view].touchBlock = ^(id item) {
+            [self getData:YES isDownPull:YES];
+        };
     }];
     
 }

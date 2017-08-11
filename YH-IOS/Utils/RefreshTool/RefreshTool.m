@@ -121,6 +121,7 @@
             }
         }];
         _upPullFooter.triggerAutomaticallyRefreshPercent = 0.01;
+        [_upPullFooter setTitle:@" " forState:MJRefreshStateNoMoreData];
         _upPullFooter.hidden = YES;
     }
     return _upPullFooter;

@@ -68,8 +68,11 @@
     [HudToolView showLoadingInView:self.view];
     [YHHttpRequestAPI yh_collectArticleWithArticleId:articlesModel.acticleId isFav:isFav finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
         [HudToolView hideLoadingInView:self.view];
-        if ([model.code isEqualToString:@"201"]) {
+        if ([BaseModel handleResult:model]) {
             [self getData:YES isDownPull:YES];
+            if (isFav) {
+                [HudToolView showTopWithText:@"收藏成功" correct:true];
+            }
         }
     }];
 }

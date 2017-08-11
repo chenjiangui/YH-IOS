@@ -110,7 +110,7 @@
 
 - (HudToolView *)netBugView{
     if (!_netBugView) {
-        _netBugView = [HudToolView view:self.view showEmpty:YES];
+        _netBugView = [HudToolView showNetworkBug:YES view:self.view];
         _netBugView.hidden = YES;
         MJWeakSelf;
         _netBugView.touchBlock = ^(id item) {
