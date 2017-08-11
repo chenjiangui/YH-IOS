@@ -299,26 +299,30 @@
     
     //从服务器下载MD5 并存入本地
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@/api/v1.1/assets/md5",kBaseUrl];
+    NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_STATIC_ASSETS_CHECK];
     NSDictionary* dic = @{
-                          @"api_token":ApiToken(@"/api/v1.1/assets/md5")
+                          @"api_token":ApiToken(YHAPI_STATIC_ASSETS_CHECK)
                           };
     [manager GET:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //更新远程的md5并写入到本地
         __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
         __block NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
                 userDict[@"assets_md5"]        = responseObject[@"data"][@"assets_md5"];
-                userDict[@"loading_md5"]       = responseObject[@"data"][@"fonts_md5"];
+                userDict[@"loading_md5"]       = responseObject[@"data"][@"loading_md5"];
                 userDict[@"icons_md5"]         = responseObject[@"data"][@"icons_md5"];
                 userDict[@"images_md5"]        = responseObject[@"data"][@"images_md5"];
                 userDict[@"javascripts_md5"]   = responseObject[@"data"][@"javascripts_md5"];
                 userDict[@"stylesheets_md5"]   = responseObject[@"data"][@"stylesheets_md5"];
                 userDict[@"advertisement_md5"] = responseObject[@"data"][@"advertisement_md5"];
+                userDict[@"fonts_md5"]         = responseObject[@"data"][@"fonts_md5"];
                 [userDict writeToFile:userConfigPath atomically:YES];
         
         NSLog(@"%@",userDict[@"assets_md5"]);
-        [FileUtils writeJSON:userDict Into:userConfigPath];
-        //开始监测是否有更新
+        NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+
+        [userDict writeToFile:userConfigPath atomically:YES];
+        [userDict writeToFile:settingsConfigPath atomically:YES];
+//开始监测是否有更新
         [self checkAssetsUpdate];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
