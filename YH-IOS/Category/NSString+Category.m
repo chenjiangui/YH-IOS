@@ -25,6 +25,10 @@
     return text;
 }
 
++ (NSString *)apiToken:(NSString *)url{
+    return [[NSString stringWithFormat:@"%@%@%@",IosAPIToken,url,IosAPIToken] md5];
+}
+
 + (NSString *)removeSpace:(NSString *)str{
     if ([self isEmptyOrWhitespace:str]) {
         return @"";
