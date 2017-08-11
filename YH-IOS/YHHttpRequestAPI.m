@@ -74,7 +74,7 @@
     NSDictionary* dic = @{
                           @"favourite_status":isFav ? @"1":@"2",
                           @"api_token":ApiToken(YHAPI_USER_COLLECTION_STATE),
-                          @"user_num":self.user.userNum,
+                          @"user_num":SafeText(self.user.userNum) ,
                           @"article_id":SafeText(identifier)
                           };
     [BaseRequest postRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -114,7 +114,9 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_NOTICE_LIST];
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_USER_NOTICE_LIST),
+
                           @"group_id":SafeText(self.user.groupID),
+
                           @"role_id":SafeText(self.user.roleID)
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
