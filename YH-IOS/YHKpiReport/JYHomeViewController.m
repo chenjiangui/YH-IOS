@@ -297,7 +297,33 @@
 /** 清理缓存*/
 - (void)actionCheckAssets {
     
-    [self checkAssetsUpdate];
+    
+    //从服务器下载MD5 并存入本地
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    NSString* url = [NSString stringWithFormat:@"http://yonghui-test.idata.mobi/api/v1.1/assets/md5?api_token=d985a87e61092590bc3543273c32e4b6"];
+
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //更新远程的md5并写入到本地
+        __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+        __block NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+                userDict[@"assets_md5"]        = responseObject[@"data"][@"assets_md5"];
+                userDict[@"loading_md5"]       = responseObject[@"data"][@"fonts_md5"];
+                userDict[@"icons_md5"]         = responseObject[@"data"][@"icons_md5"];
+                userDict[@"images_md5"]        = responseObject[@"data"][@"images_md5"];
+                userDict[@"javascripts_md5"]   = responseObject[@"data"][@"javascripts_md5"];
+                userDict[@"stylesheets_md5"]   = responseObject[@"data"][@"stylesheets_md5"];
+                userDict[@"advertisement_md5"] = responseObject[@"data"][@"advertisement_md5"];
+                [userDict writeToFile:userConfigPath atomically:YES];
+        
+        NSLog(@"%@",userDict[@"assets_md5"]);
+        //开始监测是否有更新
+        [self checkAssetsUpdate];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"更新失败");
+    }];
+    
 }
 
 /**
@@ -322,7 +348,6 @@
     // op = [self checkAssetUpdate:kAdvertisementAssetsName info:kAdvertisementPopupText isInAssets: NO];
     // if(op) { [queue addOperation:op]; }
 }
-
 - (AFHTTPRequestOperation *)checkAssetUpdate:(NSString *)assetName info:(NSString *)info isInAssets:(BOOL)isInAssets {
     BOOL isShouldUpdateAssets = NO;
     __block NSString *sharedPath = [FileUtils sharedPath];

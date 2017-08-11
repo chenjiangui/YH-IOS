@@ -93,4 +93,6 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
 + (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish;
 
 
+
+
 @end
