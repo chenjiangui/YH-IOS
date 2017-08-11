@@ -573,57 +573,61 @@
     
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
-    NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
-    if (!(msg.length == 0)) {
-        if (self.navigationController.navigationBarHidden) {
-            [self.navigationController setNavigationBarHidden:NO];
-        }
-        [HudToolView showTopWithText:msg correct:false];
-        
-//        [HudToolView hideLoadingInView:self.view];
-     [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
-
-        _logoInBtn.userInteractionEnabled=YES;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HudToolView hideLoadingInView:self.view];
+            if (!(msg.length == 0)) {
+                if (self.navigationController.navigationBarHidden) {
+                    [self.navigationController setNavigationBarHidden:NO];
+                }
+                [HudToolView showTopWithText:msg correct:false];
+                
+                //        [HudToolView hideLoadingInView:self.view];
+                [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
+                
+                _logoInBtn.userInteractionEnabled=YES;
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    // 用户行为记录, 单独异常处理，不可影响用户体验
+                    
+                    @try {
+                        NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                        NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
+                        logParams[@"action"]  = @"unlogin";
+                        logParams[@"user_name"] = [NSString stringWithFormat:@"%@|;|%@",self.userNameText.text,[self.userPasswordText.text md5]];
+                        logParams[@"coordinate"] = coordianteString;
+                        logParams[@"platform"] = @"iOS";
+                        logParams[@"obj_title"] = msg;
+                        logParams[@"app_version"] =[NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+                        NSString *urlString = [NSString stringWithFormat:kActionLogAPIPath, kBaseUrl];
+                        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                        params[kActionLogALCName] = logParams;
+                        [HttpUtils httpPost:urlString Params:params];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"%@", exception);
+                    }
+                });
+                return;
+            }
             
-            // 用户行为记录, 单独异常处理，不可影响用户体验
             
-            @try {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                /*
+                 * 用户行为记录, 单独异常处理，不可影响用户体验
+                 */
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-                NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
-                logParams[@"action"]  = @"unlogin";
-                logParams[@"user_name"] = [NSString stringWithFormat:@"%@|;|%@",self.userNameText.text,[self.userPasswordText.text md5]];
-                logParams[@"coordinate"] = coordianteString;
-                logParams[@"platform"] = @"iOS";
-                logParams[@"obj_title"] = msg;
-                logParams[@"app_version"] =[NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
-                NSString *urlString = [NSString stringWithFormat:kActionLogAPIPath, kBaseUrl];
-                NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                params[kActionLogALCName] = logParams;
-                [HttpUtils httpPost:urlString Params:params];
-            }
-            @catch (NSException *exception) {
-                NSLog(@"%@", exception);
-            }
+                logParams[kActionALCName] = @"登录";
+                [APIHelper actionLog:logParams];
+            });
+            [HudToolView hideLoadingInView:self.view];
+            [self jumpToDashboardView];
+
         });
         return;
-    }
-    
-   [HudToolView hideLoadingInView:self.view];
-    NSMutableDictionary *deviceDict = [NSMutableDictionary dictionary];
-    deviceDict[@"device"] = @{
-                              @"name": [[UIDevice currentDevice] name],
-                              @"platform": @"ios",
-                              @"os": [Version machineHuman],
-                              @"os_version": [[UIDevice currentDevice] systemVersion],
-                              @"uuid": [OpenUDID value],
-                              };
-    deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
-    deviceDict[@"coordinate"] = coordianteString;
-    [YHHttpRequestAPI yh_postUserMessageWithDict:deviceDict Finish:^(BOOL success, id model, NSString *jsonObjc) {
-        NSLog(@"上传成功");
-    }];
-    [self jumpToDashboardView];
+    });
+
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         /*
@@ -633,6 +637,7 @@
         logParams[kActionALCName] = @"登录";
         [APIHelper actionLog:logParams];
     });
+   
 
 }
 

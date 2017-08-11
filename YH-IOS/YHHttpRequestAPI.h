@@ -98,4 +98,6 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
  */
 +(void)yh_postUserMessageWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish;
 
+
+
 @end

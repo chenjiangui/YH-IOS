@@ -72,8 +72,8 @@ static NSString *headerViewIdentifier = @"hederview";
 }
 -(void)setTableView
 {
-    QuestionTableView=[[UITableView alloc] init];
-    QuestionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    QuestionTableView=[[UITableView alloc] init];  
+//    QuestionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:QuestionTableView];
     QuestionTableView.scrollEnabled =NO; //设置tableview 不能滚动
     [QuestionTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,6 +156,7 @@ static NSString *headerViewIdentifier = @"hederview";
                 make.size.mas_equalTo(CGSizeMake(self.view.bounds.size.width-32, 111));
             }];
         }
+        [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }

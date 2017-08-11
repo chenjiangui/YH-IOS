@@ -64,13 +64,18 @@
 -(void)setupUI
 {
     [self sd_addSubviews:@[self.BackBtn,self.titleLabel,self.InputView,self.InputNum,self.OpenLightbtn,self.OpenLabel]];
-    
+
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_topMargin).offset(33);
         make.centerX.mas_equalTo(self);
     }];
     
-    
+    [_BackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left).offset(19);
+        make.centerY.mas_equalTo(_titleLabel.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(44, 44));
+    }];
+
     [_InputNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_InputView.mas_left).offset(57);
         make.centerX.mas_equalTo(_InputView.mas_centerX);
@@ -87,6 +92,7 @@
         make.centerX.mas_equalTo(self);
         make.size.mas_equalTo(CGSizeMake(57, 57));
     }];
+    
     [_InputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_topMargin).offset(108);
         //        make.left.mas_equalTo(self.view.mas_left).offset(16);
@@ -190,7 +196,7 @@
 - (UIButton *)BackBtn{
     if (!_BackBtn) {
         _BackBtn =[[UIButton alloc] init];
-         _BackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
+//         _BackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 44)];
         UIImage *imageback = [[UIImage imageNamed:@"Banner-Back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         bakImage.image = imageback;

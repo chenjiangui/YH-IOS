@@ -76,6 +76,9 @@
 #define kSNumber @"number"
 
 
+// token
+
+#define  API_TOKEN        @"e0e57df4d40eab55c7eb8bdd851ae328"
 // 系统
 #define YHAPPVERSION [[UIDevice currentDevice].systemVersion doubleValue]
 
