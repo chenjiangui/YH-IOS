@@ -140,7 +140,7 @@
     if(response.data[@"code"] && [response.data[@"code"] isEqualToNumber:@(200)]) {
         NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
         NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-
+    
         userDict[kUserIDCUName]     = response.data[@"user_id"];
         userDict[kUserNameCUName]   = response.data[@"user_name"];
         userDict[kUserNumCUName]    = response.data[@"user_num"];

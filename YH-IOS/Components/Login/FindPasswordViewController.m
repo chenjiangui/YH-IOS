@@ -229,9 +229,7 @@
 
 -(void)upTodata
 {
-    
     [HudToolView showLoadingInView:self.view];
-    
     NSString *userNum = PeopleString;
     NSString *userPhone = PhoneString;
     NSLog(@"%@%@",userNum,userPhone);

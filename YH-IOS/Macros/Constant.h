@@ -62,6 +62,7 @@ extern NSString *const kBarCodeScanAPIPath;
 extern NSString *const kDownloadAssetsAPIPath;
 extern NSString *const kUploadGravatarAPIPath;
 extern NSString *const kUnzipReportDataFileName;
+extern NSString *const kGetMD5APIPath;
 
 /**
  *  Config#User Behavior Column name

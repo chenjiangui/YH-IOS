@@ -265,6 +265,7 @@
 		91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EF8DE61EF3BA4D00333746 /* ListPage.m */; };
 		9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A867606F7216FABE6624278 /* libPods-YH-IOS.a */; };
 		B62C4ADB1F3AAC7800E0C50B /* LineTextFiled.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C4ADA1F3AAC7800E0C50B /* LineTextFiled.m */; };
+		B6355CF41F3D3EF000586A2E /* SnailFullView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6355CF31F3D3EF000586A2E /* SnailFullView.m */; };
 		B67592801F29965200E89B65 /* NewMineQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B675927F1F29965200E89B65 /* NewMineQuestionController.m */; };
 		B67593631F29CBEE00E89B65 /* HWCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B675935D1F29CBEE00E89B65 /* HWCollectionViewCell.m */; };
 		B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B675935E1F29CBEE00E89B65 /* HWCollectionViewCell.xib */; };
@@ -1189,6 +1190,8 @@
 		91EF8DE61EF3BA4D00333746 /* ListPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPage.m; sourceTree = "<group>"; };
 		B62C4AD91F3AAC7800E0C50B /* LineTextFiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineTextFiled.h; sourceTree = "<group>"; };
 		B62C4ADA1F3AAC7800E0C50B /* LineTextFiled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineTextFiled.m; sourceTree = "<group>"; };
+		B6355CF21F3D3EF000586A2E /* SnailFullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnailFullView.h; sourceTree = "<group>"; };
+		B6355CF31F3D3EF000586A2E /* SnailFullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnailFullView.m; sourceTree = "<group>"; };
 		B675927E1F29965200E89B65 /* NewMineQuestionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMineQuestionController.h; sourceTree = "<group>"; };
 		B675927F1F29965200E89B65 /* NewMineQuestionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMineQuestionController.m; sourceTree = "<group>"; };
 		B675935C1F29CBEE00E89B65 /* HWCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2440,6 +2443,13 @@
 			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
+		9142F1E01F3C64DD00DE38A8 /* MD5Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MD5Model;
+			sourceTree = "<group>";
+		};
 		914509731F02244800ED82D6 /* SelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3017,6 +3027,8 @@
 		C46F6A931D0671C900C561CE /* BarCodeScan */ = {
 			isa = PBXGroup;
 			children = (
+				B6355CF21F3D3EF000586A2E /* SnailFullView.h */,
+				B6355CF31F3D3EF000586A2E /* SnailFullView.m */,
 				C46903951D5CC81A00233D05 /* SelectStoreViewController.h */,
 				C46903961D5CC81A00233D05 /* SelectStoreViewController.m */,
 				C4C284E51D06BB1A009458E6 /* ScanResultViewController.h */,
@@ -3426,6 +3438,7 @@
 		C4DB7DC71C02EE8E00DA534E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9142F1E01F3C64DD00DE38A8 /* MD5Model */,
 				3B763AE81F26109F00D5E965 /* NoticeWarningModel.h */,
 				3B763AE91F26109F00D5E965 /* NoticeWarningModel.m */,
 				C48DC6F61C1E8FDD00CECB95 /* Version */,
@@ -5173,6 +5186,7 @@
 				91D364101F1F220400CD7159 /* JYSortButton.m in Sources */,
 				91EF8DD01EF38A1700333746 /* YHTopicViewController.m in Sources */,
 				91AB66B01F28A2DB0077A0CF /* ThurSayViewController.m in Sources */,
+				B6355CF41F3D3EF000586A2E /* SnailFullView.m in Sources */,
 				F68C25AB1EC2D4670069C041 /* JYComponentModel.m in Sources */,
 				F62456451EA5FACD006834D2 /* IQBarButtonItem.m in Sources */,
 				3B763B191F27154D00D5E965 /* YHInstituteListCell.m in Sources */,
