@@ -255,14 +255,13 @@
     }
     return _InputNum;
 }
+
+/** 返回*/
 -(void)backAction
 {
-    __weak typeof(self) _self = self;
-    [self endAnimationsCompletion:^(SnailFullView *fullView) {
-        _self.didClickFullView(self);
-    }];
-    
+    self.didClickFullView(self);
 }
+
 - (void)closeClicked:(UIButton *)sender {
     [_scrollContainer setContentOffset:CGPointMake(0, 0) animated:YES];
 }

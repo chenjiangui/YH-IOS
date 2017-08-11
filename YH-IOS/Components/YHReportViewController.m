@@ -397,8 +397,7 @@
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           [self.reTool endDownPullWithReload:false];
           [HudToolView hideLoadingInView:self.view];
-          SCLAlertView *alert = [[SCLAlertView alloc] init];
-          [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
+          [HudToolView showTopWithText:@"请求失败" color:[NewAppColor yhapp_11color]];
       }];
     
    /* if ([HttpUtils isNetworkAvailable3]) {
