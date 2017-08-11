@@ -52,14 +52,14 @@
     [YHHttpRequestAPI yh_getArticleListWithKeyword:self.keyword page:page finish:^(BOOL success, ArticlesModel* model, NSString *jsonObjc) {
         [HudToolView hideLoadingInView:self.view];
         [self.reTool endRefreshDownPullEnd:true topPullEnd:true reload:false noMore:false];
-        if ([model.code isEqualToString:@"0"]) { //该单独处理请求成功
+        if ([BaseModel handleResult:model]) {
             if (downPull) {
                 _page = 1;
                 [self.dataList removeAllObjects];
-                [self.dataList addObjectsFromArray:model.page.list];
+                [self.dataList addObjectsFromArray:model.data];
             }else{
                 _page++;
-                [self.dataList addObjectsFromArray:model.page.list];
+                [self.dataList addObjectsFromArray:model.data];
             }
             [_reTool endRefreshDownPullEnd:YES topPullEnd:YES reload:YES noMore:[model isNoMore]];
         }

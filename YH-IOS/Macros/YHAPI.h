@@ -59,7 +59,7 @@
 #define YHAPI_USER_NOTICE_LIST          @"/api/v1.1/user/notifications"
 
 /**生意概况*/
-#define YHAPI_BUSINESS_GENRERAL         @"/api/v1.1/user/notifications"
+#define YHAPI_BUSINESS_GENRERAL         @"/api/v1.1/app/component/overview"
 
 /**报表*/
 #define YHAPI_REPORT                    @"/api/v1.1/app/component/reports"

@@ -14,9 +14,7 @@
 
 @property (nonatomic, assign) NSInteger totalPage;
 
-@property (nonatomic, strong) ArticlesModel* page;
-
-@property (nonatomic, strong) NSArray<ArticlesModel*>* list;
+@property (nonatomic, strong) NSArray<ArticlesModel*>* data;
 
 @property (nonatomic, strong) NSString* createTime;
 
