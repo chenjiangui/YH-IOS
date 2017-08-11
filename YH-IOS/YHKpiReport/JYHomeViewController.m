@@ -302,7 +302,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 
     NSString* url = [NSString stringWithFormat:@"http://yonghui-test.idata.mobi/api/v1.1/assets/md5?api_token=d985a87e61092590bc3543273c32e4b6"];
-
+    
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //更新远程的md5并写入到本地
         __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
