@@ -177,7 +177,6 @@
     quest.hidden=YES;
     [quest removeFromSuperview];
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    NSLog(@"%@",InputNumString);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
     if ([InputNumString length] != 0) {
