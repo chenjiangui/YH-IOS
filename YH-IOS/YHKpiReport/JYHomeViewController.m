@@ -123,7 +123,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
     [self actionCheckAssets];
     NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     if ([FileUtils checkFileExist:pushConfigPath isDir:NO]) {

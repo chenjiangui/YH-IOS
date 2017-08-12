@@ -22,16 +22,16 @@
 #pragma todo: pass assetsPath as parameter
 + (void)reportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
    // NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT_DATADOWNLOAD];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@?%@=%@&report_id=%@&disposition=%@",kBaseUrl,YHAPI_REPORT_DATADOWNLOAD,kAPI_TOEKN,ApiToken(YHAPI_REPORT_DATADOWNLOAD),reportID,@"zip"];
     NSDictionary *param = @{
-                     @"api_token":ApiToken(YHAPI_REPORT_DATADOWNLOAD),
+                     kAPI_TOEKN:ApiToken(YHAPI_REPORT_DATADOWNLOAD),
                      @"report_id":reportID,
-                     @"disposition":@"inline"
+                     @"disposition":@"zip"
                      };
     
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
     
-    HttpResponse *httpResponse = [HttpUtils httpGet:urlString header:param timeoutInterval:30];
+    HttpResponse *httpResponse = [HttpUtils httpGet:urlString];
     if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
         NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
         NSString *disposition = httpHeader[@"Content-Disposition"];
@@ -293,8 +293,14 @@
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
-    NSString *urlString = [NSString stringWithFormat:kDeviceStateAPIPath, kBaseUrl, userDict[kUserDeviceIDCUName]];
-    HttpResponse *httpResponse = [HttpUtils httpGet:urlString];
+    NSDictionary *dict = @{
+                           kAPI_TOEKN:ApiToken(YHAPI_DEVICE_STATE),
+                           kUserNumCUName:SafeText(userDict[kUserNumCUName]),
+                           @"id":@"1"
+                           };
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_DEVICE_STATE];
+    HttpResponse *httpResponse = [HttpUtils httpGet:urlString header:dict timeoutInterval:10.0];
     
 //    userDict[@"device_state"]  = httpResponse.data[@"device_state"];
 //    [userDict writeToFile:userConfigPath atomically:YES];
