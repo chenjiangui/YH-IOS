@@ -58,9 +58,9 @@
 
 #pragma mark - 点击事件
 - (void)toolClickAction:(ToolModel*)model{
-    YHScreenController* vc = [[YHScreenController alloc] init];
+   /* YHScreenController* vc = [[YHScreenController alloc] init];
     [self pushViewController:vc animation:YES hideBottom:YES];
-    return;
+    return;*/
     [self jumpToSubjectView:model];
 }
 
