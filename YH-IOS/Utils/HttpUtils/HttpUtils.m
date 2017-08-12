@@ -43,11 +43,12 @@
     NSURL *url = [NSURL URLWithString:urlString];
     HttpResponse *httpResponse = [[HttpResponse alloc] init];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:timeoutInterval];
-    [request setValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
-    
+    [request addValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
+
     if(header) {
         for(NSString *key in header) {
             [request setValue:header[key] forHTTPHeaderField:key];
+            
         }
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:header options:NSJSONWritingPrettyPrinted error:nil];
         LogGreen(@"\nParams:\n%@\n", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
@@ -74,6 +75,7 @@
  *  @return Http#Get HttpResponse
  */
 + (HttpResponse *)httpGet:(NSString *)urlString {
+
     return [HttpUtils httpGet:urlString header:nil timeoutInterval:8.0];
 }
 

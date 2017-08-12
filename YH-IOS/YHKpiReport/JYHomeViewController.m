@@ -364,7 +364,6 @@
         isShouldUpdateAssets = YES;
         NSLog(@"%@ - local: %@, server: %@", assetName, userDict[localAssetKey], userDict[assetKey]);
     }
-    
     if(!isShouldUpdateAssets) { return nil; }
     
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
