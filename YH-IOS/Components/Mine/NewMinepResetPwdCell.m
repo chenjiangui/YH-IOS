@@ -31,7 +31,6 @@ static  NSString *RequstPwdString;
             [OldPwdNumber addTarget:self action:@selector(OldPwdDidChange:) forControlEvents:UIControlEventEditingChanged];
             [OldPwdNumber mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.contentView.mas_left).offset(20);
-                //                make.centerY.mas_equalTo(cell.mas_centerY);
                 make.size.mas_equalTo(CGSizeMake(self.contentView.frame.size.width, 50));
             }];
         }
@@ -98,8 +97,7 @@ static  NSString *RequstPwdString;
             textLabel.font=[UIFont systemFontOfSize:13];
             [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.contentView.mas_left).offset(20);
-                
-                make.centerY.mas_equalTo(self.contentView.mas_centerY);
+                make.centerY.mas_equalTo(self.mas_centerY);
             }];
             [self.contentView setBackgroundColor:[NewAppColor yhapp_8color]];
         }
@@ -118,10 +116,10 @@ static  NSString *RequstPwdString;
             [saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
              make.centerX.mas_equalTo(self.contentView.mas_centerX);
 //                                make.centerY.mas_equalTo(cell.mas_centerY);
-                make.size.mas_equalTo(CGSizeMake(self.contentView.frame.size.width, 50));
+                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 50));
             }];
         }
-        
+
     }
     return self;
 }

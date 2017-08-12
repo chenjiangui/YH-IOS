@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface YHLocation : NSObject
 
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;
+//高德定位
+@property(nonatomic,strong) AMapLocationManager *locationManager;
 
 +(instancetype)shareInstance;
 

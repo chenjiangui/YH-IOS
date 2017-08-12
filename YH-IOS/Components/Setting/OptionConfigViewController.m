@@ -236,7 +236,6 @@
         _arraydict =   @{@"启用锁屏":@YES,@"修改锁屏密码":@{}};
         [self.tableView reloadData];
     }*/
-    
     else if ([key  isEqualToString:@"清理缓存"]){
           [self actionCheckAssets];
     }
@@ -279,9 +278,7 @@
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     [APIHelper userAuthentication:SafeText(user.userNum) password:SafeText(user.password) coordinate:coordianteString];
-    
 //    [self checkAssetsUpdate];
-    
     //从服务器下载MD5 并存入本地
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_STATIC_ASSETS_CHECK];

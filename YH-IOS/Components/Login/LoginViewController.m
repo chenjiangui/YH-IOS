@@ -60,7 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self startLocation];
-     [self configLocationManager];
+    [self configLocationManager];
     [self locateAction];
     UIImageView *Logo =[[UIImageView alloc] init];
     [self.view addSubview:Logo];
