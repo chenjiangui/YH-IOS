@@ -44,6 +44,8 @@
     NSString *md5String = fileData.md5;
     
     BOOL isShouldUnZip = YES;
+    
+//    NSLog(@"%@",[userDict.allKeys containsObject:keyName]);
     if([userDict.allKeys containsObject:keyName] && [userDict[keyName] isEqualToString:md5String]) {
         isShouldUnZip = NO;
     }
@@ -69,9 +71,7 @@
                 [FileUtils removeFile:assetFolderPath];
             }
         }
-        
         [SSZipArchive unzipFileAtPath:zipPath toDestination:assetsPath];
-        
         userDict[keyName] = md5String;
         [userDict writeToFile:userConfigPath atomically:YES];
         NSLog(@"unzipfile for %@, %@", fileName, md5String);
