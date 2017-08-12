@@ -21,7 +21,7 @@
 
 #define kSloganHeight [[UIScreen mainScreen]bounds].size.height / 6
 
-@interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,CLLocationManagerDelegate>
+@interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,CLLocationManagerDelegate,AMapLocationManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) UIImageView *logoView;
@@ -483,7 +483,7 @@
         }
         NSLog(@"旧的经度：%f,旧的纬度：%f",location.coordinate.longitude,location.coordinate.latitude);
         self.userLongitude=[NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
-        self.userLongitude =[NSString stringWithFormat:@"%f",location.coordinate.latitude];
+        self.userlatitude =[NSString stringWithFormat:@"%f",location.coordinate.latitude];
     }];
 }
 
@@ -588,16 +588,12 @@
 
 //add: 登录按钮事件
 - (void)loginBtnClick {
-
-    [HudToolView showLoadingInView:self.view];
     
     self.view.userInteractionEnabled=NO;
-    
     
     if ([self.peopleNumString length]==0) {
         [HudToolView showTopWithText:@"请输入用户名" correct:false];
         [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
-
         return;
     }
     else if ([self.passwordNumString length] == 0) {
@@ -605,7 +601,7 @@
         [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:2.0];
         return;
     }
-    
+    [HudToolView showLoadingInView:self.view];
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{

@@ -127,6 +127,7 @@
  */
 + (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password coordinate:(NSString *)coordinate{
     
+    
     NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_AUTHENTICATION];
     
     NSString *alertMsg = @"";
