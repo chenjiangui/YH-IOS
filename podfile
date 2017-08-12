@@ -30,4 +30,5 @@ target 'YH-IOS' do
     pod "ReactiveObjC"
     pod 'Bugly'
     pod "DMPasscode"
+    pod "AMapLocation"
 end

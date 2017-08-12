@@ -21,7 +21,7 @@
 
 #define kSloganHeight [[UIScreen mainScreen]bounds].size.height / 6
 
-@interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,CLLocationManagerDelegate,AMapLocationManagerDelegate>
+@interface LoginViewController () <UITextFieldDelegate,MBProgressHUDDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) UIImageView *logoView;
