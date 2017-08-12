@@ -371,7 +371,14 @@
     CGFloat offX = button.tag * self.rootScrollView.width;
     NSLog(@"off ---> %f",offX);
     [self buttonMoveAnimationWithIndex:button.tag];
-    [self.rootScrollView setContentOffset:CGPointMake(offX, 0) animated:YES];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.rootScrollView.mj_offsetX = offX;
+    } completion:^(BOOL finished) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": @"{0,110}"}];
+    }];
+//    [self.rootScrollView setContentOffset:CGPointMake(offX, 0) animated:YES];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    });
 }
 
 - (void)selectItemWhenNotGraduallyChangFont:(UIButton *)button{
