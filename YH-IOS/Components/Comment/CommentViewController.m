@@ -22,6 +22,7 @@
     self.urlString = [NSString stringWithFormat:kCommentMobilePath, kBaseUrl, [FileUtils currentUIVersion], self.objectID, @(self.commentObjectType)];
     
     [WebViewJavascriptBridge enableLogging];
+    WeakSelf;
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"Response for message from ObjC");
     }];
@@ -34,9 +35,11 @@
             @try {
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
                 logParams[kActionALCName]   = @"JS异常";
-                logParams[kObjIDALCName]    = self.objectID;
-                logParams[kObjTypeALCName]  = @(self.commentObjectType);
-                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"评论页面/%@/%@", self.bannerName, data[@"ex"]];
+                logParams[kObjIDALCName]    = weakSelf.objectID;
+                logParams[kObjTypeALCName]  = @(
+                weakSelf.commentObjectType);
+                logParams[kObjTitleALCName] = [NSString stringWithFormat:@"评论页面/%@/%@",
+                                               weakSelf.bannerName, data[@"ex"]];
                 [APIHelper actionLog:logParams];
             }
             @catch (NSException *exception) {
@@ -46,17 +49,28 @@
     }];
     
     [self.bridge registerHandler:@"writeComment" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *apiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_COMMENT_PUBLISH];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        params[kObjTitleAPCCName] = self.bannerName;
-        params[kUserNameAPCCName] = self.user.userName;
-        params[kContentAPCCName]  = data[@"content"];
-        BOOL isCreatedSuccessfully = [APIHelper writeComment:self.user.userID objectType:@(self.commentObjectType) objectID:self.objectID params:params];
+        //params[kObjTitleAPCCName] = weakSelf.bannerName;
+        params[kAPI_TOEKN] = ApiToken(YHAPI_COMMENT_PUBLISH);
+        params[@"user_id"] = @"13";
+        params[@"content"] = SafeText(data[@"content"]);
         
-        if(!isCreatedSuccessfully) {
-            return;
+        HttpResponse *response = [HttpUtils httpPost:apiUrl Params:params];
+        NSString *message = [NSString stringWithFormat:@"%@", response.data[@"message"]];
+        [YHHttpRequestAPI yh_postCommentWithDict:params Finish:^(BOOL success, id model, NSString *jsonObjc) {
+            if (success) {
+                NSLog(@"成功");
+            }
+        }];
+        if(response.statusCode && [response.statusCode isEqualToNumber:@(200)]) {
+            [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
+            [weakSelf loadHtml];
+        }
+        else{
+            [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
         }
         
-        [self loadHtml];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -64,7 +78,7 @@
             @try {
                 NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
                 logParams[kActionALCName]   = @"评论";
-                logParams[kObjTitleALCName] = self.bannerName;
+                logParams[kObjTitleALCName] = weakSelf.bannerName;
                 [APIHelper actionLog:logParams];
             }
             @catch (NSException *exception) {

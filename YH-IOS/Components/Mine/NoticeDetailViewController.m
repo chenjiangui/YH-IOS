@@ -175,7 +175,7 @@
 - (void)getData {
       [MRProgressOverlayView showOverlayAddedTo:self.view title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/user/%@/notice/%@",kBaseUrl,_user.userNum,self.noticeID];
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/user/%@/notice/%@",kBaseUrl,SafeText(_user.userNum),self.noticeID];
     [manager GET:urlString
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);

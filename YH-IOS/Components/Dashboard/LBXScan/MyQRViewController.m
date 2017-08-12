@@ -113,6 +113,6 @@
     User *user = [[User alloc] init];
     Version *version = [[Version alloc] init];
 
-    return [NSString stringWithFormat:@"id=%@&name=%@&num=%@&app=%@(%@)&device=%@", user.userID, user.userNum, user.userNum, version.current, version.build, user.deviceID];
+    return [NSString stringWithFormat:@"id=%@&name=%@&num=%@&app=%@(%@)&device=%@", SafeText(user.userID), SafeText(user.userNum), SafeText(user.userNum), version.current, version.build, SafeText(user.deviceID)];
 }
 @end

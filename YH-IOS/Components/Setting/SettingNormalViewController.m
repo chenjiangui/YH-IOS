@@ -355,7 +355,7 @@
     NSMutableArray* cleanArray = [[NSMutableArray alloc]init];
     NSLog(@"%@",fileList);
     User *user = [[User alloc]init];
-    NSString *userFileName = [NSString stringWithFormat:@"user-%@",user.userID];
+    NSString *userFileName = [NSString stringWithFormat:@"user-%@",SafeText(user.userID)];
     for (NSString* value in fileList) {
         if  ([value hasPrefix:@"user-"] && ![value isEqualToString:userFileName] && ![value isEqualToString:@"user-(null)"]) {
             [cleanArray addObject:value];
@@ -378,7 +378,7 @@
     NSMutableArray* cleanArray = [[NSMutableArray alloc]init];
     NSLog(@"%@",fileList);
     User* user = [[User alloc]init];
-    NSString *userFileName = [NSString stringWithFormat:@"user-%@",user.userID];
+    NSString *userFileName = [NSString stringWithFormat:@"user-%@",SafeText(user.userID)];
     for (NSString* value in fileList) {
         if ([value hasPrefix:@"user-"] && ![value isEqualToString:userFileName] && ![value isEqualToString:@"user-(null)"]) {
             NSMutableDictionary *userDict;
@@ -428,7 +428,7 @@
     cachedHeaderPath  = [NSString stringWithFormat:@"%@/%@", [FileUtils dirPath:kHTMLDirName], kCachedHeaderConfigFileName];
     [FileUtils removeFile:cachedHeaderPath];
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-    [APIHelper userAuthentication:user.userNum password:user.password coordinate:userlocation];
+    [APIHelper userAuthentication:SafeText(user.userNum) password:SafeText(user.password) coordinate:userlocation];
     
     [self checkAssetsUpdate];
     

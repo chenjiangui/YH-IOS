@@ -185,7 +185,7 @@ static  NSString *RequstPwdString;
 
     
     user = [[User alloc]init];
-    if (![oldPwdString.md5 isEqualToString:user.password]) {
+    if (![oldPwdString.md5 isEqualToString:SafeText(user.password)]) {
         [HudToolView showTopWithText:@"密码输入错误" color:[NewAppColor yhapp_11color]];
         return;
     }
@@ -193,19 +193,17 @@ static  NSString *RequstPwdString;
         [HudToolView showTopWithText:@"新密码输入不一致" color:[NewAppColor yhapp_11color]];
         return;
     }
-    if ([self checkIsHaveNumAndLetter:NewPwdString]!=3 || [NewPwdString length] <6 ) {
+   /* if ([self checkIsHaveNumAndLetter:NewPwdString]!=3 || [NewPwdString length] <6 ) {
         [HudToolView showTopWithText:@"密码需为6位以上，数字和字母的组合" color:[NewAppColor yhapp_11color]];
         return;
-    }
-    if([oldPwdString.md5 isEqualToString:user.password]) {
-        HttpResponse *response = [APIHelper resetPassword:user.userID newPassword:NewPwdString.md5];
-        NSString *message = [NSString stringWithFormat:@"%@", response.data[@"info"]];
+    }*/
+    if([oldPwdString.md5 isEqualToString:SafeText(user.password)]) {
+        HttpResponse *response = [APIHelper resetPassword: SafeText(user.userNum) newPassword:NewPwdString.md5];
+        NSString *message = [NSString stringWithFormat:@"%@", response.data[@"message"]];
         if(response.statusCode && [response.statusCode isEqualToNumber:@(201)]) {
             [self changLocalPwd:NewPwdString];
-            
             [self jumpToLogin];
-            
-            [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
+             [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 /*
                  * 用户行为记录, 单独异常处理，不可影响用户体验

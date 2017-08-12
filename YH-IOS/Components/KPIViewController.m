@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *uiVersion = [FileUtils currentUIVersion];
-    self.urlString = [NSString stringWithFormat:kKPIMobilePath, kBaseUrl, uiVersion, self.user.groupID, self.user.roleID];
+    self.urlString = [NSString stringWithFormat:kKPIMobilePath, kBaseUrl, uiVersion, SafeText(self.user.groupID), SafeText(self.user.roleID)];
     self.commentObjectType = ObjectTypeKpi;
     self.browser.backgroundColor = [UIColor whiteColor];
     self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(.0f, self.view.origin.y,self.view.frame.size.width,self.view.frame.size.height - self.tabBarController.tabBar.height -10)];

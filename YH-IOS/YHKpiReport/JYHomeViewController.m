@@ -439,6 +439,8 @@
             self.dataList = demolArray;
             [self.rootTBView reloadData];
             self.navBarView.hidden = NO;
+        }else{
+            self.navBarView.hidden = YES;
         }
     }];
 //    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];

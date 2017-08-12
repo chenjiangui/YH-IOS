@@ -93,7 +93,7 @@ static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegueIdent
     NSMutableDictionary *userGravatar = [FileUtils readConfigFile:userGavatarPath];
     if (![userGravatar[@"upload_state"] boolValue] && userGravatar[@"name"] && userGravatar[@"local_name"]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSString *urlPath = [NSString stringWithFormat:kUploadGravatarAPIPath, self.user.deviceID, self.user.userID];
+            NSString *urlPath = [NSString stringWithFormat:kUploadGravatarAPIPath, SafeText(self.user.deviceID), SafeText(self.user.userID)];
             [HttpUtils uploadImage:urlPath withImagePath:userGravatar[@"local_path"] withImageName:userGravatar[@"name"]];
         });
     }
@@ -180,8 +180,8 @@ static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegueIdent
         [cell.userIcon addTarget:self action:@selector(addUserIcon) forControlEvents:UIControlEventTouchUpInside];
         self.settingTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        cell.userName.text = [NSString stringWithFormat:@"%@(%@)", self.user.userName, self.user.userID];
-        cell.userRole.text = [NSString stringWithFormat:@"%@ | %@", self.user.roleName, self.user.groupName];
+        cell.userName.text = [NSString stringWithFormat:@"%@(%@)",SafeText(self.user.userName), SafeText(self.user.userID)];
+        cell.userRole.text = [NSString stringWithFormat:@"%@ | %@", SafeText(self.user.roleName),SafeText(self.user.groupName)];
         UIImage *userHead = self.userIconImage ?: [UIImage imageNamed:@"AppIcon"];
         [cell.userIcon setBackgroundImage:userHead forState:UIControlStateNormal];
 
@@ -397,7 +397,7 @@ static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegueIdent
     NSData *imageData = UIImageJPEGRepresentation(self.userIconImage, 1.0);
     
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
-    NSString *gravatarName = [NSString stringWithFormat:@"%@-%@-%@.jpg", kAppCode, self.user.userNum, timestamp];
+    NSString *gravatarName = [NSString stringWithFormat:@"%@-%@-%@.jpg", kAppCode, SafeText(self.user.userNum), timestamp];
     NSString *gravatarPath = [FileUtils dirPath:kConfigDirName FileName:gravatarName];
     [imageData writeToFile:gravatarPath atomically:YES];
     

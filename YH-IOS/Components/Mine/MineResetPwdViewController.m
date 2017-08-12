@@ -169,7 +169,7 @@
     }
     if([oldPassword.md5 isEqualToString:self.user.password]) {
         
-        HttpResponse *response = [APIHelper resetPassword:self.user.userID newPassword:newPassword.md5];
+        HttpResponse *response = [APIHelper resetPassword:self.user.userNum newPassword:newPassword.md5];
         NSString *message = [NSString stringWithFormat:@"%@", response.data[@"info"]];
         
         SCLAlertView *alert = [[SCLAlertView alloc] init];

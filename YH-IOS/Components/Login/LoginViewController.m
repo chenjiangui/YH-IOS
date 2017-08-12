@@ -648,17 +648,10 @@
                 });
                 return;
             }
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                /*
-                 * 用户行为记录, 单独异常处理，不可影响用户体验
-                 */
-                NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-                logParams[kActionALCName] = @"登录";
-                [APIHelper actionLog:logParams];
-            });
-            
+
             NSMutableDictionary *deviceDict = [NSMutableDictionary dictionary];
+            deviceDict[kAPI_TOEKN] = ApiToken(YHAPI_UPLOAD_DEVICEMESSAGE);
+            deviceDict[kUserNumCUName] = _peopleNumString;
             deviceDict[@"device"] = @{
                                       @"name": [[UIDevice currentDevice] name],
                                       @"platform": @"ios",
@@ -668,11 +661,25 @@
                                       };
             deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
             deviceDict[@"coordinate"] = coordianteString;
-            [YHHttpRequestAPI yh_postUserMessageWithDict:deviceDict Finish:^(BOOL success, id model, NSString *jsonObjc) {
-                NSLog(@"实现了");
+            deviceDict[@"browser"] = @"Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15";
+            NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_UPLOAD_DEVICEMESSAGE];
+            [YHHttpRequestAPI yh_postDict:deviceDict to:YHAPI_UPLOAD_DEVICEMESSAGE Finish:^(BOOL success, id model, NSString *jsonObjc) {
+                if (success) {
+                    NSLog(@"成功");
+                    [self saveUserDict:jsonObjc];
+                }
             }];
             [HudToolView hideLoadingInView:self.view];
             [self jumpToDashboardView];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                /*
+                 * 用户行为记录, 单独异常处理，不可影响用户体验
+                 */
+                NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+                logParams[kActionALCName] = @"登录";
+                [APIHelper actionLog:logParams];
+            });
+            
 
         });
         return;
@@ -689,6 +696,41 @@
     });
    
 
+}
+
+
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
+
+-(void)saveUserDict:(NSString *)jsonString{
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    NSDictionary *dict = [self dictionaryWithJsonString:jsonString][@"data"];
+    userDict[kDeviceUUIDCUName] = SafeText(dict[@"device_uuid"]);
+    if (dict[@"user_device_id"] !=nil) {
+         userDict[kUserDeviceIDCUName] = dict[@"user_device_id"];
+    }
+    if (dict[@"device_state"] !=nil) {
+         userDict[kDeviceStateCUName] = dict[@"device_state"];
+    }
+    
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    [userDict writeToFile:userConfigPath atomically:YES];
+    [userDict writeToFile:settingsConfigPath atomically:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

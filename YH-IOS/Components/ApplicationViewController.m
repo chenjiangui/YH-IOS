@@ -19,7 +19,7 @@
     [super viewDidLoad];
 
     NSString *uiVersion = [FileUtils currentUIVersion];
-    self.urlString = [NSString stringWithFormat:kAppMobilePath, kBaseUrl, uiVersion, self.user.roleID];
+    self.urlString = [NSString stringWithFormat:kAppMobilePath, kBaseUrl, uiVersion, SafeText(self.user.roleID)];
    // self.urlString = @"http://tkm.shengyiplus.com/pc/search?sso_cookie=nm6586tst";
     self.commentObjectType = ObjectTypeApp;
     self.browser = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-84)];

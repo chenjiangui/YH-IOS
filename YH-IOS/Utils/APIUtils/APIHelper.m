@@ -15,18 +15,23 @@
 #import <SSZipArchive/SSZipArchive.h>
 @implementation APIHelper
 
-+ (NSString *)reportDataUrlString:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID  {
++ (NSString *)reportDataUrlString:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID  {
     return[NSString stringWithFormat:kReportDataAPIPath, kBaseUrl, groupID, templateID, reportID];
 }
 
 #pragma todo: pass assetsPath as parameter
-+ (void)reportData:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
-    NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
++ (void)reportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
+   // NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT_DATADOWNLOAD];
+    NSDictionary *param = @{
+                     @"api_token":ApiToken(YHAPI_REPORT_DATADOWNLOAD),
+                     @"report_id":reportID,
+                     @"disposition":@"inline"
+                     };
     
-    NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
     
-    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath];
+    HttpResponse *httpResponse = [HttpUtils httpGet:urlString header:param timeoutInterval:30];
     if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
         NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
         NSString *disposition = httpHeader[@"Content-Disposition"];
@@ -49,7 +54,7 @@
 
 //扫一扫获取数据
 #pragma todo: pass assetsPath as parameter
-+ (void)reportScodeData:(NSNumber *)storeID barcodeID:(NSString *)barcodeID {
++ (void)reportScodeData:(NSString *)storeID barcodeID:(NSString *)barcodeID {
     NSString *urlString = [NSString stringWithFormat:@"%@/mobile/v2/store/%@/barcode/%@/attachment",kBaseUrl,storeID,barcodeID];
     
     NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
@@ -75,7 +80,7 @@
 
 
 
-+(NSString*)getJsonDataWithZip:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID{
++(NSString*)getJsonDataWithZip:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID{
     
    NSString* jsonString = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/%@/report/%@/jzip",kBaseUrl,groupID,templateID,reportID];
     
@@ -128,7 +133,7 @@
     
     NSDictionary *deviceDict = @{@"api_token":ApiToken(YHAPI_USER_AUTHENTICATION),@"user_num":usernum,@"password":password};
     
-  /*  NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
+   /* NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
     NSString *alertMsg = @"";
     
     NSMutableDictionary *deviceDict = [NSMutableDictionary dictionary];
@@ -141,46 +146,30 @@
     };
     deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     deviceDict[@"coordinate"] = coordinate;*/
-
+    
     HttpResponse *response = [HttpUtils httpPost:urlString Params:[deviceDict mutableCopy]];
     
     if(response.data[@"code"] && [response.data[@"code"] isEqualToNumber:@(200)]) {
         NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
         NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+        NSDictionary *dict = response.data[@"data"];
     
-        userDict[kUserIDCUName]     = response.data[@"user_id"];
-        userDict[kUserNameCUName]   = response.data[@"user_name"];
-        userDict[kUserNumCUName]    = response.data[@"user_num"];
-        userDict[kGroupIDCUName]    = response.data[@"group_id"];
-        userDict[kGroupNameCUName]  = response.data[@"group_name"];
-        userDict[kRoleIDCUName]     = response.data[@"role_id"];
-        userDict[kRoleNameCUName]   = response.data[@"role_name"];
-        userDict[kKPIIDsCUName]     = response.data[@"kpi_ids"];
-        userDict[kAppIDSCUName]     = response.data[@"app_ids"];
-        userDict[kAnalyseIDsCUName] = response.data[@"analyse_ids"];
-        userDict[kStoreIDsCUName]   = response.data[@"store_ids"];
-        userDict[kIsLoginCUName]    = @(YES);
-        userDict[kDeviceUUIDCUName] = response.data[@"device_uuid"];
-        userDict[kDeviceStateCUName]  = response.data[@"device_state"];
-        userDict[kUserDeviceIDCUName] = response.data[@"user_device_id"];
-        userDict[kGravatarCUName]    = response.data[@"gravatar"];
-        userDict[kPasswordCUName]    = password;
-        userDict[@"assets_md5"]      = response.data[@"assets_md5"];
-        userDict[@"loading_md5"]     = response.data[@"loading_md5"];
-        userDict[@"BarCodeScan_md5"] = response.data[@"BarCodeScan_md5"];
-        userDict[@"advertisement_md5"] = response.data[@"advertisement_md5"];
-        userDict[@"fonts_md5"]       = response.data[@"assets"][@"fonts_md5"];
-        userDict[@"images_md5"]      = response.data[@"assets"][@"images_md5"];
-        userDict[@"stylesheets_md5"] = response.data[@"assets"][@"stylesheets_md5"];
-        userDict[@"javascripts_md5"] = response.data[@"assets"][@"javascripts_md5"];
-        userDict[@"icons_md5"] = response.data[@"assets"][@"icons_md5"];
-        userDict[@"password_md5"]  = password;
+        userDict[kUserIDCUName]     = SafeText(dict[@"user_id"]);
+        userDict[kUserNameCUName]   = SafeText(dict[@"user_name"]);
+        userDict[kUserNumCUName]    = SafeText(dict[@"user_num"]);
+        userDict[kGroupIDCUName]    = SafeText(dict[@"group_id"]);
+        userDict[kGroupNameCUName]  = SafeText(dict[@"group_name"]);
+        userDict[kRoleIDCUName]     = SafeText(dict[@"role_id"]);
+        userDict[kRoleNameCUName]   = SafeText(dict[@"role_name"]);
+        userDict[kGravatarCUName]   = SafeText(dict[@"gravatar"]);
+        userDict[@"email"]          = SafeText(dict[@"email"]);
+        userDict[@"mobile"]         = SafeText(dict[@"mobile"]);
+        userDict[@"user_pass"]      = SafeText(dict[@"user_pass"]);
         
         /**
          *  rewrite screen lock info into
          */
         [userDict writeToFile:userConfigPath atomically:YES];
-        
         
         userDict[kIsUseGesturePasswordCUName] = @(NO);
         userDict[kGesturePasswordCUName]      = @"";
@@ -198,6 +187,7 @@
                 userDict[kGesturePasswordCUName] = settingsDict[kGesturePasswordCUName];
             }
         }
+        
         [userDict writeToFile:userConfigPath atomically:YES];
         [userDict writeToFile:settingsConfigPath atomically:YES];
 
@@ -205,8 +195,8 @@
         [APIHelper pushDeviceToken:userDict[kDeviceUUIDCUName]];
 
     }
-    else if(response.data && response.data[@"info"]) {
-        alertMsg = [NSString stringWithFormat:@"%@", response.data[@"info"]];
+    else if(response.data && response.data[@"message"]) {
+        alertMsg = [NSString stringWithFormat:@"%@", response.data[@"message"]];
     }
     else if(response.errors.count) {
         alertMsg = [response.errors componentsJoinedByString:@"\n"];
@@ -228,7 +218,7 @@
  *
  *  @return 是否创建成功
  */
-+ (BOOL)writeComment:(NSNumber *)userID objectType:(NSNumber *)objectType objectID:(NSNumber *)objectID params:(NSMutableDictionary *)params {
++ (BOOL)writeComment:(NSString *)userID objectType:(NSNumber *)objectType objectID:(NSNumber *)objectID params:(NSMutableDictionary *)params {
     NSString *urlString = [NSString stringWithFormat:kCommentAPIPath, kBaseUrl, userID, objectID, objectType];
     HttpResponse *httpResponse = [HttpUtils httpPost:urlString Params:params];
     
@@ -328,11 +318,15 @@
  *
  *  @return 服务器响应
  */
-+ (HttpResponse *)resetPassword:(NSNumber *)userID newPassword:(NSString *)newPassword {
-    NSString *urlString = [NSString stringWithFormat:kResetPwdAPIPath, kBaseUrl, userID];
++ (HttpResponse *)resetPassword:(NSString *)userNum newPassword:(NSString *)newPassword {
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_UPDATE_PASSWORD];
+    
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"password"] = newPassword;
+    params[kAPI_TOEKN] = ApiToken(YHAPI_UPDATE_PASSWORD);
+    params[kUserNumCUName] = userNum;
+    
     HttpResponse *httpResponse = [HttpUtils httpPost:urlString Params:params];
     
     return httpResponse;
@@ -382,7 +376,7 @@
  *  @param codeString 条形码信息
  *  @param codeType   条形码或二维码
  */
-+ (BOOL)barCodeScan:(NSString *)userNum group:(NSNumber *)groupID  role:(NSNumber *)roleID store:(NSString *)storeID code:(NSString *)codeInfo type:(NSString *)codeType {
++ (BOOL)barCodeScan:(NSString *)userNum group:(NSString *)groupID  role:(NSString *)roleID store:(NSString *)storeID code:(NSString *)codeInfo type:(NSString *)codeType {
     NSString * urlstring = [NSString stringWithFormat:kBarCodeScanAPIPath, kBaseUrl, groupID, roleID, userNum, storeID, codeInfo, codeType];
     
     HttpResponse *response = [HttpUtils httpGet:urlstring];
@@ -403,11 +397,12 @@
 
 + (HttpResponse *)findPassword:(NSString *)userNum withMobile:(NSString *)moblieNum {
     
-    NSString *urlString = [NSString stringWithFormat:KFindPwdAPIPath, kBaseUrl];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", kBaseUrl,YHAPI_RESET_PASSWORD];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"user_num"] = userNum;
     params[@"mobile"] = moblieNum;
+    params[@"api_token"] = ApiToken(YHAPI_RESET_PASSWORD);
     HttpResponse *httpResponse = [HttpUtils httpPost:urlString Params:params];
     
     return httpResponse;

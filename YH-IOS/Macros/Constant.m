@@ -209,6 +209,7 @@ NSString *const kScreenshotType      = @"Screenshort-type";
 NSString *const kObjTitleAPCCName    = @"object_title";
 NSString *const kUserNameAPCCName    = @"user_name";
 NSString *const kContentAPCCName     = @"content";
+NSString *const kAPI_TOEKN           = @"api_token";
 
 
 /**

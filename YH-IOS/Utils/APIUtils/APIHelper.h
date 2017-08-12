@@ -11,9 +11,10 @@
 
 @interface APIHelper : NSObject
 
-+(NSString*)getJsonDataWithZip:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
-+ (NSString *)reportDataUrlString:(NSNumber *)groupID templateID:(NSString *)tempalteID reportID:(NSString *)reportID ;
-+ (void)reportData:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++(NSString*)getJsonDataWithZip:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++ (NSString *)reportDataUrlString:(
+NSString*)groupID templateID:(NSString *)tempalteID reportID:(NSString *)reportID ;
++ (void)reportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 
 /**
  *  登录验证
@@ -42,7 +43,7 @@
  *
  *  @return 是否创建成功
  */
-+ (BOOL)writeComment:(NSNumber *)userID objectType:(NSNumber *)objectType objectID:(NSNumber *)objectID params:(NSMutableDictionary *)params;
++ (BOOL)writeComment:(NSString *)userID objectType:(NSString *)objectType objectID:(NSString *)objectID params:(NSMutableDictionary *)params;
 
 /**
  *  消息推送， 设备标识
@@ -78,7 +79,7 @@
  *
  *  @return 服务器响应
  */
-+ (HttpResponse *)resetPassword:(NSNumber *)userID newPassword:(NSString *)newPassword;
++ (HttpResponse *)resetPassword:(NSString *)userNum newPassword:(NSString *)newPassword;
 
 /**
  *  记录用户行为操作
@@ -97,10 +98,10 @@
  *  @param codeString 条形码信息
  *  @param codeType   条形码或二维码
  */
-+ (BOOL)barCodeScan:(NSString *)userNum group:(NSNumber *)groupID  role:(NSNumber *)roleID store:(NSString *)storeID code:(NSString *)codeInfo type:(NSString *)codeType;
++ (BOOL)barCodeScan:(NSString *)userNum group:(NSString *)groupID  role:(NSString *)roleID store:(NSString *)storeID code:(NSString *)codeInfo type:(NSString *)codeType;
 
 + (HttpResponse *)findPassword:(NSString *)userNum withMobile:(NSString *)moblieNum;
 
-+ (void)reportScodeData:(NSNumber *)storeID barcodeID:(NSString *)barcodeID;
++ (void)reportScodeData:(NSString *)storeID barcodeID:(NSString *)barcodeID;
 
 @end

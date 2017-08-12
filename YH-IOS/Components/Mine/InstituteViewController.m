@@ -52,7 +52,7 @@
         self.DataId =[NSString stringWithFormat:@"%@",data[@"objectID"]];
         YHInstituteDetailViewController *instiDetail = [[YHInstituteDetailViewController alloc]init];
         instiDetail.dataId = _DataId;
-        instiDetail.userId = user.userNum;
+        instiDetail.userId = SafeText(user.userNum);
         instiDetail.title = data[@"bannerName"];
         UINavigationController *instiDetailNav = [[UINavigationController alloc]initWithRootViewController:instiDetail];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

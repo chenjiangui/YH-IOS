@@ -65,13 +65,8 @@
     self.userArray = @[@[],@[@"归属部门",@"工号"],@[@"文章收藏",@"消息"],@[@"设置",@"修改密码",@"问题反馈"]];
     titleIameArray = @[@"list_ic_person",@"list_ic_department"];
     self.leftImageArray = @[@[],@[@"icon_section",@"login_jobno"],@[@"icon_collection",@"icon_news"],@[@"icon_setting",@"icon_password",@"icon_feedback"]];
-    if (user.groupName == nil) {
-        user.groupName = @(0);
-    }
-    if (user.userNum == nil) {
-        user.userNum = 0;
-    }
-    secondArray = @[user.groupName,  user.userNum];
+    
+    secondArray = @[SafeText(user.groupName), SafeText(user.userNum)];
 
     seconImageArray = @[@"list_ic_set"];
     [self setupTableView];
@@ -88,7 +83,8 @@
 -(void)getData{
     RACSignal *requestSingal = [self.requestCommane execute:nil];
     [requestSingal subscribeNext:^(NSDictionary *x) {
-        self.userDict = [x copy];
+        NSDictionary *userDict = x[@"data"];
+        self.userDict = [userDict copy];
         [self.minetableView.mj_header endRefreshing];
         [self.minetableView reloadData];
     }];
@@ -141,8 +137,12 @@
     _requestCommane = [[RACCommand  alloc]initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         RACSignal *requestSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/user/%@/group/%@/role/%@/statistics",kBaseUrl,user.userNum,user.groupID,user.roleID];
-            [manager GET:kpiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString *kpiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_COUNT_MESSAGE];
+            NSDictionary *param = @{
+                                    kAPI_TOEKN:ApiToken(YHAPI_USER_COUNT_MESSAGE),
+                                    @"user_num":SafeText(user.userNum)
+                                    };
+            [manager GET:kpiUrl parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"用户信息 %@",responseObject);
                 [subscriber sendNext:responseObject];
                 [subscriber sendCompleted];
@@ -222,11 +222,16 @@
     self.userAvaImage = userIconImage;
     [self.minetableView reloadData];
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
-    NSString *gravatarName = [NSString stringWithFormat:@"%@-%@-%@.jpg", kAppCode, user.userNum, timestamp];
-    NSString *urlPath = [NSString stringWithFormat:kUploadGravatarAPIPath, user.deviceID, user.userID];
+    NSString *gravatarName = [NSString stringWithFormat:@"%@-%@-%@.jpg", kAppCode, SafeText(user.userNum), timestamp];
+    NSString *urlPath = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_UPLOAD_GRAVATAR];
+    NSDictionary *param = @{
+                            @"api_token":ApiToken(YHAPI_UPLOAD_GRAVATAR),
+                            @"user_num":SafeText(user.userNum),
+                            @"device_id":SafeText(user.deviceID)
+                            };
    // NSString *urlPath = @"http://192.168.0.187:3000/api/v1/user/123456/problem_render";
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-    AFHTTPRequestOperation *op = [manager POST:urlPath parameters:@{} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperation *op = [manager POST:urlPath parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"gravatar" fileName:gravatarName mimeType:@"image/jpg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
@@ -297,8 +302,8 @@
             }
         }
         else {
-           Cell.userNameLabel.text = user.userName;
-           Cell.userRoleLabel.text = [NSString stringWithFormat:@"%@",user.roleName];
+           Cell.userNameLabel.text = SafeText(user.userName);
+           Cell.userRoleLabel.text = [NSString stringWithFormat:@"%@",SafeText(user.roleName)];
            if (self.userAvaImage != nil) {
               [Cell.avaterImageView setImage:self.userAvaImage forState:UIControlStateNormal];
           }
@@ -428,11 +433,21 @@
 }
 
 - (void)jumpToLogin {
+    
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     userDict[kIsLoginCUName] = @(NO);
     [userDict writeToFile:userConfigPath atomically:YES];
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_LOGOUT];
+    NSDictionary *param = @{
+                            kAPI_TOEKN:ApiToken(YHAPI_USER_LOGOUT),
+                            @"user_device_id":SafeText(user.deviceID)
+                            };
+    [YHHttpRequestAPI yh_postDict:param to:url Finish:^(BOOL success, id model, NSString *jsonObjc) {
+        if (success) {
+            [self clickNote:@"退出成功"];
+        }
+    }];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:kMainSBName bundle:nil];
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:kLoginVCName];
     self.view.window.rootViewController = loginViewController;

@@ -123,7 +123,7 @@
     
     NSArray *templateArray = [self.urlLink componentsSeparatedByString:@"/"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/json",kBaseUrl,user.groupID,templateArray[8]];
+    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/json",kBaseUrl,SafeText(user.groupID),templateArray[8]];
     [manager GET:kpiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"用户信息 %@",responseObject);
         NSArray *array = responseObject;
