@@ -10,6 +10,7 @@
 #import "UMSocialControllerService.h"
 #import "BaseWebViewController.h"
 #import "BaseViewController.h"
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface SubjectOutterViewController :BaseWebViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UMSocialUIDelegate>
 
@@ -19,5 +20,9 @@
 @property (strong, nonatomic) NSNumber *objectID;
 // 内部报表具有胡筛选功能时，用户点击的选项
 @property (strong, nonatomic) NSString *selectedItem;
+
+//高德定位
+@property(nonatomic,strong) AMapLocationManager *locationManager;
+
 
 @end

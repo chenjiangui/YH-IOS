@@ -40,7 +40,7 @@ static NSString *const kCommentSegueIdentifier        = @"ToCommentSegueIdentifi
 static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueIdentifier";
 
 
-@interface NewSubjectViewController ()<LTHPasscodeViewControllerDelegate,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,CLLocationManagerDelegate,WKUIDelegate,WKNavigationDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UMSocialUIDelegate,UIScrollViewDelegate,WebViewJavascriptBridgeBaseDelegate>
+@interface NewSubjectViewController ()<LTHPasscodeViewControllerDelegate,UIPopoverPresentationControllerDelegate,DropViewDelegate,DropViewDataSource,CLLocationManagerDelegate,WKUIDelegate,WKNavigationDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UMSocialUIDelegate,UIScrollViewDelegate,WebViewJavascriptBridgeBaseDelegate,AMapLocationManagerDelegate>
 {
     NSMutableDictionary *betaDict;
     UIImageView *navBarHairlineImageView;
@@ -59,7 +59,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (strong, nonatomic) NSArray *dropMenuIcons;
 @property (assign, nonatomic) BOOL isLoadFinish;
 @property (strong, nonatomic) UIView* idView;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+//@property (nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;
 @property (nonatomic, strong) UIButton *backBtn;
@@ -78,7 +78,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.user = [[User alloc] init];
-     [self startLocation];
+//     [self startLocation];
+    [self configLocationManager];
+    [self locateAction];
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
     self.browser = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) ];    
@@ -89,7 +91,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if(self.user.userID) {
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];
     }
-    [self startLocation];
     self.title = _bannerName;
     self.isLoadFinish = NO;
     [self hiddenShadow];
@@ -725,7 +726,44 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     //[self.browser.scrollView addSubview:refreshControl]; //<- this is point to use. Add "scrollView" property.
 }
 
-// 获取经纬度
+
+#pragma mark 定位初始化化
+- (void)configLocationManager
+{
+    self.locationManager = [[AMapLocationManager alloc] init];
+    
+    [self.locationManager setDelegate:self];
+    //    偏差 100米
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    
+    [self.locationManager setLocationTimeout:6];
+    
+    [self.locationManager setReGeocodeTimeout:3];
+}
+
+#pragma mark 以下为定位得出经纬度
+- (void)locateAction
+{
+    //带逆地理的单次定位
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            
+            if (error.code == AMapLocationErrorLocateFailed)
+            {
+                return;
+            }
+        }
+        NSLog(@"旧的经度：%f,旧的纬度：%f",location.coordinate.longitude,location.coordinate.latitude);
+        self.userLongitude=[NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
+        self.userLongitude =[NSString stringWithFormat:@"%f",location.coordinate.latitude];
+    }];
+}
+
+/*
+ //获取经纬度
 -(void)startLocation {
     if ([CLLocationManager locationServicesEnabled]) {
         self.locationManager = [[CLLocationManager alloc]init];
@@ -747,14 +785,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *newLocation = locations[0];
-    // 获取当前所在的城市名
+  //   获取当前所在的城市名
     CLLocationCoordinate2D oldCoordinate = newLocation.coordinate;
     NSLog(@"旧的经度：%f,旧的纬度：%f",oldCoordinate.longitude,oldCoordinate.latitude);
     self.userlatitude = [NSString stringWithFormat:@"%.14f",oldCoordinate.latitude];
     self.userLongitude = [NSString stringWithFormat:@"%.14f", oldCoordinate.longitude];
-    //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
+  //  系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
     [manager stopUpdatingLocation];
-}
+}*/
+
 #pragma mark - assistant methods
 - (void)loadHtml {
     DeviceState deviceState = [APIHelper deviceState];

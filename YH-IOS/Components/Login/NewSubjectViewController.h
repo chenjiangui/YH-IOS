@@ -23,6 +23,7 @@
 #import "ExtendNSLogFunctionality.h"
 #import <WebKit/WebKit.h>
 #import "SDWebView.h"
+#import <AMapLocationKit/AMapLocationKit.h>
 
 #define WeakSelf  __weak typeof(*&self) weakSelf = self;
 
@@ -42,6 +43,10 @@
 - (void)jumpToLogin;
 - (void)showProgressHUD:(NSString *)text;
 - (void)showProgressHUD:(NSString *)text mode:(MBProgressHUDMode)mode;
+
+//高德定位
+@property(nonatomic,strong) AMapLocationManager *locationManager;
+
 
 /**
  *  设置是否允许横屏

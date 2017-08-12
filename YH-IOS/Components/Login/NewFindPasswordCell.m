@@ -64,9 +64,7 @@ static  NSString *PhoneString;
                     textLabel.textAlignment=NSTextAlignmentLeft;
                     textLabel.font=[UIFont systemFontOfSize:13];
                     [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(self.contentView.mas_bottom).offset(-16);
                         make.left.mas_equalTo(self.contentView.mas_left).offset(20);
-                        make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
                         make.centerY.mas_equalTo(self.mas_centerY);
                         make.size.mas_equalTo(CGSizeMake(self.contentView.size.width, 60));
                     }];
@@ -90,7 +88,7 @@ static  NSString *PhoneString;
                         [upDataBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                             make.centerX.mas_equalTo(self.contentView.mas_centerX);
                             make.centerY.mas_equalTo(self.contentView.mas_centerY);
-                            make.size.mas_equalTo(CGSizeMake(self.contentView.bounds.size.width, 50));
+                            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 50));
                         }];
                     }
     }
@@ -115,18 +113,17 @@ static  NSString *PhoneString;
 {
     self.contentView.userInteractionEnabled=NO;
     
-    [HudToolView showLoadingInView:self.window];
-    
-    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
          NSString *userNum = PeopleString;
          NSString *userPhone = PhoneString;
          NSLog(@"%@%@",userNum,userPhone);
             if (userNum && userPhone) {
+                [HudToolView showLoadingInView:self.window];
                 HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
                 NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"message"]];
                 if ([reponse.statusCode isEqualToNumber:@(201)]) {
                     [HudToolView showTopWithText:message color:[NewAppColor yhapp_1color]];
+                    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
                     [[self viewController] dismissViewControllerAnimated:YES completion:nil];
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         /*
@@ -144,11 +141,14 @@ static  NSString *PhoneString;
                 }
                 else {
                     [HudToolView showTopWithText:message color:[NewAppColor yhapp_11color]];
+                    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
                 }
             }
             else
             {
                 [HudToolView showTopWithText:@"信息有误，请重新输入" color:[NewAppColor yhapp_11color]];
+                [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
             }
 }
 

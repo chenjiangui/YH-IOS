@@ -20,6 +20,7 @@
 #import "UIWebview+Clean.h"
 #import "LTHPasscodeViewController.h"
 #import "ExtendNSLogFunctionality.h"
+#import <AMapLocationKit/AMapLocationKit.h>
 
 
 @interface LoginViewController : UIViewController
@@ -33,6 +34,8 @@
 @property (nonatomic, strong) UITextField *userNameText;
 @property (nonatomic, strong) UIButton *findPassword;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;
+//高德定位
+@property(nonatomic,strong) AMapLocationManager *locationManager;
 
 - (void)loginBtnClick;
 

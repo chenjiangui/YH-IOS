@@ -28,8 +28,10 @@
 #import "GuidePageViewController.h"
 #import <Bugly/Bugly.h>
 #import <DMPasscode/DMPasscode.h>
-
 #import "ZJNewFeatureController.h"
+//引入高德地图SDK
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
@@ -96,6 +98,9 @@ void UncaughtExceptionHandler(NSException * exception) {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _isReApp = YES;
     [self registerAppSDK];
+    //高德KEY
+    [AMapServices sharedServices].apiKey = @"ee6284cf9b216800309aa7639a2fb172";
+    
     // [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"receiveRemote"];
     // 获取版本号
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -148,6 +153,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     [self checkAssets];
     [self initWebViewUserAgent];
     [self initScreenLock];
+
    // [self actionSetup];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
