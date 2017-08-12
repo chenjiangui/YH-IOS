@@ -59,6 +59,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong) NSMutableArray *itemNameArray;
 /* 筛选视图 **/
 @property (nonatomic, strong) SelectLocationView* screenView;
+@property (nonatomic, strong) UIButton *filterButton;
+@property (nonatomic, strong)  UILabel *locationLabel;
+@property (nonatomic, strong) UIView *centerLine;
 @end
 
 @implementation SubjectViewController
@@ -73,6 +76,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
     [self hiddenShadow];
+    [self setupUI];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     /**
      * 被始化页面样式
@@ -119,6 +124,68 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 -(void)awakeFromNib{
     [super awakeFromNib];
 }
+
+
+-(void)setupUI{
+    
+    self.locationLabel = [[UILabel alloc]init];
+    self.locationLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.locationLabel.textColor = [NewAppColor yhapp_15color];
+    [self.view addSubview:self.locationLabel];
+    
+    [self.view addSubview:self.centerLine];
+    [self.view addSubview:self.filterButton];
+    [_filterButton layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:18];
+    
+    [self layoutUI];
+    
+}
+
+
+- (UIView *)centerLine{
+    if (!_centerLine) {
+        _centerLine = [[UIView alloc] init];
+        _centerLine.backgroundColor = [NewAppColor yhapp_9color];
+    }
+    return _centerLine;
+}
+
+
+- (UIButton *)filterButton{
+    if (!_filterButton) {
+        _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_filterButton setTitle:@"筛选" forState:UIControlStateNormal];
+        [_filterButton setTitleColor:[NewAppColor yhapp_6color] forState:UIControlStateNormal];
+        [_filterButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_filterButton setImage:@"pop_screen1".imageFromSelf forState:UIControlStateNormal];
+        [_filterButton addTarget:self action:@selector(actionDisplaySearchItems) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _filterButton;
+}
+
+
+
+-(void)layoutUI{
+    
+    [self.locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view.mas_left).mas_offset(20);
+        make.top.mas_equalTo(self.view.mas_top);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self.filterButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(self.locationLabel);
+        make.right.mas_equalTo(self.view.mas_right).offset(-24);
+    }];
+    
+    [_centerLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(0.5);
+        make.top.mas_equalTo(@39);
+    }];
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -616,8 +683,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
         if (selectedItem != nil && selectedItem.length != 0) {
-            self.title =selectedItem;
+            weakSelf.locationLabel.text =selectedItem;
         }
+        weakSelf.locationLabel.text = selectedItem;
         responseCallback(selectedItem);
     }];
     
@@ -837,10 +905,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
     }
     if ([HttpUtils isNetworkAvailable3]) {
-        self.title = [NSString stringWithFormat:@"%@",reportSelectedItem];
+        self.locationLabel.text = [NSString stringWithFormat:@"%@",reportSelectedItem];
     }
     else{
-        self.title = [NSString stringWithFormat:@"%@(离线)",reportSelectedItem];
+        self.locationLabel.text = [NSString stringWithFormat:@"%@(离线)",reportSelectedItem];
     }
 }
 

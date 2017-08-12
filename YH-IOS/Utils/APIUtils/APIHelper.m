@@ -127,7 +127,12 @@
     
     NSString *alertMsg = @"";
     
-    NSDictionary *deviceDict = @{@"api_token":ApiToken(YHAPI_USER_AUTHENTICATION),@"user_num":SafeText(usernum),@"password":SafeText(password)};
+    NSDictionary *deviceDict = @{
+                                 kAPI_TOEKN:ApiToken(YHAPI_USER_AUTHENTICATION),
+                                 @"user_num":SafeText(usernum),
+                                 @"password":SafeText(password),
+                                 @"coordinate":coordinate
+                                 };
     
    /* NSString *urlString = [NSString stringWithFormat:kUserAuthenticateAPIPath, kBaseUrl, @"IOS", usernum, password];
     NSString *alertMsg = @"";

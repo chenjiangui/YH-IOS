@@ -296,11 +296,15 @@ static NSString *headerViewIdentifier = @"hederview";
         return;
     }
     else{
+        Version *version = [[Version alloc]init];
     NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
                               @"user_num":SafeText(user.userNum),
-                              kAPI_TOEKN:ApiToken(YHAPI_USER_UPLOAD_FEEDBACK)
+                              kAPI_TOEKN:ApiToken(YHAPI_USER_UPLOAD_FEEDBACK),
+                              @"app_version":version.current,
+                              @"platform":@"ios",
+                              @"platform_version":version.platform
                               };
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSString *postString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_UPLOAD_FEEDBACK];
