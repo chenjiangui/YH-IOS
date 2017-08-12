@@ -391,6 +391,7 @@
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
         NSString *msg = [APIHelper userAuthentication:_peopleNumString password:_passwordNumString.md5 coordinate:coordianteString];
         
         dispatch_async(dispatch_get_main_queue(), ^{

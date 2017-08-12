@@ -21,17 +21,12 @@
 
 #pragma todo: pass assetsPath as parameter
 + (void)reportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
-   // NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?%@=%@&report_id=%@&disposition=%@",kBaseUrl,YHAPI_REPORT_DATADOWNLOAD,kAPI_TOEKN,ApiToken(YHAPI_REPORT_DATADOWNLOAD),reportID,@"zip"];
-    NSDictionary *param = @{
-                     kAPI_TOEKN:ApiToken(YHAPI_REPORT_DATADOWNLOAD),
-                     @"report_id":reportID,
-                     @"disposition":@"zip"
-                     };
+    NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
     
+    NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
     
-    HttpResponse *httpResponse = [HttpUtils httpGet:urlString];
+    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath];
     if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
         NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
         NSString *disposition = httpHeader[@"Content-Disposition"];
