@@ -243,6 +243,59 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+/** 清理缓存*/
+- (void)actionCheckAssets {
+    
+    NSDictionary *dict = @{
+                           kAPI_TOEKN:ApiToken(YHAPI_STATIC_ASSETS_CHECK)
+                           };
+    
+    [YHHttpRequestAPI yh_getDataFrom:YHAPI_STATIC_ASSETS_CHECK with:dict Finish:^(BOOL success, id model, NSString *jsonObjc) {
+        if (success) {
+            [self saveAseetsMD5:jsonObjc];
+        }
+    }];
+}
+
+-(void)saveAseetsMD5:(NSString*)jsonString {
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    NSDictionary *dict = [self dictionaryWithJsonString:jsonString][@"data"];
+    
+    userDict[@"assets_md5"]        = SafeText(dict[@"assets_md5"]);
+    userDict[@"loading_md5"]       = SafeText(dict[@"loading_md5"]);
+    userDict[@"icons_md5"]         = SafeText(dict[@"icons_md5"]);
+    userDict[@"images_md5"]        = SafeText(dict[@"images_md5"]);
+    userDict[@"javascripts_md5"]   = SafeText(dict[@"javascripts_md5"]);
+    userDict[@"stylesheets_md5"]   = SafeText(dict[@"stylesheets_md5"]);
+    userDict[@"advertisement_md5"] = SafeText(dict[@"advertisement_md5"]);
+    userDict[@"fonts_md5"]         = SafeText(dict[@"fonts_md5"]);
+    
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    [userDict writeToFile:userConfigPath atomically:YES];
+    [userDict writeToFile:settingsConfigPath atomically:YES];
+    [self actionCheckAsset];
+}
+
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
+
+
 - (void)actionChangeGesturePassword {
     [self showLockViewForChangingPasscode];
 }
@@ -269,7 +322,7 @@
 }
 
 //清理缓存
-- (void)actionCheckAssets {
+- (void)actionCheckAsset  {
     User* user = [[User alloc] init];
     self.sharedPath = [FileUtils sharedPath];
     NSString *cachedHeaderPath  = [NSString stringWithFormat:@"%@/%@", self.sharedPath, kCachedHeaderConfigFileName];
@@ -349,9 +402,12 @@
     [HUD show:YES];
     
     // 下载地址
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:kDownloadAssetsAPIPath, kBaseUrl, assetName]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:ApiToken(YHAPI_DOWNLOAD_STATIC_ASSETS) forHTTPHeaderField:kAPI_TOEKN];
+    [request addValue:[NSString stringWithFormat:@"%@%@",assetName,@".zip"] forHTTPHeaderField:@"filename"];
     // 保存路径
-    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:url]];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     op.outputStream = [NSOutputStream outputStreamToFileAtPath:assetsZipPath append:NO];
     // 根据下载量设置进度条的百分比
     [op setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {

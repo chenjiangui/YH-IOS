@@ -49,28 +49,11 @@
 
 @interface JYHomeViewController () <UITableViewDelegate, UITableViewDataSource, PagedFlowViewDelegate, PagedFlowViewDataSource, JYNotifyDelegate, JYFallsViewDelegate,SDCycleScrollViewDelegate,RefreshToolDelegate> {
     
-//    CGFloat bottomViewHeight;
-//    NSArray *dataListTop;
-//    NSMutableArray *dataListButtom;
-//    NSArray *dataList;
-//    SDCycleScrollView *_cycleScrollView;
 }
 
 @property (nonatomic, strong) UITableView *rootTBView;
 
-//@property (nonatomic, strong) JYNotifyView *notifyView;
-//@property (nonatomic, copy) NSArray *pages;
-//@property (nonatomic, strong) JYPagedFlowView *pageView;
-//@property (nonatomic, strong) JYFallsView *fallsView;
-//@property (nonatomic, strong) MJRefreshGifHeader *header;
 @property (nonatomic, strong) User* user;
-//@property (nonatomic, strong) NSMutableArray* noticeArray;
-//@property (nonatomic, strong) NSArray *dropMenuTitles;
-//@property (nonatomic, strong) NSArray *dropMenuIcons;
-//@property (nonatomic, strong) UITableView *dropMenu;
-//@property (nonatomic, strong) NSMutableArray* titleArray;
-//@property (nonatomic, strong) NSArray<YHKPIModel *> * modelKpiArray;
-//@property (nonatomic, strong) YHKPIModel* modeltop;
 
 @property (nonatomic, strong) RefreshTool* reTool;
 
@@ -79,6 +62,7 @@
 @property (nonatomic, strong) HomeNavBarView* navBarView;
 
 @property (nonatomic, strong) ToolModel* noticeMessageModel;
+
 @property (strong, nonatomic) NSString *localNotificationPath;
 
 @property (nonatomic, strong) HudToolView* netBugView;
@@ -132,18 +116,15 @@
     }];
     _user = [[User alloc]init];
     [self checkFromViewController];
-//    _noticeArray = [[NSMutableArray alloc]init];
-//    dataListButtom = [NSMutableArray new];
-//    [self loadData];
-//    [self idColor];
     [self getData:YES];
     [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [self actionCheckAssets];
     
+    [self actionCheckAssets];
     NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     if ([FileUtils checkFileExist:pushConfigPath isDir:NO]) {
         self.remoteDict = [[FileUtils readConfigFile:pushConfigPath] copy];
@@ -151,8 +132,8 @@
         [self DealRemote];
         [FileUtils removeFile:pushConfigPath];
     }
-    //    [self test];
 }
+
 
 -(void)DealRemote{
     NSString *remoteType = _remoteDict[@"type"];
@@ -185,6 +166,7 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+
 -(void)jumpToDetailViewWithDict:(NSDictionary*)dict{
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
@@ -193,17 +175,6 @@
     subjectView.link = dict[@"url"];
     subjectView.commentObjectType = [dict[@"obj_type"] intValue];
     subjectView.objectID = dict[@"obj_id"];
-    /* else if ([data[@"link"] rangeOfString:@"template/"].location != NSNotFound){
-     if ([data[@"link"] rangeOfString:@"template/5/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/1/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/2/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/3/"].location == NSNotFound || [data[@"link"] rangeOfString:@"template/4/"].location == NSNotFound) {
-     SCLAlertView *alert = [[SCLAlertView alloc] init];
-     [alert addButton:@"下一次" actionBlock:^(void) {}];
-     [alert addButton:@"立刻升级" actionBlock:^(void) {
-     NSURL *url = [NSURL URLWithString:[kPgyerUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-     [[UIApplication sharedApplication] openURL:url];
-     }];
-     [alert showSuccess:self title:@"温馨提示" subTitle:@"您当前的版本暂不支持该模块，请升级之后查看" closeButtonTitle:nil duration:0.0f];
-     }
-     }*/
     
     UINavigationController *subjectCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
     [self presentViewController:subjectCtrl animated:YES completion:nil];
@@ -270,21 +241,28 @@
     NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 }
+
+
 //经营预警事件
 - (void)manageWarningAction:(YHKPIDetailModel*)model{
     NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 }
+
+
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
     NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     [self jumpToDetailView:targetUrl viewTitle:model.title];
 
 }
+
+
 //消息公告点击事件
 - (void)messageAction:(ToolModel*)model{
     self.tabBarController.selectedIndex = 3;
 }
+
 
 //扫描事件
 - (void)scanAction{
@@ -297,38 +275,54 @@
 /** 清理缓存*/
 - (void)actionCheckAssets {
     
-    //从服务器下载MD5 并存入本地
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_STATIC_ASSETS_CHECK];
-    NSDictionary* dic = @{
-                          @"api_token":ApiToken(YHAPI_STATIC_ASSETS_CHECK)
-                          };
-    [manager GET:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //更新远程的md5并写入到本地
-        __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
-        __block NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-                userDict[@"assets_md5"]        = responseObject[@"data"][@"assets_md5"];
-                userDict[@"loading_md5"]       = responseObject[@"data"][@"loading_md5"];
-                userDict[@"icons_md5"]         = responseObject[@"data"][@"icons_md5"];
-                userDict[@"images_md5"]        = responseObject[@"data"][@"images_md5"];
-                userDict[@"javascripts_md5"]   = responseObject[@"data"][@"javascripts_md5"];
-                userDict[@"stylesheets_md5"]   = responseObject[@"data"][@"stylesheets_md5"];
-                userDict[@"advertisement_md5"] = responseObject[@"data"][@"advertisement_md5"];
-                userDict[@"fonts_md5"]         = responseObject[@"data"][@"fonts_md5"];
-                [userDict writeToFile:userConfigPath atomically:YES];
-        
-        NSLog(@"%@",userDict[@"assets_md5"]);
-        NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
-
-        [userDict writeToFile:userConfigPath atomically:YES];
-        [userDict writeToFile:settingsConfigPath atomically:YES];
-//开始监测是否有更新
-        [self checkAssetsUpdate];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"更新失败");
+    NSDictionary *dict = @{
+                           kAPI_TOEKN:ApiToken(YHAPI_STATIC_ASSETS_CHECK)
+                           };
+    
+    [YHHttpRequestAPI yh_getDataFrom:YHAPI_STATIC_ASSETS_CHECK with:dict Finish:^(BOOL success, id model, NSString *jsonObjc) {
+        if (success) {
+            [self saveAseetsMD5:jsonObjc];
+        }
     }];
 }
+
+-(void)saveAseetsMD5:(NSString*)jsonString {
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    NSDictionary *dict = [self dictionaryWithJsonString:jsonString][@"data"];
+    
+    userDict[@"assets_md5"]        = SafeText(dict[@"assets_md5"]);
+    userDict[@"loading_md5"]       = SafeText(dict[@"loading_md5"]);
+    userDict[@"icons_md5"]         = SafeText(dict[@"icons_md5"]);
+    userDict[@"images_md5"]        = SafeText(dict[@"images_md5"]);
+    userDict[@"javascripts_md5"]   = SafeText(dict[@"javascripts_md5"]);
+    userDict[@"stylesheets_md5"]   = SafeText(dict[@"stylesheets_md5"]);
+    userDict[@"advertisement_md5"] = SafeText(dict[@"advertisement_md5"]);
+    userDict[@"fonts_md5"]         = SafeText(dict[@"fonts_md5"]);
+    
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    [userDict writeToFile:userConfigPath atomically:YES];
+    [userDict writeToFile:settingsConfigPath atomically:YES];
+    [self checkAssetsUpdate];
+}
+
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
+
 
 /**
  *  检测服务器端静态文件是否更新
@@ -349,9 +343,10 @@
     if(op) { [queue addOperation:op]; }
     op = [self checkAssetUpdate:kBarCodeScanAssetsName info:kBarCodeScanPopupText isInAssets: NO];
     if(op) { [queue addOperation:op]; }
-    // op = [self checkAssetUpdate:kAdvertisementAssetsName info:kAdvertisementPopupText isInAssets: NO];
-    // if(op) { [queue addOperation:op]; }
 }
+
+
+
 - (AFHTTPRequestOperation *)checkAssetUpdate:(NSString *)assetName info:(NSString *)info isInAssets:(BOOL)isInAssets {
     BOOL isShouldUpdateAssets = NO;
     __block NSString *sharedPath = [FileUtils sharedPath];
@@ -380,10 +375,12 @@
     HUD.square    = YES;
     [HUD show:YES];
     
-    // 下载地址
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:kDownloadAssetsAPIPath, kBaseUrl, assetName]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:ApiToken(YHAPI_DOWNLOAD_STATIC_ASSETS) forHTTPHeaderField:kAPI_TOEKN];
+    [request addValue:[NSString stringWithFormat:@"%@%@",assetName,@".zip"] forHTTPHeaderField:@"filename"];
     // 保存路径
-    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:url]];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     op.outputStream = [NSOutputStream outputStreamToFileAtPath:assetsZipPath append:NO];
     // 根据下载量设置进度条的百分比
     [op setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
@@ -403,15 +400,6 @@
 }
 
 
-
-//
-//-(UIView*)footerView{
-//    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 36)];
-//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-11, 7, 22, 22)];
-//    imageView.image = [UIImage imageNamed:@"refresh-footer"];
-//    [footerView addSubview:imageView];
-//    return footerView;
-//}
 - (void)getNoticeData{
     [YHHttpRequestAPI yh_getHomeNoticeListFinish:^(BOOL success, ToolModel* model, NSString *jsonObjc) {
         if ([BaseModel handleResult:model]) {
@@ -443,49 +431,6 @@
             self.navBarView.hidden = YES;
         }
     }];
-//    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/kpi",kBaseUrl,self.user.groupID,self.user.roleID];
-//    // NSString *kpiUrl = @"http://yonghui-test.idata.mobi/api/v1/group/165/role/7/kpi";
-//    NSData *data;
-//    NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
-//    NSString*fileName =  [HttpUtils urlTofilename:kpiUrl suffix:@".kpi"][0];
-//    javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
-//    
-//    if ([HttpUtils isNetworkAvailable3]) {
-//        HttpResponse *reponse = [HttpUtils httpGet:kpiUrl];
-//        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-//            [FileUtils removeFile:javascriptPath];
-//        }
-//        data = reponse.received;
-//        [reponse.received writeToFile:javascriptPath atomically:YES];
-//    }
-//    else{
-//        data= [NSData dataWithContentsOfFile:javascriptPath];
-//    }
-//    
-//    if (!data) {
-//        SCLAlertView *alert = [[SCLAlertView alloc] init];
-//        [alert addButton:@"重新加载" actionBlock:^(void) {
-//            [self getData];
-//        }];
-//        [alert showSuccess:self title:@"温馨提示" subTitle:@"请检查您的网络状态" closeButtonTitle:nil duration:0.0f];
-//        return;
-//    }
-//    else {
-//    //NSString *path = [[NSBundle mainBundle] pathForResource:@"kpi_data" ofType:@"json"];
-//    //  NSData *data = [NSData dataWithContentsOfFile:path];
-//    NSArray *arraySource = [[NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] objectForKey:@"data"];
-//    NSArray<YHKPIModel *> *demolArray = [MTLJSONAdapter modelsOfClass:YHKPIModel.class fromJSONArray:arraySource error:nil];
-//    for (int i=0; i<demolArray.count; i++) {
-//        if ([demolArray[i].group_name isEqualToString:@"top_data"]) {
-//            self.modeltop = demolArray[i];
-//        }
-//        else{
-//            [dataListButtom addObject:demolArray[i]];
-//        }
-//    }
-//    }
-//    [self.rootTBView reloadData];
-
 }
 
 #pragma mark - < UITableViewDataSource>
@@ -520,6 +465,7 @@
     return 1;
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
@@ -532,6 +478,7 @@
     }
     return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
 }
+
 
 #pragma mark - <UITableViewDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -582,6 +529,7 @@
     return [UITableViewCell new];
 }
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 2) {
@@ -592,6 +540,7 @@
         }
     }
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     if (section == tableView.numberOfSections-1 && tableView.numberOfSections) {
@@ -636,8 +585,6 @@
         _rootTBView.dataSource = self;
         _rootTBView.delegate = self;
         _rootTBView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//        _rootTBView.tableHeaderView = [self addHeaderView];
-//        _rootTBView.tableFooterView = [self footerView];
         _rootTBView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _rootTBView.backgroundColor = [UIColor clearColor];
     }
@@ -649,8 +596,6 @@
  * 解屏进入主页面，需检测版本更新
  */
 - (void)checkFromViewController {
-    // if(self.fromViewController && [self.fromViewController isEqualToString:@"AppDelegate"]) {
-    // self.fromViewController = @"AlreadyShow";
     // 检测版本更新
     [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:kPgyerAppId];
     [[PgyUpdateManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(appToUpgradeMethod:)];
@@ -720,12 +665,9 @@
         if (responseVersionCode % 10 == 8 && [reach isReachableViaWiFi]) {
             UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"重大改动，请升级" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]]];
                 NSURL *url = [NSURL URLWithString:[kPgyerUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 [[UIApplication sharedApplication] openURL:url];
                 [self exitApplication];
-                //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:response[kDownloadURLCPCName]] options:@{} completionHandler:nil];
-                //  [[PgyUpdateManager sharedPgyManager] updateLocalBuildNumber];
             }];
             
             [alertVC addAction:action1];
@@ -755,9 +697,7 @@
         window.frame = CGRectMake(0, window.bounds.size.width, 0, 0);
     } completion:^(BOOL finished) {
         exit(0);
-    }];
-    //exit(0);
-    
+    }];    
 }
 
 
@@ -929,19 +869,17 @@
                   }
               });
 
-              
               SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
               subjectView.bannerName = title;
               subjectView.link = targeturl;
               subjectView.commentObjectType = ObjectTypeKpi;
               subjectView.objectID = [urlArray lastObject];
-              //UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-              
               [self.navigationController presentViewController:subjectView animated:YES completion:nil];
           }
       }
     }
 }
+
 @end
 
 

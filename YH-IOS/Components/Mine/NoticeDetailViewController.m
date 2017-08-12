@@ -175,9 +175,15 @@
 - (void)getData {
       [MRProgressOverlayView showOverlayAddedTo:self.view title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/user/%@/notice/%@",kBaseUrl,SafeText(_user.userNum),self.noticeID];
-    [manager GET:urlString
-      parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *apiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_WARN_DEATIL];
+    NSDictionary *param = @{
+                            kAPI_TOEKN:ApiToken(YHAPI_USER_WARN_DEATIL),
+                            @"notice_id":SafeText(self.noticeID),
+                            kUserNumCUName:SafeText(_user.userNum)
+                            };
+   // NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/user/%@/notice/%@",kBaseUrl,SafeText(_user.userNum),self.noticeID];
+    [manager GET:apiUrl
+      parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
           NSDictionary *dict = responseObject[@"data"];
           self.messageNotice = [MTLJSONAdapter modelOfClass:MessageNotice.class fromJSONDictionary:dict error:nil];

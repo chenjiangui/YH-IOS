@@ -174,6 +174,13 @@
 }
 
 
++(void)yh_getDataFrom:(NSString *)url with:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
+    NSString *apiurl = [NSString stringWithFormat:@"%@%@",kBaseUrl,url];
+    [BaseRequest getRequestWithUrl:apiurl Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        finish(requestSuccess,response,responseJson);
+    }];
+}
+
 +(void)yh_getReportJsonData:(NSString *)url withDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish {
     [CurAfnManager GET:url parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
         NSString *jsonStr = nil;

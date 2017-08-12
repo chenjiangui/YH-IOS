@@ -11,13 +11,14 @@
 #ifndef YH_IOS_YHAPI_h
 #define UH_IOS_YHAPI_h
 
-
 /** 用户验证 */
 #define YHAPI_USER_AUTHENTICATION  @"/api/v1.1/user/authentication"
 
 /** 上传设备 */
-
 #define YHAPI_UPLOAD_DEVICEMESSAGE  @"/api/v1.1/app/device"
+
+/** 门店列表 */
+#define YHAPI_USER_STORELIST       @"/api/v1.1/user/stores"
 
 /** 退出登录 */
 #define YHAPI_USER_LOGOUT          @"/api/v1.1/user/logout"
@@ -79,7 +80,6 @@
 /** 查看反馈*/
 #define YHAPI_USER_CHEECK_FEEDBACK            @"/api/v1.1/feedback"
 
-
 /** 个人统计 */
 #define YHAPI_USER_COUNT_MESSAGE             @"/api/v1.1/my/statistics"
 
@@ -108,7 +108,7 @@
 #define YHAPI_USER_COLLECTION_STATE            @"/api/v1.1/my/article/favourite_status"
 
 /** 筛选接口 */
-
 #define YHAPI_REPORT_FILTER                  @"/api/v1.1/report/choice_menus"
+
 
 #endif

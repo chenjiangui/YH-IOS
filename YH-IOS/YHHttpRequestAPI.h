@@ -122,4 +122,14 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
 
 +(void)yh_postDict:(NSDictionary *)dict to:(NSString *)url Finish:(YHHttpRequestBlock)finish;
 
+
+/**
+ 获取数据
+ @param dict 参数
+ @param url api 链接
+ */
+
++(void)yh_getDataFrom:(NSString*)url with:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish;
+
+
 @end

@@ -336,7 +336,6 @@
 
 -(void)peopleNumberChange:(UITextField*)PeopleNumber
 {
-    // NSLog(@"PhoneNumberDidChange===%@",peopleNumber.text);
     _PeopleUnderLine.backgroundColor = [UIColor colorWithRed:0.24 green:0.69 blue:0.98 alpha:1];
     
     _peopleNumString=PeopleNumber.text;
@@ -626,13 +625,24 @@
             deviceDict[@"app_version"] = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
             deviceDict[@"coordinate"] = coordianteString;
             deviceDict[@"browser"] = @"Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15";
-            NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_UPLOAD_DEVICEMESSAGE];
             [YHHttpRequestAPI yh_postDict:deviceDict to:YHAPI_UPLOAD_DEVICEMESSAGE Finish:^(BOOL success, id model, NSString *jsonObjc) {
                 if (success) {
                     NSLog(@"成功");
                     [self saveUserDict:jsonObjc];
                 }
             }];
+            
+            NSDictionary *storeIdDict = @{
+                                           kAPI_TOEKN:ApiToken(YHAPI_USER_STORELIST),
+                                           kUserNumCUName:_peopleNumString
+                                          };
+        
+            [YHHttpRequestAPI yh_getDataFrom:YHAPI_USER_STORELIST with:storeIdDict Finish:^(BOOL success, id model, NSString *jsonObjc) {
+                if (success) {
+                    [self saveUserStoreDict:jsonObjc];
+                }
+            }];
+            
             [HudToolView hideLoadingInView:self.view];
             [self jumpToDashboardView];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -643,7 +653,6 @@
                 logParams[kActionALCName] = @"登录";
                 [APIHelper actionLog:logParams];
             });
-            
 
         });
         return;
@@ -690,6 +699,19 @@
     }
     if (dict[@"device_state"] !=nil) {
          userDict[kDeviceStateCUName] = dict[@"device_state"];
+    }
+    
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    [userDict writeToFile:userConfigPath atomically:YES];
+    [userDict writeToFile:settingsConfigPath atomically:YES];
+}
+
+-(void)saveUserStoreDict:(NSString*)jsonString {
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    NSDictionary *dict = [self dictionaryWithJsonString:jsonString];
+    if (dict[@"data"] != nil) {
+         userDict[kStoreIDsCUName] = dict[@"data"];
     }
     
     NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
