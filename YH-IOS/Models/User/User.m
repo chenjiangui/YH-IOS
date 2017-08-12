@@ -16,7 +16,7 @@
     return @{
              @"userName":@"user_name",
              @"userNum":@"user_num",
-             @"password":@"user_md5",
+             @"password":@"user_pass",
              @"gravatar":@"gravatar",
              @"userID":@"user_id",
              @"roleID":@"role_id",

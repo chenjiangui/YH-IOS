@@ -375,7 +375,8 @@
     HUD.square    = YES;
     [HUD show:YES];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:kDownloadAssetsAPIPath, kBaseUrl, assetName]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request addValue:ApiToken(YHAPI_DOWNLOAD_STATIC_ASSETS) forHTTPHeaderField:kAPI_TOEKN];
     [request addValue:[NSString stringWithFormat:@"%@%@",assetName,@".zip"] forHTTPHeaderField:@"filename"];
@@ -618,7 +619,6 @@
             if(!userDict[kUserNumCUName]) {
                 return;
             }
-            
             NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
             NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
             if(msg.length != 0) {
@@ -643,7 +643,6 @@
     if(!response || !response[kDownloadURLCPCName] || !response[kVersionCodeCPCName] || !response[kVersionNameCPCName]) {
         return;
     }
-    
     NSString *pgyerVersionPath = [[FileUtils basePath] stringByAppendingPathComponent:kPgyerVersionConfigFileName];
     [FileUtils writeJSON:[NSMutableDictionary dictionaryWithDictionary:response] Into:pgyerVersionPath];
     

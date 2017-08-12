@@ -177,12 +177,11 @@ static  NSString *RequstPwdString;
 {
     self.contentView.userInteractionEnabled=NO;
     
-    [HudToolView showLoadingInView:self.window];
-    
     [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
     
     user = [[User alloc]init];
+    NSLog(@"%@",user);
     if (![oldPwdString.md5 isEqualToString:SafeText(user.password)]) {
         [HudToolView showTopWithText:@"密码输入错误" color:[NewAppColor yhapp_11color]];
         return;
@@ -191,10 +190,12 @@ static  NSString *RequstPwdString;
         [HudToolView showTopWithText:@"新密码输入不一致" color:[NewAppColor yhapp_11color]];
         return;
     }
-   /* if ([self checkIsHaveNumAndLetter:NewPwdString]!=3 || [NewPwdString length] <6 ) {
+    if ([self checkIsHaveNumAndLetter:NewPwdString]!=3 || [NewPwdString length] <6 ) {
         [HudToolView showTopWithText:@"密码需为6位以上，数字和字母的组合" color:[NewAppColor yhapp_11color]];
         return;
-    }*/
+    }
+    [HudToolView showLoadingInView:self.window];
+
     if([oldPwdString.md5 isEqualToString:SafeText(user.password)]) {
         HttpResponse *response = [APIHelper resetPassword: SafeText(user.userNum) newPassword:NewPwdString.md5];
         NSString *message = [NSString stringWithFormat:@"%@", response.data[@"message"]];

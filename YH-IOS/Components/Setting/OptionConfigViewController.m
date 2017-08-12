@@ -272,6 +272,7 @@
     userDict[@"fonts_md5"]         = SafeText(dict[@"fonts_md5"]);
     
     NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    
     [userDict writeToFile:userConfigPath atomically:YES];
     [userDict writeToFile:settingsConfigPath atomically:YES];
     [self actionCheckAsset];
@@ -350,6 +351,7 @@
         userDict[@"stylesheets_md5"]   = responseObject[@"data"][@"stylesheets_md5"];
         userDict[@"advertisement_md5"] = responseObject[@"data"][@"advertisement_md5"];
         userDict[@"fonts_md5"]         = responseObject[@"data"][@"fonts_md5"];
+        
         [userDict writeToFile:userConfigPath atomically:YES];
         
         NSLog(@"%@",userDict[@"assets_md5"]);
@@ -377,7 +379,11 @@
     self.isSuccess = [APIHelper pushDeviceToken: _userdict[kDeviceUUIDCUName]];
     
     
-    [ViewUtils showPopupView:self.view Info:@"清理完成"];
+//    [ViewUtils showPopupView:self.view Info:@"清理完成"];
+    
+    [HudToolView showText:@"清理完成"];
+//    + (instancetype)showText:(NSString*)text;
+
 }
 
 /**
@@ -397,8 +403,8 @@
     if(op) { [queue addOperation:op]; }
     op = [self checkAssetUpdate:kJavascriptsAssetsName info:kJavascriptsPopupText isInAssets: YES];
     if(op) { [queue addOperation:op]; }
-    op = [self checkAssetUpdate:kBarCodeScanAssetsName info:kBarCodeScanPopupText isInAssets: NO];
-    if(op) { [queue addOperation:op]; }
+//    op = [self checkAssetUpdate:kBarCodeScanAssetsName info:kBarCodeScanPopupText isInAssets: NO];
+//    if(op) { [queue addOperation:op]; }
     // op = [self checkAssetUpdate:kAdvertisementAssetsName info:kAdvertisementPopupText isInAssets: NO];
     // if(op) { [queue addOperation:op]; }
 }
@@ -414,13 +420,14 @@
     
     __block NSString *assetKey = [NSString stringWithFormat:@"%@_md5", assetName];
     __block  NSString *localAssetKey = [NSString stringWithFormat:@"local_%@_md5", assetName];
+//        __block NSString *assetKey = [NSString stringWithFormat:@"assets_md5"];
+//        __block  NSString *localAssetKey = [NSString stringWithFormat:@"local_assets_md5"];
     __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     __block NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     if(!isShouldUpdateAssets && ![userDict[assetKey] isEqualToString:userDict[localAssetKey]]) {
         isShouldUpdateAssets = YES;
         NSLog(@"%@ - local: %@, server: %@", assetName, userDict[localAssetKey], userDict[assetKey]);
     }
-    
     if(!isShouldUpdateAssets) { return nil; }
     
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
@@ -432,7 +439,8 @@
     [HUD show:YES];
     
     // 下载地址
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:kDownloadAssetsAPIPath, kBaseUrl, assetName]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request addValue:ApiToken(YHAPI_DOWNLOAD_STATIC_ASSETS) forHTTPHeaderField:kAPI_TOEKN];
     [request addValue:[NSString stringWithFormat:@"%@%@",assetName,@".zip"] forHTTPHeaderField:@"filename"];
@@ -447,7 +455,6 @@
     
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [FileUtils checkAssets:assetName isInAssets:isInAssets bundlePath:[[NSBundle mainBundle] bundlePath]];
-        
         [HUD removeFromSuperview];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@" 下载失败 ");
