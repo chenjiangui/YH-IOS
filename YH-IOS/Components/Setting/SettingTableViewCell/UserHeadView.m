@@ -53,7 +53,7 @@
     self.userName  = [[UILabel alloc] initWithFrame:CGRectMake(mWIDTH / 2 - 40,CGRectGetMaxY(self.userIcon.frame) + 10,80,20)];
     self.userName.textColor = [UIColor whiteColor];
     self.userName.adjustsFontSizeToFitWidth = YES;
-    self.userName.text = [NSString stringWithFormat:@"%@(%@)", _user.userName, _user.userID];
+    self.userName.text = [NSString stringWithFormat:@"%@(%@)", SafeText(_user.userName), SafeText(_user.userID)];
     [self addSubview:self.userName];
     
     self.userRole = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.userName.frame) + 5,mWIDTH - 20 , 20)];
@@ -61,7 +61,7 @@
     self.userRole.textColor = [UIColor whiteColor];
     self.userRole.font = [UIFont systemFontOfSize:12];
     self.userRole.adjustsFontSizeToFitWidth = YES;
-    self.userRole.text = [NSString stringWithFormat:@"%@ | %@", _user.roleName, _user.groupName];
+    self.userRole.text = [NSString stringWithFormat:@"%@ | %@", SafeText(_user.roleName), SafeText(_user.groupName)];
     [self addSubview:self.userRole];
     
 }

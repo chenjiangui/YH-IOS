@@ -49,7 +49,7 @@ static NSString *const reUse = @"reUse";
 - (void)getData {
       [MRProgressOverlayView showOverlayAddedTo:self.view title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/user/%@/problem/4",kBaseUrl,_user.userID];
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/user/%@/problem/4",kBaseUrl,SafeText(_user.userID)];
     [manager GET:urlString
       parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);

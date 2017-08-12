@@ -19,7 +19,7 @@
  *
  *  @return 是否支持筛选功能
  */
-+ (BOOL)reportIsSupportSearch:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
++ (BOOL)reportIsSupportSearch:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
     NSArray *searchItems = [self reportSearchItems:groupID templateID:templateID reportID:reportID];
     return ([searchItems count] > 0);
 }
@@ -33,7 +33,7 @@
  *
  *  @return 文件路径
  */
-+ (NSString *)reportJavaScriptDataPath:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
++ (NSString *)reportJavaScriptDataPath:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
     NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, groupID, templateID, reportID];
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
     return [javascriptPath stringByAppendingPathComponent:reportDataFileName];
@@ -48,7 +48,7 @@
  *
  *  @return 选项列表
  */
-+ (NSArray *)reportSearchItems:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
++ (NSArray *)reportSearchItems:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
     NSDictionary *searchItems = [NSDictionary new];
     NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", [self reportJavaScriptDataPath:groupID templateID:templateID reportID:reportID]];
     if([FileUtils checkFileExist:searchItemsPath isDir:NO]) {

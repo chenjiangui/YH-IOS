@@ -70,6 +70,8 @@ static NSString *headerViewIdentifier = @"hederview";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self setTableView];
 }
+
+
 -(void)setTableView
 {
     QuestionTableView=[[UITableView alloc] init];  
@@ -83,16 +85,23 @@ static NSString *headerViewIdentifier = @"hederview";
     [QuestionTableView setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"]];
     QuestionTableView.dataSource = self;
     QuestionTableView.delegate = self;
+    QuestionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
+
+
 #pragma  get GroupArray count  to set number of section
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 4;
 }
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.row==0) {
@@ -115,10 +124,13 @@ static NSString *headerViewIdentifier = @"hederview";
 {
     return 10;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
 
     return 0;//self.view.frame.size.height-360;
 }
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
         static NSString *Identifier = @"questionCell";
@@ -287,13 +299,11 @@ static NSString *headerViewIdentifier = @"hederview";
     NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
-                              @"user_num":user.userNum,
-                              @"app_version":self.version.current,
-                              @"platform":@"ios",
-                              @"platform_version":self.version.platform
+                              @"user_num":SafeText(user.userNum),
+                              kAPI_TOEKN:ApiToken(YHAPI_USER_UPLOAD_FEEDBACK)
                               };
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSString *postString = [NSString stringWithFormat:@"%@/api/v1/feedback",kBaseUrl];
+        NSString *postString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_UPLOAD_FEEDBACK];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:postString parameters:parames constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [self getBigImageArray];
@@ -306,11 +316,8 @@ static NSString *headerViewIdentifier = @"hederview";
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
         NSLog(@"%@",dic);
         [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-        if ([dic[@"code"] isEqualToNumber:@(201)]) {
-            
             [HudToolView showTopWithText:@"提交成功" color:[NewAppColor yhapp_1color]];
 
-            
             [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
             
             [self NewQuestionViewBack];
@@ -323,14 +330,6 @@ static NSString *headerViewIdentifier = @"hederview";
                 logParams[kActionALCName] = @"点击/问题反馈/成功";
                 [APIHelper actionLog:logParams];
             });
-        }
-        else{
-            [HudToolView showTopWithText:@"上传失败" color:[NewAppColor yhapp_11color]];
-
-            [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
-           
-
-        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",@"上传失败了");
   

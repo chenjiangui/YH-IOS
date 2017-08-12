@@ -237,7 +237,7 @@
 
 -(void)getSomeThingNew {
         user = [[User alloc]init];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/apps",kBaseUrl,user.groupID,user.roleID];
+    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/apps",kBaseUrl,SafeText(user.groupID),SafeText(user.roleID)];
     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
     NSString*fileName =  @"home_apps";
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];
@@ -294,7 +294,7 @@
 
 -(void)getSomeThingNewRefresh {
     user = [[User alloc]init];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/apps",kBaseUrl,user.groupID,user.roleID];
+    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/role/%@/apps",kBaseUrl,SafeText(user.groupID),SafeText(user.roleID)];
     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
     NSString*fileName =  @"home_apps";
     javascriptPath = [javascriptPath stringByAppendingPathComponent:fileName];

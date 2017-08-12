@@ -278,7 +278,7 @@
     [FileUtils removeFile:cachedHeaderPath];
     NSString *coordianteString = [NSString stringWithFormat:@"%@,%@",self.userLongitude,self.userlatitude];
     [[NSUserDefaults standardUserDefaults] setObject:coordianteString forKey:@"USERLOCATION"];
-    [APIHelper userAuthentication:user.userNum password:user.password coordinate:coordianteString];
+    [APIHelper userAuthentication:SafeText(user.userNum) password:SafeText(user.password) coordinate:coordianteString];
     
     [self checkAssetsUpdate];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

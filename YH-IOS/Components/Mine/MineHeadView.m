@@ -39,7 +39,7 @@
     [self.avaterImageView addTarget:self action:@selector(ClickAvaIamge:) forControlEvents:UIControlEventTouchUpInside];
     self.avaterImageView.layer.cornerRadius =44;
    // [self.avaterImageView setImage:[UIImage imageNamed:@"user_ava"] forState:UIControlStateNormal];
-    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:_user.gravatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"user_ava"]];
+    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:SafeText(_user.gravatar)] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"user_ava"]];
     //_avaterImageView.layer.cornerRadius = 44;
     [self addSubview:_avaterImageView];
     [self.avaterImageView.layer setMasksToBounds:YES];
@@ -137,7 +137,7 @@
 -(void)refreshViewWith:(NSDictionary *)person {
    
    // [self.avaterImageView sd_setImageWithURL:person.icon forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"user_ava"]];
-    self.userNameLabel.text = _user.userName;
+    self.userNameLabel.text = SafeText(_user.userName);
     if ([person[@"login_duration"] isEqualToString:@""] || person[@"login_duration"] == nil) {
         self.loginCountView.dataLable.text = @"0";
     }

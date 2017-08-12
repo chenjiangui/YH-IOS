@@ -236,6 +236,7 @@ extern NSString *const kUserLocationName;
 extern NSString *const kObjTitleAPCCName;
 extern NSString *const kUserNameAPCCName;
 extern NSString *const kContentAPCCName;
+extern NSString *const kAPI_TOEKN;
 
 /**
  *  LocalNotification#TabItems/BannerBtn/ThursdaySay/ModifiedPassword/PgyerUpgrade

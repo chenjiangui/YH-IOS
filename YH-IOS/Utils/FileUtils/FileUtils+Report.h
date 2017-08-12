@@ -19,7 +19,7 @@
  *
  *  @return 是否支持筛选功能
  */
-+ (BOOL)reportIsSupportSearch:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++ (BOOL)reportIsSupportSearch:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 
 /**
  *  内部报表 JavaScript 文件路径
@@ -30,7 +30,7 @@
  *
  *  @return 文件路径
  */
-+ (NSString *)reportJavaScriptDataPath:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++ (NSString *)reportJavaScriptDataPath:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 
 /**
  *  内部报表具有筛选功能时，选项列表
@@ -41,7 +41,7 @@
  *
  *  @return 选项列表
  */
-+ (NSArray *)reportSearchItems:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++ (NSArray *)reportSearchItems:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 
 /**
  *  内部报表具有筛选功能时，用户选择的选项，默认第一个选项
@@ -52,5 +52,5 @@
  *
  *  @return 用户选择的选项，默认第一个选项
  */
-+ (NSString *)reportSelectedItem:(NSNumber *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++ (NSString *)reportSelectedItem:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 @end

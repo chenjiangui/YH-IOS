@@ -99,5 +99,27 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
 +(void)yh_postUserMessageWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish;
 
 
+/**
+ 获取 HTML 数据
+ @param dict 参数
+ @param urls 需要上传的
+ */
++(void)yh_getReportJsonData:(NSString *)url withDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish;
+
+/**
+ 发表评论
+ @param dict 参数;
+ */
+
++(void)yh_postCommentWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish;
+
+
+/**
+ 上传数据
+ @param dict 参数
+ @param url api 链接
+ */
+
++(void)yh_postDict:(NSDictionary *)dict to:(NSString *)url Finish:(YHHttpRequestBlock)finish;
 
 @end

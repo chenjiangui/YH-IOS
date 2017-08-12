@@ -14,7 +14,7 @@
 @interface ThreeSelectViewController : UIViewController
 
 @property (strong, nonatomic) NSString *bannerName;
-@property (strong, nonatomic) NSNumber *groupID;
+@property (strong, nonatomic) NSString *groupID;
 @property (strong, nonatomic) NSString *reportID;
 @property (strong, nonatomic) NSString *templateID;
 

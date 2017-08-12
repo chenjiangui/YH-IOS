@@ -396,7 +396,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.title = cacheDict[@"store"][@"name"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      BOOL jsonFormateRight = [APIHelper barCodeScan:self.user.userNum group:self.user.groupID role:self.user.roleID store:_storeID code:self.codeInfo type:self.codeType];
+      BOOL jsonFormateRight = [APIHelper barCodeScan:SafeText(self.user.userNum) group:SafeText(self.user.groupID) role:SafeText(self.user.roleID) store:_storeID code:self.codeInfo type:self.codeType];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self clearBrowserCache];
