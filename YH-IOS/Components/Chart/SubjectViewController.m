@@ -735,7 +735,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         NSLog(@"旧的经度：%f,旧的纬度：%f",location.coordinate.longitude,location.coordinate.latitude);
         self.userLongitude=[NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
-        self.userLongitude =[NSString stringWithFormat:@"%f",location.coordinate.latitude];
+        self.userlatitude =[NSString stringWithFormat:@"%f",location.coordinate.latitude];
     }];
 }
 
