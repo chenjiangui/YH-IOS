@@ -127,6 +127,7 @@
 		913804AC1F3ACCF300FA154C /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 913804A71F3ACCF300FA154C /* WebViewJavascriptBridgeBase.m */; };
 		913804AD1F3ACCF300FA154C /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 913804A91F3ACCF300FA154C /* WKWebViewJavascriptBridge.m */; };
 		9142F1F01F3D9CAF00DE38A8 /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */; };
+		9142F2011F3EE88B00DE38A8 /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9142F2001F3EE88B00DE38A8 /* HeadView.m */; };
 		914465641F04BFB900795E54 /* TopHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */; };
 		914465681F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914465661F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m */; };
 		914465691F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914465671F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib */; };
@@ -936,6 +937,8 @@
 		9142F1E81F3D85CB00DE38A8 /* YHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAPI.h; sourceTree = "<group>"; };
 		9142F1EE1F3D9CAF00DE38A8 /* DeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceModel.h; sourceTree = "<group>"; };
 		9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
+		9142F1FF1F3EE88B00DE38A8 /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
+		9142F2001F3EE88B00DE38A8 /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
 		914465621F04BFB900795E54 /* TopHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		914465651F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHToptopicHeaderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -2478,6 +2481,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		9142F1FC1F3EE87400DE38A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9142F1FF1F3EE88B00DE38A8 /* HeadView.h */,
+				9142F2001F3EE88B00DE38A8 /* HeadView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		914509731F02244800ED82D6 /* SelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3263,6 +3275,7 @@
 		C4C6283A1C0C1ED6000AD5D8 /* Subject */ = {
 			isa = PBXGroup;
 			children = (
+				9142F1FC1F3EE87400DE38A8 /* View */,
 				91D4D6821F08BF970087783C /* NewSelectView */,
 				914509731F02244800ED82D6 /* SelectView */,
 				C4E93F0C1D38BFC000DBEC90 /* ReportSelector */,
@@ -4882,6 +4895,7 @@
 				914F3F241EE92BE7004B2C25 /* MineInfoViewController.m in Sources */,
 				911123CB1F39B6AF00A09D83 /* NewMineQuestionCell.m in Sources */,
 				F68C25DC1EC2D4790069C041 /* JYInvertButton.m in Sources */,
+				9142F2011F3EE88B00DE38A8 /* HeadView.m in Sources */,
 				91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */,
 				F68C25DD1EC2D4790069C041 /* JYLandscapeBar.m in Sources */,
 				F68C25851EC2D44F0069C041 /* JYBaseCollectionViewCell.m in Sources */,

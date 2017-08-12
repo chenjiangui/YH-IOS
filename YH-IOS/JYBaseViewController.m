@@ -152,11 +152,11 @@
             }
             
             NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-            NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
+            /*NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
             if(msg.length != 0) {
                 userDict[kIsLoginCUName] = @(NO);
                 [userDict writeToFile:userConfigPath atomically:YES];
-            }
+            }*/
         }
         @catch (NSException *exception) {
             NSLog(@"%@", exception);

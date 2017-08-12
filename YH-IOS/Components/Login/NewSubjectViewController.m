@@ -67,8 +67,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, assign) BOOL rBtnSelected;
 @property (nonatomic, strong) NSMutableArray *iconNameArray;
 @property (nonatomic, strong) NSMutableArray *itemNameArray;
+@property (nonatomic, strong) NSMutableString *locationString;
 /* 筛选视图 **/
 @property (nonatomic, strong) SelectLocationView* screenView;
+@property (nonatomic, strong) UIButton *filterButton;
+@property (nonatomic, strong)  UILabel *locationLabel;
+@property (nonatomic, strong) UIView *centerLine;
+@property (nonatomic, strong) UIView *filterView;
 
 @end
 
@@ -79,18 +84,36 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     // Do any additional setup after loading the view.
     self.user = [[User alloc] init];
 //     [self startLocation];
+    
     [self configLocationManager];
+    self.locationString = [[NSMutableString alloc]init];
     [self locateAction];
     self.iconNameArray =[ @[@"pop_share",@"pop_talk",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"评论",@"刷新"] mutableCopy];
-    self.browser = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) ];    
+    self.browser = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, JYScreenHeight)];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:_browser];
+    self.filterView = [[UIView alloc]init];
+    self.filterView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.filterView];
+    [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.height.mas_equalTo(@0);
+    }];
+    
+    [self.browser mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.filterView.mas_bottom).mas_offset(0);
+    }];
+    
+    [self setupUI];
     self.browser.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     self.sharedPath = [FileUtils sharedPath];
     if(self.user.userID) {
         self.assetsPath = [FileUtils dirPath:kHTMLDirName];
     }
+    
     self.title = _bannerName;
     self.isLoadFinish = NO;
     [self hiddenShadow];
@@ -133,6 +156,102 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
     
 }
+
+-(void)updataConstrain{
+     [self.filterButton setHidden:NO];
+    [self.filterView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.height.mas_equalTo(@40);
+    }];
+    
+    [self.browser mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.filterView.mas_bottom).mas_offset(0);
+    }];
+    
+    [self.locationLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.filterView.mas_left).mas_offset(20);
+        make.top.mas_equalTo(self.filterView.mas_top);
+        make.bottom.mas_equalTo(self.filterView.mas_bottom).mas_offset(-1);
+    }];
+    
+    [self.filterButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(self.locationLabel);
+        make.right.mas_equalTo(self.filterView.mas_right).offset(-24);
+    }];
+    
+    [_centerLine mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.filterView);
+        make.height.mas_equalTo(0.5);
+        make.top.mas_equalTo(@39);
+    }];
+
+}
+
+-(void)setupUI{
+
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.locationLabel = [[UILabel alloc]init];
+    self.locationLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.locationLabel.textColor = [NewAppColor yhapp_15color];
+    [self.filterView addSubview:self.locationLabel];
+    self.locationLabel.text =@"";
+    
+    [self.filterView addSubview:self.centerLine];
+    [self.filterView addSubview:self.filterButton];
+    [_filterButton layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:18];
+    
+    [self layoutUI];
+    
+}
+
+
+- (UIView *)centerLine{
+    if (!_centerLine) {
+        _centerLine = [[UIView alloc] init];
+        _centerLine.backgroundColor = [NewAppColor yhapp_9color];
+    }
+    return _centerLine;
+}
+
+
+- (UIButton *)filterButton{
+    if (!_filterButton) {
+        _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_filterButton setTitle:@"筛选" forState:UIControlStateNormal];
+        [_filterButton setTitleColor:[NewAppColor yhapp_6color] forState:UIControlStateNormal];
+        [_filterButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_filterButton setImage:@"pop_screen1".imageFromSelf forState:UIControlStateNormal];
+        [_filterButton addTarget:self action:@selector(actionDisplaySearchItems) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _filterButton;
+}
+
+
+
+-(void)layoutUI{
+    
+    
+    [self.locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.filterView.mas_left).mas_offset(20);
+        make.top.mas_equalTo(self.filterView.mas_top);
+        make.height.mas_equalTo(0);
+    }];
+    [self.filterButton setHidden:YES];
+    
+    [self.filterButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0);
+        make.right.mas_equalTo(self.filterView.mas_right).offset(0);
+    }];
+    
+    [_centerLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.filterView);
+        make.height.mas_equalTo(0.5);
+        make.top.mas_equalTo(@0);
+    }];
+}
+
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
@@ -673,7 +792,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
         if (selectedItem != nil && selectedItem.length != 0) {
-            self.title =selectedItem;
+            weakSelf.locationLabel.text =selectedItem;
         }
         responseCallback(selectedItem);
     }];
@@ -684,15 +803,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
         weakSelf.javascriptPath = [javascriptFolder stringByAppendingPathComponent:reportDataFileName];
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
-        
-        
         ScreenModel* model = [ScreenModel mj_objectWithKeyValues:data];
         ScreenModel* addressModels = [NSArray getObjectInArray:model.items.data keyPath:@"type" equalValue:@"location"];
         [weakSelf.screenView reload:addressModels.data];
+        if (addressModels.data.count >0) {
+            [weakSelf updataConstrain];
+        }
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        weakSelf.iconNameArray = [@[@"pop_share",@"pop_talk",@"pop_flash",@"pop_screen"] mutableCopy];
-        weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
@@ -796,23 +914,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - assistant methods
 - (void)loadHtml {
-    DeviceState deviceState = [APIHelper deviceState];
-    if(deviceState == StateOK) {
-        self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
-    }
-    else if(deviceState == StateForbid) {
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        [alert addButton:kIAlreadyKnownText actionBlock:^(void) {
-            [self jumpToLogin];
-        }];
-        
-        [alert showError:self title:kWarningTitleText subTitle:kAppForbiedUseText closeButtonTitle:nil duration:0.0f];
-    }
-    else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showLoading:LoadingRefresh];
-        });
-    }
+    self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
 }
 
 - (void)loadOuterLink {
@@ -939,10 +1041,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                 reportSelectedItem = [NSString stringWithFormat:@"%@", allarray[0].titles];
             }
             else if(allarray[0].deep == 2){
-                reportSelectedItem = [NSString stringWithFormat:@"%@•%@", allarray[0].titles,allarray[0].infos[0].titles];
+                reportSelectedItem = [NSString stringWithFormat:@"%@|%@", allarray[0].titles,allarray[0].infos[0].titles];
             }
             else if (allarray[0].deep == 3){
-                reportSelectedItem = [NSString stringWithFormat:@"%@•%@•%@", allarray[0].titles,allarray[0].infos[0].titles,allarray[0].infos[0].infos[0].titles];
+                reportSelectedItem = [NSString stringWithFormat:@"%@|%@|%@", allarray[0].titles,allarray[0].infos[0].titles,allarray[0].infos[0].infos[0].titles];
             }
         }
         else {
@@ -950,11 +1052,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
     }
     if ([HttpUtils isNetworkAvailable3]) {
-        self.title = [NSString stringWithFormat:@"%@",reportSelectedItem];
+        if (reportSelected.length>0) {
+             self.locationLabel.text = [NSString stringWithFormat:@"%@",reportSelectedItem];
+        }
+        else{
+           self.locationLabel.text = @"";
+        }
     }
     else{
-        self.title = [NSString stringWithFormat:@"%@(离线)",reportSelectedItem];
-    }
+        if (reportSelected.length>0) {
+            self.locationLabel.text = [NSString stringWithFormat:@"%@(离线)",reportSelectedItem];
+        }
+        else{
+            self.locationLabel.text = @"";
+        }    }
 }
 
 
@@ -1394,11 +1505,16 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if (!_screenView) {
         _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
         WeakSelf;
+        NSMutableString *string = [[NSMutableString alloc]init];
+        self.locationString = [[NSMutableString alloc]init];
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
+            [string stringByAppendingString:item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
             [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];
             [weakSelf.browser reload];
+            weakSelf.locationLabel.text =string;
         };
     }
     return _screenView;

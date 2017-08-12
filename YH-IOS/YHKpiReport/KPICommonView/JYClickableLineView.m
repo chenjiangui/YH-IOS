@@ -177,8 +177,10 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.text = self.chartModel.xAxis[i];
         label.textColor = JYColor_SubColor_LightGreen;
+//        if () {
+            label.hidden = i%2 == 0;
+//        }
         [axisXView addSubview:label];
-        
         [xAxisList addObject:label];
     }
     

@@ -117,14 +117,13 @@
     _user = [[User alloc]init];
     [self checkFromViewController];
     [self getData:YES];
+    [self actionCheckAssets];
     [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
-    [self actionCheckAssets];
     NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     if ([FileUtils checkFileExist:pushConfigPath isDir:NO]) {
         self.remoteDict = [[FileUtils readConfigFile:pushConfigPath] copy];
@@ -619,11 +618,11 @@
                 return;
             }
             NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-            NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
+           /* NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
             if(msg.length != 0) {
                 userDict[kIsLoginCUName] = @(NO);
                 [userDict writeToFile:userConfigPath atomically:YES];
-            }
+            }*/
         }
         @catch (NSException *exception) {
             NSLog(@"%@", exception);
