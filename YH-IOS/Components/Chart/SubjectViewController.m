@@ -757,6 +757,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         if (addressModels.data.count > 0) {
             [weakSelf updataConstrain];
+             weakSelf.locationString = [[NSString stringWithFormat:@"%@",SafeText(addressModels.data[0].name)] mutableCopy];
         }
         
         

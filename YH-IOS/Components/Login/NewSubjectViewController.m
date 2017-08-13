@@ -815,9 +815,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         [weakSelf.screenView reload:addressModels.data];
         if (addressModels.data.count >0) {
             [weakSelf updataConstrain];
+            weakSelf.locationString = [[NSString stringWithFormat:@"%@",SafeText(addressModels.data[0].name)] mutableCopy];
         }
         
-        weakSelf.locationString = [[NSString stringWithFormat:@"%@",addressModels.data[0].name] mutableCopy];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
         
