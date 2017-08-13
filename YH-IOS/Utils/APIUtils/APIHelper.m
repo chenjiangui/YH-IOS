@@ -26,7 +26,12 @@
     NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
     
-    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath];
+    NSDictionary *headerDict = @{
+                                 kAPI_TOEKN:ApiToken(YHAPI_REPORT_DATADOWNLOAD),
+                                 @"report_id":reportID,
+                                 @"disposition":@"zip"
+                                 };
+    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath withHeader:headerDict];
     if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
         NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
         NSString *disposition = httpHeader[@"Content-Disposition"];
@@ -362,8 +367,8 @@
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-    param[kUserIDCUName]       = SafeText(userDict[kUserIDCUName]);
-    param[kUserNameCUName]     = SafeText(userDict[kUserNameCUName]);
+    param[kUserIDCUName]       = userDict[kUserIDCUName];
+    param[kUserNameCUName]     = userDict[kUserNameCUName];
     if (userDict[kUserDeviceIDCUName]!=nil) {
          param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
     }

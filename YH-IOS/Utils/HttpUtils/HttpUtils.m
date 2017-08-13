@@ -215,12 +215,12 @@
  *
  *  @return HttpResponse
  */
-+ (HttpResponse *)checkResponseHeader:(NSString *)urlString assetsPath:(NSString *)assetsPath {
++ (HttpResponse *)checkResponseHeader:(NSString *)urlString assetsPath:(NSString *)assetsPath  withHeader:(NSDictionary *)headerDict{
     NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
     NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
     
     NSString *urlCleanedString = [self urlCleaner:urlString];
-    NSMutableDictionary *header = [NSMutableDictionary dictionary];
+   /* NSMutableDictionary *header = [NSMutableDictionary dictionary];
     if(cachedHeaderDict[urlCleanedString]) {
         if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
             header[@"IF-None-Match"] = cachedHeaderDict[urlCleanedString][@"Etag"];
@@ -229,7 +229,38 @@
         if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
             header[@"If-Modified-Since"] = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
         }
+    }*/
+    
+    HttpResponse *httpResponse = [self httpGet:urlString header:headerDict timeoutInterval:10.0];
+    
+    if(![httpResponse.statusCode isEqualToNumber:@(304)]) {
+        if(!cachedHeaderDict) {
+            cachedHeaderDict = [NSMutableDictionary dictionary];
+        }
+        
+        cachedHeaderDict[urlCleanedString] = httpResponse.response.allHeaderFields;
+        [cachedHeaderDict writeToFile:cachedHeaderPath atomically:YES];
     }
+    NSLog(@"%@ - %@", urlString, httpResponse.statusCode);
+    
+    return httpResponse;
+}
+
++ (HttpResponse *)checkResponseHeader:(NSString *)urlString assetsPath:(NSString *)assetsPath{
+    NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
+    NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
+    
+    NSString *urlCleanedString = [self urlCleaner:urlString];
+     NSMutableDictionary *header = [NSMutableDictionary dictionary];
+     if(cachedHeaderDict[urlCleanedString]) {
+     if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
+     header[@"IF-None-Match"] = cachedHeaderDict[urlCleanedString][@"Etag"];
+     }
+     
+     if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
+     header[@"If-Modified-Since"] = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
+     }
+     }
     
     HttpResponse *httpResponse = [self httpGet:urlString header:header timeoutInterval:10.0];
     
@@ -245,7 +276,6 @@
     
     return httpResponse;
 }
-
 
 /**
  *  http#get 时 header  添加If-None-Match，避免静态文件重复加载
