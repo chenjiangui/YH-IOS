@@ -43,8 +43,6 @@
     UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
 }
-
-
 -(void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }

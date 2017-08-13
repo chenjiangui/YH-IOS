@@ -933,7 +933,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self clearBrowserCache];
             NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
             [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
-             [HudToolView hideLoadingInView:self.view];
            // [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
             self.isLoadFinish = !self.browser.isLoading;
         });
@@ -1239,6 +1238,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - UIWebview delegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [HudToolView hideLoadingInView:self.view];
     NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
     self.isLoadFinish = YES;
     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
@@ -1368,6 +1368,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
     return _screenView;
 }
+
 
 
 @end

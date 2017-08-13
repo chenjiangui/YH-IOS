@@ -123,6 +123,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
+    [HudToolView showLoadingInView:self.view];
+
     //  navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     /*
      * 主题页面,允许横屏
@@ -448,7 +450,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     /*
      * 其他页面,禁用横屏
      */
@@ -741,7 +742,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)loadOuterLink {
-    [HudToolView showLoadingInView:self.view];
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";

@@ -100,6 +100,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [HudToolView showLoadingInView:self.view];
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
@@ -199,11 +200,6 @@
 {
   [HudToolView hideLoadingInView:self.view];
 }
--(void)webViewDidStartLoad:(UIWebView *)webView
-{
-    [HudToolView showLoadingInView:self.view];
-}
-
 # pragma mark - 支持旋转
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return NO;
