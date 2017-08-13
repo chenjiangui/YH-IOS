@@ -795,6 +795,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         if (selectedItem != nil && selectedItem.length != 0) {
             weakSelf.locationLabel.text =selectedItem;
         }
+        else{
+            weakSelf.locationLabel.text = weakSelf.locationString;
+        }
         responseCallback(selectedItem);
     }];
     
@@ -810,6 +813,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         if (addressModels.data.count >0) {
             [weakSelf updataConstrain];
         }
+        
+        weakSelf.locationString = [[NSString stringWithFormat:@"%@",addressModels.data[0].name] mutableCopy];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
         

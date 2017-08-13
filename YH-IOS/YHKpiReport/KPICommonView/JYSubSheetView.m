@@ -37,9 +37,10 @@
 
 - (UILabel *)sheetTitleLabel {
     if (!_sheetTitleLabel) {
-        _sheetTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, JYScreenWidth, 44)];
+        _sheetTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, JYScreenWidth, 44)];
         //_sheetTitleLabel.textColor = JYColor_TextColor_Chief;
         _sheetTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _sheetTitleLabel.backgroundColor = [UIColor whiteColor];
         _sheetTitleLabel.font = [UIFont boldSystemFontOfSize:15];
     }
     return _sheetTitleLabel;

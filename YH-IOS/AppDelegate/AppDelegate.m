@@ -565,7 +565,12 @@ void UncaughtExceptionHandler(NSException * exception) {
 - (void)initScreenLock {
     [LTHPasscodeViewController sharedUser].delegate = self;
     [LTHPasscodeViewController useKeychain:NO];
-    [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
+    if ([self isLogin]) {
+        [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
+    }
+    else{
+        [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
+    }
     if ([LTHPasscodeViewController doesPasscodeExist] && [LTHPasscodeViewController didPasscodeTimerEnd]) {
         [[LTHPasscodeViewController sharedUser] showLockScreenWithAnimation:YES withLogout:NO andLogoutTitle:nil];
     }

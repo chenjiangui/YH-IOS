@@ -458,7 +458,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      */
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [APIHelper reportScodeData:[self.storeID numberValue] barcodeID:self.codeInfo];
+        [APIHelper reportScodeData:self.storeID barcodeID:self.codeInfo];
         
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:self.urlString assetsPath:self.assetsPath];
         

@@ -261,7 +261,12 @@
                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 
                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                subjectView.bannerName = item.report_title;
+                if (item.report_title != nil) {
+                    subjectView.bannerName = item.report_title;
+                }
+                else{
+                    subjectView.bannerName = item.name;
+                }
                 subjectView.link = targeturl;
                 subjectView.commentObjectType = ObjectTypeApp;
                // subjectView.objectID = @(item.itemID);
