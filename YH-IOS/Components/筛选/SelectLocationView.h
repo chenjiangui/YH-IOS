@@ -11,6 +11,8 @@
 @interface SelectLocationView : UIView
 
 @property (nonatomic, strong) CommonBack selectBlock;
+/** 选中模型数组 */
+@property (nonatomic, strong) NSMutableArray* selectItems;
 
 - (instancetype)initWithDataList:(NSArray*)dataList;
 
