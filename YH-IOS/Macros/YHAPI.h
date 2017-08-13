@@ -87,7 +87,7 @@
 #define YHAPI_USER_WARN_LIST                  @"/api/v1.1/my/notices"
 
 /** 查看公告*/
-#define YHAPI_USER_WARN_DEATIL                 @"/api/v1.1/my/view/notic"
+#define YHAPI_USER_WARN_DEATIL                 @"/api/v1.1/my/view/notice"
 
 /** 问题列表*/
 #define YHAPI_APP_BUG_LIST                    @"/api/v1.1/my/problems"
@@ -109,6 +109,9 @@
 
 /** 筛选接口 */
 #define YHAPI_REPORT_FILTER                  @"/api/v1.1/report/choice_menus"
+
+/** 上传锁屏*/
+#define YHAPI_LOCK_SCREEN                    @"/api/v1.1/device/screen_lock"
 
 
 #endif

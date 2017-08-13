@@ -167,28 +167,10 @@
     self.title = nil;
 }
 
-
-
 - (void)loadHtml {
-    DeviceState deviceState = [APIHelper deviceState];
-    if(deviceState == StateOK) {
-        [self _loadHtml];
-    }
-    else if(deviceState == StateForbid) {
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        
-        [alert addButton:kIAlreadyKnownText actionBlock:^(void) {
-            [self jumpToLogin];
-        }];
-        
-        [alert showError:self title:kWarningTitleText subTitle:kAppForbiedUseText closeButtonTitle:nil duration:0.0f];
-    }
-    else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showLoading:LoadingRefresh];
-        });
-    }
+   [self _loadHtml];
 }
+
 
 - (void)_loadHtml {
     [self clearBrowserCache];

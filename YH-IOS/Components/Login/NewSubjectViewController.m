@@ -158,6 +158,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 -(void)updataConstrain{
+    
      [self.filterButton setHidden:NO];
     [self.filterView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self.view);
@@ -217,6 +218,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 - (UIButton *)filterButton{
+    
     if (!_filterButton) {
         _filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_filterButton setTitle:@"筛选" forState:UIControlStateNormal];
@@ -1240,17 +1242,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)actionWebviewScreenShot{
-    if (self.isLoadFinish) {
-        @try {
             UIImage *image;
             NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
             betaDict = [FileUtils readConfigFile:settingsConfigPath];
             if (betaDict[@"image_within_screen"] && [betaDict[@"image_within_screen"] boolValue]) {
-                image = [self saveWebViewAsImage];
+                image = [self captureView:self.browser frame:CGRectMake(0, 0, kScreenWidth, kScreenHeight*3)];
                 // image = [self createViewImage:self.navigationController.view];
             }
             else {
-                image = [self createViewImage:self.navigationController.view];
+                image = [self captureView:self.browser frame:self.view.frame];
             }
             dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
             dispatch_after(time, dispatch_get_main_queue(), ^{
@@ -1264,22 +1264,59 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                                             shareToSnsNames:@[UMShareToWechatSession]
                                                    delegate:self];
             });
-        } @catch (NSException *exception) {
-            NSLog(@"%@", exception);
+}
+
+
+- (UIImage*)captureView:(UIView *)theView frame:(CGRect)frame
+{
+    UIGraphicsBeginImageContext(self.browser.scrollView.contentSize);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIImage *img;
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)
+    {
+        for(UIView *subview in theView.subviews)
+        {
+            [subview drawViewHierarchyInRect:subview.bounds afterScreenUpdates:YES];
         }
+        img = UIGraphicsGetImageFromCurrentImageContext();
     }
-    else {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"分享提示"
-                                                                       message:@"正在加载数据，请稍后分享"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  self.isLoadFinish = self.browser.isLoading;
-                                                              }];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+    else
+    {
+        CGContextSaveGState(context);
+        [theView.layer renderInContext:context];
+        img = UIGraphicsGetImageFromCurrentImageContext();
     }
+    UIGraphicsEndImageContext();
+    CGImageRef ref = CGImageCreateWithImageInRect(img.CGImage, self.browser.scrollView.frame);
+    UIImage *CGImg = [UIImage imageWithCGImage:ref];
+    CGImageRelease(ref);
+    return CGImg;
+}
+
+- (UIImage*)captureView:(UIView *)theView
+{
+    UIGraphicsBeginImageContext(theView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIImage *img;
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)
+    {
+        for(UIView *subview in theView.subviews)
+        {
+            [subview drawViewHierarchyInRect:subview.bounds afterScreenUpdates:YES];
+        }
+        img = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    else
+    {
+        CGContextSaveGState(context);
+        [theView.layer renderInContext:context];
+        img = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+    CGImageRef ref = CGImageCreateWithImageInRect(img.CGImage, theView.frame);
+    UIImage *CGImg = [UIImage imageWithCGImage:ref];
+    CGImageRelease(ref);
+    return CGImg;
 }
 
 - (UIImage *)createViewImage:(UIView *)shareView {

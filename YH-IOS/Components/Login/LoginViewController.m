@@ -116,10 +116,8 @@
         make.centerY.mas_equalTo(_peopleLogo.mas_centerY);
         make.top.mas_equalTo(Logo.mas_bottom).offset(76);
         make.left.mas_equalTo(_peopleLogo.mas_right).offset(15);
-        make.size.mas_equalTo(CGSizeMake(245, 30));
+        make.size.mas_equalTo(CGSizeMake(195, 30));
     }];
-    
-    
     _PasswordLogo=[[UIImageView alloc] init];
     [_PasswordLogo setImage:[UIImage imageNamed:@"login_password"]];
     [self.view addSubview:_PasswordLogo];
@@ -144,7 +142,7 @@
     [_passwordNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_peopleNumber.mas_left);
         make.centerY.mas_equalTo(_PasswordLogo.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(245, 30));
+        make.size.mas_equalTo(CGSizeMake(195, 30));
     }];
     
     _PasswordUnderLine = [[UIView alloc]init];
@@ -288,6 +286,7 @@
 -(void)deleteNumber
 {
     _peopleNumber.text=@"";
+    _peopleNumber.placeholder=@"员工号";
     _peopleNumString=@"";
     _PeopleUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
 }

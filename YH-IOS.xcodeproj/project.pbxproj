@@ -128,6 +128,7 @@
 		913804AD1F3ACCF300FA154C /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 913804A91F3ACCF300FA154C /* WKWebViewJavascriptBridge.m */; };
 		9142F1F01F3D9CAF00DE38A8 /* DeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */; };
 		9142F2011F3EE88B00DE38A8 /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9142F2001F3EE88B00DE38A8 /* HeadView.m */; };
+		9142F2091F3F46B900DE38A8 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9142F2081F3F46B900DE38A8 /* Util.m */; };
 		914465641F04BFB900795E54 /* TopHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */; };
 		914465681F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914465661F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.m */; };
 		914465691F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914465671F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.xib */; };
@@ -939,6 +940,8 @@
 		9142F1EF1F3D9CAF00DE38A8 /* DeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceModel.m; sourceTree = "<group>"; };
 		9142F1FF1F3EE88B00DE38A8 /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
 		9142F2001F3EE88B00DE38A8 /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
+		9142F2071F3F46B900DE38A8 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		9142F2081F3F46B900DE38A8 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		914465621F04BFB900795E54 /* TopHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		914465631F04BFB900795E54 /* TopHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		914465651F04C06700795E54 /* YHToptopicHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHToptopicHeaderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -2490,6 +2493,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		9142F2041F3F458000DE38A8 /* SCREENUtil */ = {
+			isa = PBXGroup;
+			children = (
+				9142F2071F3F46B900DE38A8 /* Util.h */,
+				9142F2081F3F46B900DE38A8 /* Util.m */,
+			);
+			name = SCREENUtil;
+			sourceTree = "<group>";
+		};
 		914509731F02244800ED82D6 /* SelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3409,6 +3421,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9142F2041F3F458000DE38A8 /* SCREENUtil */,
 				911114931F38B7A200E3366E /* POView */,
 				3B0D41661F32FD1300E279F9 /* SimpleTableViewController */,
 				3B4868EE1F2AFBAF003AF8D8 /* HudTool */,
@@ -4611,7 +4624,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -5115,6 +5128,7 @@
 				914F3F301EE93C78004B2C25 /* MineHeadView.m in Sources */,
 				F660A3EC1EBAD69B00C6C510 /* SuperChartMainModel.m in Sources */,
 				91DB247B1EEFA24A00FC8413 /* MineRequestListCell.m in Sources */,
+				9142F2091F3F46B900DE38A8 /* Util.m in Sources */,
 				3BEBB3701F2597EE007FB66D /* RefreshToolDownPullHeader.m in Sources */,
 				F62457921EA5FBE0006834D2 /* NSObject+NSObject.m in Sources */,
 				91E65A1C1F18979B0046B615 /* YHScanStoreViewController.m in Sources */,
@@ -5491,6 +5505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -5554,6 +5569,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				BUNDLE_LOADER = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;

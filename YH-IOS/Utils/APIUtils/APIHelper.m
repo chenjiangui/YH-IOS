@@ -166,6 +166,7 @@
         userDict[@"email"]          = SafeText(dict[@"email"]);
         userDict[@"mobile"]         = SafeText(dict[@"mobile"]);
         userDict[@"user_pass"]      = SafeText(dict[@"user_pass"]);
+        userDict[@"is_login"]       = @(1);
         
         /**
          *  rewrite screen lock info into
@@ -275,13 +276,20 @@
  *  @param state        是否锁屏
  */
 + (void)screenLock:(NSString *)userDeviceID passcode:(NSString *)passcode state:(BOOL)state {
-    NSString *urlString = [NSString stringWithFormat:kScreenLockAPIPath, kBaseUrl, userDeviceID];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_LOCK_SCREEN];
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"screen_lock_state"] = @(state);
     params[@"screen_lock_type"]  = @"4位数字";
     params[@"screen_lock"]       = passcode;
+    params[kAPI_TOEKN] = ApiToken(YHAPI_LOCK_SCREEN);
     HttpResponse *httpResponse = [HttpUtils httpPost:urlString Params:params];
     NSLog(@"%@", httpResponse.statusCode);
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userdict = [FileUtils readConfigFile:userConfigPath];
+    userdict[kIsUseGesturePasswordCUName] = @(1);
+    [userdict writeToFile:userConfigPath atomically:YES];
+    [userdict writeToFile:settingsConfigPath atomically:YES];
 }
 
 /**

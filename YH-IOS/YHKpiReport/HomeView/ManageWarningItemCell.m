@@ -41,6 +41,7 @@
     _tipView.hidden = IsEmptyText(_bottomLab.text);
     NSString *colorText = WarnColor[item.hightLightData.arrow];
     _topRightLab.textColor = [UIColor colorWithHexString:colorText];
+    _topLab.textColor = [UIColor colorWithHexString:colorText];
 }
 
 @end
