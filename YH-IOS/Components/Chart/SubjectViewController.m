@@ -243,6 +243,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self hiddenShadow];
+    [HudToolView showLoadingInView:self.view];
     // self.bannerView.height = 0;
    // self.browser.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height + 40);
     [self.navigationController setNavigationBarHidden:false];
@@ -1368,10 +1369,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     return _screenView;
 }
 
--(void)webViewDidStartLoad:(UIWebView *)webView
-{
-    [HudToolView showLoadingInView:self.view];
-}
 
 
 @end

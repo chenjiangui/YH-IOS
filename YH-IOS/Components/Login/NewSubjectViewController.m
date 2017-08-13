@@ -269,6 +269,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
     [self hiddenShadow];
 
+    [HudToolView showLoadingInView:self.view];
+
+    
     [self.navigationController setNavigationBarHidden:false];
 
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[NewAppColor yhapp_6color]}];
@@ -1491,7 +1494,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-       [HudToolView showLoadingInView:self.view];
 }
 
 //身份验证

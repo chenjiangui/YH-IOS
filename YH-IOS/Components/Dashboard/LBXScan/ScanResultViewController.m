@@ -63,6 +63,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [HudToolView showLoadingInView:self.view];
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -404,7 +405,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      */
     [self clearBrowserCache];
 //    [self showLoading:LoadingLoad];
-    [HudToolView showLoadingInView:self.view];
 
     
     NSString *cacheJsonPath = [FileUtils dirPath:kCachedDirName FileName:kBarCodeResultFileName];
