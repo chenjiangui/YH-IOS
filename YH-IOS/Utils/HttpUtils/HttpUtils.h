@@ -112,6 +112,7 @@
  *  @return HttpResponse
  */
 + (HttpResponse *)checkResponseHeader:(NSString *)urlString assetsPath:(NSString *)assetsPath;
++ (HttpResponse *)checkResponseHeader:(NSString *)urlString assetsPath:(NSString *)assetsPath withHeader:(NSDictionary *)headerDict;
 /**
  *  Http模拟浏览器访问
  *

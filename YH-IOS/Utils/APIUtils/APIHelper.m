@@ -26,7 +26,12 @@
     NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
     
-    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath];
+    NSDictionary *headerDict = @{
+                                 kAPI_TOEKN:ApiToken(YHAPI_REPORT_DATADOWNLOAD),
+                                 @"report_id":reportID,
+                                 @"disposition":@"zip"
+                                 };
+    HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath withHeader:headerDict];
     if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
         NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
         NSString *disposition = httpHeader[@"Content-Disposition"];
@@ -364,8 +369,11 @@
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
     param[kUserIDCUName]       = userDict[kUserIDCUName];
     param[kUserNameCUName]     = userDict[kUserNameCUName];
-    param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
-    param[kUserNumCUName]      = userDict[kUserNumCUName];
+    if (userDict[kUserDeviceIDCUName]!=nil) {
+         param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
+    }
+    
+    param[kUserNumCUName]      = SafeText(userDict[kUserNumCUName]);
     param[kUserLocationName] = userlocation;
     param[kAppVersionCUName]   = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     
@@ -374,8 +382,8 @@
     params[kActionLogALCName] = param;
     
     NSMutableDictionary *userParams = [NSMutableDictionary dictionary];
-    userParams[kUserNameALCName] = userDict[kUserNameCUName];
-    userParams[kPasswordALCName] = userDict[kPasswordCUName];
+    userParams[kUserNameALCName] = SafeText(userDict[kUserNameCUName]);
+    userParams[kPasswordALCName] = SafeText(userDict[kPasswordCUName]);
     params[kUserALCName]         = userParams;
     NSString *urlString = [NSString stringWithFormat:kActionLogAPIPath, kBaseUrl];
     [HttpUtils httpPost:urlString Params:params];
