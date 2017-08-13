@@ -63,6 +63,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong)  UILabel *locationLabel;
 @property (nonatomic, strong) UIView *centerLine;
 @property (nonatomic, strong) UIView *filterView;
+@property (nonatomic, strong) NSMutableString *locationString;
 
 @end
 
@@ -80,6 +81,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self hiddenShadow];
     self.filterView = [[UIView alloc]init];
     self.filterView.backgroundColor = [UIColor whiteColor];
+    self.locationString = [[NSMutableString alloc]init];
     [self.view addSubview:self.filterView];
     [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self.view);
@@ -669,9 +671,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          *  报表第一次加载时，此处为判断筛选功能的关键点
          */
         weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID];
-        if(weakSelf.isSupportSearch) {
+       /* if(weakSelf.isSupportSearch) {
             [weakSelf displayBannerTitleAndSearchIcon];
-        }
+        }*/
     }];
      /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
          if ([data[@"state"] isEqualToString:@"show"]) {
@@ -734,9 +736,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             selectedItem = [NSString stringWithContentsOfFile:selectedItemPath encoding:NSUTF8StringEncoding error:nil];
         }
         if (selectedItem != nil && selectedItem.length != 0) {
-            weakSelf.locationLabel.text =selectedItem;
+            weakSelf.locationLabel.text = selectedItem;
         }
-        weakSelf.locationLabel.text = selectedItem;
+        else{
+        weakSelf.locationLabel.text = weakSelf.locationString;
+        }
         responseCallback(selectedItem);
     }];
     
@@ -766,7 +770,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          */
        weakSelf.isSupportSearch = [FileUtils reportIsSupportSearch:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
         if(weakSelf.isSupportSearch) {
-            [weakSelf displayBannerTitleAndSearchIcon];
+           // [weakSelf displayBannerTitleAndSearchIcon];
         }
 
     }];
@@ -908,7 +912,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      */
     self.isSupportSearch = [FileUtils reportIsSupportSearch:SafeText(self.user.groupID) templateID:self.templateID reportID:self.reportID];
     if(self.isSupportSearch) {
-        [self displayBannerTitleAndSearchIcon];
+       // [self displayBannerTitleAndSearchIcon];
     }
     __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1342,14 +1346,19 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if (!_screenView) {
         _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
         WeakSelf;
-        NSMutableString *string = [[NSMutableString alloc]init];
+       __block NSMutableString *string = [[NSMutableString alloc]init];
+        self.locationString = [[NSMutableString alloc]init];
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
-            [string stringByAppendingString:item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
             [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
             [weakSelf.browser reload];
-            weakSelf.locationLabel.text =string;
+            for (int i=0; i<weakSelf.screenView.selectItems.count-1; i++) {
+                ScreenModel *model = weakSelf.screenView.selectItems[i];
+                [string appendString:[NSString stringWithFormat:@"%@|",model.name]];
+            }
+            weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];
+            weakSelf.locationLabel.text = string;
         };
     }
     return _screenView;
