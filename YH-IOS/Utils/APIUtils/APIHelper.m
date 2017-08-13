@@ -42,9 +42,7 @@
     NSDictionary *headerDict = @{
                                  kAPI_TOEKN:ApiToken(YHAPI_REPORT_DATADOWNLOAD),
                                  @"report_id":reportID,
-                                 @"disposition":@"zip",
-                                 @"IF-NONE-Match":etagString,
-                                 @"If-Modified-Since":lastModfiled
+                                 @"disposition":@"zip"
                                  };
     
     HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath withHeader:headerDict];
