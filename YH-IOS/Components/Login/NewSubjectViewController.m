@@ -1454,7 +1454,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     [self addWebViewJavascriptBridge];
     
-    
+    [HudToolView hideLoadingInView:self.view];
+
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.images.length"] completionHandler:^(id _Nullable response, NSError * _Nullable error) {
         
         
@@ -1484,12 +1485,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     NSLog(@"%@",error);
+ 
 }
 
 
 //页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+       [HudToolView showLoadingInView:self.view];
 }
 
 //身份验证
