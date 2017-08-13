@@ -110,8 +110,9 @@
             for (SimpleTableViewController* simpleVc in weakSelf.scrollVc.controllers) {
                 [simpleVc reload];
             }
-            
             if (weakSelf.scrollVc.controllers.count) {
+                weakSelf.selectItems = [weakSelf.selectItems subarrayWithRange:NSMakeRange(0, weakSelf.index)].mutableCopy;
+                [weakSelf.selectItems addObject:item2];
                 NSMutableArray* controllers = [weakSelf.scrollVc.controllers subarrayWithRange:NSMakeRange(0, weakSelf.index+1)].mutableCopy;
                 NSMutableArray* titles = [weakSelf.scrollVc.titles subarrayWithRange:NSMakeRange(0, weakSelf.index)].mutableCopy;
                 if (item2.data.count) {
@@ -156,6 +157,13 @@
         [_closeBtn addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
     }
     return _closeBtn;
+}
+
+- (NSMutableArray *)selectItems{
+    if (!_selectItems) {
+        _selectItems = [NSMutableArray array];
+    }
+    return _selectItems;
 }
 
 @end
