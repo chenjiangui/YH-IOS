@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"数据学院";
     NSString *kpiString = [NSString stringWithFormat:@"%@/mobile/v2/user/%@/article/%@",kBaseUrl,self.userId,self.dataId];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kpiString]];
     self.webView = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];

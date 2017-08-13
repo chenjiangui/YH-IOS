@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"公告预警";
     [self.navigationController.navigationBar setHidden:NO];
     [self.tabBarController.tabBar setHidden:YES];
     self.edgesForExtendedLayout = UIRectEdgeNone;

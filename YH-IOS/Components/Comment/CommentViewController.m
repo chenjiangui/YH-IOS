@@ -170,11 +170,9 @@
 - (void)loadHtml {
    [self _loadHtml];
 }
-
-
 - (void)_loadHtml {
     [self clearBrowserCache];
-    [self showLoading:LoadingLoad];
+//    [self showLoading:LoadingLoad];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:self.urlString assetsPath:self.assetsPath];
@@ -194,6 +192,16 @@
             [self.browser loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:self.sharedPath]];
         });
     });
+}
+
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+  [HudToolView hideLoadingInView:self.view];
+}
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [HudToolView showLoadingInView:self.view];
 }
 
 # pragma mark - 支持旋转
