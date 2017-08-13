@@ -173,7 +173,7 @@
 
 
 - (void)getData {
-      [MRProgressOverlayView showOverlayAddedTo:self.view title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
+    [HudToolView showLoadingInView:self.view];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *apiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_WARN_DEATIL];
     NSDictionary *param = @{
@@ -186,8 +186,8 @@
       parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
           NSLog(@"JSON: %@", responseObject);
           NSDictionary *dict = responseObject[@"data"];
+          [HudToolView hideLoadingInView:self.view];
           self.messageNotice = [MTLJSONAdapter modelOfClass:MessageNotice.class fromJSONDictionary:dict error:nil];
-          [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
           [self setupUI];
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
           NSLog(@"Error: %@", error);

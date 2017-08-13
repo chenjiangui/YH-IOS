@@ -22,8 +22,8 @@
 @property (assign, nonatomic) BOOL isChangeLochPassword;
 @property (strong, nonatomic) NSString *settingsConfigPath;
 @property (strong, nonatomic) NSString *sharedPath;
-@property (assign, nonatomic) BOOL isSuccess;
 @property (strong, nonatomic) NSMutableDictionary *userdict;
+@property (assign, nonatomic) BOOL isSuccess;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;

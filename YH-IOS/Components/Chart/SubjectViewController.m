@@ -62,6 +62,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong) UIButton *filterButton;
 @property (nonatomic, strong)  UILabel *locationLabel;
 @property (nonatomic, strong) UIView *centerLine;
+@property (nonatomic, strong) UIView *filterView;
+
 @end
 
 @implementation SubjectViewController
@@ -76,6 +78,19 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
    self.browser.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
     self.isLoadFinish = NO;
     [self hiddenShadow];
+    self.filterView = [[UIView alloc]init];
+    self.filterView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.filterView];
+    [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.height.mas_equalTo(@0);
+    }];
+    
+    [self.browser mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.filterView.mas_bottom).mas_offset(0);
+    }];
+    
     [self setupUI];
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -126,15 +141,49 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 
+-(void)updataConstrain{
+    [self.filterButton setHidden:NO];
+    [self.filterView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.height.mas_equalTo(@40);
+    }];
+    
+    [self.browser mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.filterView.mas_bottom).mas_offset(0);
+    }];
+    
+    [self.locationLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.filterView.mas_left).mas_offset(20);
+        make.top.mas_equalTo(self.filterView.mas_top);
+        make.bottom.mas_equalTo(self.filterView.mas_bottom).mas_offset(-1);
+    }];
+    
+    [self.filterButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(self.locationLabel);
+        make.right.mas_equalTo(self.filterView.mas_right).offset(-24);
+    }];
+    
+    [_centerLine mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.filterView);
+        make.height.mas_equalTo(0.5);
+        make.top.mas_equalTo(@39);
+    }];
+    
+}
+
 -(void)setupUI{
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.locationLabel = [[UILabel alloc]init];
     self.locationLabel.font = [UIFont boldSystemFontOfSize:14];
     self.locationLabel.textColor = [NewAppColor yhapp_15color];
-    [self.view addSubview:self.locationLabel];
+    [self.filterView addSubview:self.locationLabel];
+    self.locationLabel.text =@"";
     
-    [self.view addSubview:self.centerLine];
-    [self.view addSubview:self.filterButton];
+    [self.filterView addSubview:self.centerLine];
+    [self.filterView addSubview:self.filterButton];
     [_filterButton layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:18];
     
     [self layoutUI];
@@ -167,21 +216,23 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 -(void)layoutUI{
     
+    
     [self.locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view.mas_left).mas_offset(20);
-        make.top.mas_equalTo(self.view.mas_top);
-        make.height.mas_equalTo(40);
+        make.left.mas_equalTo(self.filterView.mas_left).mas_offset(20);
+        make.top.mas_equalTo(self.filterView.mas_top);
+        make.height.mas_equalTo(0);
     }];
+    [self.filterButton setHidden:YES];
     
     [self.filterButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.mas_equalTo(self.locationLabel);
-        make.right.mas_equalTo(self.view.mas_right).offset(-24);
+        make.height.mas_equalTo(0);
+        make.right.mas_equalTo(self.filterView.mas_right).offset(0);
     }];
     
     [_centerLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(self.view);
+        make.left.right.mas_equalTo(self.filterView);
         make.height.mas_equalTo(0.5);
-        make.top.mas_equalTo(@39);
+        make.top.mas_equalTo(@0);
     }];
 }
 
@@ -700,6 +751,11 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         ScreenModel* addressModels = [NSArray getObjectInArray:model.items.data keyPath:@"type" equalValue:@"location"];
         [weakSelf.screenView reload:addressModels.data];
         
+        if (addressModels.data.count > 0) {
+            [weakSelf updataConstrain];
+        }
+        
+        
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
         weakSelf.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
         weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
@@ -905,11 +961,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
     }
     if ([HttpUtils isNetworkAvailable3]) {
-        self.locationLabel.text = [NSString stringWithFormat:@"%@",reportSelectedItem];
+        if (reportSelected.length>0) {
+            self.locationLabel.text = [NSString stringWithFormat:@"%@",reportSelectedItem];
+        }
+        else{
+            self.locationLabel.text = @"";
+        }
     }
     else{
-        self.locationLabel.text = [NSString stringWithFormat:@"%@(离线)",reportSelectedItem];
-    }
+        if (reportSelected.length>0) {
+            self.locationLabel.text = [NSString stringWithFormat:@"%@(离线)",reportSelectedItem];
+        }
+        else{
+            self.locationLabel.text = @"";
+        }    }
 }
 
 
@@ -1085,8 +1150,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)actionWebviewScreenShot{
-    if (self.isLoadFinish) {
-        @try {
+
             UIImage *image;
             NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
             betaDict = [FileUtils readConfigFile:settingsConfigPath];
@@ -1095,7 +1159,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                // image = [self createViewImage:self.navigationController.view];
             }
             else {
-                image = [self createViewImage:self.navigationController.view];
+                image = [self createViewImage:self.browser];
             }
             dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
             dispatch_after(time, dispatch_get_main_queue(), ^{
@@ -1109,23 +1173,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                                             shareToSnsNames:@[UMShareToWechatSession]
                                                    delegate:self];
             });
-        } @catch (NSException *exception) {
-            NSLog(@"%@", exception);
-        }
-    }
-    else {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"分享提示"
-                                                                       message:@"正在加载数据，请稍后分享"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  self.isLoadFinish = self.browser.isLoading;
-                                                              }];
-        
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    }
 }
 
 - (UIImage *)createViewImage:(UIView *)shareView {

@@ -118,6 +118,7 @@ void UncaughtExceptionHandler(NSException * exception) {
         if ([FileUtils checkFileExist:userConfigPath isDir:NO]) {
             [FileUtils removeFile:userConfigPath];
         }
+        [FileUtils removeFile:[FileUtils basePath]];
         NSString* assetsPath = [sharedPath stringByAppendingPathComponent:@"assets"];
         [FileUtils removeFile:assetsPath];
         cachedHeaderPath  = [NSString stringWithFormat:@"%@/%@", [FileUtils dirPath:kHTMLDirName], kCachedHeaderConfigFileName];
@@ -467,7 +468,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     readState=@"true";
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-    if([userDict[@"is_login"] boolValue] && [userDict[@"use_gesture_password"] boolValue]) {
+    if([userDict[@"use_gesture_password"] boolValue]) {
         return userDict[@"gesture_password"] ?: @"";
     }
     return @"";
@@ -564,21 +565,8 @@ void UncaughtExceptionHandler(NSException * exception) {
 - (void)initScreenLock {
     [LTHPasscodeViewController sharedUser].delegate = self;
     [LTHPasscodeViewController useKeychain:NO];
-    [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
+    [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
     if ([LTHPasscodeViewController doesPasscodeExist] && [LTHPasscodeViewController didPasscodeTimerEnd]) {
-        if ([DMPasscode isPasscodeSet] && !_showingPasscode) {
-            _showingPasscode = YES;
-            [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
-                if (success) {
-                    [self jumpToDashboardView];
-                    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-                    logParams[kActionALCName]   = [NSString stringWithFormat:@"解屏/指纹"];
-                    [APIHelper actionLog:logParams];
-                }else{
-                    
-                }
-            }];
-        }
         [[LTHPasscodeViewController sharedUser] showLockScreenWithAnimation:YES withLogout:NO andLogoutTitle:nil];
     }
 }

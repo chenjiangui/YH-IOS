@@ -53,7 +53,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
     [self.bridge registerHandler:@"refreshBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         [HttpUtils clearHttpResponeHeader:self.urlString assetsPath:self.assetsPath];
-        NSLog(@"%@===%@",self.urlString,self.assetsPath);
+        
         [self loadHtml];
     }];
    // [self idColor];
@@ -339,24 +339,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - assistant methods
 - (void)loadHtml {
-    DeviceState deviceState = [APIHelper deviceState];
-    NSLog(@"%ld",(long)deviceState);
-    if(deviceState == StateOK) {
         [self loadInnerLink];
-    }
-    else if(deviceState == StateForbid) {
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        [alert addButton:kIAlreadyKnownText actionBlock:^(void) {
-            [self jumpToLogin];
-        }];
-        
-        [alert showError:self title:kWarmTitleText subTitle:kAppForbiedUseText closeButtonTitle:nil duration:0.0f];
-    }
-    else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showLoading:LoadingRefresh];
-        });
-    }
 }
 
 - (void)_loadHtml {

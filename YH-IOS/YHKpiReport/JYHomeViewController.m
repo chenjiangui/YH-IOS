@@ -340,10 +340,9 @@
     if(op) { [queue addOperation:op]; }
     op = [self checkAssetUpdate:kJavascriptsAssetsName info:kJavascriptsPopupText isInAssets: YES];
     if(op) { [queue addOperation:op]; }
-    op = [self checkAssetUpdate:kBarCodeScanAssetsName info:kBarCodeScanPopupText isInAssets: NO];
-    if(op) { [queue addOperation:op]; }
+   // op = [self checkAssetUpdate:kBarCodeScanAssetsName info:kBarCodeScanPopupText isInAssets: NO];
+   // if(op) { [queue addOperation:op]; }
 }
-
 
 
 - (AFHTTPRequestOperation *)checkAssetUpdate:(NSString *)assetName info:(NSString *)info isInAssets:(BOOL)isInAssets {
