@@ -93,7 +93,7 @@
     return 10;
 }
 //-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-////    return -10;
+//    return SCREEN_HEIGHT-PushInfo.count*107+10;
 //}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (PushInfo.count==0) {
