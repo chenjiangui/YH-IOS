@@ -64,6 +64,7 @@
     PushTableview.contentInset = UIEdgeInsetsMake(0, 0, 67, 0);
     [PushTableview setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"]];
     //    GroupTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStyleGrouped];
+    PushTableview.separatorStyle=UITableViewCellSeparatorStyleNone;
     PushTableview.dataSource = self;
     PushTableview.delegate = self;
 }
@@ -136,7 +137,6 @@
         [PushInfo writeToFile:plistPath atomically:YES];
         [PushTableview reloadData];
     }
-   
     NSString *remoteType = PushInfo[indexPath.row][@"type"];
     if ([remoteType isEqualToString:@"kpi"]) {
         return;

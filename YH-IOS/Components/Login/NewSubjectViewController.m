@@ -1002,7 +1002,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self clearBrowserCache];
             NSURL* baseurl = [NSURL fileURLWithPath:htmlPath];
             [self.browser loadFileURL:baseurl allowingReadAccessToURL:[NSURL fileURLWithPath:[FileUtils sharedPath]]];
-            [HudToolView hideLoadingInView:self.view];
             self.isLoadFinish = !self.browser.isLoading;
         });
     });

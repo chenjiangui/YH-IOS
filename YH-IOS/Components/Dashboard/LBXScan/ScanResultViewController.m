@@ -326,7 +326,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super viewDidDisappear:animated];
     
     [self clearBrowserCache];
-    [self showLoading:LoadingLoad];
+//    [self showLoading:LoadingLoad];
+
 }
 
 - (void)dealloc {
@@ -344,7 +345,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)_loadHtml {
     [self clearBrowserCache];
-    [self showLoading:LoadingLoad];
+//    [self showLoading:LoadingLoad];
     
     NSString *cacheJsonPath = [FileUtils dirPath:kCachedDirName FileName:kBarCodeResultFileName];
     NSMutableDictionary *cacheDict = [FileUtils readConfigFile:cacheJsonPath];
@@ -402,7 +403,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      *  only inner link clean browser cache
      */
     [self clearBrowserCache];
-    [self showLoading:LoadingLoad];
+//    [self showLoading:LoadingLoad];
+    [HudToolView showLoadingInView:self.view];
+
     
     NSString *cacheJsonPath = [FileUtils dirPath:kCachedDirName FileName:kBarCodeResultFileName];
     NSMutableDictionary *cacheDict = [FileUtils readConfigFile:cacheJsonPath];
@@ -438,7 +441,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
    _storeID = cacheDict[@"store"][@"id"];
    // _storeID = @"9318";
     self.title = cacheDict[@"store"][@"name"];
-      [self showLoading:LoadingLoad];
+//      [self showLoading:LoadingLoad];
     
     /*
      * format: /mobile/v1/group/:group_id/template/:template_id/report/:report_id
@@ -701,5 +704,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
+}
+
+//-(void)webViewDidStartLoad:(UIWebView *)webView
+//{
+//    [HudToolView showLoadingInView:self.view];
+//}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [HudToolView hideLoadingInView:self.view];
 }
 @end
