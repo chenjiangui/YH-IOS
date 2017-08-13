@@ -960,7 +960,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }
     __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //js数据更新下载
         [APIHelper reportData:weakSelf.user.groupID templateID:weakSelf.templateID reportID:weakSelf.reportID];
+        
       /* NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT_DATADOWNLOAD];
         NSDictionary *param = @{
                                 @"api_token":ApiToken(YHAPI_REPORT_DATADOWNLOAD),

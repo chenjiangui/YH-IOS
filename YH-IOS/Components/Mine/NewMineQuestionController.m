@@ -75,33 +75,24 @@ static NSString *headerViewIdentifier = @"hederview";
 -(void)setTableView
 {
     QuestionTableView=[[UITableView alloc] init];  
-//    QuestionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:QuestionTableView];
     QuestionTableView.scrollEnabled =NO; //设置tableview 不能滚动
     [QuestionTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
         make.edges.mas_equalTo(self.view);
     }];
     [QuestionTableView setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"]];
     QuestionTableView.dataSource = self;
     QuestionTableView.delegate = self;
     QuestionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
 }
-
-
 #pragma  get GroupArray count  to set number of section
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 4;
 }
-
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.row==0) {
@@ -129,8 +120,6 @@ static NSString *headerViewIdentifier = @"hederview";
 
     return 0;//self.view.frame.size.height-360;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
         static NSString *Identifier = @"questionCell";
@@ -157,6 +146,17 @@ static NSString *headerViewIdentifier = @"hederview";
             opinionTextview.keyboardType = UIKeyboardTypeDefault;
             opinionTextview.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0);
             [cell addSubview:opinionTextview];
+            
+            
+            UIView *cellView=[[UIView alloc] init];
+            [cell addSubview: cellView];
+            [cellView setBackgroundColor:[NewAppColor yhapp_9color]];
+            [cellView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(cell.mas_left).offset(16);
+                make.top.mas_equalTo(cell.mas_bottom).offset(-1);
+                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-32, 1));
+            }];
+            
             [opinionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(cell.mas_top).offset(16);
                 make.left.mas_equalTo(cell.mas_left).offset(16);
@@ -164,7 +164,6 @@ static NSString *headerViewIdentifier = @"hederview";
             [opinionTextview mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(cell.mas_top).offset(44);
                 make.left.mas_equalTo(cell.mas_left).offset(16);
-//                make.right.mas_equalTo(cell.mas_right).offset(-16);
                 make.size.mas_equalTo(CGSizeMake(self.view.bounds.size.width-32, 111));
             }];
         }
@@ -243,6 +242,8 @@ static NSString *headerViewIdentifier = @"hederview";
                 make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, 50));
             }];
         }
+        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
+        
         return cell;
     }
 }
@@ -280,8 +281,6 @@ static NSString *headerViewIdentifier = @"hederview";
 
 -(void)saveBtn
 {
-        [HudToolView showLoadingInView:self.view];
-        
         self.view.userInteractionEnabled=NO;
     
     if ([questionProblemText length]==0) {
@@ -296,8 +295,9 @@ static NSString *headerViewIdentifier = @"hederview";
         return;
     }
     else{
+         [HudToolView showLoadingInView:self.view];
         Version *version = [[Version alloc]init];
-    NSDictionary *parames = @{
+         NSDictionary *parames = @{
                               @"content":questionProblemText,
                               @"title":@"生意人问题反馈",
                               @"user_num":SafeText(user.userNum),

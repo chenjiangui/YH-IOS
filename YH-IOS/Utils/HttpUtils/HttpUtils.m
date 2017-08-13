@@ -43,11 +43,12 @@
     NSURL *url = [NSURL URLWithString:urlString];
     HttpResponse *httpResponse = [[HttpResponse alloc] init];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:timeoutInterval];
-    [request setValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
-    
+    [request addValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
+
     if(header) {
         for(NSString *key in header) {
             [request setValue:header[key] forHTTPHeaderField:key];
+            
         }
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:header options:NSJSONWritingPrettyPrinted error:nil];
         LogGreen(@"\nParams:\n%@\n", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
@@ -74,6 +75,7 @@
  *  @return Http#Get HttpResponse
  */
 + (HttpResponse *)httpGet:(NSString *)urlString {
+
     return [HttpUtils httpGet:urlString header:nil timeoutInterval:8.0];
 }
 
@@ -225,7 +227,6 @@
         if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
             header[@"IF-None-Match"] = cachedHeaderDict[urlCleanedString][@"Etag"];
         }
-        
         if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
             header[@"If-Modified-Since"] = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
         }
@@ -576,6 +577,8 @@
 + (NSArray *)urlTofilename:(NSString *)url suffix:(NSString *)suffix {
     NSArray *blackList = @[@".", @":", @"/", @"?"];
     
+    
+    //将前缀替换为空字符
     url = [url stringByReplacingOccurrencesOfString:kBaseUrl withString:@""];
     NSArray *parts = [url componentsSeparatedByString:@"?"];
     
@@ -584,8 +587,6 @@
         url = parts[0];
         timestamp = parts[1];
     }
-    
-    
     if([url hasSuffix:suffix]) {
         url = [url stringByDeletingPathExtension];
     }
