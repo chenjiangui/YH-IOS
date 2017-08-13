@@ -387,17 +387,11 @@
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
 //    [self presentViewController:manulCtrl animated:YES completion:nil];
 
-
-    
 //    NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
 //    [self.navigationController pushViewController:NewManual animated:YES];
 //    
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
 //   [self presentViewController:manulCtrl animated:YES completion:nil];
-    
-    
-    
-
 
     [self example5];
     

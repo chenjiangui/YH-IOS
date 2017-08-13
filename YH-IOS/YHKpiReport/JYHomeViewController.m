@@ -273,11 +273,9 @@
 
 /** 清理缓存*/
 - (void)actionCheckAssets {
-    
     NSDictionary *dict = @{
                            kAPI_TOEKN:ApiToken(YHAPI_STATIC_ASSETS_CHECK)
                            };
-    
     [YHHttpRequestAPI yh_getDataFrom:YHAPI_STATIC_ASSETS_CHECK with:dict Finish:^(BOOL success, id model, NSString *jsonObjc) {
         if (success) {
             [self saveAseetsMD5:jsonObjc];
@@ -385,7 +383,6 @@
         CGFloat precent = (CGFloat)totalBytesRead / totalBytesExpectedToRead;
         HUD.progress = precent;
     }];
-    
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [FileUtils checkAssets:assetName isInAssets:isInAssets bundlePath:[[NSBundle mainBundle] bundlePath]];
         
@@ -628,7 +625,6 @@
         }
     });
 }
-
 
 # pragma mark - assitant methods
 /**
