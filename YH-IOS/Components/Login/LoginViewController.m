@@ -73,8 +73,6 @@
         make.size.mas_equalTo(CGSizeMake(100, 100));
     }];
     
-    
-    
     _PeopleUnderLine = [[UIView alloc]init];
     _PeopleUnderLine.backgroundColor = [UIColor colorWithHexString:@"#e6e6e6"];
     [self.view addSubview:_PeopleUnderLine];
@@ -241,12 +239,22 @@
         make.right.mas_equalTo(_PeopleUnderLine).offset(-8);
         make.size.mas_equalTo(CGSizeMake(10, 10));
     }];
+    _BigPeopleDelete=[[UIButton alloc] init];
+    [_BigPeopleDelete addTarget:self action:@selector(deleteNumber) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:_BigPeopleDelete];
+    [_BigPeopleDelete mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_peopleLogo);
+        make.right.mas_equalTo(_PeopleUnderLine);
+        make.size.mas_equalTo(CGSizeMake(20, 47));
+    }];
+    
 }
 
 -(void)peopleDidEnd:(UITextField*)PeopleNumber
 {
     _PeopleUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [_PeopleDelete removeFromSuperview];
+    [_BigPeopleDelete removeFromSuperview];
 }
 
 -(void)PasswordDidChange:(UITextField*)PasswordNumber
@@ -270,12 +278,21 @@
         make.right.mas_equalTo(_PasswordUnderLine).offset(-8);
         make.size.mas_equalTo(CGSizeMake(10, 10));
     }];
+    _BigPasswoedDelete=[[UIButton alloc] init];
+    [_BigPasswoedDelete addTarget:self action:@selector(deleteOldPassword) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:_BigPasswoedDelete];
+    [_BigPasswoedDelete mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_PasswordLogo);
+        make.right.mas_equalTo(_PasswordUnderLine);
+        make.size.mas_equalTo(CGSizeMake(20, 47));
+    }];
 }
 
 -(void)PasswordDidEnd:(UITextField*)PeopleNumber
 {
     _PasswordUnderLine.backgroundColor= [UIColor colorWithHexString:@"#e6e6e6"];
     [_PasswoedDelete removeFromSuperview];
+    [_BigPasswoedDelete removeFromSuperview];
 }
 
 -(void)deleteOldPassword

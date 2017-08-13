@@ -1007,8 +1007,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         });
     });
 }
-
-
 - (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL {
     NSError *error = nil;
     if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error]) {

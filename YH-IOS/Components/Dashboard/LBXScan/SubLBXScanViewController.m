@@ -393,6 +393,21 @@
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
 //   [self presentViewController:manulCtrl animated:YES completion:nil];
 
+    
+    
+    [self openOrCloseFlash];
+    
+//    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//    NSError *error = nil;
+//    if ([captureDevice hasTorch]) {
+//        BOOL locked = [captureDevice lockForConfiguration:&error];
+//        if (locked) {
+//            captureDevice.torchMode = AVCaptureTorchModeOff;
+//            [captureDevice unlockForConfiguration];
+//        }
+//    }
+    
+    
     [self example5];
     
 }
@@ -418,7 +433,7 @@
     [self.sl_popupController presentContentView:full];
     //跳转到手输入的报表页面
     full.clickTapBlock=^(NSString *InputNumString){
-        
+ 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
         scanResultVC.codeInfo = InputNumString;
