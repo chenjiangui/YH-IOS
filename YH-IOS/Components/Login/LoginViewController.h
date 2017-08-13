@@ -30,6 +30,8 @@
 @property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) UIButton *PeopleDelete;
 @property (nonatomic, strong) UIButton *PasswoedDelete;
+@property (nonatomic, strong) UIButton *BigPeopleDelete;
+@property (nonatomic, strong) UIButton *BigPasswoedDelete;
 @property (nonatomic, strong) UITextField *userPasswordText;
 @property (nonatomic, strong) UITextField *userNameText;
 @property (nonatomic, strong) UIButton *findPassword;

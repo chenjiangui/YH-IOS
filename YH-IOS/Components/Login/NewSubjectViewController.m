@@ -198,7 +198,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.locationLabel.textColor = [NewAppColor yhapp_15color];
     [self.filterView addSubview:self.locationLabel];
     self.locationLabel.text =@"";
-    
     [self.filterView addSubview:self.centerLine];
     [self.filterView addSubview:self.filterButton];
     [_filterButton layoutButtonWithEdgeInsetsStyle:ButtonEdgeInsetsStyleRight imageTitleSpace:18];
@@ -1008,8 +1007,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         });
     });
 }
-
-
 - (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL {
     NSError *error = nil;
     if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error]) {
@@ -1536,8 +1533,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
-
 
 #pragma mark - lazy
 - (SelectLocationView *)screenView{

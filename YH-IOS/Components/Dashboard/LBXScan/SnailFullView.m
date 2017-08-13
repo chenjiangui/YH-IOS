@@ -265,6 +265,12 @@
 /** 返回*/
 -(void)backAction
 {
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if ([device hasTorch]) {
+        [device lockForConfiguration:nil];
+        [device setTorchMode: AVCaptureTorchModeOff];
+        [device unlockForConfiguration];
+    }
     WeakSelf;
     self.didClickFullView(weakSelf);
 }
