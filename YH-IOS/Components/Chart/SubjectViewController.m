@@ -1346,19 +1346,24 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if (!_screenView) {
         _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
         WeakSelf;
-       __block NSMutableString *string = [[NSMutableString alloc]init];
         self.locationString = [[NSMutableString alloc]init];
         _screenView.selectBlock = ^(ScreenModel* item) {
+            NSMutableString *string = [[NSMutableString alloc]init];
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
-            [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
             [weakSelf.browser reload];
-            for (int i=0; i<weakSelf.screenView.selectItems.count-1; i++) {
+            for (int i=0; i<weakSelf.screenView.selectItems.count; i++) {
                 ScreenModel *model = weakSelf.screenView.selectItems[i];
-                [string appendString:[NSString stringWithFormat:@"%@|",model.name]];
+                if (i==0) {
+                    [string appendString:[NSString stringWithFormat:@"%@",model.name]];
+                }
+                else {
+                    [string appendString:[NSString stringWithFormat:@"|%@",model.name]];
+                }
             }
             weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];
             weakSelf.locationLabel.text = string;
+            [string writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
         };
     }
     return _screenView;
