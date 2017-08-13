@@ -65,7 +65,8 @@
              @"health_value":@"health_value",
            //  @"group_order":@"group_order",
            //  @"item_order":@"item_order",
-             @"created_at":@"created_at"
+             @"created_at":@"created_at",
+             @"report_title":@"report_title"
              };
 }
 

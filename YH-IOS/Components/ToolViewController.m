@@ -138,7 +138,7 @@
         BOOL isInnerLink = !([targeturl hasPrefix:@"http://"] || [targeturl hasPrefix:@"https://"]);
         if ([targeturl rangeOfString:@"template/3/"].location != NSNotFound) {
             HomeIndexVC *vc = [[HomeIndexVC alloc] init];
-            vc.bannerTitle = item.name;
+            vc.bannerTitle = item.report_title;
             vc.dataLink = targeturl;
             //vc.objectID =@(item.);
             vc.commentObjectType = ObjectTypeAnalyse;
@@ -163,7 +163,7 @@
         }
         else if ([targeturl rangeOfString:@"template/5/"].location != NSNotFound) {
             SuperChartVc *superChaerCtrl = [[SuperChartVc alloc]init];
-            superChaerCtrl.bannerTitle = item.name;
+            superChaerCtrl.bannerTitle = item.report_title;
             superChaerCtrl.dataLink = targeturl;
            // superChaerCtrl.objectID =@(item.);
             superChaerCtrl.commentObjectType = ObjectTypeAnalyse;
@@ -261,7 +261,7 @@
                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 
                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                subjectView.bannerName = item.name;
+                subjectView.bannerName = item.report_title;
                 subjectView.link = targeturl;
                 subjectView.commentObjectType = ObjectTypeApp;
                // subjectView.objectID = @(item.itemID);
@@ -287,7 +287,7 @@
                 });
 
                 SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
-              //  subjectView.bannerName = item.listName;
+                subjectView.bannerName = item.report_title;
                 subjectView.link = targeturl;
                 subjectView.commentObjectType = ObjectTypeApp;
              //   subjectView.objectID = @(item.itemID);

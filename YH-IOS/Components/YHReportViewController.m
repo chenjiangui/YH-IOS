@@ -142,7 +142,7 @@
         BOOL isInnerLink = !([targeturl hasPrefix:@"http://"] || [targeturl hasPrefix:@"https://"]);
         if ([targeturl rangeOfString:@"template/3/"].location != NSNotFound) {
             HomeIndexVC *vc = [[HomeIndexVC alloc] init];
-            vc.bannerTitle = item.listName;
+            vc.bannerTitle = item.report_title;
             vc.dataLink = targeturl;
             vc.objectID =@(item.itemID);
             vc.commentObjectType = ObjectTypeAnalyse;
@@ -167,7 +167,7 @@
         }
         else if ([targeturl rangeOfString:@"template/5/"].location != NSNotFound) {
             SuperChartVc *superChaerCtrl = [[SuperChartVc alloc]init];
-            superChaerCtrl.bannerTitle = item.listName;
+            superChaerCtrl.bannerTitle = item.report_title;
             superChaerCtrl.dataLink = targeturl;
             superChaerCtrl.objectID =@(item.itemID);
             superChaerCtrl.commentObjectType = ObjectTypeAnalyse;
@@ -175,7 +175,7 @@
             logParams[kActionALCName]   = @"点击/报表/报表";
             logParams[kObjIDALCName]    = @(item.itemID);
             logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
-            logParams[kObjTitleALCName] =  item.listName;
+            logParams[kObjTitleALCName] =  item.report_title;
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
              */
@@ -210,13 +210,13 @@
         }
         else if ([targeturl rangeOfString:@"template/1/"].location != NSNotFound) {
             JYDemoViewController *superChaerCtrl = [[JYDemoViewController alloc]init];
-            superChaerCtrl.title = item.listName;
+            superChaerCtrl.title = item.report_title;
             superChaerCtrl.urlLink = targeturl;
             // UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:superChaerCtrl];
             logParams[kActionALCName]   = @"点击/专题/报表";
             logParams[kObjIDALCName]    = @(item.itemID);
             logParams[kObjTypeALCName]  = @(ObjectTypeApp);
-            logParams[kObjTitleALCName] =  item.listName;
+            logParams[kObjTitleALCName] =  item.report_title;
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
              */
@@ -239,7 +239,7 @@
                     logParams[kActionALCName]   = @"点击/报表/报表";
                     logParams[kObjIDALCName]    = @(item.itemID);
                     logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
-                    logParams[kObjTitleALCName] =  item.listName;
+                    logParams[kObjTitleALCName] =  item.report_title;
                     /*
                      * 用户行为记录, 单独异常处理，不可影响用户体验
                      */
@@ -252,7 +252,7 @@
                         }
                     });
                     NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
-                    subjectView.bannerName = item.listName;
+                    subjectView.bannerName = item.report_title;
                     subjectView.link = targeturl;
                     subjectView.commentObjectType = ObjectTypeAnalyse;
                     subjectView.objectID = @(item.itemID);
@@ -263,7 +263,7 @@
                     logParams[kActionALCName]   = @"点击/报表/链接";
                     logParams[kObjIDALCName]    = @(item.itemID);
                     logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
-                    logParams[kObjTitleALCName] =  item.listName;
+                    logParams[kObjTitleALCName] =  item.report_title;
                     /*
                      * 用户行为记录, 单独异常处理，不可影响用户体验
                      */
@@ -276,7 +276,7 @@
                         }
                     });
                     SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
-                    subjectView.bannerName = item.listName;
+                    subjectView.bannerName = item.report_title;
                     subjectView.link = targeturl;
                     subjectView.commentObjectType = ObjectTypeAnalyse;
                     subjectView.objectID = @(item.itemID);
@@ -291,7 +291,7 @@
                     logParams[kActionALCName]   = @"点击/报表/报表";
                     logParams[kObjIDALCName]    = @(item.itemID);
                     logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
-                    logParams[kObjTitleALCName] =  item.listName;
+                    logParams[kObjTitleALCName] =  item.report_title;
                     /*
                      * 用户行为记录, 单独异常处理，不可影响用户体验
                      */
@@ -306,7 +306,7 @@
                     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     
                     SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                    subjectView.bannerName = item.listName;
+                    subjectView.bannerName = item.report_title;
                     subjectView.link = targeturl;
                     subjectView.commentObjectType = ObjectTypeAnalyse;
                     subjectView.objectID = @(item.itemID);
@@ -317,7 +317,7 @@
                     logParams[kActionALCName]   = @"点击/报表/链接";
                     logParams[kObjIDALCName]    = @(item.itemID);
                     logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
-                    logParams[kObjTitleALCName] =  item.listName;
+                    logParams[kObjTitleALCName] =  item.report_title;
                     /*
                      * 用户行为记录, 单独异常处理，不可影响用户体验
                      */
@@ -330,7 +330,7 @@
                         }
                     });
                     SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
-                    subjectView.bannerName = item.listName;
+                    subjectView.bannerName = item.report_title;
                     subjectView.link = targeturl;
                     subjectView.commentObjectType = ObjectTypeAnalyse;
                     subjectView.objectID = @(item.itemID);

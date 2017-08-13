@@ -141,8 +141,8 @@
         if ([remoteType isEqualToString:@"kpi"]) {
             return;
         }
-        else if ([remoteType isEqualToString:@"report"]){
-            [self jumpToDetailViewWithDict:_remoteDict];
+        else if ([remoteType isEqualToString:@"report"] && SafeText(_remoteDict[@"url"]).length > 0){
+            [self jumpToDetailView:_remoteDict[@"url"] viewTitle:_remoteDict[@"title"]];
         }
         else if ([remoteType isEqualToString:@"message"]){
             self.tabBarController.selectedIndex = 3;
@@ -245,7 +245,7 @@
 //经营预警事件
 - (void)manageWarningAction:(YHKPIDetailModel*)model{
     NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
-    [self jumpToDetailView:targetUrl viewTitle:model.title];
+    [self jumpToDetailView:targetUrl viewTitle:model.report_title];
 }
 
 

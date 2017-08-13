@@ -297,7 +297,9 @@
                 [Cell.avaterImageView setImage:self.userAvaImage forState:UIControlStateNormal];
             }
             else {
-                [Cell.avaterImageView sd_setImageWithURL:self.userDict[@"gravatar"] forState:UIControlStateNormal];
+                if (SafeText(self.userDict[@"gravatar"]).length > 0) {
+                 [Cell.avaterImageView sd_setImageWithURL:self.userDict[@"gravatar"] forState:UIControlStateNormal];   
+                }
             }
         }
         else {
@@ -306,8 +308,8 @@
            if (self.userAvaImage != nil) {
               [Cell.avaterImageView setImage:self.userAvaImage forState:UIControlStateNormal];
           }
-//            else
-//                [Cell.avaterImageView setImage:[UIImage imageNamed:@"face_default"] forState:UIControlStateNormal];
+            else
+                [Cell.avaterImageView setImage:[UIImage imageNamed:@"face_default"] forState:UIControlStateNormal];
         }
          MJWeakSelf;
         [[Cell.avaterImageView rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

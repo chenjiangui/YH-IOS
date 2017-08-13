@@ -49,6 +49,7 @@ typedef NS_ENUM(NSUInteger, DashBoardType1) {
 @property (nonatomic, strong, readonly) NSString *floatRate; // 浮动率
 @property (nonatomic, strong, readonly) NSString *saleNumber; // 销售金额
 @property (nonatomic, assign, readonly) BOOL percentage; // 销售金额
+@property (nonatomic, strong, readonly) NSString *report_title; // 报表名
 
 -(UIColor *)getMainColor;
 

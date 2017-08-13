@@ -37,5 +37,6 @@
 @property (nonatomic,assign) int item_order;
 @property (nonatomic,assign) int group_order;
 @property (nonatomic,assign) NSString *created_at;
+@property (nonatomic,strong) NSString *report_title;
 
 @end

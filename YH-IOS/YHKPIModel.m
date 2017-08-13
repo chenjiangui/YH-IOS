@@ -45,7 +45,8 @@
               @"memo1":@"memo1",
               @"memo2":@"memo2",
               @"chartData":@"data.chart_data",
-              @"hightLightData":@"data.high_light"
+              @"hightLightData":@"data.high_light",
+              @"report_title":@"report_title"
              };
 }
 
