@@ -246,6 +246,10 @@
     return httpResponse;
 }
 
++ (NSString *)urlCleaner:(NSString *)urlString {
+    return [urlString componentsSeparatedByString:@"?"][0];
+}
+
 + (HttpResponse *)checkResponseHeader:(NSString *)urlString assetsPath:(NSString *)assetsPath{
     NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
     NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
@@ -560,9 +564,6 @@
     return isInclude;
 }
 
-+ (NSString *)urlCleaner:(NSString *)urlString {
-    return [urlString componentsSeparatedByString:@"?"][0];
-}
 
 /**
  *  网页链接转换为合法文件名称

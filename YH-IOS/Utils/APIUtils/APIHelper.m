@@ -21,16 +21,32 @@
 
 #pragma todo: pass assetsPath as parameter
 + (void)reportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
-    NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
-    
-    NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
     NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+    NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
+    NSString *urlString = [self reportDataUrlString:groupID templateID:templateID reportID:reportID];
+    NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
+    NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
+    NSString *urlCleanedString = [self urlCleaner:urlString];
+    NSMutableString *etagString = [[NSMutableString alloc]init];
+    NSMutableString *lastModfiled = [[NSMutableString alloc]init];
+    if(cachedHeaderDict[urlCleanedString]) {
+        if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
+            etagString = cachedHeaderDict[urlCleanedString][@"Etag"];
+        }
+        
+        if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
+            lastModfiled = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
+        }
+    }
     
     NSDictionary *headerDict = @{
                                  kAPI_TOEKN:ApiToken(YHAPI_REPORT_DATADOWNLOAD),
                                  @"report_id":reportID,
-                                 @"disposition":@"zip"
+                                 @"disposition":@"zip",
+                                 @"IF-NONE-Match":etagString,
+                                 @"If-Modified-Since":lastModfiled
                                  };
+    
     HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlString assetsPath:assetsPath withHeader:headerDict];
     if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
         NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
@@ -50,6 +66,10 @@
         [[NSFileManager defaultManager] copyItemAtPath:[cachePath stringByAppendingPathComponent:reportFileName] toPath:javascriptPath error:nil];
         [FileUtils removeFile:[cachePath stringByAppendingPathComponent:reportFileName]];
     }
+}
+
++ (NSString *)urlCleaner:(NSString *)urlString {
+    return [urlString componentsSeparatedByString:@"?"][0];
 }
 
 //扫一扫获取数据
