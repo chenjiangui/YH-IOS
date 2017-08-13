@@ -1342,11 +1342,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if (!_screenView) {
         _screenView = [[SelectLocationView alloc] initWithDataList:@[]];
         WeakSelf;
+        NSMutableString *string = [[NSMutableString alloc]init];
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
-            NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
+            [string stringByAppendingString:item.name];
+            NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
             [ClickItem writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-            [weakSelf handleRefresh];
+            [weakSelf.browser reload];
+            weakSelf.locationLabel.text =string;
         };
     }
     return _screenView;

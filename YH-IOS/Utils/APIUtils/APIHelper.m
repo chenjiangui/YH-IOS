@@ -362,10 +362,13 @@
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-    param[kUserIDCUName]       = userDict[kUserIDCUName];
-    param[kUserNameCUName]     = userDict[kUserNameCUName];
-    param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
-    param[kUserNumCUName]      = userDict[kUserNumCUName];
+    param[kUserIDCUName]       = SafeText(userDict[kUserIDCUName]);
+    param[kUserNameCUName]     = SafeText(userDict[kUserNameCUName]);
+    if (userDict[kUserDeviceIDCUName]!=nil) {
+         param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
+    }
+    
+    param[kUserNumCUName]      = SafeText(userDict[kUserNumCUName]);
     param[kUserLocationName] = userlocation;
     param[kAppVersionCUName]   = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     
@@ -374,8 +377,8 @@
     params[kActionLogALCName] = param;
     
     NSMutableDictionary *userParams = [NSMutableDictionary dictionary];
-    userParams[kUserNameALCName] = userDict[kUserNameCUName];
-    userParams[kPasswordALCName] = userDict[kPasswordCUName];
+    userParams[kUserNameALCName] = SafeText(userDict[kUserNameCUName]);
+    userParams[kPasswordALCName] = SafeText(userDict[kPasswordCUName]);
     params[kUserALCName]         = userParams;
     NSString *urlString = [NSString stringWithFormat:kActionLogAPIPath, kBaseUrl];
     [HttpUtils httpPost:urlString Params:params];

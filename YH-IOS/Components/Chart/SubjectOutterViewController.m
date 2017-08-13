@@ -77,7 +77,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.itemNameArray =[ @[@"分享",@"评论",@"拷贝链接",@"刷新"] mutableCopy];
     self.isLoadFinish = NO;
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f9f9f9"];
-    self.browser.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
+    self.browser.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     [self hiddenShadow];
     [self addNavigationView];
     
