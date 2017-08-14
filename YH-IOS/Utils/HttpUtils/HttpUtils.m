@@ -43,7 +43,7 @@
     NSURL *url = [NSURL URLWithString:urlString];
     HttpResponse *httpResponse = [[HttpResponse alloc] init];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:timeoutInterval];
-    [request addValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
+    //[request addValue:[self webViewUserAgent] forHTTPHeaderField:@"User-Agent"];
 
     if(header) {
         for(NSString *key in header) {
@@ -221,6 +221,8 @@
     NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
     NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
     
+    NSMutableString *mutableUrl = [[NSMutableString alloc]init];
+    [mutableUrl appendString:urlString];
     NSString *urlCleanedString = [self urlCleaner:urlString];
    /* NSMutableDictionary *header = [NSMutableDictionary dictionary];
     if(cachedHeaderDict[urlCleanedString]) {

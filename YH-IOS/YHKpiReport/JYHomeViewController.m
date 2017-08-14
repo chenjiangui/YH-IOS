@@ -474,7 +474,7 @@
         if (indexPath.row==1) {
            return 40;
         }
-        return 388/2.0*SCREEN_WIDTH/375.0;
+        return 194;
     }
     return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
 }

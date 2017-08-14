@@ -237,7 +237,7 @@
      [self.tableView reloadData];
      }*/
     else if ([key  isEqualToString:@"清理缓存"]){
-         [self actionCheckAsset];
+          [self actionCheckAsset];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -414,7 +414,7 @@
     __block NSString *sharedPath = [FileUtils sharedPath];
     
     NSString *assetsZipPath = [sharedPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip", assetName]];
-    if(![FileUtils checkFileExist:assetsZipPath isDir:NO] || ![FileUtils checkFileExist:[sharedPath stringByAppendingPathComponent:assetName] isDir:YES]) {
+    if(![FileUtils checkFileExist:assetsZipPath isDir:NO]) {
         isShouldUpdateAssets = YES;
     }
     
@@ -424,7 +424,7 @@
     //        __block  NSString *localAssetKey = [NSString stringWithFormat:@"local_assets_md5"];
     __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     __block NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-    if(isShouldUpdateAssets || ![userDict[assetKey] isEqualToString:userDict[localAssetKey]]) {
+    if(!isShouldUpdateAssets && ![userDict[assetKey] isEqualToString:userDict[localAssetKey]]) {
         isShouldUpdateAssets = YES;
         NSLog(@"%@ - local: %@, server: %@", assetName, userDict[localAssetKey], userDict[assetKey]);
     }
@@ -496,7 +496,7 @@
         [ _userdict writeToFile:userConfigPath atomically:YES];
         [ _userdict writeToFile:self.settingsConfigPath atomically:YES];
         
-        //self.buttonChangeGesturePassword.enabled = NO;
+      //  self.buttonChangeGesturePassword.enabled = NO;
         
         [ViewUtils showPopupView:self.view Info:@"禁用手势锁设置成功"];
         self.isChangeLochPassword = NO;

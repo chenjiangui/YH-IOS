@@ -43,27 +43,15 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-
-        //增加监听，当键盘出现或改变时收出消息
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
         
-        //增加监听，当键退出时收出消息
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
+[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
         [self setupUI];
     }
     return self;
 }
-
-
 -(void)setupUI
 {
-    [self sd_addSubviews:@[self.BackBtn,self.titleLabel,self.InputView,self.InputNum,self.OpenLightbtn,self.OpenLabel]];
+    [self sd_addSubviews:@[self.BackBtn,self.titleLabel,self.InputView,self.InputNum,self.OpenLightbtn,self.OpenLabel,self.quest]];
 
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_topMargin).offset(33);
@@ -106,7 +94,6 @@
     _InputNumString=InputNumber.text;
 }
 
-
 -(void)OpenLightBtn
 {
     if (_OpenLight.tag==100) {
@@ -139,38 +126,39 @@
     }
     
 }
-
 //当键盘出现或改变时调用
-- (void)keyboardWillShow:(NSNotification *)aNotification
+//- (void)keyboardWillShow:(NSNotification *)aNotification
+//{
+//    //获取键盘的高度
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyboardRect = [aValue CGRectValue];
+//    int height = keyboardRect.size.height;
+//    _quest=[[UIButton alloc] init];
+//    [self addSubview:_quest];
+//    _quest.backgroundColor=[NewAppColor yhapp_10color];
+//    _quest.titleLabel.textAlignment=NSTextAlignmentCenter;
+//    [_quest setTitle:@"确认" forState:UIControlStateNormal];
+//    [_quest setTitleColor:[NewAppColor yhapp_1color] forState:UIControlStateNormal];
+//    [_quest addTarget:self action:@selector(questBtn) forControlEvents:UIControlEventTouchUpInside];
+//    _quest.titleLabel.font=[UIFont systemFontOfSize:16];
+//    [_quest mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.mas_bottom).offset(-(height+50));
+//        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 50));
+//    }];
+//}
+
+-(void)keyboardFrameDidChange:(NSNotification*)notice
 {
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    _quest=[[UIButton alloc] init];
-    [self addSubview:_quest];
-    _quest.backgroundColor=[NewAppColor yhapp_10color];
-    _quest.titleLabel.textAlignment=NSTextAlignmentCenter;
-    [_quest setTitle:@"确认" forState:UIControlStateNormal];
-    [_quest setTitleColor:[NewAppColor yhapp_1color] forState:UIControlStateNormal];
-    [_quest addTarget:self action:@selector(questBtn) forControlEvents:UIControlEventTouchUpInside];
-    _quest.titleLabel.font=[UIFont systemFontOfSize:16];
-    [_quest mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_bottom).offset(-(height+50));
-        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 50));
+    NSDictionary * userInfo = notice.userInfo;
+    NSValue * endFrameValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect endFrame = endFrameValue.CGRectValue;
+    [UIView animateWithDuration:0.25 animations:^{
+        _quest.bottom = endFrame.origin.y;
     }];
-    
-}
-//当键退出时调用
-- (void)keyboardWillHide:(NSNotification *)aNotification{
-    _quest.hidden=YES;
-    [_quest removeFromSuperview];
 }
 -(void)questBtn
 {
-    _quest.hidden=YES;
-    [_quest removeFromSuperview];
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     [HudToolView showLoadingInView:self];
     [self setUserInteractionEnabled:NO];
@@ -206,6 +194,22 @@
     }
     return _BackBtn;
 }
+
+
+- (UIButton *)quest{
+    if (!_quest) {
+        _quest=[[UIButton alloc] init];
+        _quest.backgroundColor=[NewAppColor yhapp_10color];
+        _quest.frame = CGRectMake(0, self.height-50, self.width, 50);
+        _quest.titleLabel.textAlignment=NSTextAlignmentCenter;
+        [_quest setTitle:@"确认" forState:UIControlStateNormal];
+        [_quest setTitleColor:[NewAppColor yhapp_1color] forState:UIControlStateNormal];
+        [_quest addTarget:self action:@selector(questBtn) forControlEvents:UIControlEventTouchUpInside];
+        _quest.titleLabel.font=[UIFont systemFontOfSize:16];
+    }
+    return _quest;
+}
+
 
 - (UILabel *)titleLabel{
     if (!_titleLabel) {
@@ -261,7 +265,6 @@
     }
     return _InputNum;
 }
-
 /** 返回*/
 -(void)backAction
 {
@@ -289,7 +292,7 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         _closeIcon.transform = CGAffineTransformMakeRotation(M_PI_4);
-    } completion:NULL];
+    } completion:nil];
 
 }
 
@@ -297,10 +300,12 @@
     
         [UIView animateWithDuration:0.35 animations:^{
             
-        } completion:NULL];
-    
-    
-
+        } completion:nil];
 }
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 @end
