@@ -24,7 +24,7 @@
         
         _pushTime=[[UILabel alloc] init];
         [self.contentView addSubview:_pushTime];
-
+        
         [_infoTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView).offset(16);
             make.top.mas_equalTo(self.contentView).offset(16);
@@ -42,6 +42,17 @@
             make.left.mas_equalTo(self.contentView.mas_left).offset(16);
             make.bottom.mas_equalTo(self.contentView).offset(-16);
         }];
+        
+        UIView *cellView=[[UIView alloc] init];
+        
+        [self.contentView addSubview: cellView];
+        [cellView setBackgroundColor:[NewAppColor yhapp_9color]];
+        [cellView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(16);
+            make.top.mas_equalTo(self.contentView.mas_bottom).offset(-1);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-32, 1));
+        }];
+
     }
     return self;
 }
