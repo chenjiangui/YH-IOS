@@ -142,6 +142,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+    [HudToolView hideLoadingInView:self.view];
 }
 
 
