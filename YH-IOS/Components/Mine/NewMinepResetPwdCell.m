@@ -25,6 +25,7 @@ static  NSString *RequstPwdString;
             UITextField *OldPwdNumber =[[UITextField alloc] init];
             [self.contentView addSubview:OldPwdNumber];
             OldPwdNumber.placeholder=@"旧密码";
+            [OldPwdNumber setSecureTextEntry:YES];
             OldPwdNumber.font=[UIFont systemFontOfSize:16];
             OldPwdNumber.textAlignment=NSTextAlignmentLeft;
             OldPwdNumber.textColor=[NewAppColor yhapp_3color];
@@ -183,11 +184,11 @@ static  NSString *RequstPwdString;
     user = [[User alloc]init];
     NSLog(@"%@",user);
     if (![oldPwdString.md5 isEqualToString:SafeText(user.password)]) {
-        [HudToolView showTopWithText:@"密码输入错误" color:[NewAppColor yhapp_11color]];
+        [HudToolView showTopWithText:@"原密码输入错误" color:[NewAppColor yhapp_11color]];
         return;
     }
     if (![NewPwdString isEqualToString:RequstPwdString]) {
-        [HudToolView showTopWithText:@"新密码输入不一致" color:[NewAppColor yhapp_11color]];
+        [HudToolView showTopWithText:@"新密码 输入不一致" color:[NewAppColor yhapp_11color]];
         return;
     }
     if ([self checkIsHaveNumAndLetter:NewPwdString]!=3 || [NewPwdString length] <6 ) {

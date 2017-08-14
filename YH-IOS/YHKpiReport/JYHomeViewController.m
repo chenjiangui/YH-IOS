@@ -533,6 +533,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     if (indexPath.section == 2) {
         if (indexPath.row != 0) {
             YHKPIModel* model = [NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"];

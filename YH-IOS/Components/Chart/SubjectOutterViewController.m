@@ -142,6 +142,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+    [HudToolView hideLoadingInView:self.view];
 }
 
 
@@ -1125,6 +1126,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [HudToolView hideLoadingInView:self.view];
     /**
      *  忽略 NSURLErrorDomain 错误 - 999
      */
