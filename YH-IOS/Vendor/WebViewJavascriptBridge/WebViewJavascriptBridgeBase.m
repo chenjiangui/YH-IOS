@@ -97,7 +97,6 @@ static bool logging = false;
                     // Do nothing
                 };
             }
-            
             WVJBHandler handler;
             if (message[@"handlerName"]) {
                 handler = self.messageHandlers[message[@"handlerName"]];
