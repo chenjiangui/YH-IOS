@@ -238,7 +238,7 @@
 //轮播图点击事件
 - (void)scrollImageAction:(YHKPIDetailModel*)model{
     NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
-    [self jumpToDetailView:targetUrl viewTitle:model.title];
+    [self jumpToDetailView:targetUrl viewTitle:model.report_title];
 }
 
 //经营预警事件
@@ -250,7 +250,7 @@
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
     NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
-    [self jumpToDetailView:targetUrl viewTitle:model.title];
+    [self jumpToDetailView:targetUrl viewTitle:model.report_title];
 }
 
 //消息公告点击事件
@@ -477,6 +477,7 @@
         if (indexPath.row==1) {
            return 40;
         }
+        return 388/2.0*SCREEN_WIDTH/375.0;
     }
     return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
 }

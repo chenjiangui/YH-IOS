@@ -60,7 +60,6 @@
     }else{
         self.hidden = YES;
     }
-    [self setupAutoHeightWithBottomView:self.cycleView bottomMargin:0];
 }
 
 /** 点击图片回调 */
