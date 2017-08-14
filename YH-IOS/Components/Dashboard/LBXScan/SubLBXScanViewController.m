@@ -420,7 +420,6 @@
     [self.sl_popupController presentContentView:full];
     //跳转到手输入的报表页面
     full.clickTapBlock=^(NSString *InputNumString){
- 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
         scanResultVC.codeInfo = InputNumString;

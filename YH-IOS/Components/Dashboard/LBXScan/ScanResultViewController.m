@@ -255,11 +255,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 
-
-
-
-
-
 //标识点
 - (void)idColor {
     UIView* idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
@@ -473,7 +468,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      *  初次加载时，判断筛选功能的条件还未生效
      *  此处仅在第二次及以后才会生效
      */
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [APIHelper reportScodeData:self.storeID barcodeID:self.codeInfo];
         

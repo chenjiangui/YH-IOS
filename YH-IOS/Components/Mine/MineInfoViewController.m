@@ -434,7 +434,6 @@
 }
 
 - (void)jumpToLogin {
-    
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     userDict[kIsLoginCUName] = @(NO);
