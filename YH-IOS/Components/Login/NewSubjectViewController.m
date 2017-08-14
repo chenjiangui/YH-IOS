@@ -1015,6 +1015,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         });
     });
 }
+
 - (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL {
     NSError *error = nil;
     if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error]) {
@@ -1032,9 +1033,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     // Files in "/temp/www" load flawlesly :)
     return dstURL;
 }
-
-
-
 
 - (void)displayBannerTitleAndSearchIcon {
     self.btnSearch.hidden = NO;

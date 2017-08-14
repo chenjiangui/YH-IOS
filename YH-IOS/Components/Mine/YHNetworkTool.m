@@ -22,20 +22,6 @@
 }
 
 
--(Person *)loadUserInfo{
-    /*AFHTTPRequestOperationManager *manage = [AFHTTPRequestOperationManager manager];
-    __block Person* person;
-    [manage GET:@"http://192.168.0.137:3000/api/v1/user/1/mine/user_info" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        person = [MTLJSONAdapter modelOfClass:Person.self fromJSONDictionary:responseObject error:nil];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR: %@",error);
-    }];*/
-    
-    HttpResponse *response = [HttpUtils httpGet:@"http://192.168.0.137:3000/api/v1/user/1/mine/user_info"];
-    Person *person = [MTLJSONAdapter modelOfClass:Person.self fromJSONDictionary:response.data error:nil];
-    return person;
-}
 
 
 @end
