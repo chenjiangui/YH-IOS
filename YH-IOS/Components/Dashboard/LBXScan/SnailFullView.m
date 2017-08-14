@@ -227,7 +227,6 @@
         _OpenLabel.text=@"打开手电筒";
         _OpenLabel.textColor=[UIColor whiteColor];
         _OpenLabel.font=[UIFont systemFontOfSize:12];
-        
     }
     return _OpenLabel;
 }
@@ -295,7 +294,6 @@
     } completion:nil];
 
 }
-
 - (void)endAnimationsCompletion:(void (^)(SnailFullView *))completion {
     
         [UIView animateWithDuration:0.35 animations:^{
