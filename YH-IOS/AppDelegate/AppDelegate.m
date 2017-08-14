@@ -421,16 +421,13 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [self initScreenLock];
+     [self initScreenLock];
     //_showingPasscode = YES;
     //_showingPasscode = NO;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    NSString *getMd5Str = [NSString stringWithFormat:kGetMD5APIPath,kBaseUrl];
-    NSString *api_token = [NSString stringWithFormat:@"%@%@%@",API_TOKEN,@"/api/v1.1/assets/md5",API_TOKEN];
-    NSString *apiString = [NSString stringWithFormat:@"%@?api_token=%@",getMd5Str,[api_token md5]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

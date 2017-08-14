@@ -24,4 +24,6 @@
 
 @interface AddressModel : BaseModel
 
+@property(nonatomic, strong) NSString *display;
+
 @end
