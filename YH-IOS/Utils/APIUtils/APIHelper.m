@@ -54,12 +54,14 @@
         NSString *reportFileName = [cacheFilePath stringByReplacingOccurrencesOfString:@".js.zip" withString:@".js"];
         NSString *cachePath = [FileUtils dirPath:kCachedDirName];
         NSString *fullFileCachePath = [cachePath stringByAppendingPathComponent:cacheFilePath];
-        javascriptPath = [javascriptPath stringByAppendingPathComponent:reportFileName];
         [httpResponse.received writeToFile:fullFileCachePath atomically:YES];
         [SSZipArchive unzipFileAtPath:fullFileCachePath toDestination: cachePath];
         [FileUtils removeFile:fullFileCachePath];
         if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-            [FileUtils removeFile:javascriptPath];
+            if (reportFileName.length > 0) {
+                javascriptPath = [javascriptPath stringByAppendingPathComponent:reportFileName];
+                [FileUtils removeFile:javascriptPath];
+            }
         }
         [[NSFileManager defaultManager] copyItemAtPath:[cachePath stringByAppendingPathComponent:reportFileName] toPath:javascriptPath error:nil];
         [FileUtils removeFile:[cachePath stringByAppendingPathComponent:reportFileName]];

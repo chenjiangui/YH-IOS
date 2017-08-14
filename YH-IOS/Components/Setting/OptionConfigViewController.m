@@ -237,7 +237,7 @@
      [self.tableView reloadData];
      }*/
     else if ([key  isEqualToString:@"清理缓存"]){
-        [self actionCheckAssets];
+         [self actionCheckAsset];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -414,7 +414,7 @@
     __block NSString *sharedPath = [FileUtils sharedPath];
     
     NSString *assetsZipPath = [sharedPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip", assetName]];
-    if(![FileUtils checkFileExist:assetsZipPath isDir:NO]) {
+    if(![FileUtils checkFileExist:assetsZipPath isDir:NO] || ![FileUtils checkFileExist:[sharedPath stringByAppendingPathComponent:assetName] isDir:YES]) {
         isShouldUpdateAssets = YES;
     }
     
@@ -424,7 +424,7 @@
     //        __block  NSString *localAssetKey = [NSString stringWithFormat:@"local_assets_md5"];
     __block NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     __block NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-    if(!isShouldUpdateAssets && ![userDict[assetKey] isEqualToString:userDict[localAssetKey]]) {
+    if(isShouldUpdateAssets || ![userDict[assetKey] isEqualToString:userDict[localAssetKey]]) {
         isShouldUpdateAssets = YES;
         NSLog(@"%@ - local: %@, server: %@", assetName, userDict[localAssetKey], userDict[assetKey]);
     }

@@ -49,8 +49,10 @@ NSString *jsons = @"[{\"period\":\"201605\",\"xaxis_order\":\"201605\",\"head\":
     
     if ([HttpUtils isNetworkAvailable3]) {
          HttpResponse *reponse = [HttpUtils httpGet:jsonURL];
-        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
-            [FileUtils removeFile:javascriptPath];
+        if (fileName.length>0) {
+            if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
+                [FileUtils removeFile:javascriptPath];
+            }
         }
         newjson = reponse.string;
         BOOL isYes = [NSJSONSerialization isValidJSONObject:reponse.data];

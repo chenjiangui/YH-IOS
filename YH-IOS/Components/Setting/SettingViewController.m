@@ -575,7 +575,6 @@ static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegueIdent
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     self.isSuccess = [APIHelper pushDeviceToken:userDict[kDeviceUUIDCUName]];
     
-    
     [ViewUtils showPopupView:self.view Info:@"校正完成"];
 }
 

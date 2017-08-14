@@ -33,6 +33,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView insertSubview:self.cycleView atIndex:0];
     [_cycleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,7 +60,6 @@
     }else{
         self.hidden = YES;
     }
-    [self setupAutoHeightWithBottomView:self.cycleView bottomMargin:0];
 }
 
 /** 点击图片回调 */
