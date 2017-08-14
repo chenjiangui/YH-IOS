@@ -113,5 +113,7 @@
 /** 上传锁屏*/
 #define YHAPI_LOCK_SCREEN                    @"/api/v1.1/device/screen_lock"
 
+/** 上传用户行为记录*/
+#define YHAPU_USER_ACTIONLOG                 @"/api/v1.1/device/logger"
 
 #endif

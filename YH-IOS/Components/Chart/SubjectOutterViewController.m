@@ -766,9 +766,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * format: /mobile/report/:report_id/group/:group_id
      */
     NSArray *components = [self.link componentsSeparatedByString:@"/"];
-    self.templateID = components[5];
-    self.reportID = components[8];
-    
+    if (components.count > 8) {
+        self.templateID = components[6];
+        self.reportID = components[8];
+    }
+    else{
+        [HudToolView showTopWithText:@"接口异常" correct:false];
+        return;
+    }
     /**
      * 内部报表具有筛选功能时
      *   - 如果用户已选择，则 banner 显示该选项名称
@@ -1125,6 +1130,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [HudToolView hideLoadingInView:self.view];
     /**
      *  忽略 NSURLErrorDomain 错误 - 999
      */

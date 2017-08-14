@@ -663,8 +663,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        weakSelf.iconNameArray = [@[@"pop_share",@"pop_talk",@"pop_flash",@"pop_screen"] mutableCopy];
-        weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
@@ -766,8 +764,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        weakSelf.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
-        weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
@@ -904,8 +900,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * format: /mobile/report/:report_id/group/:group_id
      */
     NSArray *components = [self.link componentsSeparatedByString:@"/"];
-    self.templateID = components[5];
-    self.reportID = components[8];
+    if (components.count > 8) {
+        self.templateID = components[6];
+        self.reportID = components[8];
+    }
+    else{
+        [HudToolView showTopWithText:@"接口异常" correct:false];
+        return;
+    }
     
     /**
      * 内部报表具有筛选功能时

@@ -304,7 +304,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         imageView.layer.masksToBounds = YES;
         imageView.hidden = NO;
     }
-    
 }
 
 - (UIImage*)imageWithColor:(UIColor*)color size:(CGSize)size {
