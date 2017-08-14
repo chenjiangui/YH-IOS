@@ -37,7 +37,7 @@
 
 - (UILabel *)sheetTitleLabel {
     if (!_sheetTitleLabel) {
-        _sheetTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, JYScreenWidth, 44)];
+        _sheetTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, JYScreenWidth, 54)];
         //_sheetTitleLabel.textColor = JYColor_TextColor_Chief;
         _sheetTitleLabel.textAlignment = NSTextAlignmentCenter;
         _sheetTitleLabel.backgroundColor = [UIColor whiteColor];
@@ -65,6 +65,7 @@
     
     [self addSubview:_sheetView];
     [self addSubview:self.closePageBtn];
+    [self bringSubviewToFront:self.sheetTitleLabel];
 }
 
 - (void)showSubSheetView {
