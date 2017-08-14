@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.clipsToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _titleLab.font = [UIFont boldSystemFontOfSize:16];
     _collection.delegate = self;

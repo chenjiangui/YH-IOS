@@ -1492,6 +1492,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     NSLog(@"%@",error);
+    [HudToolView hideLoadingInView:self.view];
+    [HudToolView showTopWithText:@"加载失败，请清理缓存后重新加载" color:[NewAppColor yhapp_5color]];
  
 }
 
