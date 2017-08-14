@@ -565,16 +565,21 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)initScreenLock {
-    [LTHPasscodeViewController sharedUser].delegate = self;
-    [LTHPasscodeViewController useKeychain:NO];
-    if ([self isLogin]) {
-        [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
-    }
-    else{
-        [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
-    }
-    if ([LTHPasscodeViewController doesPasscodeExist] && [LTHPasscodeViewController didPasscodeTimerEnd]) {
-        [[LTHPasscodeViewController sharedUser] showLockScreenWithAnimation:YES withLogout:NO andLogoutTitle:nil];
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    if (userDict[kIsUseGesturePasswordCUName] != nil && [userDict[kIsUseGesturePasswordCUName] boolValue]) {
+        [LTHPasscodeViewController sharedUser].delegate = self;
+        [LTHPasscodeViewController useKeychain:NO];
+        if ([self isLogin]) {
+            [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
+        }
+        else{
+            [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
+        }
+        if ([LTHPasscodeViewController doesPasscodeExist] && [LTHPasscodeViewController didPasscodeTimerEnd]) {
+            [[LTHPasscodeViewController sharedUser] showLockScreenWithAnimation:YES withLogout:NO andLogoutTitle:nil];
+        }
+
     }
 }
 
