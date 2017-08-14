@@ -419,7 +419,9 @@
     params[kUserALCName]         = userParams;
     
     [YHHttpRequestAPI yh_postDict:param to:YHAPU_USER_ACTIONLOG Finish:^(BOOL success, id model, NSString *jsonObjc) {
-        
+        if (success) {
+            NSLog(@"%@",@"成功");
+        }
     }];
 }
 

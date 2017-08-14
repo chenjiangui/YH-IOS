@@ -1249,11 +1249,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
     self.isLoadFinish = YES;
     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-    if ([browerDict[@"allow_brower_copy"] boolValue]) {
-        return;
-    }
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -1356,16 +1351,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.locationString = [[NSMutableString alloc]init];
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSMutableString *string = [[NSMutableString alloc]init];
-            NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
-            [weakSelf.browser reload];
+            [weakSelf loadHtml];
             for (int i=0; i<weakSelf.screenView.selectItems.count; i++) {
                 ScreenModel *model = weakSelf.screenView.selectItems[i];
                 if (i==0) {
                     [string appendString:[NSString stringWithFormat:@"%@",model.name]];
                 }
                 else {
-                    [string appendString:[NSString stringWithFormat:@"|%@",model.name]];
+                    [string appendString:[NSString stringWithFormat:@"||%@",model.name]];
                 }
             }
             weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];

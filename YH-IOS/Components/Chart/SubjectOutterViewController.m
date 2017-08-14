@@ -1123,11 +1123,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.isLoadFinish = YES;
     [HudToolView hideLoadingInView:self.view];
     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-    if ([browerDict[@"allow_brower_copy"] boolValue]) {
-        return;
-    }
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
