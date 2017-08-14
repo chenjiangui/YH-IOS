@@ -16,7 +16,6 @@
 #import "NewManualInputViewController.h"
 #import "SnailPopupController.h"
 #import "SnailFullView.h"
-
 @interface SubLBXScanViewController ()
 
 @property (nonatomic, strong) UILabel* titleLab;
@@ -392,22 +391,10 @@
 //    
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
 //   [self presentViewController:manulCtrl animated:YES completion:nil];
-
     
-    
-    [self openOrCloseFlash];
-    
-//    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-//    NSError *error = nil;
-//    if ([captureDevice hasTorch]) {
-//        BOOL locked = [captureDevice lockForConfiguration:&error];
-//        if (locked) {
-//            captureDevice.torchMode = AVCaptureTorchModeOff;
-//            [captureDevice unlockForConfiguration];
-//        }
-//    }
-    
-    
+    if (self.flashBtn.selected) {
+        [self openOrCloseFlash];
+    }
     [self example5];
     
 }

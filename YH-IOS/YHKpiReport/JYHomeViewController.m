@@ -315,8 +315,6 @@
     }
     return dic;
 }
-
-
 /**
  *  检测服务器端静态文件是否更新
  */
@@ -440,7 +438,6 @@
     }
     
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }

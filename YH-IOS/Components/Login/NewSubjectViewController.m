@@ -395,7 +395,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 - (void)clearBrowserCache {
     [self.browser stopLoading];
-    
     NSString *domain = [[NSURL URLWithString:self.urlString] host];
     for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
         if([[cookie domain] isEqualToString:domain]) {
@@ -615,7 +614,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     /*
      * 其他页面,禁用横屏
      */
