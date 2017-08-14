@@ -488,6 +488,10 @@
         [self showLockViewForEnablingPasscode];
         // _arraydict =  @{@"启用锁屏":@1,@"修改锁屏密码":@{}};
         [self.tableView reloadData];
+        [UserDefaults setObject:@(1) forKey:@"user_gesture"];
+        BOOL success = [UserDefaults synchronize];
+        NSObject* model = [UserDefaults objectForKey:@"user_gesture"];
+        DLog(@"%@",model.description);
     }
     else {
         NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
@@ -495,7 +499,9 @@
         _userdict[kIsUseGesturePasswordCUName] = @(0);
         [ _userdict writeToFile:userConfigPath atomically:YES];
         [ _userdict writeToFile:self.settingsConfigPath atomically:YES];
-        
+        [UserDefaults setObject:@(0) forKey:@"user_gesture"];
+        BOOL success = [UserDefaults synchronize];
+        id model = [UserDefaults objectForKey:@"user_gesture"];
       //  self.buttonChangeGesturePassword.enabled = NO;
         
         [ViewUtils showPopupView:self.view Info:@"禁用手势锁设置成功"];

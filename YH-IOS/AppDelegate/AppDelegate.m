@@ -43,8 +43,10 @@
 
 @interface AppDelegate ()<LTHPasscodeViewControllerDelegate,UNUserNotificationCenterDelegate>
 {
-        BOOL _showingPasscode;
+    BOOL _showingPasscode;
     BOOL _isRmotePass;
+    /** 指纹识别成功*/
+    NSDate *_lastTime;
 }
 @property (nonatomic,assign) BOOL isReApp;
 
@@ -296,7 +298,6 @@ void UncaughtExceptionHandler(NSException * exception) {
         //        NSLog(@"保存的数据：%@",InfoArray);
     }
     _isRmotePass = YES;
-    [self initScreenLock];
    // [[NSNotificationCenter defaultCenter] postNotificationName:@"remotepush" object:nil];
 }
 
@@ -420,16 +421,13 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [self initScreenLock];
     //_showingPasscode = YES;
     //_showingPasscode = NO;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    NSString *getMd5Str = [NSString stringWithFormat:kGetMD5APIPath,kBaseUrl];
-    NSString *api_token = [NSString stringWithFormat:@"%@%@%@",API_TOKEN,@"/api/v1.1/assets/md5",API_TOKEN];
-    NSString *apiString = [NSString stringWithFormat:@"%@?api_token=%@",getMd5Str,[api_token md5]];
+     [self initScreenLock];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -440,20 +438,24 @@ void UncaughtExceptionHandler(NSException * exception) {
 #pragma mark - LTHPasscodeViewControllerDelegate methods
 - (void)passcodeWasEnteredSuccessfully {
     NSLog(@"AppDelegate - Passcode Was Entered Successfully");
-    
-    if (![self isLogin]) {
-        [self jumpToLogin];
-    }
-    else {
-        if (_isReApp || !_isReApp) {
-           [self jumpToDashboardView];
-            _isReApp = NO;
+    _lastTime = [NSDate date];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [LTHPasscodeViewController close];
+        if (![self isLogin]) {
+            [self jumpToLogin];
         }
-        else{
-            [self checkIsLoginThenJump];
-            _isRmotePass = NO;
+        else {
+            if (_isReApp || !_isReApp) {
+                [self jumpToDashboardView];
+                _isReApp = NO;
+            }
+            else{
+                [self checkIsLoginThenJump];
+                _isRmotePass = NO;
+            }
         }
-    }
+        
+    });
     NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
     logParams[kActionALCName]   = [NSString stringWithFormat:@"解屏/数字"];
     [APIHelper actionLog:logParams];
@@ -564,17 +566,14 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)initScreenLock {
-    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
-    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-    if (userDict[kIsUseGesturePasswordCUName] != nil && [userDict[kIsUseGesturePasswordCUName] boolValue]) {
+    if ([_lastTime timeIntervalSinceNow] <5 && _lastTime) {
+        return;
+    }
+    
+    if ([[UserDefaults objectForKey:@"user_gesture"] boolValue]) {
         [LTHPasscodeViewController sharedUser].delegate = self;
         [LTHPasscodeViewController useKeychain:NO];
-        if ([self isLogin]) {
-            [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
-        }
-        else{
-            [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = NO;
-        }
+        [LTHPasscodeViewController sharedUser].allowUnlockWithTouchID = YES;
         if ([LTHPasscodeViewController doesPasscodeExist] && [LTHPasscodeViewController didPasscodeTimerEnd]) {
             [[LTHPasscodeViewController sharedUser] showLockScreenWithAnimation:YES withLogout:NO andLogoutTitle:nil];
         }

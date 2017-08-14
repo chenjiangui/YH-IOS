@@ -754,11 +754,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         ScreenModel* model = [ScreenModel mj_objectWithKeyValues:data];
         ScreenModel* addressModels = [NSArray getObjectInArray:model.items.data keyPath:@"type" equalValue:@"location"];
         [weakSelf.screenView reload:addressModels.data];
-        
-        if (addressModels.data.count > 0) {
+        if (addressModels.data.count >0) {
             [weakSelf updataConstrain];
-             weakSelf.locationString = [[NSString stringWithFormat:@"%@",SafeText(addressModels.data[0].name)] mutableCopy];
+            weakSelf.locationString = [[NSString stringWithFormat:@"%@",SafeText(addressModels.data[0].name)] mutableCopy];
         }
+        
+        if (!IsEmptyText(addressModels.current_location.display)) {
+            weakSelf.locationString = [addressModels.current_location.display mutableCopy];
+        }
+        
         
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
