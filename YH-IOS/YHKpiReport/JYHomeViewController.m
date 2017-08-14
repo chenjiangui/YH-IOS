@@ -442,7 +442,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataList.count;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -451,21 +451,32 @@
         return model.data.count ? model.data.count+1:0;
     }
     if (section == 0) {
-        return self.noticeMessageModel.data.count ? 2:1;
+        return 2;
     }
     return 1;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==0 && ![NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"top_data"]) {
+        return 0;
+    }
+    if (indexPath.section==1 && ![NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"经营预警"]) {
+        return 0;
+    }
+    if (indexPath.section==2 && ![NSArray getObjectInArray:self.dataList keyPath:@"group_name" equalValue:@"生意概况"]) {
+        return 0;
+    }
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             return 55;
         }
-        return [BusinessGeneralCell heightForSelf];
+        return 80;
     }
-    if (indexPath.section==0 && indexPath.row == 1) {
-        return 40;
+    if (indexPath.section==0) {
+        if (indexPath.row==1) {
+           return 40;
+        }
     }
     return [self cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
 }
@@ -505,6 +516,7 @@
     if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             CommonTableViewCell* cell = [CommonTableViewCell cellWithTableView:tableView needXib:NO];
+            cell.clipsToBounds = YES;
             [cell setTitleStyle:YES];
             cell.leftLab.font = [UIFont boldSystemFontOfSize:16];
             cell.leftLab.text = @"生意概况";

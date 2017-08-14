@@ -44,6 +44,7 @@
 @interface AppDelegate ()<LTHPasscodeViewControllerDelegate,UNUserNotificationCenterDelegate>
 {
         BOOL _showingPasscode;
+    BOOL _isRmotePass;
 }
 @property (nonatomic,assign) BOOL isReApp;
 
@@ -98,6 +99,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _isReApp = YES;
     [self registerAppSDK];
+    _isRmotePass = NO;
     //高德KEY
     [AMapServices sharedServices].apiKey = @"ee6284cf9b216800309aa7639a2fb172";
     
@@ -260,15 +262,10 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 //iOS10新增：处理后台点击通知的代理方法
-- (void)actionSetup {
-    [DMPasscode showPasscodeInViewController:self.window.rootViewController completion:^(BOOL success, NSError *error) {
-        if (success) {
-            [self jumpToDashboardView];
-        }
-    }];
-}
+
 - (void) userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
 {
+    
     /* SystemSoundID soundID = 1008;//具体参数详情下面贴出来
      //播放声音
      AudioServicesPlaySystemSound(soundID);*/
@@ -298,7 +295,8 @@ void UncaughtExceptionHandler(NSException * exception) {
         [InfoArray writeToFile:plistPath atomically:YES];
         //        NSLog(@"保存的数据：%@",InfoArray);
     }
-     [self checkIsLoginThenJump];
+    _isRmotePass = YES;
+    [self initScreenLock];
    // [[NSNotificationCenter defaultCenter] postNotificationName:@"remotepush" object:nil];
 }
 
@@ -448,9 +446,13 @@ void UncaughtExceptionHandler(NSException * exception) {
         [self jumpToLogin];
     }
     else {
-        if (_isReApp) {
+        if (_isReApp || !_isReApp) {
            [self jumpToDashboardView];
             _isReApp = NO;
+        }
+        else{
+            [self checkIsLoginThenJump];
+            _isRmotePass = NO;
         }
     }
     NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
