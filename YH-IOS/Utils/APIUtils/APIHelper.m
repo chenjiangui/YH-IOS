@@ -382,8 +382,6 @@
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
-    
-    
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
     
     param[kAPI_TOEKN] = ApiToken(YHAPU_USER_ACTIONLOG);
@@ -412,11 +410,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[kActionLogALCName] = param;
-    
-    NSMutableDictionary *userParams = [NSMutableDictionary dictionary];
-    userParams[kUserNameALCName] = SafeText(userDict[kUserNameCUName]);
-    userParams[kPasswordALCName] = SafeText(userDict[kPasswordCUName]);
-    params[kUserALCName]         = userParams;
+
     
     [YHHttpRequestAPI yh_postDict:param to:YHAPU_USER_ACTIONLOG Finish:^(BOOL success, id model, NSString *jsonObjc) {
         if (success) {

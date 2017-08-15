@@ -36,6 +36,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, assign) BOOL rBtnSelected;
 @property (nonatomic, strong) NSMutableArray *iconNameArray;
 @property (nonatomic, strong) NSMutableArray *itemNameArray;
+@property (nonatomic, strong) UIButton *backBtn;
 
 @end
 
@@ -69,18 +70,18 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     //@{}代表Dictionary
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[NewAppColor yhapp_6color]}];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 40)];
+    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 44, 40)];
     UIImage *imageback = [[UIImage imageNamed:@"newnav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     bakImage.image = imageback;
     [bakImage setContentMode:UIViewContentModeScaleAspectFit];
-    [backBtn addSubview:bakImage];
-    [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    [_backBtn addSubview:bakImage];
+    [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     space.width = -20;
-    UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    UIBarButtonItem *leftItem =  [[UIBarButtonItem alloc] initWithCustomView:_backBtn];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:space,leftItem, nil]];
-    [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
     [self clearBrowserCache];
     [self loadHtml];
@@ -126,7 +127,61 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         });
     }];
     
-
+    [self.bridge registerHandler:@"pageTabIndex" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *behaviorPath = [FileUtils dirPath:kConfigDirName FileName:kBehaviorConfigFileName];
+        NSMutableDictionary *behaviorDict = [FileUtils readConfigFile:behaviorPath];
+        
+        NSString *action = data[@"action"], *pageName = data[@"pageName"];
+        NSNumber *tabIndex = data[@"tabIndex"];
+        
+        if([action isEqualToString:@"store"]) {
+            behaviorDict[kReportUBCName][pageName] = tabIndex;
+            [behaviorDict writeToFile:behaviorPath atomically:YES];
+        }
+        else if([action isEqualToString:@"restore"]) {
+            tabIndex = behaviorDict[kReportUBCName] && behaviorDict[kReportUBCName][pageName] ? behaviorDict[kReportUBCName][pageName] : @(0);
+            
+            responseCallback(tabIndex);
+        }
+        else {
+            NSLog(@"unkown action %@", action);
+        }
+    }];
+    
+    [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
+        if ([data[@"state"] isEqualToString:@"show"]) {
+            [self.navigationController.navigationBar setHidden:NO];
+            self.browser.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
+        }
+        else {
+            [self.navigationController.navigationBar setHidden:YES];
+            self.browser.frame = CGRectMake(0, -64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
+        }
+    }];
+    
+    [self.bridge registerHandler:@"toggleShowBannerBack" handler:^(id data, WVJBResponseCallback responseCallback){
+        if ([data[@"state"] isEqualToString:@"show"]) {
+            //[self.navigationItem.rightBarButtonItem seth]
+            [self.backBtn setHidden:NO];
+        }
+        else {
+            [self.backBtn setHidden:YES];
+        }
+    }];
+    
+    [self.bridge registerHandler:@"toggleShowBannerMenu" handler:^(id data, WVJBResponseCallback responseCallback){
+        if ([data[@"state"] isEqualToString:@"show"]) {
+            //[self.navigationItem.rightBarButtonItem seth]
+            self.navigationItem.rightBarButtonItem.customView.hidden=NO;
+        }
+        else {
+            self.navigationItem.rightBarButtonItem.customView.hidden=YES;
+        }
+    }];
+    [self.bridge registerHandler:@"setBannerTitle" handler:^(id data, WVJBResponseCallback responseCallback){
+        self.title = data[@"title"];
+    }];
+    
     [self.bridge registerHandler:@"searchItems" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:@"store_%@_barcode_%@_attachment", weakSelf.storeID, weakSelf.codeInfo];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];

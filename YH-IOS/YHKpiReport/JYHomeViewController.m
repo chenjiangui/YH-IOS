@@ -836,8 +836,8 @@
                   subjectView.link = targeturl;
                   subjectView.commentObjectType = ObjectTypeKpi;
                   subjectView.objectID = [urlArray lastObject];
-                  UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-                  [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                  UINavigationController *subCtrl = [[UINavigationController alloc] initWithRootViewController:subjectView];
+                  [RootTabbarViewConTroller presentViewController:subCtrl animated:YES completion:nil];
               }
               else{
               UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

@@ -324,7 +324,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             else if([itemName isEqualToString:kDropSearchText]) {
                 [self actionDisplaySearchItems];
             }
-
+            else if([itemName isEqualToString:kDropShareText]) {
+                [self actionWebviewScreenShot];
+            }
+            else if ([itemName isEqualToString:kDropRefreshText]){
+                [self handleRefresh];
+            }
+            else if ([itemName isEqualToString:kDropCopyLinkText]){
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = self.link;
+                if (![pasteboard.string isEqualToString:@""]) {
+                    [ViewUtils showPopupView:self.view Info:@"链接复制成功"];
+                }
+            }
+            
         }
         
         weakSelf.rBtnSelected = NO;
@@ -673,7 +686,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [weakSelf displayBannerTitleAndSearchIcon];
         }*/
     }];
-     /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
+     [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
          if ([data[@"state"] isEqualToString:@"show"]) {
              [self.navigationController.navigationBar setHidden:NO];
              self.browser.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
@@ -723,7 +736,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSLog(@"%@",coordianteString);
         responseCallback(coordianteString);
     }];
-    */
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
        NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
