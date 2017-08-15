@@ -24,6 +24,7 @@
     self.webView = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webView.webDelegate = self;
     [_webView loadRequest:request];
+
     [self.view addSubview:_webView];
   
 }
@@ -52,6 +53,13 @@
 -(void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    [HudToolView hideLoadingInView:self.view];
+}
+
+
 
 /*
 #pragma mark - Navigation

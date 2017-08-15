@@ -552,8 +552,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *htmlName = [HttpUtils urlTofilename:self.urlString suffix:@".html"][0];
         NSString* htmlPath = [self.assetsPath stringByAppendingPathComponent:htmlName];
         NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-        
-    
         if (![FileUtils checkFileExist:htmlPath isDir:NO] || ([htmlContent length] == 0 )) {
             [self showLoading:LoadingRefresh];
         }
@@ -1241,15 +1239,19 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)actionWebviewScreenShot{
+            [_popView hideWithAnimation:NO];
             UIImage *image;
             NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
             betaDict = [FileUtils readConfigFile:settingsConfigPath];
             if (betaDict[@"image_within_screen"] && [betaDict[@"image_within_screen"] boolValue]) {
-                image = [self captureView:self.browser frame:CGRectMake(0, 0, kScreenWidth, kScreenHeight*3)];
-                // image = [self createViewImage:self.navigationController.view];
+                //image = [self captureView:self.browser frame:CGRectMake(0, 0, kScreenWidth, kScreenHeight*3)];
+ 
+                 image =  [self captureView:CurAppDelegate.window frame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
             }
             else {
-                image = [self captureView:self.browser frame:self.view.frame];
+               // image = [self captureView:self.browser frame:self.view.frame];
+                image =  [self captureView:CurAppDelegate.window frame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                
             }
             dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
             dispatch_after(time, dispatch_get_main_queue(), ^{
@@ -1264,7 +1266,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                                                    delegate:self];
             });
 }
-
 
 - (UIImage*)captureView:(UIView *)theView frame:(CGRect)frame
 {
