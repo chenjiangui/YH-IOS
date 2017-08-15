@@ -15,25 +15,6 @@
 
 @implementation BaseNavigationController
 
-- (CAGradientLayer *)gradientLayer{
-    if (!_gradientLayer) {
-        _gradientLayer = [[CAGradientLayer alloc] init];
-        _gradientLayer.colors = @[(__bridge id)UIColorHex(62C99A).CGColor,(__bridge id)UIColorHex(3A9F99).CGColor];
-        　　//位置x,y    自己根据需求进行设置   使其从不同位置进行渐变
-        _gradientLayer.startPoint = CGPointMake(0, 0);
-        _gradientLayer.endPoint = CGPointMake(1, 0);
-        _gradientLayer.frame = CGRectMake(0, -20, SCREEN_WIDTH, 64);
-    }
-    return _gradientLayer;
-}
-
-- (UIView *)barBg{
-    if (!_barBg) {
-        _barBg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-        [_barBg.layer addSublayer:self.gradientLayer];
-    }
-    return _barBg;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,8 +23,8 @@
     self.navigationBar.opaque = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationBar.translucent = true;
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];
     [self.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationBar.barTintColor = [UIColor whiteColor];
     [self.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setShadowImage:[UIImage imageWithColor:UIColorHex(e6e6e6)]];
 }

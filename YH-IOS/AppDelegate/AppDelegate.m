@@ -100,10 +100,11 @@ void UncaughtExceptionHandler(NSException * exception) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _isReApp = YES;
+    
+    /**注册第三方 sdk*/
     [self registerAppSDK];
     _isRmotePass = NO;
     //高德KEY
-    [AMapServices sharedServices].apiKey = @"ee6284cf9b216800309aa7639a2fb172";
     
     // [[NSUserDefaults standardUserDefaults]  setBool:YES forKey:@"receiveRemote"];
     // 获取版本号
@@ -153,7 +154,6 @@ void UncaughtExceptionHandler(NSException * exception) {
     [IFlySpeechUtility createUtility:initString];
     [self initPgyer];
     [self initUMessage:launchOptions];
-    [self initUMSocial];
     [self checkVersionUpgrade];
     [self checkAssets];
     [self initWebViewUserAgent];
@@ -196,6 +196,13 @@ void UncaughtExceptionHandler(NSException * exception) {
 // 注册第三方SDK
 -(void)registerAppSDK {
     [Bugly startWithAppId:kBUGLYID];
+    [AMapServices sharedServices].apiKey = kGAODEMAP;
+    [UMSocialData setAppKey:kUMAppId];
+    [UMSocialData openLog:YES];
+    // 如果你要支持不同的屏幕方向，需要这样设置，否则在iPhone只支持一个竖屏方向
+    [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskAll];
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+    [UMSocialWechatHandler setWXAppId:kWXAppId appSecret:kWXAppSecret url:kBaseUrl];
 }
 
 - (void)savePushDict:(NSDictionary *)dict {
@@ -616,14 +623,6 @@ void UncaughtExceptionHandler(NSException * exception) {
     [UMessage setBadgeClear:NO];
 }
 
-- (void)initUMSocial {
-    [UMSocialData setAppKey:kUMAppId];
-    [UMSocialData openLog:YES];
-    // 如果你要支持不同的屏幕方向，需要这样设置，否则在iPhone只支持一个竖屏方向
-    [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskAll];
-    //设置微信AppId，设置分享url，默认使用友盟的网址
-    [UMSocialWechatHandler setWXAppId:kWXAppId appSecret:kWXAppSecret url:kBaseUrl];
-}
 
 #pragma mark - UMeng Social Callback
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

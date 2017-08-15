@@ -368,21 +368,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 #pragma mark - private method
 
 
-//解决 uinavigationBar 透明之后出现黑线
-- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
-    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
-        return (UIImageView *)view;
-    }
-    for (UIView *subview in view.subviews) {
-        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
-        if (imageView) {
-            return imageView;
-        }
-    }
-    return nil;
-}
-
-
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -442,50 +427,51 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 #pragma mark - Navigation
 
 //标识点
-- (void)idColor {
-    self.idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
-    //idView.backgroundColor = [UIColor redColor];
-    [self.navigationController.navigationBar addSubview:_idView];
-    //400-6701-855
-    UIImageView* idColor0 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 4, 4)];
-    idColor0.layer.cornerRadius = 2;
-    [_idView addSubview:idColor0];
-    
-    UIImageView* idColor1 = [[UIImageView alloc]initWithFrame:CGRectMake(6, 1, 4, 4)];
-    idColor1.layer.cornerRadius = 1;
-    [_idView addSubview:idColor1];
-    
-    UIImageView* idColor2 = [[UIImageView alloc]initWithFrame:CGRectMake(12, 1, 4, 4)];
-    idColor2.layer.cornerRadius = 1;
-    [_idView addSubview:idColor2];
-    
-    UIImageView* idColor3 = [[UIImageView alloc]initWithFrame:CGRectMake(18, 1, 4, 4)];
-    idColor3.layer.cornerRadius = 1;
-    [_idView addSubview:idColor3];
-    
-    UIImageView* idColor4 = [[UIImageView alloc]initWithFrame:CGRectMake(24, 1, 4, 4)];
-    idColor4.layer.cornerRadius = 1;
-    [_idView addSubview:idColor4];
-    NSArray *colors = @[@"00ffff", @"ffcd0a", @"fd9053", @"dd0929", @"016a43", @"9d203c", @"093db5", @"6a3906", @"192162", @"000000"];
-    NSArray *colorViews = @[idColor0, idColor1, idColor2, idColor3, idColor4];
-    NSString *userID = [NSString stringWithFormat:@"%@", SafeText(self.user.userID)];
-    NSString *color;
-    NSInteger userIDIndex, numDiff = colorViews.count - userID.length;
-    UIImageView *imageView;
-    numDiff = numDiff < 0 ? 0 : numDiff;
-    for(NSInteger i = 0; i < colorViews.count; i++) {
-        color = colors[0];
-        if(i >= numDiff) {
-            userIDIndex = [[NSString stringWithFormat:@"%c", [userID characterAtIndex:i-numDiff]] integerValue];
-            color = colors[userIDIndex];
-        }
-        imageView = colorViews[i];
-        imageView.image = [self imageWithColor:[UIColor colorWithHexString:color] size:CGSizeMake(5.0, 5.0)];
-        imageView.layer.cornerRadius = 2.5f;
-        imageView.layer.masksToBounds = YES;
-        imageView.hidden = NO;
-    }
-}
+//- (void)idColor {
+//    return;
+//    self.idView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,34, 30, 10)];
+//    //idView.backgroundColor = [UIColor redColor];
+//    [self.navigationController.navigationBar addSubview:_idView];
+//    //400-6701-855
+//    UIImageView* idColor0 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 4, 4)];
+//    idColor0.layer.cornerRadius = 2;
+//    [_idView addSubview:idColor0];
+//    
+//    UIImageView* idColor1 = [[UIImageView alloc]initWithFrame:CGRectMake(6, 1, 4, 4)];
+//    idColor1.layer.cornerRadius = 1;
+//    [_idView addSubview:idColor1];
+//    
+//    UIImageView* idColor2 = [[UIImageView alloc]initWithFrame:CGRectMake(12, 1, 4, 4)];
+//    idColor2.layer.cornerRadius = 1;
+//    [_idView addSubview:idColor2];
+//    
+//    UIImageView* idColor3 = [[UIImageView alloc]initWithFrame:CGRectMake(18, 1, 4, 4)];
+//    idColor3.layer.cornerRadius = 1;
+//    [_idView addSubview:idColor3];
+//    
+//    UIImageView* idColor4 = [[UIImageView alloc]initWithFrame:CGRectMake(24, 1, 4, 4)];
+//    idColor4.layer.cornerRadius = 1;
+//    [_idView addSubview:idColor4];
+//    NSArray *colors = @[@"00ffff", @"ffcd0a", @"fd9053", @"dd0929", @"016a43", @"9d203c", @"093db5", @"6a3906", @"192162", @"000000"];
+//    NSArray *colorViews = @[idColor0, idColor1, idColor2, idColor3, idColor4];
+//    NSString *userID = [NSString stringWithFormat:@"%@", SafeText(self.user.userID)];
+//    NSString *color;
+//    NSInteger userIDIndex, numDiff = colorViews.count - userID.length;
+//    UIImageView *imageView;
+//    numDiff = numDiff < 0 ? 0 : numDiff;
+//    for(NSInteger i = 0; i < colorViews.count; i++) {
+//        color = colors[0];
+//        if(i >= numDiff) {
+//            userIDIndex = [[NSString stringWithFormat:@"%c", [userID characterAtIndex:i-numDiff]] integerValue];
+//            color = colors[userIDIndex];
+//        }
+//        imageView = colorViews[i];
+//        imageView.image = [self imageWithColor:[UIColor colorWithHexString:color] size:CGSizeMake(5.0, 5.0)];
+//        imageView.layer.cornerRadius = 2.5f;
+//        imageView.layer.masksToBounds = YES;
+//        imageView.hidden = NO;
+//    }
+//}
 
 - (UIImage*)imageWithColor:(UIColor*)color size:(CGSize)size {
     UIGraphicsBeginImageContext(size);
@@ -733,17 +719,18 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
          [weakSelf displayBannerTitleAndSearchIcon];
          }*/
     }];
-    /*[self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
-     if ([data[@"state"] isEqualToString:@"show"]) {
-     [self.navigationController.navigationBar setHidden:NO];
-     self.browser.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-     }
-     else {
-     [self.navigationController.navigationBar setHidden:YES];
-     self.browser.frame = CGRectMake(0, -64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-     }
-     }];
-     
+    
+    [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
+        if ([data[@"state"] isEqualToString:@"show"]) {
+            [weakSelf.navigationController setNavigationBarHidden:NO animated:YES];
+            //weakSelf.browser.frame = CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-64);
+        }
+        else {
+            [weakSelf.navigationController setNavigationBarHidden:YES animated:YES];
+            //weakSelf.browser.frame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-20);
+        }
+    }];
+    
      
      [self.bridge registerHandler:@"toggleShowBannerBack" handler:^(id data, WVJBResponseCallback responseCallback){
      if ([data[@"state"] isEqualToString:@"show"]) {
@@ -783,7 +770,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      NSLog(@"%@",coordianteString);
      responseCallback(coordianteString);
      }];
-     */
+    
     [self.bridge registerHandler:@"selectedItem" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, weakSelf.user.groupID, weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
