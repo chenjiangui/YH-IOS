@@ -24,12 +24,14 @@
     self.webView = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webView.webDelegate = self;
     [_webView loadRequest:request];
+
     [self.view addSubview:_webView];
   
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [HudToolView showLoadingInView:self.view];
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 84, 40)];
     UIImage *imageback = [[UIImage imageNamed:@"list_ic_arroow.png-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *bakImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -46,6 +48,13 @@
 -(void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    [HudToolView hideLoadingInView:self.view];
+}
+
+
 
 /*
 #pragma mark - Navigation

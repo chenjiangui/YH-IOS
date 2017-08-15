@@ -919,7 +919,6 @@
 		9118AEA21F26FF3600DD3FD3 /* UserAvaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAvaTableViewCell.m; sourceTree = "<group>"; };
 		9118AEA41F26FF4100DD3FD3 /* MineTwoLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTwoLabelTableViewCell.h; sourceTree = "<group>"; };
 		9118AEA51F26FF4100DD3FD3 /* MineTwoLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTwoLabelTableViewCell.m; sourceTree = "<group>"; };
-		912833001EE85A830071CE69 /* PrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateConstants.h; sourceTree = "<group>"; };
 		9128330F1EE868A50071CE69 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		912833101EE868A50071CE69 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		9129DD351EF4D60600900611 /* JHCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JHCollectionReusableView.h; path = Class/JHCollectionReusableView.h; sourceTree = "<group>"; };
@@ -1257,6 +1256,7 @@
 		B6E7B3691F29D2E8008B48BF /* SDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDProgressView.h; sourceTree = "<group>"; };
 		B6E7B36B1F29D2E8008B48BF /* SDDemoItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDDemoItemView.h; sourceTree = "<group>"; };
 		B6E7B36C1F29D2E8008B48BF /* SDDemoItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDDemoItemView.m; sourceTree = "<group>"; };
+		B6FAB1D21F429E55007702E3 /* PrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateConstants.h; sourceTree = "<group>"; };
 		C40343361D6ADEAB00625D53 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		C40343371D6ADEAB00625D53 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		C40343381D6ADEAB00625D53 /* UILabel+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Badge.h"; sourceTree = "<group>"; };
@@ -3179,13 +3179,13 @@
 		C49BB9A81D8C24F4004C9F70 /* Macros */ = {
 			isa = PBXGroup;
 			children = (
+				B6FAB1D21F429E55007702E3 /* PrivateConstants.h */,
 				F62457C21EA5FD01006834D2 /* AppColor.h */,
 				F62457C31EA5FD01006834D2 /* AppColor.m */,
 				91BB7B841F29B592001934FA /* NewAppColor.h */,
 				91BB7B851F29B592001934FA /* NewAppColor.m */,
 				9142F1E81F3D85CB00DE38A8 /* YHAPI.h */,
 				C49BB9AB1D8C2548004C9F70 /* Constant.h */,
-				912833001EE85A830071CE69 /* PrivateConstants.h */,
 				C49BB9A91D8C2538004C9F70 /* Constant.m */,
 			);
 			path = Macros;
@@ -5550,7 +5550,7 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.YongHuiChart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5614,7 +5614,7 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.YongHuiChart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
