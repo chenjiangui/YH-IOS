@@ -566,8 +566,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *htmlName = [HttpUtils urlTofilename:self.urlString suffix:@".html"][0];
         NSString* htmlPath = [self.assetsPath stringByAppendingPathComponent:htmlName];
         NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-        
-    
         if (![FileUtils checkFileExist:htmlPath isDir:NO] || ([htmlContent length] == 0 )) {
             [self showLoading:LoadingRefresh];
         }
