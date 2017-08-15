@@ -663,8 +663,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         NSString *searchItemsPath = [NSString stringWithFormat:@"%@.search_items", weakSelf.javascriptPath];
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        weakSelf.iconNameArray = [@[@"pop_share",@"pop_talk",@"pop_flash",@"pop_screen"] mutableCopy];
-        weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
@@ -766,8 +764,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         
         [data[@"items"] writeToFile:searchItemsPath atomically:YES];
-        weakSelf.iconNameArray = [@[@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan",@"Barcode-Scan"] mutableCopy];
-        weakSelf.itemNameArray = [@[@"分享",@"评论",@"刷新",@"筛选"] mutableCopy];
         
         /**
          *  判断筛选的条件: data[@"items"] 数组不为空
@@ -904,8 +900,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * format: /mobile/report/:report_id/group/:group_id
      */
     NSArray *components = [self.link componentsSeparatedByString:@"/"];
-    self.templateID = components[5];
-    self.reportID = components[8];
+    if (components.count > 8) {
+        self.templateID = components[6];
+        self.reportID = components[8];
+    }
+    else{
+        [HudToolView showTopWithText:@"接口异常" correct:false];
+        return;
+    }
     
     /**
      * 内部报表具有筛选功能时
@@ -1247,11 +1249,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
     self.isLoadFinish = YES;
     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
-    if ([browerDict[@"allow_brower_copy"] boolValue]) {
-        return;
-    }
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
-    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -1354,16 +1351,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         self.locationString = [[NSMutableString alloc]init];
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSMutableString *string = [[NSMutableString alloc]init];
-            NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
-            [weakSelf.browser reload];
+            [weakSelf loadHtml];
             for (int i=0; i<weakSelf.screenView.selectItems.count; i++) {
                 ScreenModel *model = weakSelf.screenView.selectItems[i];
                 if (i==0) {
                     [string appendString:[NSString stringWithFormat:@"%@",model.name]];
                 }
                 else {
-                    [string appendString:[NSString stringWithFormat:@"|%@",model.name]];
+                    [string appendString:[NSString stringWithFormat:@"||%@",model.name]];
                 }
             }
             weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];

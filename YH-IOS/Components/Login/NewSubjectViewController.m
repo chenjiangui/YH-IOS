@@ -949,9 +949,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * format: /mobile/report/:report_id/group/:group_id
      */
     NSArray *components = [self.link componentsSeparatedByString:@"/"];
-    self.templateID = components[5];
-    self.reportID = components[8];
-    
+    if (components.count > 8) {
+        self.templateID = components[6];
+        self.reportID = components[8];
+    }
+    else{
+        [HudToolView showTopWithText:@"接口异常" correct:false];
+        return;
+    }
     /**
      * 内部报表具有筛选功能时
      *   - 如果用户已选择，则 banner 显示该选项名称
@@ -1552,14 +1557,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             NSMutableString *string = [[NSMutableString alloc]init];
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
-            [weakSelf.browser reload];
+            [weakSelf loadHtml];
             for (int i=0; i<weakSelf.screenView.selectItems.count; i++) {
                 ScreenModel *model = weakSelf.screenView.selectItems[i];
                 if (i==0) {
                     [string appendString:[NSString stringWithFormat:@"%@",model.name]];
                 }
                 else {
-                    [string appendString:[NSString stringWithFormat:@"|%@",model.name]];
+                    [string appendString:[NSString stringWithFormat:@"||%@",model.name]];
                 }
             }
             weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];

@@ -61,6 +61,7 @@
         [[NSFileManager defaultManager] copyItemAtPath:[cachePath stringByAppendingPathComponent:reportFileName] toPath:javascriptPath error:nil];
         [FileUtils removeFile:[cachePath stringByAppendingPathComponent:reportFileName]];
     }
+    
 }
 
 + (NSString *)urlCleaner:(NSString *)urlString {
@@ -381,15 +382,31 @@
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
+    
+    
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
-    param[kUserIDCUName]       = userDict[kUserIDCUName];
-    param[kUserNameCUName]     = userDict[kUserNameCUName];
+    
+    param[kAPI_TOEKN] = ApiToken(YHAPU_USER_ACTIONLOG);
+    
+    /** user_id*/
+    if (userDict[kUserIDCUName] != nil) {
+        param[kUserIDCUName]       = userDict[kUserIDCUName];
+    }
+    /** user_num*/
+    if (userDict[kUserNameCUName] !=nil) {
+         param[kUserNameCUName]     = userDict[kUserNameCUName];
+    }
+    /** user_device_id*/
     if (userDict[kUserDeviceIDCUName]!=nil) {
          param[kUserDeviceIDCUName] = userDict[kUserDeviceIDCUName];
     }
-    
+    /** user_num*/
     param[kUserNumCUName]      = SafeText(userDict[kUserNumCUName]);
-    param[kUserLocationName] = userlocation;
+    
+    /** coordinate */
+    param[kUserLocationName] =  SafeText(userlocation);
+    
+    /** app_version */
     param[kAppVersionCUName]   = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     
     
@@ -400,8 +417,12 @@
     userParams[kUserNameALCName] = SafeText(userDict[kUserNameCUName]);
     userParams[kPasswordALCName] = SafeText(userDict[kPasswordCUName]);
     params[kUserALCName]         = userParams;
-    NSString *urlString = [NSString stringWithFormat:kActionLogAPIPath, kBaseUrl];
-    [HttpUtils httpPost:urlString Params:params];
+    
+    [YHHttpRequestAPI yh_postDict:param to:YHAPU_USER_ACTIONLOG Finish:^(BOOL success, id model, NSString *jsonObjc) {
+        if (success) {
+            NSLog(@"%@",@"成功");
+        }
+    }];
 }
 
 /**

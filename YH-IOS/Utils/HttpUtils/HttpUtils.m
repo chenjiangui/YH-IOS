@@ -76,7 +76,7 @@
  */
 + (HttpResponse *)httpGet:(NSString *)urlString {
 
-    return [HttpUtils httpGet:urlString header:nil timeoutInterval:8.0];
+    return [HttpUtils httpGet:urlString header:nil timeoutInterval:30.0];
 }
 
 
