@@ -17,6 +17,7 @@
 #import "SuperChartVc.h"
 #import "JYDemoViewController.h"
 #import "YHScreenController.h"
+#import "NewSubjectViewController.h"
 
 @interface ToolViewController () <UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>
 
@@ -251,7 +252,20 @@
                     }
                 });
 
-
+                if (YHAPPVERSION >= 9.0) {
+                    NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
+                    if (item.report_title != nil) {
+                        subjectView.bannerName = item.report_title;
+                    }
+                    else{
+                        subjectView.bannerName = item.name;
+                    }
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeApp;
+                    UINavigationController *subCtrl = [[UINavigationController alloc] initWithRootViewController:subjectView];
+                    [RootTabbarViewConTroller presentViewController:subCtrl animated:YES completion:nil];
+                }
+                else {
                 UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 
                 SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
@@ -266,6 +280,7 @@
                // subjectView.objectID = @(item.itemID);
                 UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
                 [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                }
             }
             else{
 

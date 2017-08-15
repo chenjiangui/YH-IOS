@@ -324,7 +324,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             else if([itemName isEqualToString:kDropSearchText]) {
                 [self actionDisplaySearchItems];
             }
-
+            else if([itemName isEqualToString:kDropShareText]) {
+                [self actionWebviewScreenShot];
+            }
+            else if ([itemName isEqualToString:kDropRefreshText]){
+                [self handleRefresh];
+            }
+            else if ([itemName isEqualToString:kDropCopyLinkText]){
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = self.link;
+                if (![pasteboard.string isEqualToString:@""]) {
+                    [ViewUtils showPopupView:self.view Info:@"链接复制成功"];
+                }
+            }
+            
         }
         
         weakSelf.rBtnSelected = NO;
@@ -1169,7 +1182,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                // image = [self createViewImage:self.navigationController.view];
             }
             else {
-                image = [self createViewImage:self.browser];
+                image = [self createViewImage:self.navigationController.view];
             }
             dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
             dispatch_after(time, dispatch_get_main_queue(), ^{
