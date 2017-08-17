@@ -292,7 +292,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                 }
                 else
                 {
-                 [self loadInnerLink];
+                    [self loadInnerLink];
+                    [HudToolView showLoadingInView:self.view];
                 }
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -637,7 +638,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [self actionWebviewScreenShot];
         }
         else if ([itemName isEqualToString:kDropRefreshText]) {
-            [self loadInnerLink];
+                [self loadInnerLink];
+         
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 /*
                  * 用户行为记录, 单独异常处理，不可影响用户体验
