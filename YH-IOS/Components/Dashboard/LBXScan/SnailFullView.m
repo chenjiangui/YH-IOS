@@ -159,6 +159,10 @@
 }
 -(void)questBtn
 {
+    
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"@／：；（）¥「」＂、[]{}#%-*+=_\\|~＜＞$€^•'@#$%^&*()_+'\" "];
+
+    _InputNumString = [_InputNumString stringByTrimmingCharactersInSet:set];
     [self setUserInteractionEnabled:NO];
     
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];

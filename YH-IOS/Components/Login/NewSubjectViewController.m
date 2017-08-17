@@ -721,10 +721,12 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
         if ([data[@"state"] isEqualToString:@"show"]) {
             [weakSelf.navigationController setNavigationBarHidden:NO animated:YES];
+            [weakSelf.filterView setHidden:NO];
             //weakSelf.browser.frame = CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-64);
         }
         else {
             [weakSelf.navigationController setNavigationBarHidden:YES animated:YES];
+            [weakSelf.filterView setHidden:YES];
             //weakSelf.browser.frame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-20);
         }
     }];
@@ -935,6 +937,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * deprecated
      * format: /mobile/report/:report_id/group/:group_id
      */
+
     NSArray *components = [self.link componentsSeparatedByString:@"/"];
     if (components.count > 8) {
         self.templateID = components[6];

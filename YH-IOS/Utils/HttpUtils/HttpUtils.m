@@ -75,11 +75,8 @@
  *  @return Http#Get HttpResponse
  */
 + (HttpResponse *)httpGet:(NSString *)urlString {
-
     return [HttpUtils httpGet:urlString header:nil timeoutInterval:30.0];
 }
-
-
 /**
  *  Http#Post功能代码封装
  *  application/x-www-form-urlencoded

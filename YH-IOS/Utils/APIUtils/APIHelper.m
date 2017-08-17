@@ -138,7 +138,12 @@
  *
  *  @param username <#username description#>
  *  @param password <#password description#>
- *
+ 
+ *  @parameter api_token
+ *  @parameter user_num
+ *  @parameter password
+ *  @parameter coordinate
+ 
  *  @return error msg when authentication failed
  */
 + (NSString *)userAuthentication:(NSString *)usernum password:(NSString *)password coordinate:(NSString *)coordinate{

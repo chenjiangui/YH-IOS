@@ -23,6 +23,13 @@
     return [[User alloc] init];
 }
 
+/*公告列表
+  parameter:api_token
+  parameter:user_num
+  parameter:type
+  parameter:page
+  parameter:limit
+*/
 + (void)yh_getNoticeWarningListWithTypes:(NSArray<NSString *> *)types page:(NSInteger)page finish:(YHHttpRequestBlock)finish{
     NSString *typeStr = [[NSString alloc] init];
     for (NSString* str in types) {
@@ -46,6 +53,13 @@
     }];
 }
 
+/*
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ */
 + (void)yh_getNoticeWarningDetailWithNotice_id:(NSString *)notice_id finish:(YHHttpRequestBlock)finish{
     NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/notice/%@",kBaseUrl,[self user].userID,notice_id];
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -54,6 +68,13 @@
     }];
 }
 
+/*文章列表
+ parameter:api_token
+ parameter:user_num
+ parameter:page
+ parameter:limit
+ parameter:keyword
+ */
 + (void)yh_getArticleListWithKeyword:(NSString *)keyword page:(NSInteger)page finish:(YHHttpRequestBlock)finish{
     NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_ARTICLE_LIST];
     NSDictionary* dic = @{
@@ -69,6 +90,12 @@
     }];
 }
 
+/*收藏状态
+ parameter:api_token
+ parameter:user_num
+ parameter:article_id
+ parameter:favourite_status
+ */
 + (void)yh_collectArticleWithArticleId:(NSString *)identifier isFav:(BOOL)isFav finish:(YHHttpRequestBlock)finish{
     NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_COLLECTION_STATE];
     NSDictionary* dic = @{
@@ -83,6 +110,11 @@
     }];
 }
 
+/*生意概况
+ parameter:api_token
+ parameter:group_id
+ parameter:role_id
+ */
 + (void)yh_getHomeDashboardFinish:(YHHttpRequestBlock)finish{
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_BUSINESS_GENRERAL];
     NSDictionary* dic = @{
@@ -97,6 +129,11 @@
     }];
 }
 
+/*工具箱
+ parameter:api_token
+ parameter:group_id
+ parameter:role_id
+ */
 + (void)yh_getToolListFinish:(YHHttpRequestBlock)finish{
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_TOOLBOX];
     NSDictionary* dic = @{
@@ -110,6 +147,11 @@
     }];
 }
 
+/*用户公告
+ parameter:api_token
+ parameter:group_id
+ parameter:role_id
+ */
 + (void)yh_getHomeNoticeListFinish:(YHHttpRequestBlock)finish{
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_NOTICE_LIST];
     NSDictionary* dic = @{
@@ -125,6 +167,12 @@
     }];
 }
 
+/*收藏列表
+ parameter:api_token
+ parameter:user_num
+ parameter:page
+ parameter:limit
+ */
 + (void)yh_getFavArticleListPage:(NSInteger)page Finish:(YHHttpRequestBlock)finish{
     NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_COLLECTION_LIST];
     NSDictionary* dic = @{
@@ -139,6 +187,13 @@
     }];
 }
 
+/*
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ */
 + (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish{
     NSString* url = @"http://yonghui-test.idata.mobi/api/v1/report/menus";
     [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -147,6 +202,14 @@
     }];
 }
 
+/**
+ *  上传设备
+ *  @parameter api_token
+ *  @parameter user_num
+ *  @parameter device
+ *  @parameter app_version
+ *  @return error msg when authentication failed
+ */
 +(void)yh_postUserMessageWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_UPLOAD_DEVICEMESSAGE];
     
@@ -156,6 +219,14 @@
 
 }
 
+/*发表评论
+ parameter:api_token
+ parameter:user_num
+ parameter:content
+ parameter:object_type
+ parameter:object_id
+ parameter:object_title
+ */
 +(void)yh_postCommentWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_COMMENT_PUBLISH];
@@ -166,6 +237,13 @@
     
 }
 
+/*
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ */
 +(void)yh_postDict:(NSDictionary *)dict to:(NSString *)url Finish:(YHHttpRequestBlock)finish{
     NSString *apiURL = [NSString stringWithFormat:@"%@%@",kBaseUrl,url];
     [BaseRequest postRequestWithUrl:apiURL Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -173,7 +251,13 @@
     }];
 }
 
-
+/*
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ */
 +(void)yh_getDataFrom:(NSString *)url with:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     NSString *apiurl = [NSString stringWithFormat:@"%@%@",kBaseUrl,url];
     [BaseRequest getRequestWithUrl:apiurl Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -181,6 +265,13 @@
     }];
 }
 
+/*
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ parameter:
+ */
 +(void)yh_getReportJsonData:(NSString *)url withDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish {
     [CurAfnManager GET:url parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
         NSString *jsonStr = nil;

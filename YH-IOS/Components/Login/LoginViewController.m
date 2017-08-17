@@ -390,7 +390,10 @@
 - (void)loginBtnClick {
     
     self.view.userInteractionEnabled=NO;
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"@／：；（）¥「」＂、[]{}#%-*+=_\\|~＜＞$€^•'@#$%^&*()_+'\" "];
     
+    _peopleNumString = [_peopleNumString stringByTrimmingCharactersInSet:set];
+    _passwordNumString = [_passwordNumString stringByTrimmingCharactersInSet:set];
     if ([self.peopleNumString length]==0) {
         [HudToolView showTopWithText:@"请输入用户名" correct:false];
         [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];

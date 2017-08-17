@@ -404,7 +404,6 @@
     full.didClickFullView = ^(SnailFullView * _Nonnull fullView) {
         [self.sl_popupController dismiss];
     };
-    
     full.didClickItems = ^(SnailFullView *fullView, NSInteger index) {
         self.sl_popupController.didDismiss = ^(SnailPopupController * _Nonnull popupController) {
         };
@@ -413,7 +412,6 @@
             [self.sl_popupController dismiss];
         }];
     };
-    
     self.sl_popupController = [SnailPopupController new];
     self.sl_popupController.maskType = PopupMaskTypeBlackBlur;
     self.sl_popupController.allowPan = YES;

@@ -24,9 +24,19 @@
     self.webView = [[SDWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webView.webDelegate = self;
     [_webView loadRequest:request];
-
     [self.view addSubview:_webView];
   
+}
+
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    [HudToolView hideLoadingInView:self.view];
+}
+
+
+-(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+    [HudToolView hideLoadingInView:self.view];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,12 +58,6 @@
 -(void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
-    [HudToolView hideLoadingInView:self.view];
-}
-
 
 
 /*

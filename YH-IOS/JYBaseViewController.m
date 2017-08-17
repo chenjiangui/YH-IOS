@@ -150,7 +150,6 @@
             if(!userDict[kUserNumCUName]) {
                 return;
             }
-            
             NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
             /*NSString *msg = [APIHelper userAuthentication:userDict[kUserNumCUName] password:userDict[kPasswordCUName] coordinate:userlocation];
             if(msg.length != 0) {
