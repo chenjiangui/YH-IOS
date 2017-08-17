@@ -287,7 +287,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                 [self actionWebviewScreenShot];
             }
             else if ([itemName isEqualToString:kDropRefreshText]) {
-                [self loadInnerLink];
+                if ([[HttpUtils networkType] isEqualToString:@"无"]) {
+                    [HudToolView showTopWithText:@"无网络连接" correct:false];
+                }
+                else
+                {
+                 [self loadInnerLink];
+                }
+                
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     /*
                      * 用户行为记录, 单独异常处理，不可影响用户体验
@@ -526,7 +533,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         [APIHelper reportScodeData:self.storeID barcodeID:self.codeInfo];
         
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:self.urlString assetsPath:self.assetsPath];
-        
         __block NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {
             htmlPath = [HttpUtils urlConvertToLocal:self.urlString content:httpResponse.string assetsPath:self.assetsPath writeToLocal:kIsUrlWrite2Local];
