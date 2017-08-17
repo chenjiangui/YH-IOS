@@ -54,7 +54,7 @@
 
 - (void)getData:(BOOL)needLoding isDownPull:(BOOL)downPull{
     if (needLoding) {
-        [HudToolView showLoadingInView:self.view];
+        [HudToolView showLoadingInView:nil];
     }
     NSInteger page = _page + 1;
     if (downPull) {
@@ -67,7 +67,7 @@
         }
     }
     [YHHttpRequestAPI yh_getNoticeWarningListWithTypes:types page:page finish:^(BOOL success, NoticeWarningModel* model, NSString *jsonObjc) {
-        [HudToolView hideLoadingInView:self.view];
+        [HudToolView hideLoadingInView:nil];
         [self.reTool endRefreshDownPullEnd:true topPullEnd:true reload:false noMore:false];
         if ([BaseModel handleResult:model]) {
             if (downPull) {
@@ -83,6 +83,9 @@
         [HudToolView showNetworkBug:!([BaseModel handleResult:model]||self.dataList.count) view:self.view].touchBlock = ^(id item) {
             [self getData:YES isDownPull:YES];
         };
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HudToolView hideLoadingInView:nil];
+        });
     }];
     
 }
