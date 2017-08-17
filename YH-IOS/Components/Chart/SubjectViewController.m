@@ -686,17 +686,18 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [weakSelf displayBannerTitleAndSearchIcon];
         }*/
     }];
-     [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
-         if ([data[@"state"] isEqualToString:@"show"]) {
-             [self.navigationController.navigationBar setHidden:NO];
-             self.browser.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-         }
-         else {
-             [self.navigationController.navigationBar setHidden:YES];
-             self.browser.frame = CGRectMake(0, -64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-         }
-     }];
-
+    [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
+        if ([data[@"state"] isEqualToString:@"show"]) {
+            [weakSelf.navigationController setNavigationBarHidden:NO animated:YES];
+            [weakSelf.filterView setHidden:NO];
+            //weakSelf.browser.frame = CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-64);
+        }
+        else {
+            [weakSelf.navigationController setNavigationBarHidden:YES animated:YES];
+            [weakSelf.filterView setHidden:YES];
+            //weakSelf.browser.frame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-20);
+        }
+    }];
     
     [self.bridge registerHandler:@"toggleShowBannerBack" handler:^(id data, WVJBResponseCallback responseCallback){
         if ([data[@"state"] isEqualToString:@"show"]) {
@@ -1181,7 +1182,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
                // image = [self createViewImage:self.navigationController.view];
             }
             else {
-                image = [self createViewImage:self.browser];
+                image = [self createViewImage:self.navigationController.view];
             }
             dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
             dispatch_after(time, dispatch_get_main_queue(), ^{

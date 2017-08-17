@@ -29,6 +29,17 @@
   
 }
 
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    [HudToolView hideLoadingInView:self.view];
+}
+
+
+-(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+    [HudToolView hideLoadingInView:self.view];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [HudToolView showLoadingInView:self.view];
@@ -48,12 +59,6 @@
 -(void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
-    [HudToolView hideLoadingInView:self.view];
-}
-
 
 
 /*

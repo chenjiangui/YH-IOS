@@ -384,7 +384,6 @@
     
     NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
     
-    param[kAPI_TOEKN] = ApiToken(YHAPU_USER_ACTIONLOG);
     
     /** user_id*/
     if (userDict[kUserIDCUName] != nil) {
@@ -410,9 +409,10 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[kActionLogALCName] = param;
+    params[kAPI_TOEKN] = ApiToken(YHAPU_USER_ACTIONLOG);
 
     
-    [YHHttpRequestAPI yh_postDict:param to:YHAPU_USER_ACTIONLOG Finish:^(BOOL success, id model, NSString *jsonObjc) {
+    [YHHttpRequestAPI yh_postDict:params to:YHAPU_USER_ACTIONLOG Finish:^(BOOL success, id model, NSString *jsonObjc) {
         if (success) {
             NSLog(@"%@",@"成功");
         }
