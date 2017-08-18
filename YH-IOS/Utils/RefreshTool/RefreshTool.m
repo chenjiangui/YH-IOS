@@ -49,9 +49,6 @@
 - (void)endRefreshDownPullEnd:(BOOL)downPullEnd topPullEnd:(BOOL)topPullEnd reload:(BOOL)reload noMore:(BOOL)noMore{
     if (downPullEnd) {
         [_downPullHeader endRefreshing];
-        if (reload) {
-            [self reloadScrollView];
-        }
     }
     if (topPullEnd) {
         if (noMore) {
@@ -59,9 +56,9 @@
         }else{
             [_upPullFooter endRefreshing];
         }
-        if (reload) {
-            [self reloadScrollView];
-        }
+    }
+    if (reload) {
+        [self reloadScrollView];
     }
     if (_scrollView.mj_footer) { //防止刚出来的时候footer显示
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

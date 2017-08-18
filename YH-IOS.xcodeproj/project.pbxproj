@@ -19,7 +19,6 @@
 		3B30EEE81F25F63200A702EC /* YHWarningNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EEE31F25F63200A702EC /* YHWarningNoticeCell.m */; };
 		3B30EEE91F25F63200A702EC /* YHWarningNoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B30EEE41F25F63200A702EC /* YHWarningNoticeCell.xib */; };
 		3B30EEEA1F25F63200A702EC /* YHWarningNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */; };
-		3B30EEEB1F25F63200A702EC /* YHWarningNoticeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */; };
 		3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */; };
 		3B4868E71F2ADEF5003AF8D8 /* OneImageAndLabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4868E51F2ADEF5003AF8D8 /* OneImageAndLabCell.m */; };
 		3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4868E61F2ADEF5003AF8D8 /* OneImageAndLabCell.xib */; };
@@ -716,7 +715,6 @@
 		3B30EEE41F25F63200A702EC /* YHWarningNoticeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHWarningNoticeCell.xib; sourceTree = "<group>"; };
 		3B30EEE51F25F63200A702EC /* YHWarningNoticeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWarningNoticeController.h; sourceTree = "<group>"; };
 		3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWarningNoticeController.m; sourceTree = "<group>"; };
-		3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YHWarningNoticeController.xib; sourceTree = "<group>"; };
 		3B4868DF1F2ADB96003AF8D8 /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
 		3B4868E01F2ADB96003AF8D8 /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
 		3B4868E41F2ADEF5003AF8D8 /* OneImageAndLabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneImageAndLabCell.h; sourceTree = "<group>"; };
@@ -863,6 +861,7 @@
 		3BAC8E8A1F284A8900A01A12 /* UMSocialYiXinHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialYiXinHandler.h; sourceTree = "<group>"; };
 		3BAC8E8B1F284A8900A01A12 /* YXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXApi.h; sourceTree = "<group>"; };
 		3BAC8E8C1F284A8900A01A12 /* YXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXApiObject.h; sourceTree = "<group>"; };
+		3BE17E5B1F45901000F86384 /* PrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateConstants.h; sourceTree = "<group>"; };
 		3BEBB36B1F2597EE007FB66D /* RefreshTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshTool.h; sourceTree = "<group>"; };
 		3BEBB36C1F2597EE007FB66D /* RefreshTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshTool.m; sourceTree = "<group>"; };
 		3BEBB36D1F2597EE007FB66D /* RefreshToolDownPullHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshToolDownPullHeader.h; sourceTree = "<group>"; };
@@ -1256,7 +1255,6 @@
 		B6E7B3691F29D2E8008B48BF /* SDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDProgressView.h; sourceTree = "<group>"; };
 		B6E7B36B1F29D2E8008B48BF /* SDDemoItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDDemoItemView.h; sourceTree = "<group>"; };
 		B6E7B36C1F29D2E8008B48BF /* SDDemoItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDDemoItemView.m; sourceTree = "<group>"; };
-		B6FAB1D21F429E55007702E3 /* PrivateConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateConstants.h; sourceTree = "<group>"; };
 		C40343361D6ADEAB00625D53 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		C40343371D6ADEAB00625D53 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		C40343381D6ADEAB00625D53 /* UILabel+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Badge.h"; sourceTree = "<group>"; };
@@ -2416,7 +2414,6 @@
 				3B763AFF1F26E3D500D5E965 /* YHWarningNoticeHeaderView.m */,
 				3B30EEE51F25F63200A702EC /* YHWarningNoticeController.h */,
 				3B30EEE61F25F63200A702EC /* YHWarningNoticeController.m */,
-				3B30EEE71F25F63200A702EC /* YHWarningNoticeController.xib */,
 				91DB24541EEE697400FC8413 /* Tool */,
 				91DB244E1EEE4D2700FC8413 /* Model */,
 				91D77F191EEA90D5007405A0 /* View */,
@@ -3179,7 +3176,7 @@
 		C49BB9A81D8C24F4004C9F70 /* Macros */ = {
 			isa = PBXGroup;
 			children = (
-				B6FAB1D21F429E55007702E3 /* PrivateConstants.h */,
+				3BE17E5B1F45901000F86384 /* PrivateConstants.h */,
 				F62457C21EA5FD01006834D2 /* AppColor.h */,
 				F62457C31EA5FD01006834D2 /* AppColor.m */,
 				91BB7B841F29B592001934FA /* NewAppColor.h */,
@@ -4754,7 +4751,6 @@
 				F62457531EA5FBB2006834D2 /* RadarChartViewController.xib in Resources */,
 				F62457511EA5FBB2006834D2 /* PositiveNegativeBarChartViewController.xib in Resources */,
 				3BAC8E981F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle in Resources */,
-				3B30EEEB1F25F63200A702EC /* YHWarningNoticeController.xib in Resources */,
 				C4EFE4B11C98F60A0009411A /* javascripts.zip in Resources */,
 				3B4868E81F2ADEF5003AF8D8 /* OneImageAndLabCell.xib in Resources */,
 				F63D4A0B1EB329A20004BCC8 /* SuperChartVc.xib in Resources */,

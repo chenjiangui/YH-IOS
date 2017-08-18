@@ -414,7 +414,7 @@
     
     [YHHttpRequestAPI yh_postDict:params to:YHAPU_USER_ACTIONLOG Finish:^(BOOL success, id model, NSString *jsonObjc) {
         if (success) {
-            NSLog(@"%@",@"成功");
+            DLog(@"%@",@"成功");
         }
     }];
 }

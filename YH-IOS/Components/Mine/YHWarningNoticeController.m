@@ -17,7 +17,7 @@
 
 @interface YHWarningNoticeController () <UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UITableView *tableView;
 
 @property (nonatomic, strong) YHWarningNoticeHeaderView* headerView;
 
@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong) NSArray<BaseModel*>* typesArray;
 
+@property (nonatomic, strong) HudToolView* loadingView;
+
 @end
 
 @implementation YHWarningNoticeController
@@ -36,25 +38,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];
-    _tableView.backgroundColor = self.view.backgroundColor;
-    _tableView.estimatedRowHeight = 120; //防止reload的时候闪烁
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
     _page = 1;
     [self getData:YES isDownPull:YES];
 }
 
 - (void)setupUI{
-    [self.view sd_addSubviews:@[self.headerView]];
+    [self.view sd_addSubviews:@[self.headerView,self.tableView]];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.left.mas_equalTo(self.view);
         make.height.mas_equalTo(44);
+    }];
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(_headerView.mas_bottom);
     }];
 }
 
 - (void)getData:(BOOL)needLoding isDownPull:(BOOL)downPull{
     if (needLoding) {
-        [HudToolView showLoadingInView:nil];
+       [HudToolView showLoadingInView:self.view];
     }
     NSInteger page = _page + 1;
     if (downPull) {
@@ -67,7 +69,7 @@
         }
     }
     [YHHttpRequestAPI yh_getNoticeWarningListWithTypes:types page:page finish:^(BOOL success, NoticeWarningModel* model, NSString *jsonObjc) {
-        [HudToolView hideLoadingInView:nil];
+        [HudToolView hideLoadingInView:self.view];
         [self.reTool endRefreshDownPullEnd:true topPullEnd:true reload:false noMore:false];
         if ([BaseModel handleResult:model]) {
             if (downPull) {
@@ -83,9 +85,6 @@
         [HudToolView showNetworkBug:!([BaseModel handleResult:model]||self.dataList.count) view:self.view].touchBlock = ^(id item) {
             [self getData:YES isDownPull:YES];
         };
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [HudToolView hideLoadingInView:nil];
-        });
     }];
     
 }
@@ -176,6 +175,15 @@
     }
     return _typesArray;
 }
-
+- (UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"f3f3f3"];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
 
 @end
