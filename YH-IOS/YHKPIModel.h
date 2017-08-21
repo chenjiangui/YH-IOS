@@ -50,6 +50,11 @@ typedef NS_ENUM(NSUInteger, DashBoardType1) {
 @property (nonatomic, strong, readonly) NSString *saleNumber; // 销售金额
 @property (nonatomic, assign, readonly) BOOL percentage; // 销售金额
 @property (nonatomic, strong, readonly) NSString *report_title; // 报表名
+@property (nonatomic, strong, readonly) NSString *templateId; // 报表类型名
+@property (nonatomic, strong, readonly) NSString *objectid; // 报表ID
+@property (nonatomic, strong, readonly) NSString *objecTitle; // 报表名
+@property (nonatomic, strong, readonly) NSString *objectLink; // 报表详情链接
+
 
 -(UIColor *)getMainColor;
 

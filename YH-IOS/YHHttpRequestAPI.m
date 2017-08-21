@@ -14,6 +14,7 @@
 #import "ToolModel.h"
 #import "ScreenModel.h"
 #import "YHAPI.h"
+#import "FileUtils.h"
 
 #define CurAfnManager [BaseRequest afnManager]
 
@@ -21,6 +22,23 @@
 
 + (User*)user{
     return [[User alloc] init];
+}
+
++(NSString *)user_num{
+    return SafeText(self.user.userNum);
+}
+
++(NSString *)user_device_id{
+    return SafeText(self.user.deviceID);
+}
+
++(NSString *)app_version{
+    return  [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+}
+
++(NSString *)coordinate{
+    NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
+    return SafeText(userlocation);
 }
 
 + (void)yh_getNoticeWarningListWithTypes:(NSArray<NSString *> *)types page:(NSInteger)page finish:(YHHttpRequestBlock)finish{
@@ -36,7 +54,11 @@
                           @"type":typeStr,
                           @"limit":defaultLimit,
                           @"api_token":ApiToken(YHAPI_USER_WARN_LIST),
-                          @"user_num":SafeText(self.user.userNum)
+                          @"user_num":SafeText(self.user.userNum),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate],
                           };
     
     NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_WARN_LIST];
@@ -48,7 +70,13 @@
 
 + (void)yh_getNoticeWarningDetailWithNotice_id:(NSString *)notice_id finish:(YHHttpRequestBlock)finish{
     NSString* url = [NSString stringWithFormat:@"%@/api/v1/user/%@/notice/%@",kBaseUrl,[self user].userID,notice_id];
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSDictionary *dict = @{
+                           @"_user_num":[self user_num],
+                           @"_user_device_id":[self user_device_id],
+                           @"_app_version":[self app_version],
+                           @"_coordinate":[self coordinate],
+                           };
+    [BaseRequest getRequestWithUrl:url Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         NoticeWarningDetailModel* model = [NoticeWarningDetailModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
@@ -61,7 +89,11 @@
                           @"api_token":ApiToken(YHAPI_ARTICLE_LIST),
                           @"page":@(page),
                           @"limit":defaultLimit,
-                          @"user_num":SafeText(self.user.userNum)
+                          @"user_num":SafeText(self.user.userNum),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate],
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
@@ -75,7 +107,11 @@
                           @"favourite_status":isFav ? @"1":@"2",
                           @"api_token":ApiToken(YHAPI_USER_COLLECTION_STATE),
                           @"user_num":SafeText(self.user.userNum) ,
-                          @"article_id":SafeText(identifier)
+                          @"article_id":SafeText(identifier),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
                           };
     [BaseRequest postRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
@@ -88,7 +124,11 @@
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_BUSINESS_GENRERAL),
                           @"group_id":SafeText(self.user.groupID),
-                          @"role_id":SafeText(self.user.roleID)
+                          @"role_id":SafeText(self.user.roleID),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, NSData* response, NSString *responseJson) {
         NSDictionary* dic = [response mj_JSONObject];
@@ -102,7 +142,11 @@
     NSDictionary* dic = @{
                           @"api_token":ApiToken(YHAPI_TOOLBOX),
                           @"group_id":SafeText(self.user.groupID),
-                          @"role_id":SafeText(self.user.roleID)
+                          @"role_id":SafeText(self.user.roleID),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
@@ -117,7 +161,11 @@
 
                           @"group_id":SafeText(self.user.groupID),
 
-                          @"role_id":SafeText(self.user.roleID)
+                          @"role_id":SafeText(self.user.roleID),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ToolModel* model = [ToolModel mj_objectWithKeyValues:response];
@@ -132,6 +180,10 @@
                           @"user_num":SafeText(self.user.userNum),
                           @"page":@(page),
                           @"limit":defaultLimit,
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
                           };
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ArticlesModel* model = [ArticlesModel mj_objectWithKeyValues:response];
@@ -140,8 +192,15 @@
 }
 
 + (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish{
-    NSString* url = @"http://yonghui-test.idata.mobi/api/v1/report/menus";
-    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT_FILTER];
+    NSDictionary *dic = @{
+                          kAPI_TOEKN:ApiToken(YHAPI_REPORT_FILTER),
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
+                          };
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         ScreenModel* model = [ScreenModel mj_objectWithKeyValues:response];
         finish(requestSuccess,model,responseJson);
     }];
@@ -156,6 +215,19 @@
 
 }
 
++(void)yh_getReportFilter:(NSString *)param Finish:(YHHttpRequestBlock)finish{
+    NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT_FILTER];
+    NSDictionary *dic = @{
+                          kAPI_TOEKN:ApiToken(YHAPI_REPORT_FILTER),
+                          @"params":param
+                          };
+    
+    [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        ScreenModel* model = [ScreenModel mj_objectWithKeyValues:response];
+        finish(requestSuccess,model,responseJson);
+    }];
+}
+
 +(void)yh_postCommentWithDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     
     NSString *url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_COMMENT_PUBLISH];
@@ -163,7 +235,6 @@
     [BaseRequest postRequestWithUrl:url Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         finish(requestSuccess,response,responseJson);
     }];
-    
 }
 
 +(void)yh_postDict:(NSDictionary *)dict to:(NSString *)url Finish:(YHHttpRequestBlock)finish{
@@ -176,7 +247,12 @@
 
 +(void)yh_getDataFrom:(NSString *)url with:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     NSString *apiurl = [NSString stringWithFormat:@"%@%@",kBaseUrl,url];
-    [BaseRequest getRequestWithUrl:apiurl Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+    mutableDict[@"_user_num"] = [self user_num];
+    mutableDict[@"_user_device_id"] = [self user_device_id];
+    mutableDict[@"_app_version"] = [self app_version];
+    mutableDict[@"_coordinate"] = [self coordinate];
+    [BaseRequest getRequestWithUrl:apiurl Params:mutableDict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
         finish(requestSuccess,response,responseJson);
     }];
 }

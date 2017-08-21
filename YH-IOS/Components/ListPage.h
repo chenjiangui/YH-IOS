@@ -38,5 +38,9 @@
 @property (nonatomic,assign) int group_order;
 @property (nonatomic,assign) NSString *created_at;
 @property (nonatomic,strong) NSString *report_title;
+@property (nonatomic,strong) NSString *templateID;
+@property (nonatomic,strong) NSString *objectID;
+@property (nonatomic,strong) NSString *objectTitle;
+@property (nonatomic,strong) NSString *objectLink;
 
 @end

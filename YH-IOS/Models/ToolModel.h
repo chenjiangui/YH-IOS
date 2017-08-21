@@ -26,6 +26,10 @@
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* content;
 @property (nonatomic, strong) NSString* report_title;
+@property (nonatomic, strong) NSString* template_id;
+@property (nonatomic, strong) NSString* obj_id;
+@property (nonatomic, strong) NSString* obj_title;
+@property (nonatomic, strong) NSString* obj_link;
 
 
 @end

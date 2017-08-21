@@ -172,6 +172,7 @@
 		915A8D351F1E106000262311 /* report_v24.json in Resources */ = {isa = PBXBuildFile; fileRef = 915A8D341F1E106000262311 /* report_v24.json */; };
 		9169BC631F00FB9A00419E52 /* GuidePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9169BC621F00FB9A00419E52 /* GuidePageViewController.m */; };
 		918302631F1B98690039B8CD /* SubjectOutterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918302621F1B98690039B8CD /* SubjectOutterViewController.m */; };
+		919252361F4A9C510071E234 /* TemplateSixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 919252351F4A9C510071E234 /* TemplateSixViewController.m */; };
 		91A751A81EFF953500D1037E /* JYCollectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A751A71EFF953500D1037E /* JYCollectionFooterView.m */; };
 		91AB66A31F28A1F60077A0CF /* MineResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66A21F28A1F60077A0CF /* MineResetPwdViewController.m */; };
 		91AB66A61F28A20F0077A0CF /* MineQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66A41F28A20F0077A0CF /* MineQuestionViewController.m */; };
@@ -1025,6 +1026,8 @@
 		9169BC621F00FB9A00419E52 /* GuidePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuidePageViewController.m; path = Login/GuidePageViewController.m; sourceTree = "<group>"; };
 		918302611F1B98690039B8CD /* SubjectOutterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectOutterViewController.h; sourceTree = "<group>"; };
 		918302621F1B98690039B8CD /* SubjectOutterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectOutterViewController.m; sourceTree = "<group>"; };
+		919252341F4A9C510071E234 /* TemplateSixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateSixViewController.h; sourceTree = "<group>"; };
+		919252351F4A9C510071E234 /* TemplateSixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateSixViewController.m; sourceTree = "<group>"; };
 		91A751A61EFF953500D1037E /* JYCollectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYCollectionFooterView.h; sourceTree = "<group>"; };
 		91A751A71EFF953500D1037E /* JYCollectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYCollectionFooterView.m; sourceTree = "<group>"; };
 		91AB66A11F28A1F60077A0CF /* MineResetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineResetPwdViewController.h; sourceTree = "<group>"; };
@@ -2579,6 +2582,15 @@
 			name = GuideView;
 			sourceTree = "<group>";
 		};
+		919252331F4A9C3A0071E234 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				919252341F4A9C510071E234 /* TemplateSixViewController.h */,
+				919252351F4A9C510071E234 /* TemplateSixViewController.m */,
+			);
+			name = Templates;
+			sourceTree = "<group>";
+		};
 		91BB7B8C1F29C4F6001934FA /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -3247,6 +3259,7 @@
 		C4C628381C0C1ED6000AD5D8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				919252331F4A9C3A0071E234 /* Templates */,
 				3BAC7A311F31C93A00A1636A /* 筛选 */,
 				91BB7B8C1F29C4F6001934FA /* Category */,
 				91E65A171F1897710046B615 /* 门店巡检 */,
@@ -4993,6 +5006,7 @@
 				F624564B1EA5FACD006834D2 /* CommonAlertView.m in Sources */,
 				F62456DD1EA5FB3F006834D2 /* DemoListViewController.m in Sources */,
 				91DB24851EF0DD0900FC8413 /* MyQuestion.m in Sources */,
+				919252361F4A9C510071E234 /* TemplateSixViewController.m in Sources */,
 				C4DB7DC31C02EE3800DA534E /* FileUtils.m in Sources */,
 				C49E1AB71C196B5400CFFE3C /* ViewUtils.m in Sources */,
 				3B30EEE11F25F60F00A702EC /* ScrollControllersVc.m in Sources */,

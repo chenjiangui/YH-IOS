@@ -93,6 +93,12 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
 + (void)yh_getScreenMainAndAddressListDataFinish:(YHHttpRequestBlock)finish;
 
 /**
+ 获取筛选数据
+ */
+
++(void)yh_getReportFilter:(NSString *)param Finish:(YHHttpRequestBlock)finish;
+
+/**
  上传用户信息
  @param dict 上传的用户信息
  */

@@ -46,7 +46,11 @@
               @"memo2":@"memo2",
               @"chartData":@"data.chart_data",
               @"hightLightData":@"data.high_light",
-              @"report_title":@"report_title"
+              @"report_title":@"report_title",
+              @"templateId":@"template_id",
+              @"objectid":@"obj_id",
+              @"objecTitle":@"obj_title",
+              @"objectLink":@"obj_link"
              };
 }
 

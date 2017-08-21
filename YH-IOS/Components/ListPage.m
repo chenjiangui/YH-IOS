@@ -66,7 +66,11 @@
            //  @"group_order":@"group_order",
            //  @"item_order":@"item_order",
              @"created_at":@"created_at",
-             @"report_title":@"report_title"
+             @"report_title":@"report_title",
+             @"templateID":@"template_id",
+             @"objectID":@"obj_id",
+             @"objectTitle":@"obj_title",
+             @"objectLink":@"obj_link"
              };
 }
 

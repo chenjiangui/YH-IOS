@@ -28,6 +28,7 @@
 - (void)setNoticeWarningModel:(NoticeWarningModel *)model{
     _unReadImageV.hidden = model.see;
     _topLab.text = model.title;
+    // 富文本加载图片会导致线程阻塞
     _centerLab.attributedText = [NSString strToAttriWithStr:model.abstracts];
     _bottomLab.text = model.time;
     [self setupAutoHeightWithBottomView:_bottomLab bottomMargin:15];

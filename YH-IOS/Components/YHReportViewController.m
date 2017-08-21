@@ -22,6 +22,7 @@
 #import "JYDemoViewController.h"
 #import "RefreshTool.h"
 #import "NewSubjectViewController.h"
+#import "TemplateSixViewController.h"
 
 @interface YHReportViewController () <RefreshToolDelegate>
 {
@@ -83,7 +84,7 @@
     _menuView  = [[YHMutileveMenu alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) WithData:_listArray withSelectIndex:^(NSInteger left, NSInteger right, ListItem* info) {
         // NSLog(@"%@",info);
         
-        [weakSelf jumpToSubjectView:info];
+        [weakSelf jumpToDetailView:info];
     }];
     _menuView.needToScorllerIndex = 0;
     _menuView.leftSelectBgColor = [UIColor whiteColor];
@@ -121,6 +122,233 @@
     [self.menuView reloadData];
 }
 
+
+-(void)jumpToDetailView:(ListItem*)model{
+    NSString *templateType = model.templateID;
+    int templateId = [templateType intValue];
+    switch (templateId) {
+        case -1:
+            NSLog(@"原生模版");
+            [self jumptoOutterView:model];
+            break;
+        case 1:
+            NSLog(@"模版一");
+            [self jumpToTemplateOneView:model];
+            break;
+        case 2:
+            NSLog(@"模版二");
+            [self jumpToTemplateTwoView:model];
+            break;
+        case 3:
+            NSLog(@"模版三");
+            [self jumpToTemplateThreeView:model];
+            break;
+        case 4:
+            NSLog(@"模版4");
+            [self jumpToTemplateFourView:model];
+            break;
+        case 5:
+            NSLog(@"模版5");
+            [self jumpToTemplateFiveView:model];
+            break;
+        case 6:
+            NSLog(@"模版6");
+            [self jumpToTemplateSixView:model];
+            break;
+            
+        default:
+            NSLog(@"不再模版中");
+            break;
+    }
+    
+}
+
+
+
+// 跳到外部链接原生模版
+-(void)jumptoOutterView:(ListItem *)model{
+    
+    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+    logParams[kActionALCName]   = @"点击/报表/链接";
+    logParams[kObjIDALCName]    = SafeText(model.objectID);
+    logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+    logParams[kObjTitleALCName] =  SafeText(model.objectTitle);
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+    
+    SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
+    subjectView.bannerName = SafeText(model.objectTitle);
+    subjectView.link = SafeText(model.objectLink);
+    subjectView.commentObjectType = ObjectTypeKpi;
+    subjectView.objectID = SafeText(model.objectID);
+    [self.navigationController presentViewController:subjectView animated:YES completion:nil];
+}
+
+
+// 跳到模版一
+-(void)jumpToTemplateOneView:(ListItem *)model{
+    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+    JYDemoViewController *superChaerCtrl = [[JYDemoViewController alloc]init];
+    superChaerCtrl.title = SafeText(model.objectTitle);
+    superChaerCtrl.urlLink = SafeText(model.objectLink);
+    logParams[kActionALCName]   = @"点击/专题/报表";
+    logParams[kObjIDALCName]    = model.objectID;
+    logParams[kObjTypeALCName]  = @(ObjectTypeApp);
+    logParams[kObjTitleALCName] =  model.objectTitle;
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+    [RootNavigationController pushViewController:superChaerCtrl animated:YES hideBottom:YES];
+}
+
+// 跳到模版二
+-(void)jumpToTemplateTwoView:(ListItem *)model{
+    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+    if (YHAPPVERSION >= 9.0) {
+        NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
+        subjectView.title = SafeText(model.objectTitle);
+        subjectView.bannerName = SafeText(model.objectTitle);
+        subjectView.link = SafeText(model.objectLink);
+        subjectView.commentObjectType = ObjectTypeKpi;
+        subjectView.objectID = SafeText(model.objectID);
+        UINavigationController *subCtrl = [[UINavigationController alloc] initWithRootViewController:subjectView];
+        [RootTabbarViewConTroller presentViewController:subCtrl animated:YES completion:nil];
+    }
+    else{
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+        subjectView.bannerName =SafeText(model.objectTitle);
+        subjectView.link = SafeText(model.objectLink);
+        subjectView.commentObjectType = ObjectTypeKpi;
+        subjectView.objectID = SafeText(model.objectID);
+        UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+        [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+    }
+    logParams[kActionALCName]   = @"点击/报表/报表";
+    logParams[kObjIDALCName]    = SafeText(model.objectID);
+    logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+    logParams[kObjTitleALCName] =  SafeText(model.objectTitle);
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+    
+    
+}
+
+// 跳到模版三
+-(void)jumpToTemplateThreeView:(ListItem *)model{
+    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+    HomeIndexVC *vc = [[HomeIndexVC alloc] init];
+    vc.bannerTitle = model.objectTitle;
+    vc.dataLink = model.objectLink;
+    vc.objectID = model.objectID;
+    vc.commentObjectType = ObjectTypeAnalyse;
+    UINavigationController *rootchatNav = [[UINavigationController alloc]initWithRootViewController:vc];
+    logParams[kActionALCName]   = @"点击/报表/报表";
+    logParams[kObjIDALCName]    = model.objectID;
+    logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
+    logParams[kObjTitleALCName] =  model.objectTitle;
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+    [self presentViewController:rootchatNav animated:YES completion:nil];
+}
+
+//跳到模版四
+-(void)jumpToTemplateFourView:(ListItem*)model{
+    [self jumpToTemplateTwoView:model];
+    
+}
+
+//跳到模版五
+-(void)jumpToTemplateFiveView:(ListItem*)model{
+    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+    SuperChartVc *superChaerCtrl = [[SuperChartVc alloc]init];
+    superChaerCtrl.bannerTitle = SafeText(model.objectTitle);
+    superChaerCtrl.dataLink = SafeText(model.objectLink);
+    superChaerCtrl.objectID = SafeText(model.objectID);
+    superChaerCtrl.commentObjectType = ObjectTypeAnalyse;
+    UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:superChaerCtrl];
+    logParams[kActionALCName]   = @"点击/报表/报表";
+    logParams[kObjIDALCName]    = SafeText(model.objectID);
+    logParams[kObjTypeALCName]  = @(ObjectTypeAnalyse);
+    logParams[kObjTitleALCName] =  SafeText(model.objectTitle);
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+    
+    [self presentViewController:superChartNavCtrl animated:YES completion:nil];
+}
+
+
+//跳到模版六
+-(void)jumpToTemplateSixView:(ListItem*)model{
+    TemplateSixViewController *templateSix = [[TemplateSixViewController alloc]init];
+    templateSix.bannerName = SafeText(model.objectTitle);
+    templateSix.link = SafeText(model.objectLink);
+    templateSix.commentObjectType = ObjectTypeKpi;
+    templateSix.objectID = SafeText(model.objectID);
+    [self.navigationController presentViewController:templateSix animated:YES completion:nil];
+    NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+    logParams[kActionALCName]   = @"点击/报表/链接";
+    logParams[kObjIDALCName]    = SafeText(model.objectID);
+    logParams[kObjTypeALCName]  = @(ObjectTypeKpi);
+    logParams[kObjTitleALCName] =  SafeText(model.objectTitle);
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+    
+}
 
 -(void)jumpToSubjectView:(ListItem *)item {
     __weak typeof(*&self) weakSelf = self;

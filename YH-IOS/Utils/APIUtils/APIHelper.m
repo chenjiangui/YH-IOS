@@ -406,7 +406,6 @@
     /** app_version */
     param[kAppVersionCUName]   = [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[kActionLogALCName] = param;
     params[kAPI_TOEKN] = ApiToken(YHAPU_USER_ACTIONLOG);

@@ -14,6 +14,6 @@
 @property(nonatomic,strong)NSString* dataLink;
 @property(nonatomic, strong)NSString* bannerTitle;
 @property (assign, nonatomic) CommentObjectType commentObjectType;
-@property (strong, nonatomic) NSNumber *objectID;
+@property (strong, nonatomic) NSString *objectID;
 
 @end
