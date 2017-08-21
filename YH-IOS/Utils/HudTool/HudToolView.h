@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 
 + (void)removeInView:(UIView*)view viewType:(HudToolViewType)viewType;
 #pragma mark - 显示或掩藏菊花图
-+ (void)showLoadingInView:(UIView*)view;
++ (HudToolView*)showLoadingInView:(UIView*)view;
 
 + (void)hideLoadingInView:(UIView*)view;
 

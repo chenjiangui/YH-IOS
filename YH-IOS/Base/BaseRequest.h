@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 
+#define CurAfnManager [BaseRequest afnManager]
+
+
 @protocol AFMultipartFormData;
 
 typedef NS_ENUM(NSInteger, NetWorkStatus) {

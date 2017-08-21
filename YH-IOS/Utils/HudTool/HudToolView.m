@@ -52,6 +52,9 @@
     for (HudToolView* hud in view.subviews) {
         if ([hud isKindOfClass:[HudToolView class]]) {
             if (hud.viewType == viewType) {
+                if (viewType == HudToolViewTypeLoading) {
+                    [hud.loadingImageV stopAnimating];
+                }
                 [hud removeFromSuperview];
             }
         }
@@ -247,13 +250,14 @@
     [_loadingImageV startAnimating];
 }
 
-+ (void)showLoadingInView:(UIView *)view{
++ (HudToolView*)showLoadingInView:(UIView *)view{
     view = [self getTrueView:view];
     HudToolView* hud = [[HudToolView alloc] initWithViewType:HudToolViewTypeLoading];
     [view addSubview:hud];
     [hud mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(view);
     }];
+    return hud;
 }
 
 + (void)hideLoadingInView:(UIView *)view{
