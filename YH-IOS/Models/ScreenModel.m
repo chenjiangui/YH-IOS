@@ -12,7 +12,8 @@
 
 + (NSDictionary *)mj_objectClassInArray{
     return @{
-             @"data":@"ScreenModel"
+             @"data":@"ScreenModel",
+             @"id":@"identifier"
              };
 }
 

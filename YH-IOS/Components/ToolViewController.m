@@ -60,10 +60,10 @@
 
 #pragma mark - 点击事件
 - (void)toolClickAction:(ToolModel*)model{
-   /* YHScreenController* vc = [[YHScreenController alloc] init];
+    YHScreenController* vc = [[YHScreenController alloc] init];
     [self pushViewController:vc animation:YES hideBottom:YES];
-    return;*/
-    [self jumpToDetailView:model];
+    return;
+   // [self jumpToDetailView:model];
 }
 
 - (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{

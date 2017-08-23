@@ -12,5 +12,5 @@
 @interface CommentViewController : BaseWebViewController
 @property (strong, nonatomic) NSString *bannerName;
 @property (assign, nonatomic) CommentObjectType commentObjectType;
-@property (strong, nonatomic) NSNumber *objectID;
+@property (strong, nonatomic) NSString *objectID;
 @end

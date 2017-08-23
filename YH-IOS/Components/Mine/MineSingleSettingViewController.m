@@ -120,7 +120,7 @@
 
 #pragma mark - action methods
 - (void)actionBack:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{}];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

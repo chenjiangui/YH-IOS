@@ -789,7 +789,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         responseCallback(selectedItem);
     }];
     
-    
+    [self.bridge callHandler:@"registerAction" data:@"okokok"];
     [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, SafeText(weakSelf.user.groupID), weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];

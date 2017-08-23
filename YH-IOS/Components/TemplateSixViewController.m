@@ -70,6 +70,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong)  UILabel *locationLabel;
 @property (nonatomic, strong) UIView *centerLine;
 @property (nonatomic, strong) UIView *filterView;
+@property (nonatomic, strong) NSMutableString *defaultString;
+@property (nonatomic, strong) NSMutableString *jsreponseString;
 
 @end
 
@@ -632,6 +634,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)addWebViewJavascriptBridge {
+    
     __weak typeof(*&self) weakSelf = self;
     [self.bridge registerHandler:@"jsException" handler:^(id data, WVJBResponseCallback responseCallback) {
         // [self showLoading:LoadingRefresh];
@@ -760,9 +763,14 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [weakSelf updataConstrain];
             [YHHttpRequestAPI yh_getReportFilter:SafeText(data[@"params"]) Finish:^(BOOL success, id model, NSString *jsonObjc) {
                 if (success) {
+                    weakSelf.defaultString = [[NSMutableString alloc]init];
+                    weakSelf.jsreponseString = [[NSMutableString alloc]init];
                     ScreenModel* model = [ScreenModel mj_objectWithKeyValues:jsonObjc];
                     ScreenModel* addressModels = [NSArray getObjectInArray:model.data keyPath:@"type" equalValue:@"location"];
                     [weakSelf.screenView reload:addressModels.data];
+                    [weakSelf returnFilterString:model.data[0]];
+                    weakSelf.locationLabel.text = SafeText(weakSelf.defaultString);
+                    responseCallback(weakSelf.jsreponseString);
                 }
             }];
         }
@@ -836,6 +844,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 //
 //}
 
+
+
+
 #pragma mark 定位初始化化
 - (void)configLocationManager
 {
@@ -872,13 +883,27 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 
+-(void)returnFilterString:(ScreenModel *)model {
+    if (model.data[0].data == nil || model.data[0].data.count == 0) {
+        [_defaultString appendString:model.data[0].name];
+        [_jsreponseString appendFormat:@"%@=%@",model.data[0].server_param,model.data[0].identifier];
+    }
+    else{
+        [_defaultString appendString:[NSString stringWithFormat:@"%@|", model.data[0].name]];
+        [_jsreponseString appendFormat:@"%@=%@&",model.data[0].server_param,model.data[0].identifier];
+        [self returnFilterString:model.data[0]];
+    }
+}
+
 #pragma mark - assistant methods
 - (void)loadHtml {
     self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
     
 }
 
+
 - (void)loadOuterLink {
+
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
@@ -1328,17 +1353,21 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         _screenView.selectBlock = ^(ScreenModel* item) {
             NSLog(@"上传成功");
             NSMutableString *filterString = [[NSMutableString alloc]init];
+            NSMutableString *responseString = [[NSMutableString alloc]init];
             if (weakSelf.screenView.selectItems.count > 0){
                 for (int i=0; i<weakSelf.screenView.selectItems.count; i++) {
                     ScreenModel *model = weakSelf.screenView.selectItems[i];
                     if (i < weakSelf.screenView.selectItems.count - 1) {
-                        [filterString appendFormat:@"%@||", model.name];
+                        [filterString appendFormat:@"%@|", model.name];
+                        [responseString appendFormat:@"%@=%@&",model.server_param ,model.identifier];
                     }
                     else{
                         [filterString appendFormat:@"%@", model.name];
+                         [responseString appendFormat:@"%@=%@",model.server_param,model.identifier];
                     }
                 }
             }
+            [weakSelf.bridge callHandler:@"responseRealTimeReportMenu" data:responseString];
             weakSelf.locationLabel.text = filterString;
         };
     }
