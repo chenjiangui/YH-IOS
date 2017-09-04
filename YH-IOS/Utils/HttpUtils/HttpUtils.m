@@ -155,7 +155,6 @@
             isExistenceNetwork = YES;
             break;
     }
-    
     return isExistenceNetwork;
 }
 

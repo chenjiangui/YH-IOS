@@ -159,9 +159,16 @@
 }
 -(void)questBtn
 {
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    [HudToolView showLoadingInView:self];
     [self setUserInteractionEnabled:NO];
+    
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    if ([_InputNumString length]==0) {
+         [HudToolView showTopWithText:@"输入信息为空" color:[NewAppColor yhapp_11color]];
+        [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+
+        return;
+    }
+    [HudToolView showLoadingInView:self];
     [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
     if ([_InputNumString length] != 0) {
         if (!_clickTapBlock) {
@@ -169,9 +176,7 @@
         }
         _clickTapBlock(_InputNumString);
     }
-    else {
-        [HudToolView showTopWithText:@"输入信息为空" color:[NewAppColor yhapp_11color]];
-    }
+
 }
 
 //延时执行函数

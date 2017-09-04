@@ -61,7 +61,6 @@
         [[NSFileManager defaultManager] copyItemAtPath:[cachePath stringByAppendingPathComponent:reportFileName] toPath:javascriptPath error:nil];
         [FileUtils removeFile:[cachePath stringByAppendingPathComponent:reportFileName]];
     }
-    
 }
 
 + (NSString *)urlCleaner:(NSString *)urlString {
@@ -91,6 +90,9 @@
         }
         [[NSFileManager defaultManager] copyItemAtPath:fullFileCachePath toPath:javascriptPath error:nil];
         [FileUtils removeFile:[cachePath stringByAppendingPathComponent:fullFileCachePath]];
+    }
+    else{
+        [HudToolView showTopWithText:@"数据下载失败" correct:false];
     }
 }
 
