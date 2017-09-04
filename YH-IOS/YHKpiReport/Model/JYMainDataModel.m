@@ -8,26 +8,20 @@
 
 #import "JYMainDataModel.h"
 #import "JYSubDataModlel.h"
+#import "JYSheetModel.h"
+#import "JYSubSheetModel.h"
 
 @implementation JYMainDataModel
-
 
 - (NSArray *)dataList {
     return self.params[@"main_data"];
 }
 
-- (NSArray<JYSubDataModlel *> *)subDataList {
-    if (![[self.params objectForKey:@"sub_data"] isKindOfClass:[NSArray class]]) {
-        return @[];
-    }
-    NSArray *subData = [NSArray arrayWithArray:[self.params objectForKey:@"sub_data"]];
-    NSMutableArray <JYSubDataModlel *> *temp = [NSMutableArray arrayWithCapacity:subData.count];
-    for (NSDictionary *dic in subData) {
-        JYSubDataModlel *subData = [JYSubDataModlel modelWithParams:dic];
-        [temp addObject:subData];
-    }
+- (JYSubSheetModel *)subDataList {
+
+    JYSubSheetModel *subSheetModel = [JYSubSheetModel modelWithParams:self.params[@"sub_data"]];
     
-    return [temp copy];
+    return subSheetModel;
 }
 
 @end

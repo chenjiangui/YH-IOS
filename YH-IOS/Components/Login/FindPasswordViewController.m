@@ -18,6 +18,9 @@
 #import "HttpUtils.h"
 #import "User.h"
 #import "FileUtils+Assets.h"
+#import "CommonSheetView.h"
+
+
 @interface FindPasswordViewController ()<UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *FindPwdTableview;
@@ -32,6 +35,7 @@
 @property WebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) NSString *assetsPath;
+@property (nonatomic, strong) CommonSheetView* favSheetView;
 
 @end
 
@@ -144,6 +148,16 @@
 //        }
 //    }];
 }
+
+
+
+- (CommonSheetView *)favSheetView{
+    if (!_favSheetView) {
+        _favSheetView = [[CommonSheetView alloc] init];
+    }
+        return _favSheetView;
+}
+
 -(void)setTableView
 {
     FindPwdTableview=[[UITableView alloc] init];
@@ -157,6 +171,9 @@
     FindPwdTableview.dataSource = self;
     FindPwdTableview.delegate = self;
 }
+
+
+
 #pragma  get GroupArray count  to set number of section
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -233,7 +250,7 @@
     NSString *userNum = PeopleString;
     NSString *userPhone = PhoneString;
     NSLog(@"%@%@",userNum,userPhone);
-    if (userNum && userPhone) {
+    if (userNum && userPhone && ![userNum isEqualToString:@""] && ![userNum isEqualToString:@""]) {
         HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
         NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"info"]];
         SCLAlertView *alert = [[SCLAlertView alloc] init];
@@ -281,61 +298,22 @@
 {
     return UIInterfaceOrientationMaskPortrait;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    [self _loadHtml];
-}
+
 #pragma mark - assistant methods
-- (void)loadHtml {
-    DeviceState deviceState = [APIHelper deviceState];
-    if(deviceState == StateOK) {
-        [self _loadHtml];
-    }
-    else if(deviceState == StateForbid) {
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        [alert addButton:@"知道了" actionBlock:^(void) {
-            [self dismissFindPwd];
-        }];
-        [alert showError:self title:@"温馨提示" subTitle:@"您被禁止在该设备使用本应用" closeButtonTitle:nil duration:0.0f];
-    }
-    else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showLoading:LoadingRefresh];
-        });
-    }
-}
+
 - (void)showLoading:(LoadingType)loadingType {
     NSString *loadingPath = [FileUtils loadingPath:loadingType];
     NSString *loadingContent = [NSString stringWithContentsOfFile:loadingPath encoding:NSUTF8StringEncoding error:nil];
     [self.webView loadHTMLString:loadingContent baseURL:[NSURL fileURLWithPath:loadingPath]];
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
 }
-- (void)_loadHtml {
-    [self clearBrowserCache];
-    [self showLoading:LoadingLoad];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *urlstring = [NSString stringWithFormat:@"%@/mobile/v2/forget_user_password",kBaseUrl];
-        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:urlstring assetsPath:self.assetsPath];
-        __block NSString *htmlPath;
-        if([httpResponse.statusCode isEqualToNumber:@(200)]) {
-            htmlPath = [HttpUtils urlConvertToLocal:urlstring content:httpResponse.string assetsPath:self.assetsPath writeToLocal:kIsUrlWrite2Local];
-        }
-        else {
-            NSString *htmlName = [HttpUtils urlTofilename:urlstring suffix:@".html"][0];
-            htmlPath = [self.assetsPath stringByAppendingPathComponent:htmlName];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self clearBrowserCache];
-            NSString *htmlContent = [FileUtils loadLocalAssetsWithPath:htmlPath];
-            [self.webView loadHTMLString:htmlContent baseURL:[NSURL fileURLWithPath:[FileUtils sharedPath]]];
-        });
-    });
-}
+
 - (void)clearBrowserCache {
     [self.webView stopLoading];
    }

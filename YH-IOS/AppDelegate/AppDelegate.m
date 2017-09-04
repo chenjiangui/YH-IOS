@@ -423,14 +423,18 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    //[self initScreenLock];
+    [self initScreenLock];
     //_showingPasscode = YES;
     //_showingPasscode = NO;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-     [self initScreenLock];
+  // [self initScreenLock];
 }
+
+
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -568,9 +572,9 @@ void UncaughtExceptionHandler(NSException * exception) {
 }
 
 - (void)initScreenLock {
-    if ([_lastTime timeIntervalSinceNow] <5 && _lastTime) {
-        return;
-    }
+//    if ([_lastTime timeIntervalSinceNow] <5 && _lastTime) {
+//        return;
+//    }
     
     if ([[UserDefaults objectForKey:@"user_gesture"] boolValue]) {
         [LTHPasscodeViewController sharedUser].delegate = self;

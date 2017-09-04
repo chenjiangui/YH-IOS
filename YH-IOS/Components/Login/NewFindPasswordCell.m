@@ -7,6 +7,15 @@
 //
 
 #import "NewFindPasswordCell.h"
+#import "CommonSheetView.h"
+
+@interface NewFindPasswordCell()
+
+@property (nonatomic, strong) CommonSheetView* favSheetView;
+
+
+@end
+
 @implementation NewFindPasswordCell
 
 static  NSString *PeopleString;
@@ -109,6 +118,7 @@ static  NSString *PhoneString;
     [HudToolView hideLoadingInView:self.window];
     
 }
+
 -(void)upTodata
 {
     self.contentView.userInteractionEnabled=NO;
@@ -117,7 +127,7 @@ static  NSString *PhoneString;
          NSString *userNum = PeopleString;
          NSString *userPhone = PhoneString;
          NSLog(@"%@%@",userNum,userPhone);
-            if (userNum && userPhone) {
+            if (userNum && userPhone && ![userNum isEqualToString:@""] && ![userNum isEqualToString:@""]) {
                 [HudToolView showLoadingInView:self.window];
                 HttpResponse *reponse =  [APIHelper findPassword:userNum withMobile:userPhone];
                 NSString *message = [NSString stringWithFormat:@"%@",reponse.data[@"message"]];
@@ -140,13 +150,20 @@ static  NSString *PhoneString;
                     });
                 }
                 else {
-                    [HudToolView showTopWithText:message color:[NewAppColor yhapp_11color]];
-                    [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+                    _favSheetView = [[CommonSheetView alloc] initWithDataList:@[@"温馨提示",message]];
+                    _favSheetView.lastString = @"我知道了";
+                    _favSheetView.colors = @[[NewAppColor yhapp_3color],[NewAppColor yhapp_3color]];
+                    _favSheetView.lastStringColor = [NewAppColor yhapp_15color];
+                    [self.favSheetView show];
+                    [HudToolView hideLoadingInView:self.window];
+                   // [HudToolView showTopWithText:message color:[NewAppColor yhapp_11color]];
+                   // [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
                 }
             }
             else
             {
+                
                 [HudToolView showTopWithText:@"信息有误，请重新输入" color:[NewAppColor yhapp_11color]];
                 [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
             }
@@ -163,6 +180,22 @@ static  NSString *PhoneString;
     return nil;
 }
 
+- (CommonSheetView *)favSheetView{
+    if (!_favSheetView) {
+        _favSheetView = [[CommonSheetView alloc] initWithDataList:@[@"确认退出"]];
+        _favSheetView.lastString = @"取消";
+        _favSheetView.colors = @[[NewAppColor yhapp_17color]];
+        MJWeakSelf;
+        _favSheetView.selectBlock = ^(NSNumber* item) {
+           
+            [weakSelf.favSheetView hide];
+            if (item.integerValue == 0) {
+           
+            }
+        };
+    }
+    return _favSheetView;
+}
 
 
 - (void)awakeFromNib {

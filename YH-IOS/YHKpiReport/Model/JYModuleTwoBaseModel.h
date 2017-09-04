@@ -7,6 +7,7 @@
 //
 
 #import "JYBaseModel.h"
+#import <MJExtension/MJExtension.h>
 
 typedef NS_ENUM(NSUInteger, JYDetailChartType) {
     JYDetailChartTypeBanner           = 0, // 顶部说明，轮播

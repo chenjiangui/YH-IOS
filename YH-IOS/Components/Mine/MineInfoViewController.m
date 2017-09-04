@@ -133,13 +133,19 @@
 }
 
 - (void)BindDate {
+    NSString *appversion =  [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+    NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
     _requestCommane = [[RACCommand  alloc]initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         RACSignal *requestSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             NSString *kpiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_USER_COUNT_MESSAGE];
             NSDictionary *param = @{
                                     kAPI_TOEKN:ApiToken(YHAPI_USER_COUNT_MESSAGE),
-                                    @"user_num":SafeText(user.userNum)
+                                    @"user_num":SafeText(user.userNum),
+                                    @"_user_num":SafeText(user.userNum),
+                                    @"_user_device_id":SafeText(user.deviceID),
+                                    @"_app_version" :SafeText(appversion),
+                                    @"_coordinate": SafeText(userlocation)
                                     };
             [manager GET:kpiUrl parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"用户信息 %@",responseObject);

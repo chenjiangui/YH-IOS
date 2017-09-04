@@ -320,25 +320,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     }];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return NO;
-}
-
-// 支持设备自动旋转
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-// 支持横屏显示
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    // 如果该界面需要支持横竖屏切换
-    return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait;
-    // 如果该界面仅支持横屏
-    // return UIInterfaceOrientationMaskLandscapeRight；
-}
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     
@@ -576,6 +557,18 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             [weakSelf displayBannerTitleAndSearchIcon];
         }
     }];
+    
+    [self.bridge registerHandler:@"paste" handler:^(id data, WVJBResponseCallback responseCallback){
+        UIPasteboard *board = [UIPasteboard generalPasteboard];
+        NSString *boardString = SafeText(board.string);
+        if ([boardString isEqualToString:@""]){
+            responseCallback(@"暂无数据");
+        }
+        else{
+            responseCallback(boardString);
+        }
+    }];
+    
     [self.bridge registerHandler:@"toggleShowBanner" handler:^(id data, WVJBResponseCallback responseCallback){
         if ([data[@"state"] isEqualToString:@"show"]) {
             [weakSelf.navigationBar setHidden:NO];
@@ -738,13 +731,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - assistant methods
 - (void)loadHtml {
+    
         self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
  
 }
 
 - (void)loadOuterLink {
-    NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     
+    NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
+    self.link =  (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.link, (CFStringRef)@"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
     NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", SafeText(self.user.userNum), timestamp];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];

@@ -1,18 +1,16 @@
 //
-//  JYSheetModel.h
-//  各种报表
+//  JYSubSheetModel.h
+//  YH-IOS
 //
-//  Created by niko on 17/5/15.
-//  Copyright © 2017年 YMS. All rights reserved.
+//  Created by 钱宝峰 on 2017/8/30.
+//  Copyright © 2017年 com.intfocus. All rights reserved.
 //
 
 #import "JYModuleTwoBaseModel.h"
 #import "JYMainDataModel.h"
 
-// table 下的东西
-@interface JYSheetModel : JYModuleTwoBaseModel
+@interface JYSubSheetModel : JYModuleTwoBaseModel
 
-@property (nonatomic, copy) NSString *sheetTitle;
 @property (nonatomic, strong, readonly) NSArray <NSString *> *headNames;
 @property (nonatomic, strong) NSArray <JYMainDataModel *> *mainDataModelList;
 

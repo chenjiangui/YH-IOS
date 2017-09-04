@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
 #import "MainTabbarViewController.h"
+#import "RootViewController.h"
 
 @class EmptyView;
 
@@ -18,7 +19,7 @@
 typedef void(^CommonBack)(id item);
 typedef void(^CommonTwoBack)(id item1, id item2);
 
-@interface YHBaseViewController : UIViewController
+@interface YHBaseViewController : RootViewController
 
 @property (nonatomic, assign) BOOL touchCancleEdit;
 

@@ -9,12 +9,12 @@
 #import "JYModuleTwoBaseModel.h"
 
 @class JYSubDataModlel;
+@class JYSubSheetModel;
 
 @interface JYMainDataModel : JYModuleTwoBaseModel
 
-
 @property (nonatomic, strong, readonly) NSArray *dataList;
-@property (nonatomic, strong) NSArray <JYSubDataModlel *> *subDataList;
+@property (nonatomic, strong) JYSubSheetModel *subDataList;
 
 
 @end

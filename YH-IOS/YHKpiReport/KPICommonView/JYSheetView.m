@@ -245,7 +245,7 @@ static NSString *rowCellID = @"rowCell";
     NSString *title = self.sheetModel.mainDataModelList[row].dataList[0];
     //NSString *title = [NSString stringWithFormat:@"R %zi", row];
     //NSLog(@"%@", title);
-    cell.showFlagPoint = self.sheetModel.mainDataModelList[row].subDataList.count > 0;
+    cell.showFlagPoint = self.sheetModel.mainDataModelList[row].subDataList.mainDataModelList.count > 0;
     cell.title = title;
     return cell;
 }
@@ -281,15 +281,16 @@ static NSString *rowCellID = @"rowCell";
     [self showSubSheetView:indexPath.row];
 }
 
+
 - (void)showSubSheetView:(NSInteger)row {
-    if (self.sheetModel.mainDataModelList[row].subDataList.count > 0) {
+    if (self.sheetModel.mainDataModelList[row].subDataList.mainDataModelList.count > 0 ) {
         
         NSMutableArray *headTitle = [self.sheetModel.headNames mutableCopy];
         [headTitle replaceObjectAtIndex:0 withObject:@"商行"];
         NSMutableArray *data = [NSMutableArray array];
-        for (JYSubDataModlel *subDataModel in self.sheetModel.mainDataModelList[row].subDataList) {
+       /* for (JYSubDataModlel *subDataModel in self.sheetModel.mainDataModelList[row].subDataList) {
             [data addObject:subDataModel.params];
-        }
+        }*/
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         [params setObject:headTitle forKey:@"head"];
         [params setObject:data forKey:@"data"];
@@ -297,7 +298,7 @@ static NSString *rowCellID = @"rowCell";
         subSheetModel.sheetTitle = self.sheetModel.mainDataModelList[row].dataList[0];
         
         JYSubSheetView *subView = [[JYSubSheetView alloc] initWithFrame:CGRectMake(0,0,JYScreenWidth,JYScreenHeight)];
-        subView.sheetModel = subSheetModel;
+        subView.sheetModel = self.sheetModel.mainDataModelList[row].subDataList;
         [subView showSubSheetView];
     }
 }

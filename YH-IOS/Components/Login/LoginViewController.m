@@ -18,6 +18,7 @@
 #import "YHLocation.h"
 #import <CoreLocation/CoreLocation.h>
 #import "OpenUDID.h"
+#import "HttpModel.h"
 
 #define kSloganHeight [[UIScreen mainScreen]bounds].size.height / 6
 
@@ -375,7 +376,18 @@
 
 // 点击注册按钮
 -(void)clickRegisterBtn {
-    [HudToolView showTopWithText:@"请到数据化运营平台申请开通账号" color:[NewAppColor yhapp_11color]];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@?keyname=prompt-info-when-register&api_token=%@",kBaseUrl,YHAPI_REGISTER,ApiToken(YHAPI_REGISTER)];
+    
+    [YHHttpRequestAPI yh_getWithUrl:urlString Finish:^(BOOL success, id model, NSString *jsonObjc)  {
+        if (success) {
+            HttpModel *httpModel = [HttpModel mj_objectWithKeyValues:model];
+            [HudToolView showTopWithText:httpModel.data color:[NewAppColor yhapp_11color]];
+        }
+        else {
+            [HudToolView showTopWithText:@"请到数据化运营平台申请开通账号" color:[NewAppColor yhapp_11color]];
+        }
+    }];
 }
 
 //延时执行函数

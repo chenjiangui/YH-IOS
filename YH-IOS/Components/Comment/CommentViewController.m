@@ -50,18 +50,25 @@
     
     [self.bridge registerHandler:@"writeComment" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *apiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_COMMENT_PUBLISH];
+        NSString *appversion =  [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+         NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         params[kObjTitleAPCCName] = SafeText(weakSelf.bannerName);
         params[kAPI_TOEKN] = ApiToken(YHAPI_COMMENT_PUBLISH);
         params[@"user_num"] = SafeText(self.user.userNum);
         params[@"content"] = SafeText(data[@"content"]);
+        params[@"_user_num"]=SafeText(self.user.userNum);
+        params[@"_user_device_id"] = SafeText(self.user.deviceID);
+        params[@"_app_version"] = SafeText(appversion);
+        params[@"_coordinate"] = SafeText(userlocation);
+        
         if (self.objectID != nil) {
             params[@"object_id"] = self.objectID;
         }
         if (self.commentObjectType) {
             params[@"object_type"] = @(self.commentObjectType);
         }
-
+   
         
         HttpResponse *response = [HttpUtils httpPost:apiUrl Params:params];
         NSString *message = [NSString stringWithFormat:@"%@", response.data[@"message"]];

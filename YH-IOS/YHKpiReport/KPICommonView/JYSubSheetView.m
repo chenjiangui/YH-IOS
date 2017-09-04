@@ -9,6 +9,7 @@
 #import "JYSubSheetView.h"
 #import "JYSheetView.h"
 
+
 @interface JYSubSheetView ()
 
 @property (nonatomic, strong) JYSheetView *sheetView;
@@ -56,11 +57,11 @@
     return _closePageBtn;
 }
 
-- (void)setSheetModel:(JYSheetModel *)sheetModel {
-    if (![_sheetModel isEqual:sheetModel]) {
+- (void)setSheetModel:(JYSubSheetModel *)sheetModel {
+    if (![JYSubSheetModel isEqual:sheetModel]) {
         _sheetModel = sheetModel;
     }
-    self.sheetTitleLabel.text = _sheetModel.sheetTitle;
+    //self.sheetTitleLabel.text = _sheetModel.sheetTitle;
     self.sheetView.moduleModel = _sheetModel;
     
     [self addSubview:_sheetView];

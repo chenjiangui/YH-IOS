@@ -537,7 +537,7 @@
                     subjectView.bannerName = item.report_title;
                     subjectView.link = targeturl;
                     subjectView.commentObjectType = ObjectTypeAnalyse;
-                    subjectView.objectID = @(item.itemID);
+                    subjectView.objectID = [NSString stringWithFormat:@"%d",item.itemID];
                     UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
                     [weakSelf.navigationController presentViewController:subCtrl animated:YES completion:nil];
                 }
@@ -561,7 +561,7 @@
                     subjectView.bannerName = item.report_title;
                     subjectView.link = targeturl;
                     subjectView.commentObjectType = ObjectTypeAnalyse;
-                    subjectView.objectID = @(item.itemID);
+                     subjectView.objectID = [NSString stringWithFormat:@"%d",item.itemID];
                     //UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
                     
                     [weakSelf.navigationController presentViewController:subjectView animated:YES completion:nil];
@@ -626,7 +626,17 @@
 -(void)getSomeThingNew {
     user = [[User alloc]init];
     NSString *kpiUrl =  [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT];
-    NSDictionary *param = @{@"api_token":ApiToken(YHAPI_REPORT),@"group_id":SafeText(user.groupID),@"role_id":SafeText(user.roleID)};
+    NSString *appversion =  [NSString stringWithFormat:@"i%@", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+    NSString *userlocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
+    NSDictionary *param = @{
+                            @"api_token":ApiToken(YHAPI_REPORT),
+                            @"group_id":SafeText(user.groupID),
+                            @"role_id":SafeText(user.roleID),
+                            @"_user_num":SafeText(user.userNum),
+                            @"_user_device_id":SafeText(user.deviceID),
+                            @"_app_version" :SafeText(appversion),
+                            @"_coordinate": SafeText(userlocation)
+                            };
     NSString *javascriptPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
     NSString*fileName =  @"home_report";
     

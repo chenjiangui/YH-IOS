@@ -9,6 +9,7 @@
 #import "BaseModel.h"
 
 @interface TestModel : BaseModel
+
 @property (nonatomic, strong) NSString* fatherId;
 @property (nonatomic, strong) NSMutableArray* main_data;
 @property (nonatomic, strong) NSMutableArray* sub_data;

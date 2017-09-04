@@ -219,7 +219,11 @@
     NSString* url = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_REPORT_FILTER];
     NSDictionary *dic = @{
                           kAPI_TOEKN:ApiToken(YHAPI_REPORT_FILTER),
-                          @"params":param
+                          @"params":param,
+                          @"_user_num":[self user_num],
+                          @"_user_device_id":[self user_device_id],
+                          @"_app_version":[self app_version],
+                          @"_coordinate":[self coordinate]
                           };
     
     [BaseRequest getRequestWithUrl:url Params:dic needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
@@ -245,6 +249,12 @@
 }
 
 
++(void)yh_getWithUrl:(NSString *)url Finish:(YHHttpRequestBlock)finish{
+    [BaseRequest getRequestWithUrl:url Params:nil needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        finish(requestSuccess,response,responseJson);
+    }];
+}
+
 +(void)yh_getDataFrom:(NSString *)url with:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     NSString *apiurl = [NSString stringWithFormat:@"%@%@",kBaseUrl,url];
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];
@@ -256,6 +266,8 @@
         finish(requestSuccess,response,responseJson);
     }];
 }
+
+
 
 +(void)yh_getReportJsonData:(NSString *)url withDict:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish {
     [CurAfnManager GET:url parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {

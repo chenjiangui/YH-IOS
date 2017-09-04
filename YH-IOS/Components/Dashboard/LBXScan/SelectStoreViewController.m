@@ -89,7 +89,6 @@
 
 
 
-
 - (void)actionBannerBack {
     if (_isSearch) {
         _isSearch = NO;
@@ -237,6 +236,7 @@
         [self.tableView reloadData];
     }
 }
+
 - (void) searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     searchingText =searchBar.text;
     self.isSearch = YES;

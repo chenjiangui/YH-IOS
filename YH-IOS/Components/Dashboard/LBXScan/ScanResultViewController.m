@@ -463,6 +463,20 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 // 新版扫一扫加载的代码
 
 - (void)loadInnerLink {
+    NSMutableDictionary *logParams = [[NSMutableDictionary alloc]init];
+    logParams[kActionALCName]   = @"点击/扫码";
+    /*
+     * 用户行为记录, 单独异常处理，不可影响用户体验
+     */
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @try {
+            [APIHelper actionLog:logParams];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+    });
+
     /**
      *  only inner link clean browser cache
      */
@@ -495,8 +509,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         
         if(isExpired) {
-          //  cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
-            cacheDict[@"store"] = @"9275";
+            cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
+            cacheDict[@"id"] = @"9275";
             [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
         }
     }

@@ -376,8 +376,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 // 支持竖屏显示
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait;
 }
+
 - (void)clearBrowserCache {
     [self.browser stopLoading];
     NSString *domain = [[NSURL URLWithString:self.urlString] host];

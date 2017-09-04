@@ -29,6 +29,8 @@
     _unReadImageV.hidden = model.see;
     _topLab.text = model.title;
     // 富文本加载图片会导致线程阻塞
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:model.abstracts];
+    _centerLab.attributedText = text;
     //_centerLab.attributedText = [NSString strToAttriWithStr:model.abstracts];
     _bottomLab.text = model.time;
     [self setupAutoHeightWithBottomView:_bottomLab bottomMargin:15];

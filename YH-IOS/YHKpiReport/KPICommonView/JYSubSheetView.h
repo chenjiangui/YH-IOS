@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "JYSheetModel.h"
+#import "JYSubSheetModel.h"
 
 
 @interface JYSubSheetView : UIView
 
-@property (nonatomic, strong) JYSheetModel *sheetModel;
+@property (nonatomic, strong) JYSubSheetModel *sheetModel;
 
 - (void)showSubSheetView;
 

@@ -12,7 +12,7 @@
 @interface YHWarningNoticeCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *topLab;
 @property (weak, nonatomic) IBOutlet UIImageView *unReadImageV;
-@property (weak, nonatomic) IBOutlet UILabel *centerLab;
+@property (weak, nonatomic) IBOutlet YYLabel *centerLab;
 @property (weak, nonatomic) IBOutlet UILabel *bottomLab;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
 

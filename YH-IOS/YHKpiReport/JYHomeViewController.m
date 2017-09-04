@@ -108,6 +108,7 @@
     return _netBugView;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.localNotificationPath = [FileUtils dirPath:kConfigDirName FileName:kLocalNotificationConfigFileName];
@@ -117,7 +118,6 @@
         make.edges.mas_equalTo(self.view);
     }];
     _user = [[User alloc]init];
-    [self checkFromViewController];
     [self getData:YES];
     [self actionCheckAssets];
     [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
@@ -126,6 +126,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    [self checkFromViewController];
     NSString *pushConfigPath = [[FileUtils userspace] stringByAppendingPathComponent:@"receiveRemote"];
     if ([FileUtils checkFileExist:pushConfigPath isDir:NO]) {
         self.remoteDict = [[FileUtils readConfigFile:pushConfigPath] copy];
@@ -239,21 +240,21 @@
 #pragma mark - 首页点击事件
 //轮播图点击事件
 - (void)scrollImageAction:(YHKPIDetailModel*)model{
-    NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
+   // NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     //[self jumpToDetailView:targetUrl viewTitle:model.report_title];
     [self jumpToDetailView:model];
 }
 
 //经营预警事件
 - (void)manageWarningAction:(YHKPIDetailModel*)model{
-    NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
+   // NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
    // [self jumpToDetailView:targetUrl viewTitle:model.report_title];
     [self jumpToDetailView:model];
 }
 
 //生意概况点击事件
 - (void)businessAction:(YHKPIDetailModel*)model{
-    NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
+  //  NSString *targetUrl = [NSString stringWithFormat:@"%@",model.targeturl];
     //[self jumpToDetailView:targetUrl viewTitle:model.report_title];
     [self jumpToDetailView:model];
 }

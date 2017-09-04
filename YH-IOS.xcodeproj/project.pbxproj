@@ -171,6 +171,13 @@
 		915A8D351F1E106000262311 /* report_v24.json in Resources */ = {isa = PBXBuildFile; fileRef = 915A8D341F1E106000262311 /* report_v24.json */; };
 		9169BC631F00FB9A00419E52 /* GuidePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9169BC621F00FB9A00419E52 /* GuidePageViewController.m */; };
 		918302631F1B98690039B8CD /* SubjectOutterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 918302621F1B98690039B8CD /* SubjectOutterViewController.m */; };
+		919083AA1F5549C700F460F6 /* HttpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 919083A91F5549C700F460F6 /* HttpModel.m */; };
+		919083F91F56ABD400F460F6 /* TptwoBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 919083F81F56ABD400F460F6 /* TptwoBaseModel.m */; };
+		919083FF1F56ACCE00F460F6 /* TPtwoBasePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 919083FE1F56ACCE00F460F6 /* TPtwoBasePageModel.m */; };
+		919084021F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 919084011F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.m */; };
+		919084051F56AE2300F460F6 /* TPtwoTablesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 919084041F56AE2300F460F6 /* TPtwoTablesModel.m */; };
+		919084081F56AE4100F460F6 /* TPtwoBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 919084071F56AE4100F460F6 /* TPtwoBannerModel.m */; };
+		9190840B1F56B07F00F460F6 /* JYSubSheetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9190840A1F56B07F00F460F6 /* JYSubSheetModel.m */; };
 		919252361F4A9C510071E234 /* TemplateSixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 919252351F4A9C510071E234 /* TemplateSixViewController.m */; };
 		91A751A81EFF953500D1037E /* JYCollectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A751A71EFF953500D1037E /* JYCollectionFooterView.m */; };
 		91AB66A31F28A1F60077A0CF /* MineResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91AB66A21F28A1F60077A0CF /* MineResetPwdViewController.m */; };
@@ -200,6 +207,7 @@
 		91D4D6931F08C0360087783C /* LastSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D4D68C1F08C0360087783C /* LastSectionView.m */; };
 		91D4D6941F08C0360087783C /* SectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D4D68E1F08C0360087783C /* SectionHeaderView.m */; };
 		91D4D6951F08C0360087783C /* TwoSectionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D4D6901F08C0360087783C /* TwoSectionTableCell.m */; };
+		91D69BB71F4EA4780089D759 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D69BB61F4EA4780089D759 /* RootViewController.m */; };
 		91D77F161EEA8746007405A0 /* UserCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D77F151EEA8746007405A0 /* UserCountView.m */; };
 		91D77F261EEA915C007405A0 /* MineNoticeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D77F241EEA915C007405A0 /* MineNoticeTableViewCell.m */; };
 		91D77F271EEA915C007405A0 /* MineNoticeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91D77F251EEA915C007405A0 /* MineNoticeTableViewCell.xib */; };
@@ -1025,6 +1033,20 @@
 		9169BC621F00FB9A00419E52 /* GuidePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuidePageViewController.m; path = Login/GuidePageViewController.m; sourceTree = "<group>"; };
 		918302611F1B98690039B8CD /* SubjectOutterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectOutterViewController.h; sourceTree = "<group>"; };
 		918302621F1B98690039B8CD /* SubjectOutterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectOutterViewController.m; sourceTree = "<group>"; };
+		919083A81F5549C700F460F6 /* HttpModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpModel.h; sourceTree = "<group>"; };
+		919083A91F5549C700F460F6 /* HttpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpModel.m; sourceTree = "<group>"; };
+		919083F71F56ABD400F460F6 /* TptwoBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TptwoBaseModel.h; sourceTree = "<group>"; };
+		919083F81F56ABD400F460F6 /* TptwoBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TptwoBaseModel.m; sourceTree = "<group>"; };
+		919083FD1F56ACCE00F460F6 /* TPtwoBasePageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPtwoBasePageModel.h; sourceTree = "<group>"; };
+		919083FE1F56ACCE00F460F6 /* TPtwoBasePageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPtwoBasePageModel.m; sourceTree = "<group>"; };
+		919084001F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPtwoTypeSliceBaseModel.h; sourceTree = "<group>"; };
+		919084011F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPtwoTypeSliceBaseModel.m; sourceTree = "<group>"; };
+		919084031F56AE2300F460F6 /* TPtwoTablesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPtwoTablesModel.h; sourceTree = "<group>"; };
+		919084041F56AE2300F460F6 /* TPtwoTablesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPtwoTablesModel.m; sourceTree = "<group>"; };
+		919084061F56AE4100F460F6 /* TPtwoBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPtwoBannerModel.h; sourceTree = "<group>"; };
+		919084071F56AE4100F460F6 /* TPtwoBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPtwoBannerModel.m; sourceTree = "<group>"; };
+		919084091F56B07F00F460F6 /* JYSubSheetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSubSheetModel.h; sourceTree = "<group>"; };
+		9190840A1F56B07F00F460F6 /* JYSubSheetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYSubSheetModel.m; sourceTree = "<group>"; };
 		919252341F4A9C510071E234 /* TemplateSixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateSixViewController.h; sourceTree = "<group>"; };
 		919252351F4A9C510071E234 /* TemplateSixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateSixViewController.m; sourceTree = "<group>"; };
 		91A751A61EFF953500D1037E /* JYCollectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYCollectionFooterView.h; sourceTree = "<group>"; };
@@ -1084,6 +1106,8 @@
 		91D4D68E1F08C0360087783C /* SectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeaderView.m; sourceTree = "<group>"; };
 		91D4D68F1F08C0360087783C /* TwoSectionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoSectionTableCell.h; sourceTree = "<group>"; };
 		91D4D6901F08C0360087783C /* TwoSectionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoSectionTableCell.m; sourceTree = "<group>"; };
+		91D69BB51F4EA4780089D759 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		91D69BB61F4EA4780089D759 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		91D77F141EEA8746007405A0 /* UserCountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCountView.h; sourceTree = "<group>"; };
 		91D77F151EEA8746007405A0 /* UserCountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCountView.m; sourceTree = "<group>"; };
 		91D77F231EEA915C007405A0 /* MineNoticeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineNoticeTableViewCell.h; sourceTree = "<group>"; };
@@ -2579,6 +2603,78 @@
 			name = GuideView;
 			sourceTree = "<group>";
 		};
+		919083F11F568E7F00F460F6 /* 模版一 */ = {
+			isa = PBXGroup;
+			children = (
+				919083F61F56ABA200F460F6 /* NewModel */,
+				919083F51F568EA800F460F6 /* View */,
+				919083F41F568EA200F460F6 /* Model */,
+				915A8D2F1F1E0F2800262311 /* JYDemoViewController.h */,
+				915A8D301F1E0F2800262311 /* JYDemoViewController.m */,
+			);
+			name = "模版一";
+			sourceTree = "<group>";
+		};
+		919083F41F568EA200F460F6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				915A8CFD1F1E0BA500262311 /* JYModuleTwoModel.h */,
+				915A8CFE1F1E0BA500262311 /* JYModuleTwoModel.m */,
+				915A8D341F1E106000262311 /* report_v24.json */,
+				915A8D051F1E0BA500262311 /* JYStatementModel.h */,
+				915A8D061F1E0BA500262311 /* JYStatementModel.m */,
+				F68C25A81EC2D4670069C041 /* JYModuleTwoBaseModel.h */,
+				F68C25A91EC2D4670069C041 /* JYModuleTwoBaseModel.m */,
+				915A8CF11F1E0BA500262311 /* JYBannerModel.h */,
+				915A8CF21F1E0BA500262311 /* JYBannerModel.m */,
+				915A8CF31F1E0BA500262311 /* JYBargraphModel.h */,
+				915A8CF41F1E0BA500262311 /* JYBargraphModel.m */,
+				915A8CF51F1E0BA500262311 /* JYChartModel.h */,
+				915A8CF61F1E0BA500262311 /* JYChartModel.m */,
+				915A8CF71F1E0BA500262311 /* JYExcelModel.h */,
+				915A8CF81F1E0BA500262311 /* JYExcelModel.m */,
+				915A8CF91F1E0BA500262311 /* JYInfoModel.h */,
+				915A8CFA1F1E0BA500262311 /* JYInfoModel.m */,
+				915A8D031F1E0BA500262311 /* JYSingleValueModel.h */,
+				915A8D041F1E0BA500262311 /* JYSingleValueModel.m */,
+				915A8CFF1F1E0BA500262311 /* JYSeriesModel.h */,
+				915A8D001F1E0BA500262311 /* JYSeriesModel.m */,
+				915A8D011F1E0BA500262311 /* JYSheetModel.h */,
+				915A8D021F1E0BA500262311 /* JYSheetModel.m */,
+				919084091F56B07F00F460F6 /* JYSubSheetModel.h */,
+				9190840A1F56B07F00F460F6 /* JYSubSheetModel.m */,
+				915A8CFB1F1E0BA500262311 /* JYMainDataModel.h */,
+				915A8CFC1F1E0BA500262311 /* JYMainDataModel.m */,
+				915A8D071F1E0BA500262311 /* JYSubDataModlel.h */,
+				915A8D081F1E0BA500262311 /* JYSubDataModlel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		919083F51F568EA800F460F6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		919083F61F56ABA200F460F6 /* NewModel */ = {
+			isa = PBXGroup;
+			children = (
+				919083F71F56ABD400F460F6 /* TptwoBaseModel.h */,
+				919083F81F56ABD400F460F6 /* TptwoBaseModel.m */,
+				919083FD1F56ACCE00F460F6 /* TPtwoBasePageModel.h */,
+				919083FE1F56ACCE00F460F6 /* TPtwoBasePageModel.m */,
+				919084001F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.h */,
+				919084011F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.m */,
+				919084031F56AE2300F460F6 /* TPtwoTablesModel.h */,
+				919084041F56AE2300F460F6 /* TPtwoTablesModel.m */,
+				919084061F56AE4100F460F6 /* TPtwoBannerModel.h */,
+				919084071F56AE4100F460F6 /* TPtwoBannerModel.m */,
+			);
+			name = NewModel;
+			sourceTree = "<group>";
+		};
 		919252331F4A9C3A0071E234 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -2644,6 +2740,15 @@
 				91D4D6901F08C0360087783C /* TwoSectionTableCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		91D69BB41F4EA4610089D759 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				91D69BB51F4EA4780089D759 /* RootViewController.h */,
+				91D69BB61F4EA4780089D759 /* RootViewController.m */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 		91D77F191EEA90D5007405A0 /* View */ = {
@@ -3372,6 +3477,7 @@
 		C4DB7D751C02EC0500DA534E /* YH-IOS */ = {
 			isa = PBXGroup;
 			children = (
+				91D69BB41F4EA4610089D759 /* Main */,
 				3B717DAB1F28717400858E0E /* Resource */,
 				F656DEED1EC00F8D00DECD7F /* YHKpiReport */,
 				F684BE821EA5E0D100DBDBD4 /* SCReport */,
@@ -3521,6 +3627,8 @@
 				3B0D416B1F3326DF00E279F9 /* ScreenModel.m */,
 				3B7FCF261F3441BC006EE972 /* TestModel.h */,
 				3B7FCF271F3441BC006EE972 /* TestModel.m */,
+				919083A81F5549C700F460F6 /* HttpModel.h */,
+				919083A91F5549C700F460F6 /* HttpModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4159,10 +4267,8 @@
 		F656DEED1EC00F8D00DECD7F /* YHKpiReport */ = {
 			isa = PBXGroup;
 			children = (
+				919083F11F568E7F00F460F6 /* 模版一 */,
 				3B717DA51F285D7A00858E0E /* HomeView */,
-				915A8D341F1E106000262311 /* report_v24.json */,
-				915A8D2F1F1E0F2800262311 /* JYDemoViewController.h */,
-				915A8D301F1E0F2800262311 /* JYDemoViewController.m */,
 				915A8D281F1E0C7000262311 /* JYHudView.h */,
 				915A8D291F1E0C7000262311 /* JYHudView.m */,
 				91E6CF921EFB6B8C00507B7E /* SDCycleScrollView */,
@@ -4227,38 +4333,12 @@
 		F656DF271EC013BE00DECD7F /* YHKpiModel */ = {
 			isa = PBXGroup;
 			children = (
-				915A8CF11F1E0BA500262311 /* JYBannerModel.h */,
-				915A8CF21F1E0BA500262311 /* JYBannerModel.m */,
-				915A8CF31F1E0BA500262311 /* JYBargraphModel.h */,
-				915A8CF41F1E0BA500262311 /* JYBargraphModel.m */,
-				915A8CF51F1E0BA500262311 /* JYChartModel.h */,
-				915A8CF61F1E0BA500262311 /* JYChartModel.m */,
-				915A8CF71F1E0BA500262311 /* JYExcelModel.h */,
-				915A8CF81F1E0BA500262311 /* JYExcelModel.m */,
-				915A8CF91F1E0BA500262311 /* JYInfoModel.h */,
-				915A8CFA1F1E0BA500262311 /* JYInfoModel.m */,
-				915A8CFB1F1E0BA500262311 /* JYMainDataModel.h */,
-				915A8CFC1F1E0BA500262311 /* JYMainDataModel.m */,
-				915A8CFD1F1E0BA500262311 /* JYModuleTwoModel.h */,
-				915A8CFE1F1E0BA500262311 /* JYModuleTwoModel.m */,
-				915A8CFF1F1E0BA500262311 /* JYSeriesModel.h */,
-				915A8D001F1E0BA500262311 /* JYSeriesModel.m */,
-				915A8D011F1E0BA500262311 /* JYSheetModel.h */,
-				915A8D021F1E0BA500262311 /* JYSheetModel.m */,
-				915A8D031F1E0BA500262311 /* JYSingleValueModel.h */,
-				915A8D041F1E0BA500262311 /* JYSingleValueModel.m */,
-				915A8D051F1E0BA500262311 /* JYStatementModel.h */,
-				915A8D061F1E0BA500262311 /* JYStatementModel.m */,
-				915A8D071F1E0BA500262311 /* JYSubDataModlel.h */,
-				915A8D081F1E0BA500262311 /* JYSubDataModlel.m */,
 				F68C25A21EC2D4670069C041 /* JYBaseModel.h */,
 				F68C25A31EC2D4670069C041 /* JYBaseModel.m */,
 				F68C25A41EC2D4670069C041 /* JYComponentModel.h */,
 				F68C25A51EC2D4670069C041 /* JYComponentModel.m */,
 				F68C25A61EC2D4670069C041 /* JYDashboardModel.h */,
 				F68C25A71EC2D4670069C041 /* JYDashboardModel.m */,
-				F68C25A81EC2D4670069C041 /* JYModuleTwoBaseModel.h */,
-				F68C25A91EC2D4670069C041 /* JYModuleTwoBaseModel.m */,
 				91E6CFAF1EFB89A400507B7E /* YHKPIModel.h */,
 				91E6CFB01EFB89A400507B7E /* YHKPIModel.m */,
 			);
@@ -4889,6 +4969,7 @@
 				911123E31F39B74400A09D83 /* MGroupCell.m in Sources */,
 				915A8D0B1F1E0BA500262311 /* JYChartModel.m in Sources */,
 				911114961F38B7C800E3366E /* YHPopMenuView.m in Sources */,
+				919084021F56AD3300F460F6 /* TPtwoTypeSliceBaseModel.m in Sources */,
 				91E6CFA81EFB6B8C00507B7E /* TAAnimatedDotView.m in Sources */,
 				3B763AE51F26108C00D5E965 /* YHHttpRequestAPI.m in Sources */,
 				F62457E51EA5FD01006834D2 /* DataManager.m in Sources */,
@@ -4951,6 +5032,7 @@
 				91E6CFAD1EFB6B8C00507B7E /* SDCycleScrollView.m in Sources */,
 				F64903BC1DB5CD9B0001DD2B /* UserInfoViewController.m in Sources */,
 				3B0D416C1F3326DF00E279F9 /* ScreenModel.m in Sources */,
+				919083FF1F56ACCE00F460F6 /* TPtwoBasePageModel.m in Sources */,
 				91DB24571EEE698700FC8413 /* zoomPopup.m in Sources */,
 				F655483B1E8CDF5600B4048C /* NewSettingViewController.m in Sources */,
 				F62457E31EA5FD01006834D2 /* AppColor.m in Sources */,
@@ -5079,6 +5161,7 @@
 				91DB24A91EF25D8500FC8413 /* YHMutileveMenu.m in Sources */,
 				91D3640F1F1F220400CD7159 /* JYScrollNavBar.m in Sources */,
 				91DB235C1EEB98F900FC8413 /* SingleLabelTableViewCell.m in Sources */,
+				91D69BB71F4EA4780089D759 /* RootViewController.m in Sources */,
 				9111149D1F38CC4100E3366E /* YHArrow.m in Sources */,
 				C48924E51D858F0A00859411 /* ResetPasswordViewController.m in Sources */,
 				3B30EEEA1F25F63200A702EC /* YHWarningNoticeController.m in Sources */,
@@ -5171,6 +5254,7 @@
 				F62457931EA5FBE0006834D2 /* NSString+Category.m in Sources */,
 				F655483E1E8CDF7C00B4048C /* OptionConfigViewController.m in Sources */,
 				C49E1AB31C19632000CFFE3C /* SettingViewController.m in Sources */,
+				919084081F56AE4100F460F6 /* TPtwoBannerModel.m in Sources */,
 				F62456D01EA5FB21006834D2 /* ScrollChartsVc.m in Sources */,
 				915A8D141F1E0BA500262311 /* JYSubDataModlel.m in Sources */,
 				F68C25D51EC2D4790069C041 /* JYBlockButton.m in Sources */,
@@ -5236,6 +5320,8 @@
 				B676BB3E1F282AD800AF363A /* NewMineResetPwdController.m in Sources */,
 				915A8CE61F1E0B9400262311 /* JYExcelView.m in Sources */,
 				F624563F1EA5FACD006834D2 /* IQUIView+Hierarchy.m in Sources */,
+				9190840B1F56B07F00F460F6 /* JYSubSheetModel.m in Sources */,
+				919083F91F56ABD400F460F6 /* TptwoBaseModel.m in Sources */,
 				91D364111F1F220400CD7159 /* JYSortItemView.m in Sources */,
 				91DB24291EED7A3000FC8413 /* PhotoGroupCell.m in Sources */,
 				91D77F371EEAA4D1007405A0 /* LeftIamgeTableViewCell.m in Sources */,
@@ -5256,6 +5342,7 @@
 				F62456BC1EA5FB21006834D2 /* ChartHeaderViewCell.m in Sources */,
 				915A8CF01F1E0B9400262311 /* JYSubSheetView.m in Sources */,
 				91AB66A31F28A1F60077A0CF /* MineResetPwdViewController.m in Sources */,
+				919084051F56AE2300F460F6 /* TPtwoTablesModel.m in Sources */,
 				B67593631F29CBEE00E89B65 /* HWCollectionViewCell.m in Sources */,
 				91D364101F1F220400CD7159 /* JYSortButton.m in Sources */,
 				91EF8DD01EF38A1700333746 /* YHTopicViewController.m in Sources */,
@@ -5273,6 +5360,7 @@
 				911123BD1F39B4BE00A09D83 /* NewFindPasswordCell.m in Sources */,
 				91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */,
 				915A8D131F1E0BA500262311 /* JYStatementModel.m in Sources */,
+				919083AA1F5549C700F460F6 /* HttpModel.m in Sources */,
 				C45D27111C23FC490087C6F2 /* OpenUDID.m in Sources */,
 				91AB66AD1F28A28E0077A0CF /* MineSingleSettingViewController.m in Sources */,
 				F6F1C85F1E88C03900754034 /* MianTabBarViewController.m in Sources */,

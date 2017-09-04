@@ -101,10 +101,10 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     self.isInnerLink = !([self.link hasPrefix:@"http://"] || [self.link hasPrefix:@"https://"]);
     self.urlString   = self.link;
      self.browser.delegate = self;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
      self.filterView = [[UIView alloc]init];
      self.filterView.backgroundColor = [UIColor whiteColor];
      [self.view addSubview:self.filterView];
+     self.edgesForExtendedLayout = UIRectEdgeNone;
      [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self.view);
         make.height.mas_equalTo(@0);
@@ -112,7 +112,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
     [self.browser mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.filterView.mas_bottom).mas_offset(0);
+        make.top.mas_equalTo(self.view.mas_top).mas_offset(64);
     }];
     
     [self setupUI];
@@ -340,6 +340,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 -(void)layoutUI{
+    
     
     
     [self.locationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -905,7 +906,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 - (void)loadOuterLink {
 
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
-    
+    self.link =  (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.link, (CFStringRef)@"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
     NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", SafeText(self.user.userNum), timestamp];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
@@ -1215,38 +1216,37 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     return image;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if(self.isInnerLink) {
-        [self isLoadHtmlFromService];
-        [self.browser stopLoading];
-    }
-    if([segue.identifier isEqualToString:kCommentSegueIdentifier]) {
-        CommentViewController *viewController = (CommentViewController *)segue.destinationViewController;
-        viewController.bannerName        = self.bannerName;
-        viewController.commentObjectType = self.commentObjectType;
-        viewController.objectID          = self.objectID;
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            /*
-             * 用户行为记录, 单独异常处理，不可影响用户体验
-             */
-            NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
-            logParams[kActionALCName] = @"点击/主题页面/评论";
-            [APIHelper actionLog:logParams];
-        });
-    }
-    else if([segue.identifier isEqualToString:kReportSelectorSegueIdentifier]) {
-        ReportSelectorViewController *viewController = (ReportSelectorViewController *)segue.destinationViewController;
-        viewController.bannerName  = self.bannerName;
-        viewController.groupID     = self.user.groupID;
-        viewController.reportID    = self.reportID;
-        viewController.templateID  = self.templateID;
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if(self.isInnerLink) {
+//        [self isLoadHtmlFromService];
+//        [self.browser stopLoading];
+//    }
+//    if([segue.identifier isEqualToString:kCommentSegueIdentifier]) {
+//        CommentViewController *viewController = (CommentViewController *)segue.destinationViewController;
+//        viewController.bannerName        = self.bannerName;
+//        viewController.commentObjectType = self.commentObjectType;
+//        viewController.objectID          = self.objectID;
+//        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            /*
+//             * 用户行为记录, 单独异常处理，不可影响用户体验
+//             */
+//            NSMutableDictionary *logParams = [NSMutableDictionary dictionary];
+//            logParams[kActionALCName] = @"点击/主题页面/评论";
+//            [APIHelper actionLog:logParams];
+//        });
+//    }
+//    else if([segue.identifier isEqualToString:kReportSelectorSegueIdentifier]) {
+//        ReportSelectorViewController *viewController = (ReportSelectorViewController *)segue.destinationViewController;
+//        viewController.bannerName  = self.bannerName;
+//        viewController.groupID     = self.user.groupID;
+//        viewController.reportID    = self.reportID;
+//        viewController.templateID  = self.templateID;
+//    }
+//}
 
 #pragma mark - UIWebview delegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSDictionary *browerDict = [FileUtils readConfigFile:[FileUtils dirPath:kConfigDirName FileName:kBetaConfigFileName]];
     self.isLoadFinish = YES;
     [HudToolView hideLoadingInView:self.view];
     [MRProgressOverlayView dismissOverlayForView:self.browser animated:YES];
@@ -1285,6 +1285,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - UIWebview delegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    [HudToolView showLoadingInView:self.view];
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
         if (![[url scheme] hasPrefix:@";file"] && ![[url relativeString] hasPrefix:@"http://222.76.27.51"]) {

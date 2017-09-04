@@ -20,9 +20,10 @@
 #import "UIWebview+Clean.h"
 #import "LTHPasscodeViewController.h"
 #import "ExtendNSLogFunctionality.h"
+#import "RootViewController.h"
 
 
-@interface BaseWebViewController : UIViewController<UIWebViewDelegate>
+@interface BaseWebViewController : RootViewController <UIWebViewDelegate>
 
 @property WebViewJavascriptBridge* bridge;
 @property (strong, nonatomic) MBProgressHUD *progressHUD;

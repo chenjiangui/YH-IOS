@@ -116,4 +116,8 @@
 /** 上传用户行为记录*/
 #define YHAPU_USER_ACTIONLOG                 @"/api/v1.1/device/logger"
 
+/** 申请注册 */
+#define YHAPI_REGISTER                       @"/api/v1.1/config/info"
+
+
 #endif
