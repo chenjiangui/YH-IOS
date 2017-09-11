@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, JYFreezeWindowViewBounceStyle) {
 
 @interface JYFreezeWindowView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame FreezePoint: (CGPoint) freezePoint cellViewSize: (CGSize) cellViewSize;
+- (instancetype)initWithFrame:(CGRect)frame FreezePoint: (CGPoint) freezePoint cellViewSize: (CGSize) cellViewSize withSizeArray:(NSArray *)sizeArray;
 
 - (void)setSignViewWithContent:(NSString *)content;
 

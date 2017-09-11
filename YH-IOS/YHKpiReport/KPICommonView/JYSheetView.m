@@ -13,7 +13,7 @@
 #import "JYSubDataModlel.h"
 #import "JYSubSheetView.h"
 
-#define kFreezePoint (CGPointMake(60, kSheetHeadHeight))
+#define kFreezePoint (CGPointMake(90, kSheetHeadHeight))
 
 static NSString *mainCellID = @"mainCell";
 static NSString *sectionCellID = @"sectionCell";
@@ -57,9 +57,9 @@ static NSString *rowCellID = @"rowCell";
 
 - (JYFreezeWindowView *)freezeView {
     if (!_freezeView) {
-        _freezeView = [[JYFreezeWindowView alloc] initWithFrame:self.bounds FreezePoint:kFreezePoint cellViewSize:CGSizeMake(100, kMianCellHeight)];
+        NSArray *sizeArray = [[self getWidthArray] copy];
+        _freezeView = [[JYFreezeWindowView alloc] initWithFrame:self.bounds FreezePoint:kFreezePoint cellViewSize:CGSizeMake(100, kMianCellHeight) withSizeArray:sizeArray];
         _freezeView.flexibleHeight = self.flexibleHeight;
-        _freezeView.sizeWidthArray =  [[self getWidthArray] copy];
         _freezeView.delegate = self;
         _freezeView.dataSource = self;
         _freezeView.bounceStyle = JYFreezeWindowViewBounceStyleNone;
@@ -74,17 +74,25 @@ static NSString *rowCellID = @"rowCell";
      NSMutableArray *columeData = [[NSMutableArray alloc]init];
     for (int i= 0; i<self.sheetModel.mainDataModelList.count; i++) {
         [columeData addObject:_sheetModel.mainDataModelList[i]];
-        CGFloat maxwidth = 20;
-        for (int j = 0; j < _sheetModel.mainDataModelList[i].dataList.count; j++) {
+        CGFloat minwidth = 100;
+        for (int j = 1; j < _sheetModel.mainDataModelList[i].dataList.count; j++) {
             CGFloat value = [UILabel getWidthWithTitle:_sheetModel.mainDataModelList[i].dataList[j] font:[UIFont systemFontOfSize:14]];
-            if (value > maxwidth) {
-                widthSizeArray[j] =  [NSNumber numberWithFloat:value];
+            if ( i == 0) {
+                if (value > minwidth) {
+                        widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 40];
+                }
+                else {
+                    widthSizeArray[j-1]  = [NSNumber numberWithFloat:minwidth];
+                }
             }
             else {
-                widthSizeArray[j]  = [NSNumber numberWithFloat:maxwidth];
+                if (value > ([widthSizeArray[j-1] floatValue] - 40)) {
+                     widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 40];
+                }
             }
         }
     }
+    //widthSizeArray[0] =[NSNumber numberWithFloat:300];
     return widthSizeArray;
 }
 

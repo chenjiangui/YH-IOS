@@ -32,9 +32,10 @@
             {
                 _style = style;
                 _titleLabel = [[UILabel alloc] init];
-                _titleLabel.textAlignment = NSTextAlignmentCenter;                
+                _titleLabel.textAlignment = NSTextAlignmentCenter;
+                _titleLabel.numberOfLines = 2;
                 _titleLabel.textColor = JYColor_TextColor_Chief;
-                _titleLabel.font = [UIFont systemFontOfSize:13];
+                _titleLabel.font = [UIFont systemFontOfSize:14];
                 [self addSubview:_titleLabel];
             }
                 break;

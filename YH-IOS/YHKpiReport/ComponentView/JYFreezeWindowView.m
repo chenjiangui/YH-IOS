@@ -19,6 +19,10 @@
 @property (assign, nonatomic) CGPoint freezePoint;
 
 @property (strong, nonatomic) NSMutableDictionary *cellIdentifier;
+@property (assign, nonatomic) CGFloat tempWidth;
+@property (assign, nonatomic) int tempInt;
+@property (assign, nonatomic) CGFloat totalWidth;
+
 
 
 @end
@@ -41,7 +45,8 @@
     return _signView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame FreezePoint: (CGPoint) freezePoint cellViewSize: (CGSize) cellViewSize {
+
+- (instancetype)initWithFrame:(CGRect)frame FreezePoint: (CGPoint) freezePoint cellViewSize: (CGSize) cellViewSize withSizeArray:(NSArray *)sizeArray {
     self = [super initWithFrame:frame];
     if (self) {
         _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(freezePoint.x, freezePoint.y, frame.size.width - freezePoint.x, frame.size.height - freezePoint.y)];
@@ -53,6 +58,7 @@
         [self addSubview:_rowScrollView];
         [self addSubview:_signView];
         self.mainScrollView.delegate = self;
+        self.sizeWidthArray = [sizeArray copy];
         self.sectionScrollView.delegate = self;
         self.rowScrollView.delegate = self;
         _mainScrollView.bounces = NO;
@@ -116,6 +122,7 @@
 - (void)setRowViewBackgroundColor:(UIColor *)color {
     self.rowScrollView.backgroundColor = color;
 }
+
 
 - (void)reloadData {
     for (NSDictionary *dic in [self.cellIdentifier allValues]) {
@@ -189,17 +196,17 @@
 }
 
 - (void)autoAligning {
-    if (self.autoHorizontalAligning && !self.autoVerticalAligning) {
-        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
-        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.mainScrollView.contentOffset.y) animated:YES];
-    } else if (self.autoVerticalAligning && !self.autoHorizontalAligning) {
-        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
-        [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.cellViewSize.height * mutipleY) animated:YES];
-    } else if (self.autoHorizontalAligning && self.autoVerticalAligning) {
-        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
-        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
-        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.cellViewSize.height * mutipleY) animated:YES];
-    }
+//    if (self.autoHorizontalAligning && !self.autoVerticalAligning) {
+//        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
+//        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.mainScrollView.contentOffset.y) animated:YES];
+//    } else if (self.autoVerticalAligning && !self.autoHorizontalAligning) {
+//        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
+//        [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.cellViewSize.height * mutipleY) animated:YES];
+//    } else if (self.autoHorizontalAligning && self.autoVerticalAligning) {
+//        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
+//        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
+//        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.cellViewSize.height * mutipleY) animated:YES];
+//    }
 }
 
 - (void)sectionCellInSectionScrollView {
@@ -314,8 +321,12 @@
 - (void)setContentSize {
     NSInteger sectionNumber = [_dataSource numberOfSectionsInFreezeWindowView:self];
     NSInteger rowNumber = [_dataSource numberOfRowsInFreezeWindowView:self];
-    [self.mainScrollView setContentSize:CGSizeMake(self.cellViewSize.width * sectionNumber, self.cellViewSize.height * rowNumber)];
-    [self.sectionScrollView setContentSize:CGSizeMake(self.cellViewSize.width * sectionNumber, 0)];
+    self.totalWidth = 0;
+    for (int i = 0; i< self.sizeWidthArray.count; i++) {
+        self.totalWidth += [self.sizeWidthArray[i] floatValue];
+    }
+    [self.mainScrollView setContentSize:CGSizeMake(self.totalWidth, self.cellViewSize.height * rowNumber)];
+    [self.sectionScrollView setContentSize:CGSizeMake(self.totalWidth, 0)];
     [self.rowScrollView setContentSize:CGSizeMake(0, self.cellViewSize.height * rowNumber)];
     if (self.bounceStyle == JYFreezeWindowViewBounceStyleNone) {
         // 整个视图内部不滑动，跟随外部视图滑动
@@ -328,52 +339,69 @@
 
 
 - (void)refreshViewWhenScroll {
-    NSInteger section = ((NSInteger)(self.mainScrollView.contentOffset.x - 0.5) / self.cellViewSize.width - 1) < 0 ? 0 : ((NSInteger)(self.mainScrollView.contentOffset.x - 0.5) / self.cellViewSize.width - 1);
-    NSInteger row = ((NSInteger)(self.mainScrollView.contentOffset.y - 0.5) / self.cellViewSize.height - 1) < 0 ? 0 : ((NSInteger)(self.mainScrollView.contentOffset.y - 0.5) / self.cellViewSize.height - 1);
-    NSInteger sectionMax = (self.mainScrollView.contentOffset.x - 0.5) / self.cellViewSize.width + self.mainScrollView.frame.size.width / self.cellViewSize.width + 2;
-    if (sectionMax >= [_dataSource numberOfSectionsInFreezeWindowView:self]) {
-        sectionMax = [_dataSource numberOfSectionsInFreezeWindowView:self] - 1;
-    }
-    NSInteger rowMax = (self.mainScrollView.contentOffset.y - 0.5) / self.cellViewSize.height + self.mainScrollView.frame.size.height / self.cellViewSize.height + 2;
-    if (rowMax >= [_dataSource numberOfRowsInFreezeWindowView:self]) {
-        rowMax = [_dataSource numberOfRowsInFreezeWindowView:self] - 1;
-    }
-    for (NSInteger sectionNext = section < 0 ? 0 : section; sectionNext <= sectionMax; sectionNext++) {
-        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:row inSection:sectionNext]];
-        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowMax inSection:sectionNext]];
-        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:row - 1 inSection:sectionNext]];
-        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowMax + 1 inSection:sectionNext]];
-    }
-    for (NSInteger rowNext = row < 0 ? 0 : row; rowNext <= rowMax; rowNext++) {
-        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:section]];
-        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:sectionMax]];
-        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:section - 1]];
-        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:sectionMax + 1]];
-        
-    }
-    [self addSectionViewCellWithSection:section];
-    [self addSectionViewCellWithSection:sectionMax];
-    [self addRowViewCellWithRow:row];
-    [self addRowViewCellWithRow:rowMax];
-    [self removeSectionViewCellWithSection:section - 1];
-    [self removeSectionViewCellWithSection:sectionMax + 1];
-    [self removeRowViewCellWithRow:row - 1];
-    [self removeRowViewCellWithRow:rowMax + 1];
+//    NSInteger section = ((NSInteger)(self.mainScrollView.contentOffset.x - 0.5) / self.cellViewSize.width - 1) < 0 ? 0 : ((NSInteger)(self.mainScrollView.contentOffset.x - 0.5) / self.cellViewSize.width - 1);
+//    NSInteger row = ((NSInteger)(self.mainScrollView.contentOffset.y - 0.5) / self.cellViewSize.height - 1) < 0 ? 0 : ((NSInteger)(self.mainScrollView.contentOffset.y - 0.5) / self.cellViewSize.height - 1);
+//    NSInteger sectionMax = (self.mainScrollView.contentOffset.x - 0.5) / self.cellViewSize.width + self.mainScrollView.frame.size.width / self.cellViewSize.width + 2;
+//    if (sectionMax >= [_dataSource numberOfSectionsInFreezeWindowView:self]) {
+//        sectionMax = [_dataSource numberOfSectionsInFreezeWindowView:self] - 1;
+//    }
+//    NSInteger rowMax = (self.mainScrollView.contentOffset.y - 0.5) / self.cellViewSize.height + self.mainScrollView.frame.size.height / self.cellViewSize.height + 2;
+//    if (rowMax >= [_dataSource numberOfRowsInFreezeWindowView:self]) {
+//        rowMax = [_dataSource numberOfRowsInFreezeWindowView:self] - 1;
+//    }
+//    for (NSInteger sectionNext = section < 0 ? 0 : section; sectionNext <= sectionMax; sectionNext++) {
+//        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:row inSection:sectionNext]];
+//        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowMax inSection:sectionNext]];
+//        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:row - 1 inSection:sectionNext]];
+//        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowMax + 1 inSection:sectionNext]];
+//    }
+//    for (NSInteger rowNext = row < 0 ? 0 : row; rowNext <= rowMax; rowNext++) {
+//        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:section]];
+//        [self addMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:sectionMax]];
+//        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:section - 1]];
+//        [self removeMainViewCellWithIndexPath:[NSIndexPath indexPathForRow:rowNext inSection:sectionMax + 1]];
+//        
+//    }
+//    [self addSectionViewCellWithSection:section];
+//    [self addSectionViewCellWithSection:sectionMax];
+//    [self addRowViewCellWithRow:row];
+//    [self addRowViewCellWithRow:rowMax];
+//    [self removeSectionViewCellWithSection:section - 1];
+//    [self removeSectionViewCellWithSection:sectionMax + 1];
+//    [self removeRowViewCellWithRow:row - 1];
+//    [self removeRowViewCellWithRow:rowMax + 1];
 }
 
 - (void)reloadViews {
-    NSInteger sectionNumber = [_dataSource numberOfSectionsInFreezeWindowView:self];
-    NSInteger rowNumber = [_dataSource numberOfRowsInFreezeWindowView:self];
-    NSInteger sectionInScreen = self.mainScrollView.contentOffset.x / self.cellViewSize.width + self.mainScrollView.frame.size.width / self.cellViewSize.width + 3;
-    NSInteger rowInScreen = self.mainScrollView.contentOffset.y / self.cellViewSize.height + self.mainScrollView.frame.size.height / self.cellViewSize.height + 3;
-    for (NSInteger row = self.mainScrollView.contentOffset.y / self.cellViewSize.height < 0 ? 0 : self.mainScrollView.contentOffset.y / self.cellViewSize.height; (row < rowNumber && row < rowInScreen); row++) {
-        for (NSInteger section = self.mainScrollView.contentOffset.x / self.cellViewSize.width < 0 ? 0 : self.mainScrollView.contentOffset.x / self.cellViewSize.width; (section < sectionNumber && section < sectionInScreen); section++) {
+    NSInteger sectionInScreen = [_dataSource numberOfSectionsInFreezeWindowView:self];
+    NSInteger rowInScreen = [_dataSource numberOfRowsInFreezeWindowView:self];
+//    NSInteger sectionInScreen = self.mainScrollView.contentOffset.x / self.cellViewSize.width + self.mainScrollView.frame.size.width / self.cellViewSize.width + 3;
+//    NSInteger rowInScreen = self.mainScrollView.contentOffset.y / self.cellViewSize.height + self.mainScrollView.frame.size.height / self.cellViewSize.height + 3;
+//    for (NSInteger row = self.mainScrollView.contentOffset.y / self.cellViewSize.height < 0 ? 0 : self.mainScrollView.contentOffset.y / self.cellViewSize.height; (row < rowNumber && row < rowInScreen); row++) {
+//        for (NSInteger section = self.mainScrollView.contentOffset.x / self.cellViewSize.width < 0 ? 0 : self.mainScrollView.contentOffset.x / self.cellViewSize.width; (section < sectionNumber && section < sectionInScreen); section++) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+//            [self addMainViewCellWithIndexPath:indexPath];
+//            [self addSectionViewCellWithSection:indexPath.section];
+//            [self addRowViewCellWithRow:indexPath.row];
+//        }
+//    }
+    for (NSInteger row =0;row<rowInScreen; row++) {
+        self.tempWidth = 0;
+        for (NSInteger section = 0;section < sectionInScreen;section++) {
+            // 添加一些框
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            if (section == 0) {
+                self.tempWidth = 0;
+            }
+            else{
+                self.tempWidth += [self.sizeWidthArray[section-1] intValue];
+            }
             [self addMainViewCellWithIndexPath:indexPath];
             [self addSectionViewCellWithSection:indexPath.section];
             [self addRowViewCellWithRow:indexPath.row];
         }
     }
+
 }
 
 
@@ -413,11 +441,35 @@
                 UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMainViewCell:)];
                 [mainViewCell addGestureRecognizer:gestureRecognizer];
             }
-            [mainViewCell setFrame:CGRectMake(indexPath.section * self.cellViewSize.width, indexPath.row * self.cellViewSize.height, self.cellViewSize.width * mainViewCell.sectionNumber, self.cellViewSize.height * mainViewCell.rowNumber)];
+            //             //这里添加每一行宽度的地方;
+            CGFloat width = indexPath.section * self.cellViewSize.width;
+            [mainViewCell setFrame:CGRectMake(_tempWidth, indexPath.row * self.cellViewSize.height, [self.sizeWidthArray[indexPath.section] intValue], self.cellViewSize.height * mainViewCell.rowNumber)];
+            
+            //            NSArray *widthArray = @[@1,@2,@3,@4,@4];
+            //
+            //          [mainViewCell setFrame:CGRectMake(_tempWidth, indexPath.row * self.cellViewSize.height, self.cellViewSize.width * mainViewCell.sectionNumber, self.cellViewSize.height * mainViewCell.rowNumber)];
+            //            if (indexPath.section == 1) {
+            //                _tempWidth += 100;
+            //            }
+            //            else if (indexPath.section == 2) {
+            //                _tempWidth += 80;
+            //            }
+            //            else if (indexPath.section == 3) {
+            //                _tempWidth += 120;
+            //            }
+            //            else if (indexPath.section == 0) {
+            //                _tempWidth = 0;
+            //            }
+            //            else {
+            //                 _tempWidth += self.cellViewSize.width;
+            //            }
+            ////
+            // 一个字典，这个字典用来添加上每一行每一列添加一个 cell
             NSMutableDictionary *mainCellsWithIndexPath = [self.cellIdentifier objectForKey:mainReuseIdentifier];
             if (mainCellsWithIndexPath == nil) {
                 mainCellsWithIndexPath = [[NSMutableDictionary alloc] init];
                 [mainCellsWithIndexPath setObject:mainViewCell forKey:indexPath];
+                // 又是一个字典，用来添加复用的东西
                 [self.cellIdentifier setObject:mainCellsWithIndexPath forKey:mainReuseIdentifier];
             } else {
                 [mainCellsWithIndexPath setObject:mainViewCell forKey:indexPath];
@@ -430,20 +482,20 @@
     JYSectionViewCell *sectionViewCell = [_dataSource freezeWindowView:self cellAtSection:section];
     if (sectionViewCell != nil && [sectionViewCell superview] == nil) {
         NSString *sectionReuseIdentifier = sectionViewCell.reuseIdentifier;
+        [sectionViewCell setFrame:CGRectMake(_tempWidth, 0, [_sizeWidthArray[section] intValue], self.freezePoint.y)];
         [self.sectionScrollView addSubview:sectionViewCell];
         if ([self dequeueReusableSectionCellWithIdentifier:sectionReuseIdentifier forSection:section] == nil) {
-            // TODO: 添加纵向按钮的点击
             
-            
-            [sectionViewCell setFrame:CGRectMake(section * self.cellViewSize.width, 0, self.cellViewSize.width, self.freezePoint.y)];
-            NSMutableDictionary *sectionCellsWithSection = [self.cellIdentifier objectForKey:sectionReuseIdentifier];
-            if (sectionCellsWithSection == nil) {
-                sectionCellsWithSection = [[NSMutableDictionary alloc] init];
-                [sectionCellsWithSection setObject:sectionViewCell forKey:[NSString stringWithFormat:@"%ld",(long)section]];
-                [self.cellIdentifier setObject:sectionCellsWithSection forKey:sectionReuseIdentifier];
-            } else {
-                [sectionCellsWithSection setObject:sectionViewCell forKey:[NSString stringWithFormat:@"%ld",(long)section]];
-            }
+            //            [sectionViewCell setFrame:CGRectMake(section * self.cellViewSize.width, 0, self.cellViewSize.width, self.freezePoint.y)];
+                        [sectionViewCell setFrame:CGRectMake(_tempWidth, 0, [_sizeWidthArray[section] intValue], self.freezePoint.y)];
+                        NSMutableDictionary *sectionCellsWithSection = [self.cellIdentifier objectForKey:sectionReuseIdentifier];
+                        if (sectionCellsWithSection == nil) {
+                            sectionCellsWithSection = [[NSMutableDictionary alloc] init];
+                            [sectionCellsWithSection setObject:sectionViewCell forKey:[NSString stringWithFormat:@"%ld",(long)section]];
+                            [self.cellIdentifier setObject:sectionCellsWithSection forKey:sectionReuseIdentifier];
+                        } else {
+                            [sectionCellsWithSection setObject:sectionViewCell forKey:[NSString stringWithFormat:@"%ld",(long)section]];
+                        }
         }
     }
 }

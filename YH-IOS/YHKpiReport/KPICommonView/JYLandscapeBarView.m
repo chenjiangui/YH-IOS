@@ -102,6 +102,7 @@
         [proInfoView addSubview:IV];
         CGPoint center = IV.center;
         center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
+        [IV setHidden:YES];
         IV.center = center;
         IV.layer.transform = CATransform3DMakeRotation(-M_PI_2, 0, 0, 1);
         
@@ -111,6 +112,7 @@
         proName.tag = -10000 + i;
         [proName setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];
         [proName setTitleColor:JYColor_TextColor_Chief forState:UIControlStateNormal];
+        [proName setTitleColor:JYColor_LineColor_LightBlue forState:UIControlStateHighlighted];
         proName.titleLabel.font = [UIFont systemFontOfSize:13];
         proName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         proName.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -119,7 +121,7 @@
         center = proName.center;
         center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
         proName.center = center;
-        proName.userInteractionEnabled = NO;
+        proName.userInteractionEnabled = YES;
         CGSize size = [proName.currentTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGRectGetHeight(proName.frame)) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:@{NSFontAttributeName : proName.titleLabel.font} context:nil].size;
         if (size.width > CGRectGetWidth(proName.frame)) {
             proName.userInteractionEnabled = YES;
