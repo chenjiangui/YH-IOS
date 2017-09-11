@@ -50,6 +50,7 @@
 #import "NSObject+NSObject.h"
 #import "UIWebView+CleanLayerDelegate.h"
 #import "YHHttpRequestAPI.h"
+#import "UILabel+FitWitdhAndHeight.h"
 
 #pragma mark - 第三方库
 #import <MJExtension/MJExtension.h>

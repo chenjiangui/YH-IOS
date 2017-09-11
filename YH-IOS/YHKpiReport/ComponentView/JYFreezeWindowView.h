@@ -60,6 +60,7 @@ typedef NS_ENUM(NSInteger, JYFreezeWindowViewBounceStyle) {
 @property (nonatomic) BOOL autoHorizontalAligning;
 @property (nonatomic) BOOL autoVerticalAligning;
 @property (nonatomic, assign) BOOL flexibleHeight;
+@property (nonatomic, strong) NSArray *sizeWidthArray;
 
 @end
 

@@ -58,13 +58,34 @@ static NSString *rowCellID = @"rowCell";
 - (JYFreezeWindowView *)freezeView {
     if (!_freezeView) {
         _freezeView = [[JYFreezeWindowView alloc] initWithFrame:self.bounds FreezePoint:kFreezePoint cellViewSize:CGSizeMake(100, kMianCellHeight)];
-       // _freezeView.backgroundColor = [UIColor redColor];
         _freezeView.flexibleHeight = self.flexibleHeight;
+        _freezeView.sizeWidthArray =  [[self getWidthArray] copy];
         _freezeView.delegate = self;
         _freezeView.dataSource = self;
         _freezeView.bounceStyle = JYFreezeWindowViewBounceStyleNone;
     }
     return _freezeView;
+}
+
+
+/**获取长度数组，比较获取最长的字段*/
+-(NSArray *)getWidthArray {
+    NSMutableArray *widthSizeArray = [[NSMutableArray alloc]init];
+     NSMutableArray *columeData = [[NSMutableArray alloc]init];
+    for (int i= 0; i<self.sheetModel.mainDataModelList.count; i++) {
+        [columeData addObject:_sheetModel.mainDataModelList[i]];
+        CGFloat maxwidth = 20;
+        for (int j = 0; j < _sheetModel.mainDataModelList[i].dataList.count; j++) {
+            CGFloat value = [UILabel getWidthWithTitle:_sheetModel.mainDataModelList[i].dataList[j] font:[UIFont systemFontOfSize:14]];
+            if (value > maxwidth) {
+                widthSizeArray[j] =  [NSNumber numberWithFloat:value];
+            }
+            else {
+                widthSizeArray[j]  = [NSNumber numberWithFloat:maxwidth];
+            }
+        }
+    }
+    return widthSizeArray;
 }
 
 - (void)initializeSubView {

@@ -790,7 +790,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         responseCallback(selectedItem);
     }];
     
-    [self.bridge callHandler:@"registerAction" data:@"okokok"];
     [self.bridge registerHandler:@"setSearchItemsV2" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *reportDataFileName = [NSString stringWithFormat:kReportDataFileName, SafeText(weakSelf.user.groupID), weakSelf.templateID, weakSelf.reportID];
         NSString *javascriptFolder = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
@@ -1473,7 +1472,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             }
             
         }
-        //        NSLog(@"response0: %@ error: %@", response, error);
     }];
     
     [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust = '100%'" completionHandler:^(id _Nullable response, NSError * _Nullable error) {
@@ -1550,7 +1548,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             NSMutableString *string = [[NSMutableString alloc]init];
             NSString *ClickItem = [NSString stringWithFormat:@"%@",item.name];
             NSString *selectedItemPath = [NSString stringWithFormat:@"%@.selected_item", [FileUtils reportJavaScriptDataPath: SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID]];
-            [weakSelf loadHtml];
             for (int i=0; i<weakSelf.screenView.selectItems.count; i++) {
                 ScreenModel *model = weakSelf.screenView.selectItems[i];
                 if (i==0) {
@@ -1563,6 +1560,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             weakSelf.locationString = [NSMutableString stringWithFormat:@"%@",string];
             weakSelf.locationLabel.text = string;
             [string writeToFile:selectedItemPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            [weakSelf loadHtml];
         };
     }
     return _screenView;

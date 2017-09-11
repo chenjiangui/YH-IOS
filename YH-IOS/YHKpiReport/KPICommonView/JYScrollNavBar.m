@@ -100,6 +100,7 @@
 - (void)setRootScrollView:(JYRootScrollView *)rootScrollView{
     _rootScrollView = rootScrollView;
     _rootScrollView.delegate = self;
+    _rootScrollView.scrollEnabled = NO;
     _rootScrollView.pageViews = self.pageViews;
 }
 
@@ -233,10 +234,12 @@
 
 //对item进行布局处理
 - (void)layoutButtons{
-    self.contentSize = CGSizeMake(self.tmpKeys.count * ItemWidth, 0);
+  self.contentSize = CGSizeMake(self.tmpKeys.count * ItemWidth, 0);
     CGFloat buttonW = ItemWidth - JYDefaultMargin;
     NSInteger itemsCount = self.tmpKeys.count;
-    buttonW =  4*15+30;
+    
+    //在这里修改那个表上面的标题名的宽度哦！！！
+    buttonW =  6*15+30;
 //    if (itemsCount * ItemWidth < self.width) {
 //        CGFloat width = self.isShowSortButton ? (self.width - self.height) : self.width;
 //        buttonW = width / itemsCount;
@@ -315,7 +318,7 @@
     }
     int i = 0;
     NSMutableArray *tmpArray = [NSMutableArray array];
-    self.rootScrollView.contentSize = CGSizeMake(self.tmpKeys.count * self.rootScrollView.width, 0);
+  self.rootScrollView.contentSize = CGSizeMake(self.tmpKeys.count * self.rootScrollView.width, 0);
     for (NSString *key in self.tmpKeys) {
         NSLog(@"key ---> %@  count ---> %ld",key,self.tmpKeys.count);
         UIView *pageView = [self.tmpPageViewDic objectForKey:key];
@@ -330,6 +333,7 @@
     [self updatePageView:notifition];
     [self layoutButtons];
 }
+
 
 - (void)addOffset{
     [self.rootScrollView setContentOffset:CGPointMake(1, 0)];

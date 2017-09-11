@@ -62,7 +62,7 @@ static  NSString *PhoneString;
                 {
                     UILabel *textLabel=[[UILabel alloc] init];
                     [self.contentView addSubview:textLabel];
-                    NSString *str=@"如遇到手机号不匹配，请至OA办公系统-个人信息-我的信息中修改手机号，隔天生效";
+                    NSString *str=@" ";
                     textLabel.numberOfLines=2;
                     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
                     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

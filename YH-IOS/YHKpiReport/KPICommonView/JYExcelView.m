@@ -46,6 +46,7 @@
         
         _cursor = [[JYCursor alloc]init];
         _cursor.frame = CGRectMake(-JYDefaultMargin * 2, 0, self.frame.size.width + JYDefaultMargin * 4, 45 + JYDefaultMargin);
+        
         _cursor.titles = self.excelModel.sheetNames;
         _cursor.pageViews = self.sheetViewList;
         //设置根滚动视图的高度

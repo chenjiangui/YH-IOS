@@ -398,6 +398,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [super viewDidDisappear:animated];
     
     [self clearBrowserCache];
+    [HudToolView hideLoadingInView:self.view];
 //    [self showLoading:LoadingLoad];
 
 }
@@ -498,8 +499,9 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
-    if ((!cacheDict[@"store"] || !cacheDict[@"store"][@"id"]) &&
-        userDict[kStoreIDsCUName] && [userDict[kStoreIDsCUName] count] > 0) {
+    NSArray *userStoreArray = userDict[kStoreIDsCUName];
+    if ((cacheDict[@"store"] == nil || cacheDict[@"store"][@"id"] == nil) &&
+        userDict[kStoreIDsCUName] != nil && [userDict[kStoreIDsCUName] count] > 0) {
         
         cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
         [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
@@ -518,14 +520,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         
         if(isExpired) {
             cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
-            cacheDict[@"id"] = @"9275";
             [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
         }
     }
     
-   _storeID = cacheDict[@"store"][@"id"];
+   _storeID = SafeText(cacheDict[@"store"][@"id"]);
    // _storeID = @"9318";
-    self.title = cacheDict[@"store"][@"name"];
+    self.title = SafeText(cacheDict[@"store"][@"name"]);
 //      [self showLoading:LoadingLoad];
     
     /*
