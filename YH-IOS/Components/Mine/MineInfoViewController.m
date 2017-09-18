@@ -32,6 +32,8 @@
 #import "NewMineQuestionController.h"
 #import "MyFavArticleController.h"
 #import "NewPushTableView.h"
+#import "ChangedUserRoleViewController.h"
+
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
 {
     NSArray *titleArray;
@@ -335,7 +337,7 @@
     }
     else if (indexPath.section == 1) {
       MineTwoLabelTableViewCell*  Cell = (MineTwoLabelTableViewCell *)[[MineTwoLabelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaltCell"];
-        Cell.userInteractionEnabled = NO;
+        Cell.userInteractionEnabled = YES;
         Cell.leftLabel.text = self.userArray[indexPath.section][indexPath.row];
         Cell.leftImageView.image = [[UIImage imageNamed:self.leftImageArray[indexPath.section][indexPath.row]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         Cell.rightLabel.text =secondArray[indexPath.row];
@@ -423,6 +425,11 @@
             [RootNavigationController pushViewController:PushVc animated:YES hideBottom:YES];
             [self clickNote:@"消息"];
         }
+    }
+    else if (indexPath.section == 1 && indexPath.row == 0){
+        ChangedUserRoleViewController *changRolCtrl = [[ChangedUserRoleViewController alloc]init];
+        changRolCtrl.url = [NSString stringWithFormat:@"%@/websites/yonghuxinxiziweihu/home/apply.html?user_num=%@",kBaseUrl,SafeText(user.userNum)];
+        [RootNavigationController pushViewController:changRolCtrl animated:YES hideBottom:YES];
     }
     [self.minetableView deselectRowAtIndexPath:indexPath animated:YES];
 }

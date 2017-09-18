@@ -185,6 +185,7 @@
 		91B70D5F1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D5D1EF79D4100C02F16 /* YHReportLeftTextTableViewCell.m */; };
 		91B70D681EF8C84600C02F16 /* JYSigleValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D671EF8C84600C02F16 /* JYSigleValueView.m */; };
 		91BB7B861F29B592001934FA /* NewAppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B851F29B592001934FA /* NewAppColor.m */; };
+		91C34AE81F6FA850003BA109 /* ChangedUserRoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C34AE71F6FA850003BA109 /* ChangedUserRoleViewController.m */; };
 		91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F41F1F220400CD7159 /* JYAnimationTool.m */; };
 		91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F61F1F220400CD7159 /* JYCursor.m */; };
 		91D3640B1F1F220400CD7159 /* JYItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F81F1F220400CD7159 /* JYItemManager.m */; };
@@ -1060,6 +1061,8 @@
 		91BB7B851F29B592001934FA /* NewAppColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAppColor.m; sourceTree = "<group>"; };
 		91BB7B901F29C606001934FA /* UIWebView+CleanLayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+CleanLayerDelegate.h"; sourceTree = "<group>"; };
 		91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+CleanLayerDelegate.m"; sourceTree = "<group>"; };
+		91C34AE61F6FA850003BA109 /* ChangedUserRoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangedUserRoleViewController.h; sourceTree = "<group>"; };
+		91C34AE71F6FA850003BA109 /* ChangedUserRoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangedUserRoleViewController.m; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -2767,6 +2770,8 @@
 				B675927F1F29965200E89B65 /* NewMineQuestionController.m */,
 				911123E11F39B74400A09D83 /* NewPushTableView.h */,
 				911123E21F39B74400A09D83 /* NewPushTableView.m */,
+				91C34AE61F6FA850003BA109 /* ChangedUserRoleViewController.h */,
+				91C34AE71F6FA850003BA109 /* ChangedUserRoleViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -5416,6 +5421,7 @@
 				F63D4A071EB329A20004BCC8 /* SelectListVc.m in Sources */,
 				3B0D41691F32FD2100E279F9 /* SimpleTableViewController.m in Sources */,
 				C4A564E31C2CECC10067516F /* NSData+MD5.m in Sources */,
+				91C34AE81F6FA850003BA109 /* ChangedUserRoleViewController.m in Sources */,
 				9129DD3B1EF4D60600900611 /* JHCollectionReusableView.m in Sources */,
 				3B4868E11F2ADB96003AF8D8 /* ToolViewController.m in Sources */,
 				F62457EC1EA5FD01006834D2 /* GifRefreshHeader.m in Sources */,
