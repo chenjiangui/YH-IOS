@@ -24,6 +24,9 @@
     NSArray <UILabel *> *titleLabelList;
     NSArray <UILabel *> *xAxisLabelList;
     NSArray <UILabel *> *yAxisLabelList;
+    UILabel *title1;
+    UILabel *title2;
+    UILabel *title3;
 }
 
 @property (nonatomic, strong) JYClickableLine *lineView;
@@ -97,7 +100,30 @@
     timeLB.textColor = JYColor_TextColor_Chief;
     [titleView addSubview:timeLB];
     
-    NSArray *titleList = @[@"销售额", @"上周同天", @"变化率"];
+    NSMutableArray *titleList = [[NSMutableArray alloc]init];
+    if (self.seriesModel.mainDataList.count > 0) {
+         [titleList addObject:self.seriesModel.mainSeriesTitle];
+    }
+    else{
+        [titleList addObject:@""];
+    }
+    if (self.seriesModel.subDataList.count > 0) {
+        [titleList addObject:self.seriesModel.subSeriesTitle];
+    }
+    else{
+        [titleList addObject:@""];
+    }
+    if (self.seriesModel.threeList.count > 0){
+        [titleList addObject:self.seriesModel.threeSeriesTitle];
+    }
+    else{
+        if (self.seriesModel.subDataList.count > 0) {
+            [titleList addObject:@"变化率"];
+        }
+        else {
+            [titleList addObject:@""];
+        }
+    }
     NSMutableArray *numberLB = [NSMutableArray arrayWithCapacity:3];
     NSMutableArray *titleLB = [NSMutableArray arrayWithCapacity:3];
     UILabel *title;
@@ -107,12 +133,33 @@
         number.adjustsFontSizeToFitWidth = YES;
         [titleView addSubview:number];
         
-        title = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(number.frame), CGRectGetMaxY(number.frame), 80, 20)];
+        if (i == 0) {
+            title1 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(number.frame), CGRectGetMaxY(number.frame), 80, 20)];
+            //title.backgroundColor = JYColor_LightGray_White;
+            title1.text = titleList[i];
+            title1.font = [UIFont systemFontOfSize:12];
+            title1.textColor = JYColor_TextColor_Chief;
+            [titleView addSubview:title1];
+            [titleLB addObject:title1];
+        }
+         if (i == 1) {
+           title2 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(number.frame), CGRectGetMaxY(number.frame), 80, 20)];
         //title.backgroundColor = JYColor_LightGray_White;
-        title.text = titleList[i];
-        title.font = [UIFont systemFontOfSize:12];
-        title.textColor = JYColor_TextColor_Chief;
-        [titleView addSubview:title];
+           title2.text = titleList[i];
+           title2.font = [UIFont systemFontOfSize:12];
+           title2.textColor = JYColor_TextColor_Chief;
+          [titleView addSubview:title2];
+            [titleLB addObject:title2];
+        }
+        if (i == 2) {
+            title3 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(number.frame), CGRectGetMaxY(number.frame), 80, 20)];
+            //title.backgroundColor = JYColor_LightGray_White;
+            title3.text = titleList[i];
+            title3.font = [UIFont systemFontOfSize:12];
+            title3.textColor = JYColor_TextColor_Chief;
+            [titleView addSubview:title3];
+            [titleLB addObject:title3];
+        }
         
         
         if (i == 2) {
@@ -124,13 +171,12 @@
             [titleView addSubview:arrowView];
         }
         [numberLB addObject:number];
-        [titleLB addObject:title];
     }
     
     numberLabelList = [numberLB copy];
     titleLabelList = [titleLB copy];
     
-    UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(title.frame)+15, JYViewWidth, 0.5)];
+    UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(title1.frame)+15, JYViewWidth, 0.5)];
     sepLine.backgroundColor = JYColor_TextColor_Chief;
     [titleView addSubview:sepLine];
     
@@ -142,13 +188,12 @@
 }
 
 - (void)initializeAxis {
-    
     // 纵坐标
     UIView *axisYView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.infoView.bounds) / 5, CGRectGetHeight(self.infoView.bounds))];
     //axisYView.backgroundColor = JYColor_ArrowColor_Red;
     [self.infoView addSubview:axisYView];
     NSMutableArray *yAxisList = [NSMutableArray arrayWithCapacity:4];
-    CGFloat scaleHeight = (CGRectGetHeight(axisYView.bounds) - kAxisXViewHeight) / 4;
+    CGFloat scaleHeight = (CGRectGetHeight(axisYView.bounds) - kAxisXViewHeight- JYDefaultMargin) / 4;
     for (int i = 0; i < 4; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(JYDefaultMargin, 0, 50, scaleHeight)];
         CGPoint center = label.center;
@@ -170,15 +215,27 @@
     for (int i = 0; i < ((JYChartModel *)self.moduleModel).xAxis.count; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kBarHeight, 30)];
         CGPoint center = label.center;
-        center.x = CGPointFromString(self.lineView1.points[i]).x + CGRectGetWidth(axisYView.frame);// + JYDefaultMargin;
+        if (self.lineView1.points.count > i) {
+            center.x = CGPointFromString(self.lineView1.points[i]).x + CGRectGetWidth(axisYView.frame);
+        }
+        //center.x = CGPointFromString(self.lineView1.points[i]).x + CGRectGetWidth(axisYView.frame);// + JYDefaultMargin;
         center.y = CGRectGetHeight(axisXView.bounds) / 2.0;
         label.center = center;
         label.font = [UIFont systemFontOfSize:12];
         label.textAlignment = NSTextAlignmentCenter;
         label.text = self.chartModel.xAxis[i];
-        label.textColor = JYColor_SubColor_LightGreen;
-//        if () {
-            label.hidden = i%2 == 0;
+        if (self.seriesModel.subDataList.count > i && self.seriesModel.threeList.count == 0 && self.seriesModel.subDataList.count > 0) {
+             label.textColor = self.seriesModel.mainDataColorList[i];
+        }
+        else {
+             label.textColor = JYColor_TextColor_Chief;
+        }
+        
+//        if ()
+        if (((JYChartModel *)self.moduleModel).xAxis.count > 8) {
+             label.hidden = i%2 == 0;
+        }
+        
 //        }
         [axisXView addSubview:label];
         [xAxisList addObject:label];
@@ -213,26 +270,58 @@
         }
         else if (self.seriesModel.longerLineIndex == NSOrderedDescending) {
             actualNumber = @"暂无数据";
-            targetStr = self.seriesModel.subDataList[index];
+           targetStr = self.seriesModel.subDataList[index];
         }
     }
     else {
         actualNumber = self.seriesModel.mainDataList[index];
-        targetStr = self.seriesModel.subDataList[index];
+        if (self.seriesModel.subDataList.count>0) {
+            targetStr = self.seriesModel.subDataList[index];
+        }
     }
     
-    timeLB.text = self.chartModel.xAxis[index];
+    if (self.chartModel.xAxis.count > index) {
+      timeLB.text = self.chartModel.xAxis[index];
+    }
     numberLabelList[0].text = actualNumber;
     numberLabelList[1].text = targetStr;
-    numberLabelList[2].text = [self.seriesModel floatRatioAtIndex:index];
-    numberLabelList[2].textColor = [self.seriesModel mainDataColorList][index];
+    if (self.seriesModel.threeList.count > 0 ) {
+        if ( self.seriesModel.threeList.count > index) {
+            numberLabelList[2].text = self.seriesModel.threeList[index];
+        }
+        else{
+          numberLabelList[2].text = @"暂无数据";
+        }
+    }
+    else{
+        if (self.seriesModel.subDataList.count > 0) {
+            if (self.seriesModel.subDataList.count > index) {
+                numberLabelList[2].text = [self.seriesModel floatRatioAtIndex:index];
+            }
+            else{
+             numberLabelList[2].text = @"";
+            }
+        }
+        else {
+          numberLabelList[2].text = @"";
+            if ([actualNumber isEqualToString:@"暂无数据"]) {
+                actualNumber = @"";
+            }
+        }
+    }
+    if (self.seriesModel.threeList.count > 0 ) {
+         numberLabelList[2].textColor = JYColor_LineColor_LightOrange;
+    }
+    else{
+         numberLabelList[2].textColor = [self.seriesModel mainDataColorList][index];
+    }
     arrowView.arrow = [self.seriesModel arrowAtIndex:index];
     
     // 更新横坐标高亮颜色
-    [xAxisLabelList enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.textColor = JYColor_SubColor_LightGreen;
-    }];
-    xAxisLabelList[index].textColor = self.seriesModel.mainDataColorList[index];
+//    [xAxisLabelList enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        obj.textColor = JYColor_SubColor_LightGreen;
+//    }];
+//    xAxisLabelList[index].textColor = self.seriesModel.mainDataColorList[index];
     
     // 更新箭头大小及位置
     CGRect frame = numberLabelList[2].frame;
@@ -255,6 +344,35 @@
 
 - (void)refreshSubViewData {
     
+    NSMutableArray *titleList = [[NSMutableArray alloc]init];
+    if (self.seriesModel.mainDataList.count > 0) {
+        [titleList addObject:self.seriesModel.mainSeriesTitle];
+    }
+    else{
+        [titleList addObject:@""];
+    }
+    if (self.seriesModel.subDataList.count > 0) {
+        [titleList addObject:self.seriesModel.subSeriesTitle];
+    }
+    else{
+        [titleList addObject:@""];
+    }
+    if (self.seriesModel.threeList.count > 0){
+        [titleList addObject:self.seriesModel.threeSeriesTitle];
+    }
+    else{
+        if (self.seriesModel.subDataList.count > 0) {
+            [titleList addObject:@"变化率"];
+        }
+        else {
+            [titleList addObject:@""];
+        }
+    }
+    
+    title1.text = titleList[0];
+    title2.text = titleList[1];
+    title3.text = titleList[2];
+    
     timeLB.text = [self.chartModel.xAxis lastObject];
     if (self.seriesModel) {
         
@@ -262,9 +380,12 @@
                                               @"data"  : self.seriesModel.mainDataList} mutableCopy];
         NSMutableDictionary *line1Params = [@{@"color" : JYColor_LineColor_LightPurple,
                                               @"data"  : self.seriesModel.subDataList} mutableCopy];
+        NSMutableDictionary *line2Params = [@{@"color" : JYColor_LineColor_LightOrange,
+                                              @"data"  : self.seriesModel.threeList} mutableCopy];
         NSMutableDictionary *lineParams = [NSMutableDictionary dictionary];
         [lineParams setObject:line0Params forKey:@"line0"];
         [lineParams setObject:line1Params forKey:@"line1"];
+        [lineParams setObject:line2Params forKey:@"line2"];
         // 线
         self.lineView1.lineParms = lineParams;
     }
@@ -285,10 +406,10 @@
     }
     else if (self.seriesModel.longerLineIndex == NSOrderedAscending) {
         actualNumber = [self.seriesModel.mainDataList lastObject];
-        targetStr = @"暂无数据";
+      //  targetStr = @"暂无数据";
     }
     else if (self.seriesModel.longerLineIndex == NSOrderedDescending) {
-        actualNumber = @"暂无数据";
+      //  actualNumber = @"暂无数据";
         targetStr = [self.seriesModel.subDataList lastObject];
     }
     // 默认显示最后条数据
@@ -296,13 +417,24 @@
     numberLabelList[0].textColor = JYColor_LineColor_LightBlue;
     numberLabelList[1].text = targetStr;// 对比数据
     numberLabelList[1].textColor = JYColor_LineColor_LightPurple;
-    numberLabelList[2].text = [self.seriesModel floatRatioAtIndex:self.seriesModel.maxLength];//变化率
+    if (self.seriesModel.subDataList.count == 0) {
+        [arrowView setHidden:YES];
+        actualNumber = @"";
+        targetStr = @"";
+    }
+    if (self.seriesModel.threeList.count > 0) {
+        [arrowView setHidden:YES];
+          numberLabelList[2].text = [NSString stringWithFormat:@"%@",[self.seriesModel.threeList lastObject]];
+    }
+    else{
+          numberLabelList[2].text = [self.seriesModel floatRatioAtIndex:self.seriesModel.maxLength];//变化率
+    }
     numberLabelList[2].textColor = [self.seriesModel.mainDataColorList lastObject];
     CGRect frame = numberLabelList[2].frame;
     CGSize size = [numberLabelList[2].text boundingRectWithSize:CGSizeMake(100, CGRectGetHeight(numberLabelList[2].frame)) options:0 attributes:@{NSFontAttributeName: numberLabelList[2].font} context:nil].size;
     numberLabelList[2].frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, CGRectGetHeight(numberLabelList[2].frame));
     arrowView.arrow = [self.seriesModel arrowAtIndex:self.seriesModel.maxLength];
-    [xAxisLabelList lastObject].textColor = [self.seriesModel.mainDataColorList lastObject];
+   // [xAxisLabelList lastObject].textColor = [self.seriesModel.mainDataColorList lastObject];
 }
 
 

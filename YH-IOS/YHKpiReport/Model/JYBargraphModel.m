@@ -52,7 +52,7 @@
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:[self.seriesInfo[@"data"] count]];
     for (int i = 0; i < [self.seriesInfo[@"data"] count]; i++) {
         NSDictionary *dic = [self.seriesInfo[@"data"] objectAtIndex:sortedIndexList ? [sortedIndexList[i] integerValue] : i];
-        [temp addObject:[NSString stringWithFormat:@"%@%.2f", ([dic[@"value"] floatValue] > 0 ? @"+" : @""), [dic[@"value"] floatValue]]];
+        [temp addObject:[NSString stringWithFormat:@"%.2f",[dic[@"value"] floatValue]]];
     }
     return [temp copy];
 }

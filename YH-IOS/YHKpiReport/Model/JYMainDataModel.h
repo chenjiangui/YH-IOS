@@ -10,11 +10,19 @@
 
 @class JYSubDataModlel;
 @class JYSubSheetModel;
+@class JYMainDataSubData;
 
 @interface JYMainDataModel : JYModuleTwoBaseModel
 
-@property (nonatomic, strong, readonly) NSArray *dataList;
+@property (nonatomic, strong, readonly) NSArray<JYMainDataSubData *> *dataList;
 @property (nonatomic, strong) JYSubSheetModel *subDataList;
 
+
+@end
+
+@interface JYMainDataSubData : JYModuleTwoBaseModel
+
+@property (nonatomic, strong) NSString *value;
+@property (nonatomic, strong) UIColor *color;
 
 @end

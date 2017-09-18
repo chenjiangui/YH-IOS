@@ -20,6 +20,7 @@
 }
 
 @property (nonatomic, strong) JYSingleValueModel *singleValueModel;
+@property (nonatomic, assign) int clickTime;
 
 @end
 
@@ -28,6 +29,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initializeSubView];
+        _clickTime = 0;
     }
     return self;
 }
@@ -102,14 +104,28 @@
     targetTitleLB.text = self.singleValueModel.subName;
     [ratio setTitleColor:self.singleValueModel.arrowToColor forState:UIControlStateNormal];
     
-    if (ratio.selected) {
-           [ratio setTitle:self.singleValueModel.floatRatio forState:UIControlStateNormal];
-        //actualLB.text = self.singleValueModel.floatRatio;
+    if (_clickTime == 0) {
+        [ratio setTitle:self.singleValueModel.mainData forState:UIControlStateNormal];
+        self.clickTime ++;
     }
-    else {
+    else if (_clickTime == 1) {
         NSString *selectedStr = [NSString stringWithFormat:@"%.2f", [self.singleValueModel.mainData floatValue] - [self.singleValueModel.subData floatValue]];
         [ratio setTitle:selectedStr forState:UIControlStateNormal];
+        self.clickTime ++;
     }
+    else if (_clickTime == 2){
+         [ratio setTitle:self.singleValueModel.floatRatio forState:UIControlStateNormal];
+        self.clickTime = 0;
+    }
+    
+//    if (ratio.selected) {
+//           [ratio setTitle:self.singleValueModel.floatRatio forState:UIControlStateNormal];
+//        //actualLB.text = self.singleValueModel.floatRatio;
+//    }
+//    else {
+//        NSString *selectedStr = [NSString stringWithFormat:@"%.2f", [self.singleValueModel.mainData floatValue] - [self.singleValueModel.subData floatValue]];
+//        [ratio setTitle:selectedStr forState:UIControlStateNormal];
+//    }
     
     CGSize size = [ratio.currentTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, JYViewHeight/2.0) options:0 attributes:@{NSFontAttributeName : ratio.titleLabel.font} context:nil].size;
     CGRect frame = ratio.frame;

@@ -239,7 +239,7 @@
     NSInteger itemsCount = self.tmpKeys.count;
     
     //在这里修改那个表上面的标题名的宽度哦！！！
-    buttonW =  6*15+30;
+    buttonW =  4*15+30;
 //    if (itemsCount * ItemWidth < self.width) {
 //        CGFloat width = self.isShowSortButton ? (self.width - self.height) : self.width;
 //        buttonW = width / itemsCount;

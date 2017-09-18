@@ -23,7 +23,7 @@
 
 + (CGFloat)getWidthWithTitle:(NSString *)title font:(UIFont *)font {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 0)];
-    label.text = title;
+    label.text = [NSString stringWithFormat:@"%@",title];
     label.font = font;
     [label sizeToFit];
     return label.frame.size.width;

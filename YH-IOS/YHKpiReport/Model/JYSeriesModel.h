@@ -12,8 +12,10 @@
 
 @property (nonatomic, strong, readonly) NSString *mainSeriesTitle;
 @property (nonatomic, strong, readonly) NSString *subSeriesTitle;
+@property (nonatomic, strong, readonly) NSString *threeSeriesTitle;
 @property (nonatomic, strong, readonly) NSArray *mainDataList;
 @property (nonatomic, strong, readonly) NSArray *subDataList;
+@property (nonatomic, strong, readonly) NSArray *threeList;
 @property (nonatomic, strong, readonly) NSArray <UIColor *> *mainDataColorList;
 @property (nonatomic, strong, readonly) NSArray *mainDataArrowList;
 @property (nonatomic, strong, readonly) NSArray *yAxisDataList;

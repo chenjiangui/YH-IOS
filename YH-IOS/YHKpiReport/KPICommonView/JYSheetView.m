@@ -52,7 +52,10 @@ static NSString *rowCellID = @"rowCell";
 - (void)layoutSubviews {
     
     [self initializeSubView];
-    [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
+    if (self.sheetModel.headNames.count > 0) {
+         [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
+    }
+  //  [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
 }
 
 - (JYFreezeWindowView *)freezeView {
@@ -76,7 +79,7 @@ static NSString *rowCellID = @"rowCell";
         [columeData addObject:_sheetModel.mainDataModelList[i]];
         CGFloat minwidth = 100;
         for (int j = 1; j < _sheetModel.mainDataModelList[i].dataList.count; j++) {
-            CGFloat value = [UILabel getWidthWithTitle:_sheetModel.mainDataModelList[i].dataList[j] font:[UIFont systemFontOfSize:14]];
+            CGFloat value = [UILabel getWidthWithTitle:_sheetModel.mainDataModelList[i].dataList[j].value font:[UIFont systemFontOfSize:14]];
             if ( i == 0) {
                 if (value > minwidth) {
                         widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 40];
@@ -271,7 +274,7 @@ static NSString *rowCellID = @"rowCell";
     if (row < 0 || row >= self.sheetModel.mainDataModelList.count) {
         row = 0;
     }
-    NSString *title = self.sheetModel.mainDataModelList[row].dataList[0];
+    NSString *title = self.sheetModel.mainDataModelList[row].dataList[0].value;
     //NSString *title = [NSString stringWithFormat:@"R %zi", row];
     //NSLog(@"%@", title);
     cell.showFlagPoint = self.sheetModel.mainDataModelList[row].subDataList.mainDataModelList.count > 0;
@@ -297,9 +300,10 @@ static NSString *rowCellID = @"rowCell";
     
     //NSString *unit = [self.sheetModel.mainDataModelList[row].dataList[section] floatValue] > 0 ? @"+" : @"";
     //NSString *title = [NSString stringWithFormat:@"%@%0.2f", unit, [self.sheetModel.mainDataModelList[row].dataList[section] floatValue]];
-    NSString *title = [NSString stringWithFormat:@"%@", self.sheetModel.mainDataModelList[row].dataList[section]];
+    NSString *title = [NSString stringWithFormat:@"%@", self.sheetModel.mainDataModelList[row].dataList[section].value];
     //NSLog(@"%@", cell.title);
     cell.title = title;
+    cell.color = self.sheetModel.mainDataModelList[row].dataList[section].color;
     return cell;
 }
 
@@ -324,9 +328,10 @@ static NSString *rowCellID = @"rowCell";
         [params setObject:headTitle forKey:@"head"];
         [params setObject:data forKey:@"data"];
         JYSheetModel *subSheetModel = [JYSheetModel modelWithParams:params];
-        subSheetModel.sheetTitle = self.sheetModel.mainDataModelList[row].dataList[0];
+        subSheetModel.sheetTitle = self.sheetModel.mainDataModelList[row].dataList[0].value;
         
         JYSubSheetView *subView = [[JYSubSheetView alloc] initWithFrame:CGRectMake(0,0,JYScreenWidth,JYScreenHeight)];
+        subView.title = subSheetModel.sheetTitle;
         subView.sheetModel = self.sheetModel.mainDataModelList[row].subDataList;
         [subView showSubSheetView];
     }

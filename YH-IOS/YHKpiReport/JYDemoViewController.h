@@ -11,5 +11,9 @@
 @interface JYDemoViewController : YHBaseViewController
 
 @property (nonatomic, copy) NSString *urlLink;
+@property (strong, nonatomic) NSString *bannerName;
+@property (strong, nonatomic) NSString *link;
+@property (assign, nonatomic) CommentObjectType commentObjectType;
+@property (strong, nonatomic) NSString *objectID;
 
 @end

@@ -106,10 +106,10 @@
 #define WeakSelf  __weak __typeof(&*self)weakSelf = self;
 
 #define JYColor_LightGray_White ([UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1.0])
-#define JYColor_TextColor_Gray ([UIColor colorWithHexString:@"#999999"])
-#define JYColor_ArrowColor_Red ([UIColor colorWithHexString:@"F57658"])
+#define JYColor_TextColor_Gray ([UIColor colorWithHexString:@"999999"])
+#define JYColor_ArrowColor_Red ([UIColor colorWithHexString:@"ff0000"])
 #define JYColor_ArrowColor_Yellow ([UIColor colorWithHexString:@"f4bc45"])
-#define JYColor_ArrowColor_Green ([UIColor colorWithHexString:@"91c941"])
+#define JYColor_ArrowColor_Green ([UIColor colorWithHexString:@"6aa657"])
 #define JYColor_AlertBackgroudColor_BlackGray ([UIColor colorWithHexString:@"434a4d"]) // co6
 #define JYColor_LineColor_LightOrange ([UIColor colorWithHexString:@"f57658"]) //co5
 #define JYColor_BackgroudColor_SubWhite ([UIColor colorWithHexString:@"f8f8f8"]) // co8

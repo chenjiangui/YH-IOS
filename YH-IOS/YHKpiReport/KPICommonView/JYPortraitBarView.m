@@ -230,6 +230,7 @@
     numberLBList[0].text = [NSString stringWithFormat:@"%@", number1];
     numberLBList[1].text = number2;
     numberLBList[2].text = ratio;
+    numberLBList[2].textColor = [self.chartModel.seriesModel.mainDataColorList lastObject];
     self.arrowView.arrow = [self.chartModel.seriesModel arrowAtIndex:self.chartModel.seriesModel.maxLength];
     
     titleLBList[0].text = self.chartModel.seriesModel.mainSeriesTitle;
@@ -273,6 +274,7 @@
     numberLBList[0].text = [NSString stringWithFormat:@"%@", number1];
     numberLBList[1].text = number2;
     numberLBList[2].text = ratio;
+      numberLBList[2].textColor = self.chartModel.seriesModel.mainDataColorList[idx];
     self.arrowView.arrow = [self.chartModel.seriesModel arrowAtIndex:idx];
     
     // 更新bar的选中状态

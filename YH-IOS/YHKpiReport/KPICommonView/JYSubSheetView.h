@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) JYSubSheetModel *sheetModel;
 
+@property (nonatomic, strong)NSString *title;
+
 - (void)showSubSheetView;
 
 @end

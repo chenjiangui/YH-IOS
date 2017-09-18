@@ -57,7 +57,8 @@
 }
 
 - (void)setHelpInfo:(NSString *)helpInfo {
-    self.helpInfoView.text = helpInfo;
+    NSMutableAttributedString * mutableAttributedString = [[NSMutableAttributedString alloc] initWithData:[helpInfo dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,NSFontAttributeName : [UIFont systemFontOfSize:15] } documentAttributes:nil error:nil];
+    self.helpInfoView.attributedText = [mutableAttributedString copy];
 }
 
 - (void)setHelpTitle:(NSString *)helpTitle {

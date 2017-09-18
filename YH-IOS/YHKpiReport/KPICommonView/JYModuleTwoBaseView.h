@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JYModuleTwoBaseModel.h"
+#import "UILabel+FitWitdhAndHeight.h"
 
 @class JYModuleTwoBaseView;
 

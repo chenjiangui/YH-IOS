@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) JYLandscapeBar *landscapeBar;
 @property (nonatomic, strong) JYBargraphModel *bargraphModel;
+@property (nonatomic, strong) UIButton *selectedButton;
 
 @end
 
@@ -112,7 +113,6 @@
         proName.tag = -10000 + i;
         [proName setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];
         [proName setTitleColor:JYColor_TextColor_Chief forState:UIControlStateNormal];
-        [proName setTitleColor:JYColor_LineColor_LightBlue forState:UIControlStateHighlighted];
         proName.titleLabel.font = [UIFont systemFontOfSize:13];
         proName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         proName.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -131,6 +131,7 @@
         UILabel *ratio = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(proName.frame), CGRectGetMinY(proName.frame), 35, kBarHeight)];
         ratio.text = self.bargraphModel.seriesData[i];
         ratio.textAlignment = NSTextAlignmentRight;
+        ratio.adjustsFontSizeToFitWidth = YES;
         ratio.textColor = JYColor_TextColor_Chief;
         ratio.font = [UIFont systemFontOfSize:12];
         [proInfoView addSubview:ratio];
@@ -149,8 +150,15 @@
         [self.delegate moduleTwoBaseView:self didSelectedAtIndex:i data:self.bargraphModel.xAxisData[i]];
     }
     
+    if (_selectedButton == sender) {
+        
+    }
+    else{
+        [sender setTitleColor:JYColor_LineColor_LightBlue forState:UIControlStateNormal];
+        [_selectedButton setTitleColor:JYColor_TextColor_Chief forState:UIControlStateNormal];
+    }
+    self.selectedButton = sender;
     [JYHudView showHUDWithTitle:self.bargraphModel.xAxisData[i]];
-    
 }
 
 - (CGFloat)estimateViewHeight:(JYModuleTwoBaseModel *)model {

@@ -39,9 +39,9 @@
 - (UILabel *)sheetTitleLabel {
     if (!_sheetTitleLabel) {
         _sheetTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, JYScreenWidth, 54)];
-        //_sheetTitleLabel.textColor = JYColor_TextColor_Chief;
+        _sheetTitleLabel.textColor = JYColor_TextColor_Chief;
         _sheetTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _sheetTitleLabel.backgroundColor = [UIColor whiteColor];
+       _sheetTitleLabel.backgroundColor = [UIColor whiteColor];
         _sheetTitleLabel.font = [UIFont boldSystemFontOfSize:15];
     }
     return _sheetTitleLabel;
@@ -61,7 +61,7 @@
     if (![JYSubSheetModel isEqual:sheetModel]) {
         _sheetModel = sheetModel;
     }
-    //self.sheetTitleLabel.text = _sheetModel.sheetTitle;
+    self.sheetTitleLabel.text = self.title;
     self.sheetView.moduleModel = _sheetModel;
     
     [self addSubview:_sheetView];

@@ -18,6 +18,10 @@
     return [((NSArray *)self.params)[1] objectForKey:@"name"];
 }
 
+-(NSString *)threeSeriesTitle {
+    return [((NSArray *)self.params)[2] objectForKey:@"name"];
+}
+
 - (NSArray *)mainDataList {
     NSMutableArray *mainData = [NSMutableArray arrayWithArray:self.params[0][@"data"]];
     if ([mainData[0] isKindOfClass:[NSDictionary class]]) {
@@ -44,37 +48,73 @@
 }
 
 - (NSArray *)subDataList {
-    NSMutableArray *mainDate = [NSMutableArray arrayWithCapacity:[self.params[1][@"data"] count]];
-    
-    for (NSString *value in self.params[1][@"data"]) {
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        NSString *number = [numberFormatter stringFromNumber:@([value floatValue])];
-        [mainDate addObject:number];
+    if (((NSArray *)self.params).count > 1) {
+        NSMutableArray *mainDate = [NSMutableArray arrayWithCapacity:[self.params[1][@"data"] count]];
+        
+        for (NSString *value in self.params[1][@"data"]) {
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+            NSString *number = [numberFormatter stringFromNumber:@([value floatValue])];
+            [mainDate addObject:number];
+        }
+        
+        return [mainDate copy];
     }
-    
-    return [mainDate copy];
+    else{
+        return [[NSArray alloc]init];
+    }
 }
 
+- (NSArray *)threeList {
+    if (((NSArray *)self.params).count > 2) {
+        NSMutableArray *mainDate = [NSMutableArray arrayWithCapacity:[self.params[2][@"data"] count]];
+        
+        for (NSString *value in self.params[2][@"data"]) {
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+            NSString *number = [numberFormatter stringFromNumber:@([value floatValue])];
+            [mainDate addObject:number];
+        }
+        
+        return [mainDate copy];
+    }
+    else{
+        return [[NSArray alloc]init];
+    }
+}
+
+
 - (NSInteger)minLength {
-    _minLength = [self.params[1][@"data"] count] < [self.params[0][@"data"] count] ? [self.params[1][@"data"] count] : [self.params[0][@"data"] count];
+       if (((NSArray *)self.params).count > 1) {
+     _minLength = [self.params[1][@"data"] count] < [self.params[0][@"data"] count] ? [self.params[1][@"data"] count] : [self.params[0][@"data"] count];
+       }
+       else{
+           _minLength =  [self.params[0][@"data"] count];
+       }
     return _minLength;
 }
 
 - (NSInteger)maxLength {
     // 2个相等时长度都一样
-    _maxLength = [self.params[1][@"data"] count] > [self.params[0][@"data"] count] ? [self.params[1][@"data"] count] : [self.params[0][@"data"] count];
+    if (((NSArray *)self.params).count > 1) {
+        _maxLength = [self.params[1][@"data"] count] > [self.params[0][@"data"] count] ? [self.params[1][@"data"] count] : [self.params[0][@"data"] count];
+    }
+    else{
+        _maxLength = [self.params[0][@"data"] count];
+    }
     return _maxLength;
 }
 
 - (NSComparisonResult)longerLineIndex {
-    NSComparisonResult orderRst = NSOrderedSame;
+     NSComparisonResult orderRst = NSOrderedSame;
+     if (((NSArray *)self.params).count > 1) {
     if ([self.params[0][@"data"] count] > [self.params[1][@"data"] count]) {
         orderRst = NSOrderedAscending;
     }
     else if ([self.params[0][@"data"] count] < [self.params[1][@"data"] count]) {
         orderRst = NSOrderedDescending;
     }
+     }
     return orderRst;
 }
 
@@ -114,10 +154,13 @@
 
 - (NSString *)floatRatioAtIndex:(NSInteger)idx {
     if (idx >= self.minLength) {
-        return @"暂无数据";
+        return @"";
     }
     CGFloat mainData = [[self.mainDataList[idx] stringByReplacingOccurrencesOfString:@"," withString:@""] floatValue];
-    CGFloat subData = [[self.subDataList[idx] stringByReplacingOccurrencesOfString:@"," withString:@""] floatValue];
+    CGFloat subData = 0;
+    if (self.subDataList.count > 0) {
+       subData = [[self.subDataList[idx] stringByReplacingOccurrencesOfString:@"," withString:@""] floatValue];
+    }
     
     CGFloat ratio = (mainData - subData) / subData;
     
@@ -195,7 +238,7 @@
     NSInteger per = max / 4;
     NSMutableArray *yAxisArr = [NSMutableArray arrayWithCapacity:4];
     for (int i = 0; i < 4; i++) {
-        [yAxisArr addObject:[NSString stringWithFormat:@"%zi", per * (4 - i)]];
+            [yAxisArr addObject:[NSString stringWithFormat:@"%zi", per * (4 - i)]];
     }
 //    [yAxisArr removeLastObject];
 //    [yAxisArr addObject:[NSString stringWithFormat:@"%zi", [self minValue]]];

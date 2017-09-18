@@ -35,17 +35,19 @@
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
         _infoLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        //_infoLabel.textColor = JYColor_TextColor_Chief;
-        _infoLabel.font = [UIFont systemFontOfSize:15];
+        _infoLabel.font = [UIFont systemFontOfSize:14];
+        _infoLabel.numberOfLines = 0;
     }
     return _infoLabel;
 }
 
 - (void)refreshSubViewData {
-    self.infoLabel.text = self.infoModel.infoStr;
+        NSMutableAttributedString * mutableAttributedString = [[NSMutableAttributedString alloc] initWithData:[self.infoModel.infoStr dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,NSFontAttributeName : [UIFont systemFontOfSize:15] } documentAttributes:nil error:nil];
+    self.infoLabel.attributedText = mutableAttributedString;
 }
 
 - (CGFloat)estimateViewHeight:(JYModuleTwoBaseModel *)model {
+    
     return 54;
 }
 

@@ -418,6 +418,9 @@
         self.netBugView.hidden = success;
         [self.reTool endDownPullWithReload:NO];
         [HudToolView hideLoadingInView:self.view];
+        if (demolArray.count == 0) {
+            [HudToolView showText:@"解析出错"];
+        }
         if (success && demolArray && jsonObjc) {
             self.dataList = demolArray;
             [self.rootTBView reloadData];

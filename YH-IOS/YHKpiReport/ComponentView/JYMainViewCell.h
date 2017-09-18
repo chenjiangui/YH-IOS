@@ -30,5 +30,6 @@ typedef NS_ENUM(NSInteger, JYMainViewCellSeparatorStyle) {
 @property (assign, nonatomic) JYMainViewCellSeparatorStyle separatorStyle;
 @property (assign, nonatomic) NSInteger rowNumber;
 @property (assign, nonatomic) NSInteger sectionNumber;
+@property (strong, nonatomic) UIColor *color;
 
 @end

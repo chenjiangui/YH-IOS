@@ -33,7 +33,7 @@
             {
                 _style = style;
                 _titleLabel = [[UILabel alloc] init];
-                _titleLabel.textColor = JYColor_TextColor_Chief;
+                //_titleLabel.textColor = JYColor_TextColor_Chief;
                 _titleLabel.textAlignment = NSTextAlignmentCenter;
                 _titleLabel.font = [UIFont boldSystemFontOfSize:14];
                 [self addSubview:_titleLabel];
@@ -51,6 +51,9 @@
     return self;
 }
 
+-(void)setColor:(UIColor *)color {
+    _titleLabel.textColor = color;
+}
 
 - (void)setTitle:(NSString *)title {
     _title = title;

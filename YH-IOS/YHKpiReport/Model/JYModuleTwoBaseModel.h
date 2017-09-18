@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, JYDetailChartType) {
     JYDetailChartTypeSingleValue      = 4, // 单值对比图
     JYDetailChartTypeBargraph         = 5, // 横向条状图
     JYDetailChartTypeCartHistogram    = 6, // 柱状图
+    JYDetailChartTypePie              = 7, // 饼图
 };
 
 

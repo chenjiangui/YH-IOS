@@ -56,9 +56,10 @@
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    if (self.childViewControllers.count > 1) {
-        return YES;
-    }else{
-        return NO;
-    };
+//    if (self.childViewControllers.count > 1) {
+//        return YES;
+//    }else{
+//        return NO;
+//    };
+    return NO;
 }@end

@@ -30,11 +30,15 @@
     
     titleLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 110, JYViewHeight)];
     titleLB.text = @"销售额VS目标";
+    titleLB.font = [UIFont boldSystemFontOfSize:14];
+    titleLB.textColor = [NewAppColor yhapp_3color];
     [self addSubview:titleLB];
     
     dateLB = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(titleLB.frame) + JYDefaultMargin, 0, 100, JYViewHeight)];
     dateLB.text = @"2017/05/10";
     dateLB.adjustsFontSizeToFitWidth = YES;
+    dateLB.font = [UIFont systemFontOfSize:14];
+    dateLB.textColor = [NewAppColor yhapp_3color];
     [self addSubview:dateLB];
     
     UIButton *showInfoBtn = [UIButton buttonWithType:UIButtonTypeInfoDark];
@@ -42,6 +46,24 @@
     [showInfoBtn addTarget:self action:@selector(showHelpInfo:) forControlEvents:UIControlEventTouchUpInside];
     showInfoBtn .tintColor = [UIColor lightGrayColor];
     [self addSubview:showInfoBtn];
+    
+    [titleLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.mas_equalTo(self);
+        make.right.mas_equalTo(dateLB.mas_left).mas_offset(-JYDefaultMargin);
+    }];
+    
+    [dateLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(self);
+        make.left.mas_equalTo(titleLB.mas_right).mas_offset(JYDefaultMargin);
+        //make.right.mas_equalTo(showInfoBtn.mas_left).mas_offset(-JYDefaultMargin -20);
+    }];
+    
+    [showInfoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(self);
+        make.width.mas_equalTo(20);
+        make.left.mas_greaterThanOrEqualTo(dateLB.mas_right).mas_offset(JYDefaultMargin +20);
+        make.right.mas_equalTo(self.mas_right).mas_equalTo(-20);
+    }];
 }
 
 - (void)refreshSubViewData {

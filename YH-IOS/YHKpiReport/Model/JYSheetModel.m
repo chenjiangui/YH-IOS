@@ -68,7 +68,7 @@
     NSMutableArray <NSNumber *> *mainDataAtSectionList = [NSMutableArray arrayWithCapacity:originMainData.count];
     // 从原始数组中提取出要排序列的一组数组，即提取出排序列数组
     for (int i = 0; i < originMainData.count; i++) {
-        [mainDataAtSectionList addObject:@([originMainData[i].dataList[section + 1] floatValue])];
+        [mainDataAtSectionList addObject:@([originMainData[i].dataList[section + 1].value floatValue])];
     }
     // 排序列数组进行排序，生成排后列数组
     NSArray *sortedMainDataAtSectionList = [mainDataAtSectionList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
