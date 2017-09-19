@@ -29,13 +29,13 @@
         make.edges.mas_equalTo(self.view);
     }];
     _browser.delegate = self;
-    [_browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.browser webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         responseCallback(@"SubjectViewController - Response for message from ObjC");
     }];
     [WebViewJavascriptBridge enableLogging];
     [self addWebViewJavascriptBridge];
-    [self setStatusBarBackgroundColor:[UIColor whiteColor]];
+    self.browser.backgroundColor = [UIColor whiteColor];
+    [_browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
 }
 
 

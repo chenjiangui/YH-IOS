@@ -186,33 +186,33 @@
 }
 
 -(void)getData{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-    [HudToolView hideLoadingInView:self.view];
-    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
-    [self moduleTwoList];
-    return;
-//    
-//    NSArray *templateArray = [self.urlLink componentsSeparatedByString:@"/"];
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/json",kBaseUrl,SafeText(user.groupID),templateArray[8]];
-//    [manager GET:kpiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"用户信息 %@",responseObject);
-//        NSArray *array = responseObject;
-//        _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
-//        [self moduleTwoList];
-//        [HudToolView hideLoadingInView:self.view];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"ERROR- %@",error);
-//        NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
-//        NSData *data = [NSData dataWithContentsOfFile:path];
-//        NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-//        [HudToolView hideLoadingInView:self.view];
-//        _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
-//        [self moduleTwoList];
-//    }];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+//    NSData *data = [NSData dataWithContentsOfFile:path];
+//    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+//    [HudToolView hideLoadingInView:self.view];
+//    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
+//    [self moduleTwoList];
+//    return;
+//
+    NSArray *templateArray = [self.urlLink componentsSeparatedByString:@"/"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/json",kBaseUrl,SafeText(user.groupID),templateArray[8]];
+    [manager GET:kpiUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"用户信息 %@",responseObject);
+        NSArray *array = responseObject;
+        _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
+        [self moduleTwoList];
+        [HudToolView hideLoadingInView:self.view];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR- %@",error);
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        [HudToolView hideLoadingInView:self.view];
+        _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
+        [self moduleTwoList];
+    }];
 }
 
 - (void)moduleTwoList {
