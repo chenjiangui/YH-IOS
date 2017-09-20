@@ -27,6 +27,7 @@ static NSString *rowCellID = @"rowCell";
 
 @property (nonatomic, strong) JYSheetModel *sheetModel;
 @property (nonatomic, strong) JYFreezeWindowView *freezeView;
+@property (nonatomic, strong) NSMutableArray *isShowFlagArray;
 
 @end
 
@@ -55,7 +56,7 @@ static NSString *rowCellID = @"rowCell";
     if (self.sheetModel.headNames.count > 0) {
          [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
     }
-  //  [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
+
 }
 
 - (JYFreezeWindowView *)freezeView {
@@ -97,6 +98,22 @@ static NSString *rowCellID = @"rowCell";
     }
     //widthSizeArray[0] =[NSNumber numberWithFloat:300];
     return widthSizeArray;
+}
+
+-(NSMutableArray *)isShowFlagArray {
+    if (!_isShowFlagArray) {
+        self.isShowFlagArray = [[NSMutableArray alloc]init];
+        for (int i = 0; i<self.sheetModel.mainDataModelList.count; i++) {
+            if (self.sheetModel.mainDataModelList[i].subDataList.headNames.count > 0) {
+                [_isShowFlagArray addObject:@(1)];
+            }
+            else{
+                [_isShowFlagArray addObject:@(0)];
+            }
+        }
+        self.isShowFlagArray = _isShowFlagArray;
+    }
+    return _isShowFlagArray;
 }
 
 - (void)initializeSubView {
@@ -277,7 +294,19 @@ static NSString *rowCellID = @"rowCell";
     NSString *title = self.sheetModel.mainDataModelList[row].dataList[0].value;
     //NSString *title = [NSString stringWithFormat:@"R %zi", row];
     //NSLog(@"%@", title);
-    cell.showFlagPoint = self.sheetModel.mainDataModelList[row].subDataList.mainDataModelList.count > 0;
+    // 导致卡顿的罪魁祸首
+//    __block BOOL isshowFlag;
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        isshowFlag = NO;
+//        if (self.sheetModel.mainDataModelList[row].subDataList.mainDataModelList.count > 0) {
+//            isshowFlag = YES;
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            cell.showFlagPoint = isshowFlag;
+//        });
+//    });
+    
+    cell.showFlagPoint =  [self.isShowFlagArray[row] boolValue];
     cell.title = title;
     return cell;
 }
@@ -305,7 +334,7 @@ static NSString *rowCellID = @"rowCell";
     cell.title = title;
     cell.color = self.sheetModel.mainDataModelList[row].dataList[section].color;
     return cell;
-}
+} 
 
 #pragma mark - <JYFreezeWindowViewDelegate>
 - (void)freezeWindowView:(JYFreezeWindowView *)freezeWindowView didSelectMainZoneIndexPath:(NSIndexPath *)indexPath {

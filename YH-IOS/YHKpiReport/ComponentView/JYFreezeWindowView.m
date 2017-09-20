@@ -196,17 +196,17 @@
 }
 
 - (void)autoAligning {
-//    if (self.autoHorizontalAligning && !self.autoVerticalAligning) {
-//        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
-//        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.mainScrollView.contentOffset.y) animated:YES];
-//    } else if (self.autoVerticalAligning && !self.autoHorizontalAligning) {
-//        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
-//        [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.cellViewSize.height * mutipleY) animated:YES];
-//    } else if (self.autoHorizontalAligning && self.autoVerticalAligning) {
-//        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
-//        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
-//        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.cellViewSize.height * mutipleY) animated:YES];
-//    }
+    if (self.autoHorizontalAligning && !self.autoVerticalAligning) {
+        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
+        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.mainScrollView.contentOffset.y) animated:YES];
+    } else if (self.autoVerticalAligning && !self.autoHorizontalAligning) {
+        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
+        [self.mainScrollView setContentOffset:CGPointMake(self.mainScrollView.contentOffset.x, self.cellViewSize.height * mutipleY) animated:YES];
+    } else if (self.autoHorizontalAligning && self.autoVerticalAligning) {
+        float multipleX = roundf(self.mainScrollView.contentOffset.x / self.cellViewSize.width);
+        float mutipleY = roundf(self.mainScrollView.contentOffset.y / self.cellViewSize.height);
+        [self.mainScrollView setContentOffset:CGPointMake(self.cellViewSize.width * multipleX, self.cellViewSize.height * mutipleY) animated:YES];
+    }
 }
 
 - (void)sectionCellInSectionScrollView {
@@ -442,7 +442,6 @@
                 [mainViewCell addGestureRecognizer:gestureRecognizer];
             }
             //             //这里添加每一行宽度的地方;
-            CGFloat width = indexPath.section * self.cellViewSize.width;
             [mainViewCell setFrame:CGRectMake(_tempWidth, indexPath.row * self.cellViewSize.height, [self.sizeWidthArray[indexPath.section] intValue], self.cellViewSize.height * mainViewCell.rowNumber)];
             
             //            NSArray *widthArray = @[@1,@2,@3,@4,@4];

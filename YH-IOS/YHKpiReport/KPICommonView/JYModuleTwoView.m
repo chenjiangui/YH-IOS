@@ -25,8 +25,8 @@
 - (JYCursor *)cursor {
     if (!_cursor) {
         _cursor = [[JYCursor alloc]init];
-        _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 40);
         _cursor.titles = self.moduleTwoModel.statementTitleList;
+        _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 40);
         _cursor.pageViews = self.statementView;
         //设置根滚动视图的高度
         _cursor.rootScrollViewHeight = self.frame.size.height - 40;

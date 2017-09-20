@@ -29,6 +29,8 @@
 #import <Bugly/Bugly.h>
 #import <DMPasscode/DMPasscode.h>
 #import "ZJNewFeatureController.h"
+// 引入热修复
+#import <JSPatchPlatform/JSPatch.h>
 //引入高德地图SDK
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -99,6 +101,13 @@ void UncaughtExceptionHandler(NSException * exception) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [JSPatch startWithAppKey:kHotFix];
+   #ifdef DEBUG
+    [JSPatch setupDevelopment];
+    #endif
+  //  [JSPatch setupRSAPublicKey:kHotFixRSA];
+    [JSPatch sync];
+    //[JSPatch testScriptInBundle];
     _isReApp = YES;
     
     /**注册第三方 sdk*/
@@ -198,6 +207,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     [Bugly startWithAppId:kBUGLYID];
     [AMapServices sharedServices].apiKey = kGAODEMAP;
     [self initUMSocial];
+    
 }
 
 - (void)savePushDict:(NSDictionary *)dict {

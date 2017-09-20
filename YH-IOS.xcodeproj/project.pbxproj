@@ -118,6 +118,8 @@
 		9118AEA31F26FF3600DD3FD3 /* UserAvaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9118AEA21F26FF3600DD3FD3 /* UserAvaTableViewCell.m */; };
 		9118AEA61F26FF4100DD3FD3 /* MineTwoLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9118AEA51F26FF4100DD3FD3 /* MineTwoLabelTableViewCell.m */; };
 		9122666F1F6B7CB500A0BECE /* JYPieModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9122666E1F6B7CB500A0BECE /* JYPieModel.m */; };
+		91248C591F70D51B0039C895 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91248C581F70D51B0039C895 /* libz.dylib */; };
+		91248C5D1F70DCC00039C895 /* JSPatchPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91248C5C1F70DCC00039C895 /* JSPatchPlatform.framework */; };
 		912833111EE868A50071CE69 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 912833101EE868A50071CE69 /* Person.m */; };
 		9129DD3B1EF4D60600900611 /* JHCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9129DD361EF4D60600900611 /* JHCollectionReusableView.m */; };
 		9129DD3C1EF4D60600900611 /* JHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9129DD381EF4D60600900611 /* JHCollectionViewFlowLayout.m */; };
@@ -927,6 +929,8 @@
 		9118AEA51F26FF4100DD3FD3 /* MineTwoLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTwoLabelTableViewCell.m; sourceTree = "<group>"; };
 		9122666D1F6B7CB500A0BECE /* JYPieModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPieModel.h; sourceTree = "<group>"; };
 		9122666E1F6B7CB500A0BECE /* JYPieModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPieModel.m; sourceTree = "<group>"; };
+		91248C581F70D51B0039C895 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../../../usr/lib/libz.dylib; sourceTree = "<group>"; };
+		91248C5C1F70DCC00039C895 /* JSPatchPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatchPlatform.framework; sourceTree = "<group>"; };
 		9128330F1EE868A50071CE69 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		912833101EE868A50071CE69 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		9129DD351EF4D60600900611 /* JHCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JHCollectionReusableView.h; path = Class/JHCollectionReusableView.h; sourceTree = "<group>"; };
@@ -1883,6 +1887,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B625C6761F3DE1100004C833 /* JavaScriptCore.framework in Frameworks */,
 				C41D78981D2B83E400D0B8F4 /* Security.framework in Frameworks */,
 				B625C67A1F3DE1570004C833 /* libstdc++.6.0.9.tbd in Frameworks */,
 				3B4F9C6D1F29E1CE0096256D /* libc++.tbd in Frameworks */,
@@ -1890,7 +1895,6 @@
 				B625C6781F3DE1340004C833 /* CoreLocation.framework in Frameworks */,
 				C4771BB61C058C9000AAF44F /* CoreTelephony.framework in Frameworks */,
 				C4771BAC1C058C4400AAF44F /* SystemConfiguration.framework in Frameworks */,
-				B625C6761F3DE1100004C833 /* JavaScriptCore.framework in Frameworks */,
 				3BAC8EA81F284A8A00A01A12 /* libSocialQQ.a in Frameworks */,
 				3BAC8EB91F284A8A00A01A12 /* libYixinSDK_V2.2.a in Frameworks */,
 				3BAC8EA21F284A8A00A01A12 /* libSocialLine.a in Frameworks */,
@@ -1907,6 +1911,7 @@
 				B625C6701F3DE09A0004C833 /* AMapLocationKit.framework in Frameworks */,
 				3BAC8EA91F284A8A00A01A12 /* TencentOpenAPI.framework in Frameworks */,
 				3BAC8EA51F284A8A00A01A12 /* libSocialSinaSSO.a in Frameworks */,
+				91248C5D1F70DCC00039C895 /* JSPatchPlatform.framework in Frameworks */,
 				C41E4FA61C0FE00A00E1B514 /* PgySDK.framework in Frameworks */,
 				3BAC8E8F1F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a in Frameworks */,
 				C48C03CA1CABB27B000D9D22 /* libUMessage_Sdk_1.2.6.a in Frameworks */,
@@ -1934,6 +1939,7 @@
 				3BAC8EA01F284A8900A01A12 /* libLWApiSDK.a in Frameworks */,
 				3BAC8E8E1F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a in Frameworks */,
 				9E9EEC1875A034202F52C155 /* libPods-YH-IOS.a in Frameworks */,
+				91248C591F70D51B0039C895 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3442,6 +3448,7 @@
 		C4DB7D6A1C02EC0500DA534E = {
 			isa = PBXGroup;
 			children = (
+				91248C5C1F70DCC00039C895 /* JSPatchPlatform.framework */,
 				C4DB7D751C02EC0500DA534E /* YH-IOS */,
 				C4DB7D8F1C02EC0600DA534E /* YH-IOSTests */,
 				C4DB7D9A1C02EC0600DA534E /* YH-IOSUITests */,
@@ -3662,6 +3669,7 @@
 		E7359AA6518F9148E9F7A313 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91248C581F70D51B0039C895 /* libz.dylib */,
 				B625C6791F3DE1570004C833 /* libstdc++.6.0.9.tbd */,
 				B625C6771F3DE1340004C833 /* CoreLocation.framework */,
 				B625C6751F3DE1100004C833 /* JavaScriptCore.framework */,
@@ -4701,7 +4709,7 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = WV94P663S4;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -5593,7 +5601,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = WV94P663S4;
 				ENABLE_BITCODE = NO;
@@ -5636,10 +5644,10 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuidev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "33afae0e-c5f8-47e9-a33a-5fb739a029d8";
+				PROVISIONING_PROFILE_SPECIFIER = yonghui.dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -5657,7 +5665,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = WV94P663S4;
 				ENABLE_BITCODE = NO;
@@ -5700,10 +5708,10 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuidev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "33afae0e-c5f8-47e9-a33a-5fb739a029d8";
+				PROVISIONING_PROFILE_SPECIFIER = yonghui.dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

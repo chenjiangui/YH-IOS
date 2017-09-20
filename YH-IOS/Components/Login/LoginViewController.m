@@ -40,7 +40,7 @@
 //@property (nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) NSString *userLongitude;
 @property(nonatomic, strong) NSString *userlatitude;
-@property(nonatomic, strong)UIButton *logoInBtn;
+@property(nonatomic, strong) UIButton *logoInBtn;
 
 
 
