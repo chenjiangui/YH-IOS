@@ -192,13 +192,13 @@
 
 - (void)showFlagPoint {
     
-    NSInteger maxLength = 0, maxIndex = 0;
-    for (int i = 0; i < self.flagPointList.count; i++) {
-        maxIndex = self.dataSource[i].count > maxLength ? i : maxIndex;
-        self.flagPointList[i].center = CGPointFromString([self.keyPointsList[i] lastObject]);
-    }
-    
-    self.flagPointList[maxIndex].hidden = NO;
+//    NSInteger maxLength = 0, maxIndex = 0;
+//    for (int i = 0; i < self.flagPointList.count; i++) {
+//        maxIndex = self.dataSource[i].count > maxLength ? i : maxIndex;
+//        self.flagPointList[i].center = CGPointFromString([self.keyPointsList[i] lastObject]);
+//    }
+//
+//    self.flagPointList[maxIndex].hidden = NO;
 }
 
 - (void)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {

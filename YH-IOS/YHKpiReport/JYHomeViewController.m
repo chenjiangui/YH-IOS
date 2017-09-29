@@ -111,6 +111,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        self.rootTBView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     self.localNotificationPath = [FileUtils dirPath:kConfigDirName FileName:kLocalNotificationConfigFileName];
     self.fd_prefersNavigationBarHidden = YES;
     [self.view sd_addSubviews:@[self.rootTBView,self.navBarView]];
@@ -120,6 +125,7 @@
     _user = [[User alloc]init];
     [self getData:YES];
     [self actionCheckAssets];
+    [self getDyliCodeMD5];
     [self showBottomTip:YES title:@"海量数据, 运筹帷幄" image:@"pic_1".imageFromSelf];
 }
 
@@ -284,6 +290,93 @@
         }
     }];
 }
+
+
+// 动态获取代码
+-(void)getDyliCodeMD5 {
+    NSDictionary *dict = @{
+                           kAPI_TOEKN:ApiToken(YHAPI_GETIOSFRAMEWORK),
+                           @"app_platform":@"ios"
+                           };
+    [YHHttpRequestAPI yh_getDataFrom:YHAPI_GETIOSFRAMEWORK with:dict Finish:^(BOOL success, id model, NSString *jsonObjc) {
+        if (success) {
+            [self codeMD5:jsonObjc];
+        }
+    }];
+}
+
+
+
+-(void)codeMD5:(NSString*)jsonString {
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+    NSDictionary *dict = [self dictionaryWithJsonString:jsonString];
+    NSArray<CodeMD5 *> *codeMdarray = [CodeMD5 mj_objectArrayWithKeyValuesArray:dict[@"data"]];
+    
+    for (int i = 0; i<codeMdarray.count; i++) {
+        CodeMD5 *item = codeMdarray[i];
+        if (![SafeText(userDict[item.filename]) isEqualToString:item.md5]) {
+             [self downloadCodeWithUrl:codeMdarray[i].url withFileName:item.filename withD5:item.md5];
+             userDict[item.filename]        = item.md5;
+        }
+    }
+    
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    [userDict writeToFile:userConfigPath atomically:YES];
+    [userDict writeToFile:settingsConfigPath atomically:YES];
+    
+}
+
+-(void)downloadCodeWithUrl:(NSString *)url withFileName:(NSString *)fileName withD5:(NSString *)md5 {
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    AFHTTPRequestOperation *op;
+    op = [self checkCodeUpdate:url withFileName:fileName withMD5:md5];
+    if(op) { [queue addOperation:op]; }
+}
+
+
+- (AFHTTPRequestOperation *)checkCodeUpdate:(NSString *)downloadurl withFileName:(NSString *)filename withMD5:(NSString *)md5{
+    BOOL isShouldUpdateAssets = NO;
+    __block NSString *basePath = [FileUtils basePath];
+    
+    NSString *assetsZipPath = [basePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", filename]];
+    if(![FileUtils checkFileExist:assetsZipPath isDir:NO]) {
+        isShouldUpdateAssets = YES;
+    }
+    
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.tag       = 1000;
+    HUD.mode      = MBProgressHUDModeDeterminate;
+    HUD.labelText = [NSString stringWithFormat:@"更新代码库"];
+    HUD.square    = YES;
+    [HUD show:YES];
+    
+    //    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, YHAPI_DOWNLOAD_STATIC_ASSETS]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kBaseUrl, downloadurl]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:ApiToken(YHAPI_DOWNLOAD_STATIC_ASSETS) forHTTPHeaderField:kAPI_TOEKN];
+   // [request addValue:[NSString stringWithFormat:@"%@%@",assetName,@".zip"] forHTTPHeaderField:@"filename"];
+    // 保存路径
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    op.outputStream = [NSOutputStream outputStreamToFileAtPath:assetsZipPath append:NO];
+    // 根据下载量设置进度条的百分比
+    [op setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        CGFloat precent = (CGFloat)totalBytesRead / totalBytesExpectedToRead;
+        HUD.progress = precent;
+    }];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //[FileUtils checkAssets:filename isInAssets:NO bundlePath:[[NSBundle mainBundle] bundlePath]];
+        [FileUtils checkCodeAssets:filename bundlePath:[[NSBundle mainBundle] bundlePath]];
+        [HUD removeFromSuperview];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@" 下载失败 ");
+        [HUD removeFromSuperview];
+    }];
+    return op;
+}
+
 
 -(void)saveAseetsMD5:(NSString*)jsonString {
     NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
@@ -595,7 +688,7 @@
         _rootTBView.showsVerticalScrollIndicator = NO;
         _rootTBView.dataSource = self;
         _rootTBView.delegate = self;
-        _rootTBView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+       // _rootTBView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _rootTBView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _rootTBView.backgroundColor = [UIColor clearColor];
     }

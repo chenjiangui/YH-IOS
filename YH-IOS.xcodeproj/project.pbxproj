@@ -55,14 +55,6 @@
 		3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E171F284A8900A01A12 /* UMSocialLocalizable.strings */; };
 		3BAC8E8E1F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E251F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a */; };
 		3BAC8E8F1F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E261F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a */; };
-		3BAC8E901F284A8900A01A12 /* UMSCommentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E281F284A8900A01A12 /* UMSCommentDetailController.xib */; };
-		3BAC8E911F284A8900A01A12 /* UMSCommentInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E291F284A8900A01A12 /* UMSCommentInputController.xib */; };
-		3BAC8E921F284A8900A01A12 /* UMSCommentInputControlleriPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E2A1F284A8900A01A12 /* UMSCommentInputControlleriPad.xib */; };
-		3BAC8E931F284A8900A01A12 /* UMShareEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E2B1F284A8900A01A12 /* UMShareEditViewController.xib */; };
-		3BAC8E941F284A8900A01A12 /* UMShareEditViewControlleriPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E2C1F284A8900A01A12 /* UMShareEditViewControlleriPad.xib */; };
-		3BAC8E951F284A8900A01A12 /* UMSLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E2D1F284A8900A01A12 /* UMSLoginViewController.xib */; };
-		3BAC8E961F284A8900A01A12 /* UMSnsAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E2E1F284A8900A01A12 /* UMSnsAccountViewController.xib */; };
-		3BAC8E971F284A8900A01A12 /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E2F1F284A8900A01A12 /* UMSShareListController.xib */; };
 		3BAC8E981F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC8E301F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle */; };
 		3BAC8E991F284A8900A01A12 /* libAPOpenSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E361F284A8900A01A12 /* libAPOpenSdk.a */; };
 		3BAC8E9A1F284A8900A01A12 /* libSocialAlipayShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E371F284A8900A01A12 /* libSocialAlipayShare.a */; };
@@ -120,6 +112,8 @@
 		9122666F1F6B7CB500A0BECE /* JYPieModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9122666E1F6B7CB500A0BECE /* JYPieModel.m */; };
 		91248C591F70D51B0039C895 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91248C581F70D51B0039C895 /* libz.dylib */; };
 		91248C5D1F70DCC00039C895 /* JSPatchPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91248C5C1F70DCC00039C895 /* JSPatchPlatform.framework */; };
+		912611141F7D009300181B3F /* SYPTemplateV2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912611131F7D008D00181B3F /* SYPTemplateV2.framework */; };
+		912611151F7D009300181B3F /* SYPTemplateV2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 912611131F7D008D00181B3F /* SYPTemplateV2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		912833111EE868A50071CE69 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 912833101EE868A50071CE69 /* Person.m */; };
 		9129DD3B1EF4D60600900611 /* JHCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9129DD361EF4D60600900611 /* JHCollectionReusableView.m */; };
 		9129DD3C1EF4D60600900611 /* JHCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9129DD381EF4D60600900611 /* JHCollectionViewFlowLayout.m */; };
@@ -188,6 +182,7 @@
 		91B70D681EF8C84600C02F16 /* JYSigleValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B70D671EF8C84600C02F16 /* JYSigleValueView.m */; };
 		91BB7B861F29B592001934FA /* NewAppColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BB7B851F29B592001934FA /* NewAppColor.m */; };
 		91C34AE81F6FA850003BA109 /* ChangedUserRoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C34AE71F6FA850003BA109 /* ChangedUserRoleViewController.m */; };
+		91C9C3E41F7CC930005C86D9 /* CodeMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C9C3E31F7CC930005C86D9 /* CodeMD5.m */; };
 		91D364091F1F220400CD7159 /* JYAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F41F1F220400CD7159 /* JYAnimationTool.m */; };
 		91D3640A1F1F220400CD7159 /* JYCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F61F1F220400CD7159 /* JYCursor.m */; };
 		91D3640B1F1F220400CD7159 /* JYItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D363F81F1F220400CD7159 /* JYItemManager.m */; };
@@ -692,6 +687,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F684C0761EA5F16700DBDBD4 /* Charts.framework in Embed Frameworks */,
+				912611151F7D009300181B3F /* SYPTemplateV2.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -795,14 +791,6 @@
 		3BAC8E241F284A8900A01A12 /* UMSocialSnsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsService.h; sourceTree = "<group>"; };
 		3BAC8E251F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSocial_Sdk_5.2.1.a; sourceTree = "<group>"; };
 		3BAC8E261F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSocial_Sdk_Comment_5.2.1.a; sourceTree = "<group>"; };
-		3BAC8E281F284A8900A01A12 /* UMSCommentDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentDetailController.xib; sourceTree = "<group>"; };
-		3BAC8E291F284A8900A01A12 /* UMSCommentInputController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentInputController.xib; sourceTree = "<group>"; };
-		3BAC8E2A1F284A8900A01A12 /* UMSCommentInputControlleriPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentInputControlleriPad.xib; sourceTree = "<group>"; };
-		3BAC8E2B1F284A8900A01A12 /* UMShareEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMShareEditViewController.xib; sourceTree = "<group>"; };
-		3BAC8E2C1F284A8900A01A12 /* UMShareEditViewControlleriPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMShareEditViewControlleriPad.xib; sourceTree = "<group>"; };
-		3BAC8E2D1F284A8900A01A12 /* UMSLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSLoginViewController.xib; sourceTree = "<group>"; };
-		3BAC8E2E1F284A8900A01A12 /* UMSnsAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSnsAccountViewController.xib; sourceTree = "<group>"; };
-		3BAC8E2F1F284A8900A01A12 /* UMSShareListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSShareListController.xib; sourceTree = "<group>"; };
 		3BAC8E301F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		3BAC8E311F284A8900A01A12 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		3BAC8E341F284A8900A01A12 /* APOpenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPI.h; sourceTree = "<group>"; };
@@ -931,6 +919,7 @@
 		9122666E1F6B7CB500A0BECE /* JYPieModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYPieModel.m; sourceTree = "<group>"; };
 		91248C581F70D51B0039C895 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../../../usr/lib/libz.dylib; sourceTree = "<group>"; };
 		91248C5C1F70DCC00039C895 /* JSPatchPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatchPlatform.framework; sourceTree = "<group>"; };
+		912611131F7D008D00181B3F /* SYPTemplateV2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SYPTemplateV2.framework; sourceTree = "<group>"; };
 		9128330F1EE868A50071CE69 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		912833101EE868A50071CE69 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		9129DD351EF4D60600900611 /* JHCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JHCollectionReusableView.h; path = Class/JHCollectionReusableView.h; sourceTree = "<group>"; };
@@ -1039,6 +1028,7 @@
 		917D4AF11F665033003F8069 /* UILabel+FitWitdhAndHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FitWitdhAndHeight.m"; sourceTree = "<group>"; };
 		918302611F1B98690039B8CD /* SubjectOutterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectOutterViewController.h; sourceTree = "<group>"; };
 		918302621F1B98690039B8CD /* SubjectOutterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectOutterViewController.m; sourceTree = "<group>"; };
+		918750801F7E1F940042C1FA /* SYPTemplateV2.framework.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = SYPTemplateV2.framework.zip; sourceTree = "<group>"; };
 		919083A81F5549C700F460F6 /* HttpModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpModel.h; sourceTree = "<group>"; };
 		919083A91F5549C700F460F6 /* HttpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpModel.m; sourceTree = "<group>"; };
 		919084091F56B07F00F460F6 /* JYSubSheetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYSubSheetModel.h; sourceTree = "<group>"; };
@@ -1067,6 +1057,8 @@
 		91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+CleanLayerDelegate.m"; sourceTree = "<group>"; };
 		91C34AE61F6FA850003BA109 /* ChangedUserRoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangedUserRoleViewController.h; sourceTree = "<group>"; };
 		91C34AE71F6FA850003BA109 /* ChangedUserRoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangedUserRoleViewController.m; sourceTree = "<group>"; };
+		91C9C3E21F7CC930005C86D9 /* CodeMD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeMD5.h; sourceTree = "<group>"; };
+		91C9C3E31F7CC930005C86D9 /* CodeMD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeMD5.m; sourceTree = "<group>"; };
 		91D363F31F1F220400CD7159 /* JYAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYAnimationTool.h; path = YHKpiReport/KPICommonView/JYAnimationTool.h; sourceTree = "<group>"; };
 		91D363F41F1F220400CD7159 /* JYAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYAnimationTool.m; path = YHKpiReport/KPICommonView/JYAnimationTool.m; sourceTree = "<group>"; };
 		91D363F51F1F220400CD7159 /* JYCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYCursor.h; path = YHKpiReport/KPICommonView/JYCursor.h; sourceTree = "<group>"; };
@@ -1928,6 +1920,7 @@
 				3BAC8EA31F284A8A00A01A12 /* libSocialRenren.a in Frameworks */,
 				C4771BA61C058A1800AAF44F /* libxml2.tbd in Frameworks */,
 				C4771BA91C058A7B00AAF44F /* PgySDK.framework in Frameworks */,
+				912611141F7D009300181B3F /* SYPTemplateV2.framework in Frameworks */,
 				B625C6741F3DE0A80004C833 /* AMapFoundationKit.framework in Frameworks */,
 				C4771BAA1C058A7B00AAF44F /* PgyUpdate.framework in Frameworks */,
 				3BAC8E9F1F284A8900A01A12 /* libSocialInstagram.a in Frameworks */,
@@ -2080,7 +2073,6 @@
 				3BAC8E191F284A8900A01A12 /* Header */,
 				3BAC8E251F284A8900A01A12 /* libUMSocial_Sdk_5.2.1.a */,
 				3BAC8E261F284A8900A01A12 /* libUMSocial_Sdk_Comment_5.2.1.a */,
-				3BAC8E271F284A8900A01A12 /* SocialSDKXib */,
 				3BAC8E301F284A8900A01A12 /* UMSocialSDKResourcesNew.bundle */,
 			);
 			path = UMSocial_Sdk_5.2.1;
@@ -2102,21 +2094,6 @@
 				3BAC8E241F284A8900A01A12 /* UMSocialSnsService.h */,
 			);
 			path = Header;
-			sourceTree = "<group>";
-		};
-		3BAC8E271F284A8900A01A12 /* SocialSDKXib */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC8E281F284A8900A01A12 /* UMSCommentDetailController.xib */,
-				3BAC8E291F284A8900A01A12 /* UMSCommentInputController.xib */,
-				3BAC8E2A1F284A8900A01A12 /* UMSCommentInputControlleriPad.xib */,
-				3BAC8E2B1F284A8900A01A12 /* UMShareEditViewController.xib */,
-				3BAC8E2C1F284A8900A01A12 /* UMShareEditViewControlleriPad.xib */,
-				3BAC8E2D1F284A8900A01A12 /* UMSLoginViewController.xib */,
-				3BAC8E2E1F284A8900A01A12 /* UMSnsAccountViewController.xib */,
-				3BAC8E2F1F284A8900A01A12 /* UMSShareListController.xib */,
-			);
-			path = SocialSDKXib;
 			sourceTree = "<group>";
 		};
 		3BAC8E321F284A8900A01A12 /* UMSocial_Sdk_Extra_Frameworks */ = {
@@ -2683,6 +2660,15 @@
 				91BB7B911F29C606001934FA /* UIWebView+CleanLayerDelegate.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		91C9C3E11F7CC913005C86D9 /* CodeMD5Model */ = {
+			isa = PBXGroup;
+			children = (
+				91C9C3E21F7CC930005C86D9 /* CodeMD5.h */,
+				91C9C3E31F7CC930005C86D9 /* CodeMD5.m */,
+			);
+			path = CodeMD5Model;
 			sourceTree = "<group>";
 		};
 		91D4D6821F08BF970087783C /* NewSelectView */ = {
@@ -3448,6 +3434,7 @@
 		C4DB7D6A1C02EC0500DA534E = {
 			isa = PBXGroup;
 			children = (
+				912611131F7D008D00181B3F /* SYPTemplateV2.framework */,
 				91248C5C1F70DCC00039C895 /* JSPatchPlatform.framework */,
 				C4DB7D751C02EC0500DA534E /* YH-IOS */,
 				C4DB7D8F1C02EC0600DA534E /* YH-IOSTests */,
@@ -3591,6 +3578,7 @@
 		C4DB7DC51C02EE6000DA534E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				918750801F7E1F940042C1FA /* SYPTemplateV2.framework.zip */,
 				91D4D6701F0624DB0087783C /* dist.zip */,
 				F6E1E68C1ED567890094ABA4 /* icons.zip */,
 				C46903931D5CC75F00233D05 /* BarCodeScan.zip */,
@@ -3607,6 +3595,7 @@
 		C4DB7DC71C02EE8E00DA534E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				91C9C3E11F7CC913005C86D9 /* CodeMD5Model */,
 				9142F1E01F3C64DD00DE38A8 /* MD5Model */,
 				3B763AE81F26109F00D5E965 /* NoticeWarningModel.h */,
 				3B763AE91F26109F00D5E965 /* NoticeWarningModel.m */,
@@ -4709,7 +4698,7 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = WV94P663S4;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -4796,7 +4785,6 @@
 				F63D49FC1EB329A20004BCC8 /* DoubleClickSuperChartHeaderCell.xib in Resources */,
 				3B4F9C511F298E150096256D /* ManageWarningItemCell.xib in Resources */,
 				F63D49FE1EB329A20004BCC8 /* DoubleClickSuperChartVc.xib in Resources */,
-				3BAC8E931F284A8900A01A12 /* UMShareEditViewController.xib in Resources */,
 				3BAC8EB21F284A8A00A01A12 /* ios-social-sdk-shake.html in Resources */,
 				F62456CF1EA5FB21006834D2 /* OneLableCell.xib in Resources */,
 				F624574D1EA5FBB2006834D2 /* PieChartViewController.xib in Resources */,
@@ -4807,7 +4795,6 @@
 				91DB242B1EED7A3000FC8413 /* select@2x.png in Resources */,
 				F62457591EA5FBB2006834D2 /* StackedBarChartViewController.xib in Resources */,
 				91D77F3D1EEAA61D007405A0 /* RightButtonTableViewCell.xib in Resources */,
-				3BAC8E921F284A8900A01A12 /* UMSCommentInputControlleriPad.xib in Resources */,
 				F62456C41EA5FB21006834D2 /* HomeIndexCollectionCellContentView.xib in Resources */,
 				C4EFE4B21C98F60A0009411A /* images.zip in Resources */,
 				913804AA1F3ACCF300FA154C /* WebViewJavascriptBridge.js.txt in Resources */,
@@ -4821,7 +4808,6 @@
 				F62456D11EA5FB21006834D2 /* ScrollChartsVc.xib in Resources */,
 				F62457571EA5FBB2006834D2 /* SinusBarChartViewController.xib in Resources */,
 				F63D49FA1EB329A20004BCC8 /* DoubleClickSuperChartCell.xib in Resources */,
-				3BAC8E901F284A8900A01A12 /* UMSCommentDetailController.xib in Resources */,
 				F624574F1EA5FBB2006834D2 /* PiePolylineChartViewController.xib in Resources */,
 				3BAC8E8D1F284A8900A01A12 /* UMSocialLocalizable.strings in Resources */,
 				3B4F9C591F29B24E0096256D /* BusinessGeneralCell.xib in Resources */,
@@ -4829,7 +4815,6 @@
 				915A8D351F1E106000262311 /* report_v24.json in Resources */,
 				F63D4A081EB329A20004BCC8 /* SelectListVc.xib in Resources */,
 				91DB246E1EEE9A7200FC8413 /* CustomCell.xib in Resources */,
-				3BAC8E961F284A8900A01A12 /* UMSnsAccountViewController.xib in Resources */,
 				F62457551EA5FBB2006834D2 /* ScatterChartViewController.xib in Resources */,
 				3B4F9C4A1F298B470096256D /* ManageWarningCell.xib in Resources */,
 				C4EFE4AF1C98F60A0009411A /* fonts.zip in Resources */,
@@ -4861,16 +4846,12 @@
 				B6E7B3591F29D2CE008B48BF /* none.png in Resources */,
 				B67593641F29CBEE00E89B65 /* HWCollectionViewCell.xib in Resources */,
 				3BAC8EB01F284A8A00A01A12 /* ios-social-sdk-shake.html in Resources */,
-				3BAC8E951F284A8900A01A12 /* UMSLoginViewController.xib in Resources */,
 				91DB242C1EED7A3000FC8413 /* select@3x.png in Resources */,
 				9114619F1EEA63B4006A35AF /* MineInfoTableViewCell.xib in Resources */,
 				91DB242A1EED7A3000FC8413 /* back@2x.png in Resources */,
 				F62456C91EA5FB21006834D2 /* HomeIndexDetailListVC.xib in Resources */,
-				3BAC8E971F284A8900A01A12 /* UMSShareListController.xib in Resources */,
-				3BAC8E941F284A8900A01A12 /* UMShareEditViewControlleriPad.xib in Resources */,
 				F63D4A061EB329A20004BCC8 /* SelectListCell.xib in Resources */,
 				3B717DAD1F28717F00858E0E /* ALTGOT2N.TTF in Resources */,
-				3BAC8E911F284A8900A01A12 /* UMSCommentInputController.xib in Resources */,
 				91EF8DDE1EF3AD1A00333746 /* YHTopicCollectionHeaderView.xib in Resources */,
 				F624573F1EA5FBB2006834D2 /* LineChart1ViewController.xib in Resources */,
 				F624564C1EA5FACD006834D2 /* CommonAlertView.xib in Resources */,
@@ -5354,6 +5335,7 @@
 				911123BD1F39B4BE00A09D83 /* NewFindPasswordCell.m in Sources */,
 				91EF8DE71EF3BA4D00333746 /* ListPage.m in Sources */,
 				915A8D131F1E0BA500262311 /* JYStatementModel.m in Sources */,
+				91C9C3E41F7CC930005C86D9 /* CodeMD5.m in Sources */,
 				919083AA1F5549C700F460F6 /* HttpModel.m in Sources */,
 				C45D27111C23FC490087C6F2 /* OpenUDID.m in Sources */,
 				91AB66AD1F28A28E0077A0CF /* MineSingleSettingViewController.m in Sources */,
@@ -5601,9 +5583,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = WV94P663S4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5644,10 +5626,84 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuidev;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"DMPasscode\"",
+					"-l\"FMDB\"",
+					"-l\"LBXScan\"",
+					"-l\"LTHPasscodeViewController\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJExtension\"",
+					"-l\"MJRefresh\"",
+					"-l\"MRProgress\"",
+					"-l\"Mantle\"",
+					"-l\"Masonry\"",
+					"-l\"Reachability\"",
+					"-l\"ReactiveObjC\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-l\"SDWebImage\"",
+					"-l\"SSZipArchive\"",
+					"-l\"YYKit\"",
+					"-l\"ZXingObjC\"",
+					"-l\"ZYCornerRadius\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"Bugly\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"LocalAuthentication\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebP\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33afae0e-c5f8-47e9-a33a-5fb739a029d8";
-				PROVISIONING_PROFILE_SPECIFIER = yonghui.dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -5665,9 +5721,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "YH-IOS/YH-IOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = WV94P663S4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5708,10 +5764,84 @@
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
 					"$(PROJECT_DIR)/YH-IOS/Vendor/UMSocial_Sdk_Extra_Frameworks/YiXin",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuidev;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"DMPasscode\"",
+					"-l\"FMDB\"",
+					"-l\"LBXScan\"",
+					"-l\"LTHPasscodeViewController\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJExtension\"",
+					"-l\"MJRefresh\"",
+					"-l\"MRProgress\"",
+					"-l\"Mantle\"",
+					"-l\"Masonry\"",
+					"-l\"Reachability\"",
+					"-l\"ReactiveObjC\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-l\"SDWebImage\"",
+					"-l\"SSZipArchive\"",
+					"-l\"YYKit\"",
+					"-l\"ZXingObjC\"",
+					"-l\"ZYCornerRadius\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"Bugly\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"LocalAuthentication\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebP\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33afae0e-c5f8-47e9-a33a-5fb739a029d8";
-				PROVISIONING_PROFILE_SPECIFIER = yonghui.dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YH-IOS/YH-IOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

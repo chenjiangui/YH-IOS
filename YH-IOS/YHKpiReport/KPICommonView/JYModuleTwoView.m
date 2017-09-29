@@ -26,10 +26,18 @@
     if (!_cursor) {
         _cursor = [[JYCursor alloc]init];
         _cursor.titles = self.moduleTwoModel.statementTitleList;
-        _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 40);
-        _cursor.pageViews = self.statementView;
+        if (_cursor.titles.count < 2) {
+              [_cursor.scrollNavBar setHidden:YES];
+            _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 0);
+            _cursor.pageViews = self.statementView;
+              _cursor.rootScrollViewHeight = self.frame.size.height;
+        }
+        else {
+            _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 40);
+            _cursor.pageViews = self.statementView;
+            _cursor.rootScrollViewHeight = self.frame.size.height - 40;
+        }
         //设置根滚动视图的高度
-        _cursor.rootScrollViewHeight = self.frame.size.height - 40;
         //默认值是白色
         _cursor.titleNormalColor = [NewAppColor yhapp_3color];
         //默认值是白色

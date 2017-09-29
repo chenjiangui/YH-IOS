@@ -49,12 +49,13 @@
         
         _cursor.titles = self.excelModel.sheetNames;
         _cursor.pageViews = self.sheetViewList;
+        _cursor.backgroundColor = [UIColor whiteColor];
         //设置根滚动视图的高度
         _cursor.rootScrollViewHeight = self.frame.size.height - (64);
         //默认值是白色
         _cursor.titleNormalColor = [NewAppColor yhapp_4color];
         //默认值是白色
-        _cursor.titleSelectedColor = [NewAppColor yhapp_3color];
+        _cursor.titleSelectedColor = [NewAppColor yhapp_15color];
         //是否显示排序按钮
         //_cursor.showSortbutton = YES;
         //默认的最小值是5，小于默认值的话按默认值设置

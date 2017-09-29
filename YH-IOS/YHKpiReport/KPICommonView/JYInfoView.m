@@ -35,7 +35,8 @@
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
         _infoLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _infoLabel.font = [UIFont systemFontOfSize:15];
+        _infoLabel.font = [UIFont systemFontOfSize:14];
+        _infoLabel.textColor = [NewAppColor yhapp_3color];
         _infoLabel.numberOfLines = 0;
     }
     return _infoLabel;
@@ -50,8 +51,7 @@
 }
 
 - (CGFloat)estimateViewHeight:(JYModuleTwoBaseModel *)model {
-    
-    return 54;
+    return [UILabel getHeightByWidth:self.frame.size.width title: SafeText(model.configInfo[@"title"]) font:[UIFont systemFontOfSize:15]]+20;
 }
 
 @end

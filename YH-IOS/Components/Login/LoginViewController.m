@@ -308,6 +308,12 @@
     _peopleNumString=@"";
     _PeopleUnderLine.backgroundColor= [UIColor colorWithHexString:@"#cccccc"];
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.peopleNumber endEditing:YES];
+    [self.passwordNumber endEditing:YES];
+}
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
 {
@@ -389,6 +395,7 @@
         }
     }];
 }
+
 
 //延时执行函数
 -(void)delayMethod

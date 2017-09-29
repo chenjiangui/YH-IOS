@@ -34,7 +34,7 @@
                 _titleLabel = [[UILabel alloc] init];
                 _titleLabel.textColor = JYColor_TextColor_Chief;
                 _titleLabel.textAlignment = NSTextAlignmentLeft;
-                _titleLabel.font = [UIFont systemFontOfSize:14];
+                _titleLabel.font = [UIFont systemFontOfSize:10];
                 _titleLabel.numberOfLines = 2;
                 [self addSubview:_titleLabel];
             }
@@ -102,8 +102,13 @@
     [super layoutSubviews];
     self.clickBtn.frame = self.bounds;
     if (self.style == JYFreezeViewCellStyleDefault) {
-        [self.titleLabel setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [self.flagPoint setFrame:CGRectMake(-13, (CGRectGetHeight(self.titleLabel.frame) - 15) / 2.0, 15, 15)];
+        if (![self.flagPoint isHidden]) {
+             [self.flagPoint setFrame:CGRectMake(-5, self.frame.size.height/2-7.5, 15, 15)];
+             [self.titleLabel setFrame:CGRectMake(12, 0, self.frame.size.width-30, self.frame.size.height)];
+        }
+        else{
+             [self.titleLabel setFrame:CGRectMake(2, 0, self.frame.size.width-30, self.frame.size.height)];
+        }
     }
     if (self.separatorStyle == JYFreezeViewCellSeparatorStyleSingleLine) {
         [self setLine];
@@ -121,7 +126,7 @@
 
 - (UIView *)flagPoint {
     if (!_flagPoint) {
-        _flagPoint = [[UIView alloc] initWithFrame:CGRectMake(-13, (CGRectGetHeight(self.titleLabel.frame) - 15) / 2.0, 15, 15)];
+        _flagPoint = [[UIView alloc] initWithFrame:CGRectMake(-5, (CGRectGetHeight(self.titleLabel.frame) - 15) / 2.0, 15, 15)];
         _flagPoint.layer.cornerRadius = CGRectGetWidth(_flagPoint.frame)/2.0;
         _flagPoint.backgroundColor = [JYColor_LineColor_LightBlue appendAlpha:0.15];
         _flagPoint.hidden = YES;

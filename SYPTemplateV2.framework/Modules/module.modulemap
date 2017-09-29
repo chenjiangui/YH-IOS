@@ -1,0 +1,6 @@
+framework module SYPTemplateV2 {
+  umbrella header "SYPTemplateV2.h"
+
+  export *
+  module * { export * }
+}

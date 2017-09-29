@@ -17,6 +17,9 @@
  */
 + (void)checkAssets:(NSString *)fileName isInAssets:(BOOL)isInAssets bundlePath:(NSString *)bundlePath;
 
+
++ (void)checkCodeAssets:(NSString *)fileName  bundlePath:(NSString *)bundlePath;
+
 /**
  *  服务器响应用 HTML 代码加载静态资源调整为应用内相对路径
  *

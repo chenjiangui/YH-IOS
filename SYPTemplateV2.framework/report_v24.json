@@ -1,0 +1,854 @@
+ [
+  {
+  "data": [
+           {
+           "parts": [
+                     {
+                     "config": {
+                     "date": "20170224",
+                     "info": "数据更新时间: 2017-04-28 17:52:29 +0800",
+                     "title": "销售额VS目标"
+                     },
+                     "type": "banner"
+                     },
+                     {
+                     "type": "tables",
+                     "config": [
+                                {
+                                "title": "区域-门店-小店",
+                                "table": {
+                                "head": [
+                                         "大区",
+                                         "昨日销售 \n (万)",
+                                         "本月销售 \n (万)",
+                                         "昨日毛利 \n (万)",
+                                         "本月毛利 \n (万)",
+                                         "昨日客流\n (万)",
+                                         "本月客流 \n (万)",
+                                         "同比",
+                                         "环比"
+                                         ],
+                                "data": [
+                                         
+                                         {
+                                         "main_data": [
+                                                       {"value":"福建三区",
+                                                       "color":1
+                                                       },
+                                                       {"value":"10.1",
+                                                       "color":2
+                                                       },
+                                                       {"value":"43.8",
+                                                       "color":3
+                                                       },
+                                                       {"value":"2.1",
+                                                       "color":4
+                                                       },
+                                                       {"value":"10.2",
+                                                       "color":5
+                                                       },
+                                                       {"value":"1",
+                                                       "color":2
+                                                       },
+                                                       {"value":"2",
+                                                       "color":4
+                                                       },
+                                                       {"value":"-25.5%",
+                                                       "color":2
+                                                       },
+                                                       {"value":"12.8%",
+                                                       "color":1
+                                                       },
+                                                       ],
+                                         "sub_data": {}
+                                         },
+                                         {
+                                         "main_data": [
+                                                       {"value":"福建四区",
+                                                       "color":1
+                                                       },
+                                                       {"value":"10.1",
+                                                       "color":2
+                                                       },
+                                                       {"value":"43.8",
+                                                       "color":3
+                                                       },
+                                                       {"value":"2.1",
+                                                       "color":4
+                                                       },
+                                                       {"value":"10.2",
+                                                       "color":5
+                                                       },
+                                                       {"value":"1",
+                                                       "color":2
+                                                       },
+                                                       {"value":"2",
+                                                       "color":4
+                                                       },
+                                                       {"value":"-25.5%",
+                                                       "color":2
+                                                       },
+                                                       {"value":"12.8%",
+                                                       "color":1
+                                                       },
+                                                       ],
+                                         "sub_data": {}
+                                         }
+                                         
+                                         ]
+                                }
+                                }
+                                ]
+                     },
+                     {
+                     "type": "chart",
+                     "config": {
+                     "chart_type": "line-or-bar",
+                     "title": "no-set",
+                     "legend": [
+                                "昨日",
+                                "上周同天"
+                                ],
+                     "xAxis": [
+                               "W1",
+                               "W2",
+                               "W3",
+                               "W4",
+                               "W5",
+                               "W6"
+                               ],
+                     "yAxis": [
+                               {
+                               "type": "value",
+                               "name": "次"
+                               }
+                               ],
+                     "series": [
+                                {
+                                "name": "昨日",
+                                "type": "line",
+                                "data": [
+                                         {
+                                         "value": "200000",
+                                         "color": 0
+                                         },
+                                         {
+                                         "value": "170000",
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": "210000",
+                                         "color": 3
+                                         },
+                                         {
+                                         "value": "243000",
+                                         "color": 4
+                                         },
+                                         {
+                                         "value": "380000",
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": "210000",
+                                         "color": 1
+                                         }
+                                         ]
+                                },
+                                {
+                                "name": "上周同天",
+                                "type": "line",
+                                "data": [
+                                         "90000",
+                                         "120000",
+                                         "243000",
+                                         "280000",
+                                         "200000",
+                                         "165000",
+                                         "90000"
+                                         ]
+                                },
+                                {
+                                "name": "今天",
+                                "type": "line",
+                                "data": [
+                                         "92000",
+                                         "121000",
+                                         "243000",
+                                         "123000",
+                                         "211000",
+                                         "105000",
+                                         "90000"
+                                         ]
+                                }
+                                ]
+                     }
+                     },
+                     {
+                     "config": {
+                     "title": "截止目前为止，达成销售目标如下,加拿大籍俺的教案大家那是加拿大籍阿森纳多久啊蛇年大吉的那顶级氨基酸的那句蛇年大吉阿森纳大家拿手机对吧加拿大籍啊蛇年大吉阿森纳觉得那是加拿大籍阿森纳大家安德森，巴萨的哈说<hr/>就是大事"
+                     },
+                     "type": "info"
+                     },
+                     {
+                     "type": "single_value",
+                     "config": {
+                     "state": {
+                     "color": "2"
+                     },
+                     "main_data": {
+                     "name": "销售额",
+                     "data": 5400,
+                     "format": "float",
+                     "percentage": 1
+                     },
+                     "sub_data": {
+                     "name": "对比数据",
+                     "data": 5000,
+                     "format": "float",
+                     "percentage": 1
+                     }
+                     }
+                     },
+                     {
+                     "type": "bargraph",
+                     "config": {
+                     "series": {
+                     "data": [
+                              {
+                              "value": 900,
+                              "color": 0
+                              },
+                              {
+                              "value": 100,
+                              "color": 1
+                              },
+                              {
+                              "value": -121,
+                              "color": 2
+                              },
+                              {
+                              "value": 169,
+                              "color": 3
+                              },
+                              {
+                              "value": -23,
+                              "color": 4
+                              },
+                              {
+                              "value":283,
+                              "color": 5
+                              },
+                              {
+                              "value": -283,
+                              "color": 0
+                              }
+                              ],
+                     "name": "增长率",
+                     "percentage": 1
+                     },
+                     "xAxis": {
+                     "data": [
+                              "2050德芙丝滑巧克力",
+                              "201523可比克薯片",
+                              "201521圣诞苹果",
+                              "20245大荔枝",
+                              "20863德州大扒鸡",
+                              "20825黄金弥胡桃",
+                              "20823黄金弥胡桃"
+                              ],
+                     "name": "商品"
+                     }
+                     }
+                     },
+                     {
+                     "type": "bargraph",
+                     "config": {
+                     "series": {
+                     "data": [
+                              {
+                              "value": 0.09,
+                              "color": 0
+                              },
+                              {
+                              "value": 0.1,
+                              "color": 1
+                              },
+                              {
+                              "value": 0.1,
+                              "color": 2
+                              },
+                              {
+                              "value": 0.169,
+                              "color": 3
+                              },
+                              {
+                              "value": 0.23,
+                              "color": 4
+                              },
+                              {
+                              "value": 0.283,
+                              "color": 5
+                              },
+                              {
+                              "value": 0.283,
+                              "color": 0
+                              }
+                              ],
+                     "name": "增长率",
+                     "percentage": 1
+                     },
+                     "xAxis": {
+                     "data": [
+                              "2050德芙丝滑巧克力",
+                              "201523可比克薯片",
+                              "201521圣诞苹果",
+                              "20245大荔枝",
+                              "20863德州大扒鸡",
+                              "20825黄金弥胡桃",
+                              "20823黄金弥胡桃"
+                              ],
+                     "name": "商品"
+                     }
+                     }
+                     },
+                     {
+                     "type": "bargraph",
+                     "config": {
+                     "series": {
+                     "data": [
+                              {
+                              "value": -0.09,
+                              "color": 0
+                              },
+                              {
+                              "value": -0.1,
+                              "color": 1
+                              },
+                              {
+                              "value": -0.1,
+                              "color": 2
+                              },
+                              {
+                              "value": -0.169,
+                              "color": 3
+                              },
+                              {
+                              "value": -0.23,
+                              "color": 4
+                              },
+                              {
+                              "value": -0.283,
+                              "color": 5
+                              },
+                              {
+                              "value": -0.123,
+                              "color": 0
+                              }
+                              ],
+                     "name": "增长率",
+                     "percentage": 1
+                     },
+                     "xAxis": {
+                     "data": [
+                              "2050德芙丝滑巧克力",
+                              "201523可比克薯片",
+                              "201521圣诞苹果",
+                              "20245大荔枝",
+                              "20863德州大扒鸡",
+                              "20825黄金弥胡桃",
+                              "20823黄金弥胡桃"
+                              ],
+                     "name": "商品"
+                     }
+                     }
+                     },
+                     {
+                     "config": {
+                     "chart_type": "line-or-bar",
+                     "legend": [
+                                "本周",
+                                "上周"
+                                ],
+                     "series": [
+                                {
+                                "data": [
+                                         {
+                                         "value": 900,
+                                         "color": 0
+                                         },
+                                         {
+                                         "value": 1100,
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": 2430,
+                                         "color": 2
+                                         },
+                                         {
+                                         "value": 1660,
+                                         "color": 3
+                                         }
+                                         ],
+                                "name": "指标1",
+                                "type": "bar"
+                                },
+                                {
+                                "data": [
+                                         1360,
+                                         990,
+                                         2880,
+                                         660,
+                                         2580
+                                         ],
+                                "name": "指标2",
+                                "type": "bar"
+                                }
+                                ],
+                     "title": "no-set",
+                     "xAxis": [
+                               "第1周",
+                               "第2周",
+                               "第3周",
+                               "第4周",
+                               "第5周"
+                               ],
+                     "yAxis": [
+                               {
+                               "name": "万",
+                               "type": "value"
+                               }
+                               ]
+                     },
+                     "type": "chart"
+                     }
+                     ],
+           "title": "实时"
+           },
+           {
+           "parts": [
+                     {
+                     "config": {
+                     "date": "20170224",
+                     "info": "数据更新时间: 2017-04-28 17:52:29 +0800",
+                     "title": "销售额VS目标"
+                     },
+                     "type": "banner"
+                     },
+                     {
+                     "type": "chart",
+                     "config": {
+                     "chart_type": "line-or-bar",
+                     "title": "no-set",
+                     "legend": [
+                                "昨日",
+                                "上周同天"
+                                ],
+                     "xAxis": [
+                               "W1",
+                               "W2",
+                               "W3",
+                               "W4",
+                               "W5",
+                               "W6"
+                               ],
+                     "yAxis": [
+                               {
+                               "type": "value",
+                               "name": "次"
+                               }
+                               ],
+                     "series": [
+                                {
+                                "name": "昨日",
+                                "type": "line",
+                                "data": [
+                                         {
+                                         "value": "200000",
+                                         "color": 0
+                                         },
+                                         {
+                                         "value": "170000",
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": "210000",
+                                         "color": 2
+                                         },
+                                         {
+                                         "value": "243000",
+                                         "color": 3
+                                         },
+                                         {
+                                         "value": "380000",
+                                         "color": 4
+                                         },
+                                         {
+                                         "value": "210000",
+                                         "color": 5
+                                         }
+                                         ]
+                                }                                ]
+                     }
+                     },
+                     {
+                     "config": {
+                     "title": "截止目前为止，达成销售目标如下"
+                     },
+                     "type": "info"
+                     },
+                     {
+                     "type": "single_value",
+                     "config": {
+                     "state": {
+                     "color": "2"
+                     },
+                     "main_data": {
+                     "name": "销售额",
+                     "data": 5400,
+                     "format": "float",
+                     "percentage": 1
+                     },
+                     "sub_data": {
+                     "name": "对比数据",
+                     "data": 5000,
+                     "format": "float",
+                     "percentage": 1
+                     }
+                     }
+                     },
+                     {
+                     "type": "bargraph",
+                     "config": {
+                     "series": {
+                     "data": [
+                              {
+                              "value": 90,
+                              "color": 0
+                              },
+                              {
+                              "value": 122,
+                              "color": 1
+                              },
+                              {
+                              "value": 100,
+                              "color": 2
+                              },
+                              {
+                              "value": 169,
+                              "color": 3
+                              },
+                              {
+                              "value": 23,
+                              "color": 4
+                              },
+                              {
+                              "value":283,
+                              "color": 5
+                              },
+                              {
+                              "value": 283,
+                              "color": 0
+                              }
+                              ],
+                     "name": "增长率",
+                     "percentage": 1
+                     },
+                     "xAxis": {
+                     "data": [
+                              "2050德芙丝滑巧克力",
+                              "201523可比克薯片",
+                              "201521圣诞苹果",
+                              "20245大荔枝",
+                              "20863德州大扒鸡",
+                              "20825黄金弥胡桃",
+                              "20823黄金弥胡桃"
+                              ],
+                     "name": "商品"
+                     }
+                     }
+                     },
+                     {
+                     "config": {
+                     "chart_type": "line-or-bar",
+                     "legend": [
+                                "本周",
+                                "上周"
+                                ],
+                     "series": [
+                                {
+                                "data": [
+                                         {
+                                         "value": 900,
+                                         "color": 0
+                                         },
+                                         {
+                                         "value": 1100,
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": 2430,
+                                         "color": 2
+                                         },
+                                         {
+                                         "value": 1660,
+                                         "color": 3
+                                         }
+                                         ],
+                                "name": "指标1",
+                                "type": "bar"
+                                },
+                                {
+                                "data": [
+                                         1360,
+                                         990,
+                                         2880,
+                                         660,
+                                         2580
+                                         ],
+                                "name": "指标2",
+                                "type": "bar"
+                                }
+                                ],
+                     "title": "no-set",
+                     "xAxis": [
+                               "第1周",
+                               "第2周",
+                               "第3周",
+                               "第4周",
+                               "第5周"
+                               ],
+                     "yAxis": [
+                               {
+                               "name": "万",
+                               "type": "value"
+                               }
+                               ]
+                     },
+                     "type": "chart"
+                     }
+                     ],
+           "title": "每天"
+           },
+           {
+           "parts": [
+                     {
+                     "config": {
+                     "date": "20170224",
+                     "info": "数据更新时间: 2017-04-28 17:52:29 +0800",
+                     "title": "销售额VS目标"
+                     },
+                     "type": "banner"
+                     },
+                     {
+                     "type": "chart",
+                     "config": {
+                     "chart_type": "line-or-bar",
+                     "title": "no-set",
+                     "legend": [
+                                "昨日",
+                                "上周同天"
+                                ],
+                     "xAxis": [
+                               "W1",
+                               "W2",
+                               "W3",
+                               "W4",
+                               "W5",
+                               "W6"
+                               ],
+                     "yAxis": [
+                               {
+                               "type": "value",
+                               "name": "次"
+                               }
+                               ],
+                     "series": [
+                                {
+                                "name": "昨日",
+                                "type": "line",
+                                "data": [
+                                         {
+                                         "value": "200000",
+                                         "color": 0
+                                         },
+                                         {
+                                         "value": "170000",
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": "210000",
+                                         "color": 2
+                                         },
+                                         {
+                                         "value": "243000",
+                                         "color": 3
+                                         },
+                                         {
+                                         "value": "380000",
+                                         "color": 4
+                                         },
+                                         {
+                                         "value": "210000",
+                                         "color": 5
+                                         }
+                                         ]
+                                },
+                                {
+                                "name": "上周同天",
+                                "type": "line",
+                                "data": [
+                                         "90000",
+                                         "120000",
+                                         "243000",
+                                         "280000",
+                                         "200000",
+                                         "165000",
+                                         "90000"
+                                         ]
+                                }
+                                ]
+                     }
+                     },
+                     {
+                     "config": {
+                     "title": "截止目前为止，达成销售目标如下"
+                     },
+                     "type": "info"
+                     },
+                     {
+                     "type": "single_value",
+                     "config": {
+                     "state": {
+                     "color": "2"
+                     },
+                     "main_data": {
+                     "name": "销售额",
+                     "data": 5400,
+                     "format": "float",
+                     "percentage": 1
+                     },
+                     "sub_data": {
+                     "name": "对比数据",
+                     "data": 5000,
+                     "format": "float",
+                     "percentage": 1
+                     }
+                     }
+                     },
+                     {
+                     "type": "bargraph",
+                     "config": {
+                     "series": {
+                     "data": [
+                              {
+                              "value": 0.09,
+                              "color": 0
+                              },
+                              {
+                              "value": -0.1,
+                              "color": 1
+                              },
+                              {
+                              "value": -0.1,
+                              "color": 2
+                              },
+                              {
+                              "value": 0.169,
+                              "color": 3
+                              },
+                              {
+                              "value": 0.23,
+                              "color": 4
+                              },
+                              {
+                              "value": 0.283,
+                              "color": 5
+                              },
+                              {
+                              "value": -0.283,
+                              "color": 0
+                              }
+                              ],
+                     "name": "增长率",
+                     "percentage": 1
+                     },
+                     "xAxis": {
+                     "data": [
+                              "2050德芙丝滑巧克力",
+                              "201523可比克薯片",
+                              "201521圣诞苹果",
+                              "20245大荔枝",
+                              "20863德州大扒鸡",
+                              "20825黄金弥胡桃",
+                              "20823黄金弥胡桃"
+                              ],
+                     "name": "商品"
+                     }
+                     }
+                     },
+                     {
+                     "config": {
+                     "chart_type": "line-or-bar",
+                     "legend": [
+                                "本周",
+                                "上周"
+                                ],
+                     "series": [
+                                {
+                                "data": [
+                                         {
+                                         "value": 900,
+                                         "color": 0
+                                         },
+                                         {
+                                         "value": 1100,
+                                         "color": 1
+                                         },
+                                         {
+                                         "value": 2430,
+                                         "color": 2
+                                         },
+                                         {
+                                         "value": 1660,
+                                         "color": 2
+                                         }
+                                         ],
+                                "name": "指标1",
+                                "type": "bar"
+                                },
+                                {
+                                "data": [
+                                         1360,
+                                         990,
+                                         2880,
+                                         660,
+                                         2580
+                                         ],
+                                "name": "指标2",
+                                "type": "bar"
+                                }
+                                ],
+                     "title": "no-set",
+                     "xAxis": [
+                               "第1周",
+                               "第2周",
+                               "第3周",
+                               "第4周",
+                               "第5周"
+                               ],
+                     "yAxis": [
+                               {
+                               "name": "万",
+                               "type": "value"
+                               }
+                               ]
+                     },
+                     "type": "chart"
+                     }
+                     ],
+           "title": "周累计"
+           }
+           ],
+  "name": "报表标题"
+  }
+  ]

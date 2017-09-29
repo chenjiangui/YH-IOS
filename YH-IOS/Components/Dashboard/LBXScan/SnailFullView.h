@@ -29,6 +29,7 @@ typedef void (^pushBlock)(NSString *);
 - (UILabel *)OpenLabel;
 - (UIButton *)OpenLightbtn;
 - (UIView *)InputView;
+-(void)show;
 
 //- (LineTextFiled *)InputNum;
 @end

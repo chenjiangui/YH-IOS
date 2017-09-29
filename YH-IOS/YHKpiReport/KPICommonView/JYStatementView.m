@@ -112,7 +112,9 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": @"{0,110}"}]; // 72 + 45 + 4
+    
+    NSDictionary *dict;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": @"{0,72}"}]; // 72 + 45 + 4
 }
 
 #pragma mark - <JYModuleTwoCellDelegate>

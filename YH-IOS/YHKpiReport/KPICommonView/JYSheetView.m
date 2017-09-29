@@ -13,7 +13,7 @@
 #import "JYSubDataModlel.h"
 #import "JYSubSheetView.h"
 
-#define kFreezePoint (CGPointMake(90, kSheetHeadHeight))
+#define kFreezePoint (CGPointMake(100, kSheetHeadHeight))
 
 static NSString *mainCellID = @"mainCell";
 static NSString *sectionCellID = @"sectionCell";
@@ -78,20 +78,20 @@ static NSString *rowCellID = @"rowCell";
      NSMutableArray *columeData = [[NSMutableArray alloc]init];
     for (int i= 0; i<self.sheetModel.mainDataModelList.count; i++) {
         [columeData addObject:_sheetModel.mainDataModelList[i]];
-        CGFloat minwidth = 100;
+        CGFloat minwidth = 65;
         for (int j = 1; j < _sheetModel.mainDataModelList[i].dataList.count; j++) {
-            CGFloat value = [UILabel getWidthWithTitle:_sheetModel.mainDataModelList[i].dataList[j].value font:[UIFont systemFontOfSize:14]];
+            CGFloat value = [UILabel getWidthWithTitle:_sheetModel.mainDataModelList[i].dataList[j].value font:[UIFont systemFontOfSize:10]];
             if ( i == 0) {
                 if (value > minwidth) {
-                        widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 40];
+                        widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 20];
                 }
                 else {
                     widthSizeArray[j-1]  = [NSNumber numberWithFloat:minwidth];
                 }
             }
             else {
-                if (value > ([widthSizeArray[j-1] floatValue] - 40)) {
-                     widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 40];
+                if (value > ([widthSizeArray[j-1] floatValue] - 20)) {
+                     widthSizeArray[j-1] =  [NSNumber numberWithFloat:value + 20];
                 }
             }
         }
@@ -280,7 +280,7 @@ static NSString *rowCellID = @"rowCell";
         [cell setClickedActive:^(NSString *title) {
             // !!!: 在显示不全时，显示完整名称
             NSLog(@"显示 %@", title);
-            CGSize size = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, kFreezePoint.y) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size;
+            CGSize size = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, kFreezePoint.y) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:10]} context:nil].size;
             if (size.width > kFreezePoint.x) {
                 [JYHudView showHUDWithTitle:title];
             }

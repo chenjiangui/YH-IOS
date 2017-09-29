@@ -7,7 +7,6 @@
 //
 
 #import "JYCursor.h"
-#import "JYScrollNavBar.h"
 #import "UIView+Extension.h"
 #import "JYSortItemView.h"
 #import "JYSortButton.h"
@@ -28,7 +27,6 @@
 @property (nonatomic, strong) UILabel          *tipsLabel;
 @property (nonatomic, strong) UIButton         *sortButton;
 @property (nonatomic, strong) UIButton         *confirmButton;
-@property (nonatomic, strong) JYScrollNavBar   *scrollNavBar;
 @property (nonatomic, strong) JYSortItemView   *sortItmView;
 @property (nonatomic, strong) JYRootScrollView *rootScrollView;
 

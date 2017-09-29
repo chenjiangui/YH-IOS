@@ -46,6 +46,7 @@
 @property (nonatomic, assign) CGFloat             blue2;
 @property (nonatomic, assign) CGFloat             alpha2;
 @property (nonatomic, assign) NSInteger           currctIndex;
+@property (nonatomic, strong) NSMutableArray      *tempKeysWidth;
 
 @end
 
@@ -72,6 +73,17 @@
         _tmpPageViewDic = [NSMutableDictionary dictionary];
     }
     return _tmpPageViewDic;
+}
+
+-(NSMutableArray *)tempKeysWidth{
+    if (!_tempKeysWidth) {
+        _tempKeysWidth = [[NSMutableArray alloc]init];
+        for (int i = 0; i < self.tmpKeys.count; i++) {
+            CGFloat width =  [UILabel getWidthWithTitle:self.tmpKeys[i] font:[UIFont systemFontOfSize:15]] + 20;
+            [_tempKeysWidth addObject:[NSNumber numberWithFloat:width]];
+        }
+    }
+    return _tempKeysWidth;
 }
 
 #pragma mark - 属性配置
@@ -239,7 +251,7 @@
     NSInteger itemsCount = self.tmpKeys.count;
     
     //在这里修改那个表上面的标题名的宽度哦！！！
-    buttonW =  4*15+30;
+    buttonW = 10;
 //    if (itemsCount * ItemWidth < self.width) {
 //        CGFloat width = self.isShowSortButton ? (self.width - self.height) : self.width;
 //        buttonW = width / itemsCount;
@@ -248,15 +260,15 @@
     CGFloat buttonY = self.isItemHiddenAfterDelet ? self.height : 0;
     buttonH -= JYDefaultMargin;
     buttonY += JYDefaultMargin / 2.0;
-    
     for (NSInteger i = 0; i < itemsCount; i++) {
         if (i != itemsCount) {
             NSString *key = self.tmpKeys[i];
             UIButton *button = [self.itemsDic objectForKey:key];
             button.tag = i;
-            CGFloat buttonX = i * (buttonW + JYDefaultMargin / 2) + JYDefaultMargin;
-            button.frame = CGRectMake(buttonX, 7, buttonW, 30);
-            self.itemW = buttonW;
+            CGFloat buttonX = [self.tempKeysWidth[i] floatValue];
+            button.frame = CGRectMake(buttonW, 7, buttonX, 30);
+            self.itemW = [self.tempKeysWidth[i] floatValue];
+            buttonW += buttonX;
             button.layer.cornerRadius = button.height/2.0;
         }
     }

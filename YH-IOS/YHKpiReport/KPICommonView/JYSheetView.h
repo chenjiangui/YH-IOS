@@ -8,8 +8,8 @@
 
 #import "JYModuleTwoBaseView.h"
 
-#define kMianCellHeight (44)
-#define kSheetHeadHeight (50)
+#define kMianCellHeight (40)
+#define kSheetHeadHeight (45)
 
 @interface JYSheetView : JYModuleTwoBaseView
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #ifndef YH_IOS_YHAPI_h
-#define UH_IOS_YHAPI_h
+#define YH_IOS_YHAPI_h
 
 /** 用户验证 */
 #define YHAPI_USER_AUTHENTICATION  @"/api/v1.1/user/authentication"
@@ -118,6 +118,9 @@
 
 /** 申请注册 */
 #define YHAPI_REGISTER                       @"/api/v1.1/config/info"
+
+/**获取需要更新的文件的列表*/
+#define YHAPI_GETIOSFRAMEWORK                @"/api/v1.1/app_libs"
 
 
 #endif

@@ -63,7 +63,7 @@
         [reponse.string writeToFile:javascriptPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
     else{
-        newjson = [NSString stringWithContentsOfFile:javascriptPath encoding:NSUTF8StringEncoding error:nil];
+       
          models = [HomeIndexModel mj_objectArrayWithKeyValuesArray:newjson];
     }
     

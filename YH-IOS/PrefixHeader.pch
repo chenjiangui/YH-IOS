@@ -32,9 +32,11 @@
 #import "JYHudView.h"
 #import "YHAPI.h"
 #import "RootViewController.h"
+#import "CodeMD5.h"
 
 #pragma mark - 分类
 #import "NSString+Category.h"
+#import "UILabel+FitWitdhAndHeight.h"
 #import "UIView+MJExtension.h"
 #import "UIColor+Utilities.h"
 #import "NSString+Category.h"

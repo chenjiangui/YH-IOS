@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JYScrollNavBar.h"
 
 @interface JYCursor : UIView
 
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) UIColor        *backgroudSelectedColor;
 @property (nonatomic, strong) UIColor        *navLineColor;
 @property (nonatomic, strong) UIImage        *backgroundImage;
+@property (nonatomic, strong) JYScrollNavBar   *scrollNavBar;
 
 @property (nonatomic, assign) BOOL           showSortbutton;
 @property (nonatomic, assign) BOOL           isGraduallyChangColor;

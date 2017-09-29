@@ -386,9 +386,9 @@
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:manualInput];
 //    [self presentViewController:manulCtrl animated:YES completion:nil];
 
-//    NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
+  //  NewManualInputViewController *NewManual=[[NewManualInputViewController alloc] init];
 //    [self.navigationController pushViewController:NewManual animated:YES];
-//    
+    
 //    UINavigationController *manulCtrl = [[UINavigationController alloc]initWithRootViewController:NewManual];
 //   [self presentViewController:manulCtrl animated:YES completion:nil];
     
@@ -398,26 +398,28 @@
     [self example5];
     
 }
+
 - (void)example5 {
     SnailFullView *full = [self fullView];
-    
+
     full.didClickFullView = ^(SnailFullView * _Nonnull fullView) {
         [self.sl_popupController dismiss];
     };
-    
+
     full.didClickItems = ^(SnailFullView *fullView, NSInteger index) {
         self.sl_popupController.didDismiss = ^(SnailPopupController * _Nonnull popupController) {
         };
-        
+
         [fullView endAnimationsCompletion:^(SnailFullView *fullView) {
             [self.sl_popupController dismiss];
         }];
     };
-    
+
     self.sl_popupController = [SnailPopupController new];
     self.sl_popupController.maskType = PopupMaskTypeBlackBlur;
     self.sl_popupController.allowPan = YES;
-    [self.sl_popupController presentContentView:full];
+    [full show];
+//    [self.sl_popupController presentContentView:full];
     //跳转到手输入的报表页面
     full.clickTapBlock=^(NSString *InputNumString){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -434,7 +436,7 @@
     
     SnailFullView *fullView = [[SnailFullView alloc] initWithFrame:self.view.frame];
     
-    fullView.backgroundColor=[[NewAppColor yhapp_5color] colorWithAlphaComponent:0.7];
+    fullView.backgroundColor=[[NewAppColor yhapp_5color] colorWithAlphaComponent:1];
     
     return fullView;
 }

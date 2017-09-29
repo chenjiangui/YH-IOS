@@ -78,6 +78,22 @@
     }
 }
 
+
++ (void)checkCodeAssets:(NSString *)fileName  bundlePath:(NSString *)bundlePath {
+    NSString *basePath = [FileUtils basePath];
+    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+    
+    NSError *error;
+    NSString *zipName = [NSString stringWithFormat:@"%@", fileName];
+    NSString *zipPath = [basePath stringByAppendingPathComponent:zipName];
+    if(![FileUtils checkFileExist:zipPath isDir:NO]) {
+        NSString *bundleZipPath = [bundlePath stringByAppendingPathComponent:zipName];
+        [[NSFileManager defaultManager] copyItemAtPath:bundleZipPath toPath:zipPath error:&error];
+        if(error) { NSLog(@"unZip: %@ failed for - %@", zipPath, [error localizedDescription]); }
+    }
+    [SSZipArchive unzipFileAtPath:zipPath toDestination:basePath];
+}
+
 /**
  *  服务器响应用 HTML 代码加载静态资源调整为应用内相对路径
  *

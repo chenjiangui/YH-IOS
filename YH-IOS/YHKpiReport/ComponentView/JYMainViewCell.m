@@ -35,7 +35,7 @@
                 _titleLabel = [[UILabel alloc] init];
                 //_titleLabel.textColor = JYColor_TextColor_Chief;
                 _titleLabel.textAlignment = NSTextAlignmentCenter;
-                _titleLabel.font = [UIFont boldSystemFontOfSize:14];
+                _titleLabel.font = [UIFont boldSystemFontOfSize:10];
                 [self addSubview:_titleLabel];
             }
                 break;
@@ -70,7 +70,7 @@
 - (void)addLine {
     UIColor *lineGrayColor = [UIColor colorWithRed:205./255. green:205./255. blue:205./255. alpha:1];
     _leftLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.5, self.frame.size.height)];
-    _leftLine.backgroundColor = lineGrayColor;
+    _leftLine.backgroundColor = [NewAppColor yhapp_9color];
     _leftLine.hidden = YES;
     [self addSubview:_leftLine];
     _rightLine = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width, 0, 0.5, self.frame.size.height)];

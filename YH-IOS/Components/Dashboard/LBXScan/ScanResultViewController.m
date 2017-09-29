@@ -536,6 +536,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      */
   //  NSArray *components = [self.urlString componentsSeparatedByString:@"/"];
     self.urlString = [NSString stringWithFormat:@"%@/mobile/v2/store/%@/barcode/%@/view",kBaseUrl,self.storeID,self.codeInfo];
+//     self.urlString = [NSString stringWithFormat:@"%@/mobile/v2/store/9548/barcode/6925630600427/view",kBaseUrl,self.storeID,self.codeInfo];
     
     /**
      * 内部报表具有筛选功能时
@@ -546,7 +547,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      *  此处仅在第二次及以后才会生效
      */
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [APIHelper reportScodeData:self.storeID barcodeID:self.codeInfo];
+      [APIHelper reportScodeData:self.storeID barcodeID:self.codeInfo];
+//        [APIHelper reportScodeData:@"9548" barcodeID:@"6925630600427"];
         
         HttpResponse *httpResponse = [HttpUtils checkResponseHeader:self.urlString assetsPath:self.assetsPath];
         __block NSString *htmlPath;

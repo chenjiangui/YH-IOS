@@ -26,16 +26,17 @@
     self = [super init];
     if (self) {
         _reuseIdentifier = reuseIdentifier;
+        self.backgroundColor = [NewAppColor yhapp_8color];
         [self addLine];
         switch (style) {
             case JYSectionViewCellStyleDefault:
             {
                 _style = style;
                 _titleLabel = [[UILabel alloc] init];
-                _titleLabel.textAlignment = NSTextAlignmentCenter;
+                _titleLabel.textAlignment = NSTextAlignmentLeft;
                 _titleLabel.numberOfLines = 2;
                 _titleLabel.textColor = JYColor_TextColor_Chief;
-                _titleLabel.font = [UIFont systemFontOfSize:14];
+                _titleLabel.font = [UIFont systemFontOfSize:11];
                 [self addSubview:_titleLabel];
             }
                 break;
@@ -68,6 +69,7 @@
     if (!_sortIcon) {
         _sortIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_sort"]];
         [self addSubview:_sortIcon];
+        [_sortIcon setHidden:YES];
     }
     return _sortIcon;
 }
@@ -123,7 +125,7 @@
     self.clickBtn.frame = self.bounds;
     if (self.style == JYSectionViewCellStyleDefault) {
         CGSize size = [self.titleLabel.text boundingRectWithSize:self.titleLabel.frame.size options:0 attributes:@{NSFontAttributeName: self.titleLabel.font} context:nil].size;
-        [self.titleLabel setFrame:CGRectMake((self.frame.size.width - size.width) / 2 - 6, 0, size.width, self.frame.size.height)];
+        [self.titleLabel setFrame:CGRectMake(10, 0, size.width, self.frame.size.height)];
         [self.sortIcon setFrame:CGRectMake(CGRectGetMaxX(self.titleLabel.frame) + 4, (CGRectGetHeight(self.titleLabel.frame) - 12) / 2, 6, 12)];
     }
     if (self.separatorStyle == JYSectionViewCellSeparatorStyleSingleLine) {

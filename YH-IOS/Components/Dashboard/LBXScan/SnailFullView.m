@@ -43,12 +43,38 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        
-[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
         [self setupUI];
     }
     return self;
 }
+
+- (void)hideWithAnimation:(BOOL)animate{
+    WeakSelf
+    [UIView animateWithDuration:0.0 animations:^{
+        weakSelf.alpha = 0;
+        if (animate) {
+            weakSelf.transform = CGAffineTransformMakeScale(0.01, 0.01);
+        }
+    } completion:^(BOOL finished) {
+        [weakSelf removeFromSuperview];
+    }];
+    
+}
+-(void)show{
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
+    
+    __block CGRect frame = self.frame;
+    frame.origin.y = [[UIScreen mainScreen]bounds].size.height;
+    self.frame = frame;
+    [UIView animateWithDuration:0.25 animations:^{
+        frame.origin.y = 0;
+        self.frame = frame;
+    }];
+    
+}
+
+
 -(void)setupUI
 {
     [self sd_addSubviews:@[self.BackBtn,self.titleLabel,self.InputView,self.InputNum,self.OpenLightbtn,self.OpenLabel,self.quest]];
@@ -157,6 +183,7 @@
         _quest.bottom = endFrame.origin.y;
     }];
 }
+
 -(void)questBtn
 {
     [self setUserInteractionEnabled:NO];
@@ -199,7 +226,6 @@
     }
     return _BackBtn;
 }
-
 
 - (UIButton *)quest{
     if (!_quest) {
@@ -245,6 +271,7 @@
     }
     return _OpenLight;
 }
+
 - (UIView *)InputView{
     if (!_InputView) {
         _InputView=[[UIView alloc] init];
@@ -255,6 +282,7 @@
     }
     return _InputView;
 }
+
 - (LineTextFiled *)InputNum{
     if (!_InputNum) {
         _InputNum=[[LineTextFiled alloc] init];
@@ -269,17 +297,19 @@
     }
     return _InputNum;
 }
+
 /** 返回*/
 -(void)backAction
 {
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if ([device hasTorch]) {
-        [device lockForConfiguration:nil];
-        [device setTorchMode: AVCaptureTorchModeOff];
-        [device unlockForConfiguration];
-    }
-    WeakSelf;
-    self.didClickFullView(weakSelf);
+//    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//    if ([device hasTorch]) {
+//        [device lockForConfiguration:nil];
+//        [device setTorchMode: AVCaptureTorchModeOff];
+//        [device unlockForConfiguration];
+//    }
+//    WeakSelf;
+//    self.didClickFullView(weakSelf);
+    [self hideWithAnimation:YES];
 }
 
 - (void)closeClicked:(UIButton *)sender {
@@ -305,6 +335,7 @@
             
         } completion:nil];
 }
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

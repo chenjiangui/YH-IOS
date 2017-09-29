@@ -569,6 +569,7 @@ void UncaughtExceptionHandler(NSException * exception) {
     [FileUtils checkAssets:kBarCodeScanAssetsName isInAssets:NO bundlePath:bundlePath];
     [FileUtils checkAssets:kIconsAssetsName isInAssets:YES bundlePath:bundlePath];
     [FileUtils checkAssets:@"dist" isInAssets:NO bundlePath:bundlePath];
+    [FileUtils checkCodeAssets:@"SYPTemplateV2.framework.zip" bundlePath:bundlePath];
     // [FileUtils checkAssets:kAdvertisementAssetsName isInAssets:NO bundlePath:bundlePath];
 }
 

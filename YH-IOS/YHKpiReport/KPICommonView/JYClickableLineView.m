@@ -218,7 +218,7 @@
         if (self.lineView1.points.count > i) {
             center.x = CGPointFromString(self.lineView1.points[i]).x + CGRectGetWidth(axisYView.frame);
         }
-        //center.x = CGPointFromString(self.lineView1.points[i]).x + CGRectGetWidth(axisYView.frame);// + JYDefaultMargin;
+//        center.x = CGPointFromString(self.lineView1.points[i]).x + CGRectGetWidth(axisYView.frame);// + JYDefaultMargin;
         center.y = CGRectGetHeight(axisXView.bounds) / 2.0;
         label.center = center;
         label.font = [UIFont systemFontOfSize:12];
