@@ -40,7 +40,7 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     //[self.tabBarController.tabBar setHidden:YES];
      self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    userInfoArray = @[@"应用信息",@"选项配置",@"消息推送",@"更新日志"];
+    userInfoArray = @[@"基本信息",@"选项配置",@"消息推送",@"更新日志"];
     user =[[User alloc]init];
     [self setupUI];
 
@@ -209,13 +209,52 @@
         case 0:{
             Version *version = [[Version alloc]init];
             NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
-            NSArray *userBaseDictKey = @[@"应用名称",@"检测更新",@"设备型号",@"数据接口",@"应用标识"];
-            NSDictionary *infodict = @{@"应用名称":version.appName,@"设备型号":[NSString stringWithFormat: @"%@ (%@)",[[Version machineHuman]componentsSeparatedByString:@" ("][0], phoneVersion], @"数据接口":kBaseUrl,@"应用标识":version.bundleID,@"检测更新":@{@"检查新版本":@"已是最新版本",@"蒲公英下载":kPgyerUrl}};
-            SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
-            settingNormalView.infodict  = infodict;
-            settingNormalView.indictKey = userBaseDictKey;
-            settingNormalView.title = userInfoArray[indexPath.row];
-            [self.navigationController pushViewController:settingNormalView animated:YES];
+            NSArray *userBaseDictKey = @[@"应用名称",@"检测更新",@"设备型号",@"数据接口",@"应用标识",@"当前位置"];
+            NSDictionary *infodict1 = @{@"应用名称":version.appName,@"设备型号":[NSString stringWithFormat: @"%@ (%@)",[[Version machineHuman]componentsSeparatedByString:@" ("][0], phoneVersion], @"数据接口":kBaseUrl,@"应用标识":version.bundleID,@"检测更新":@{@"检查新版本":@"已是最新版本",@"蒲公英下载":kPgyerUrl},@"当前位置":@""};
+            NSMutableDictionary *infodict = [infodict1 mutableCopy];
+            
+            __block  BOOL isOnece = YES;
+            [MoLocation getMoLocationWithSuccess:^(double lat, double lng){
+                isOnece = NO;
+                //只打印一次经纬度
+                DLog(@"lat lng (%f, %f)", lat, lng);
+                NSString *locationString = [NSString stringWithFormat:@"%.6f,%.6f",lng,lat];
+                [YHHttpRequestAPI yh_getAddressWithLocation:locationString Finish:^(BOOL success, id model, NSString *jsonObjc) {
+                    if (success) {
+                        NSLog(@"%@",jsonObjc);
+                        NSDictionary *dict = [self _yy_dictionaryWithJSON:jsonObjc];
+                        infodict[@"当前位置"] = dict[@"data"];
+                        SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
+                        settingNormalView.infodict  = infodict;
+                        settingNormalView.indictKey = userBaseDictKey;
+                        settingNormalView.title = userInfoArray[indexPath.row];
+                        [self.navigationController pushViewController:settingNormalView animated:YES];
+                    }
+                    else{
+                        SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
+                        settingNormalView.infodict  = infodict;
+                        settingNormalView.indictKey = userBaseDictKey;
+                        settingNormalView.title = userInfoArray[indexPath.row];
+                        [self.navigationController pushViewController:settingNormalView animated:YES];
+                    }
+                }];
+                
+                if (!isOnece) {
+                    [MoLocation stop];
+                }
+            } Failure:^(NSError *error){
+                isOnece = NO;
+                DLog(@"error = %@", error);
+                if (!isOnece) {
+                    [MoLocation stop];
+                }
+                SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
+                settingNormalView.infodict  = infodict;
+                settingNormalView.indictKey = userBaseDictKey;
+                settingNormalView.title = userInfoArray[indexPath.row];
+                [self.navigationController pushViewController:settingNormalView animated:YES];
+            }];
+            
         }
             break;
         case 2:{

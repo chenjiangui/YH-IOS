@@ -573,7 +573,7 @@
 }
 
 -(void)jumpToScanView {
-   // [self jumpToStoreScan];
+    
     [self actionBarCodeScanView:nil];
 }
 

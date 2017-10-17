@@ -26,7 +26,7 @@
         whiteBG.backgroundColor = JYColor_BackgroudColor_SubWhite;
         [self addSubview:whiteBG];
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, frame.size.height / 4, frame.size.width-2, frame.size.height / 2)];
-        _contentLabel.textColor = JYColor_TextColor_Chief;
+        _contentLabel.textColor = [NewAppColor yhapp_3color];
         _contentLabel.font = [UIFont systemFontOfSize:11];
         _contentLabel.textAlignment = NSTextAlignmentLeft;
         _contentLabel.adjustsFontSizeToFitWidth = YES;
@@ -34,7 +34,7 @@
         
         [self addSubview:self.rightLine];
         [self addSubview:self.bottomLine];
-        self.backgroundColor = JYColor_BackgroudColor_SubWhite;
+        self.backgroundColor = [NewAppColor yhapp_8color];
     }
     return self;
 }

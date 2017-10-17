@@ -122,5 +122,10 @@
 /**获取需要更新的文件的列表*/
 #define YHAPI_GETIOSFRAMEWORK                @"/api/v1.1/app_libs"
 
+/**获取用户当前位置数据呢*/
+#define YHAPI_GETUSERLOCATION                 @"/api/v1.1/nearest_stores"
 
+
+/**获取用户位置*/
+#define YHAPI_GETSETTINGLOCATION              @"/api/v2/location_to_address"
 #endif

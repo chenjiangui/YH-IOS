@@ -12,6 +12,7 @@
     
     
     __block CGFloat maxValue;
+    __block CGFloat minValue;
     CGFloat margin;
 }
 
@@ -123,25 +124,38 @@
     }
     margin = CGRectGetWidth(self.frame) / (keyPointCountMax - 1);
     maxValue = 0.0;
+    minValue = 0.0;
+    
     
     for (NSArray *lineData in self.dataSource) {
         for (NSNumber *number in lineData) {
             maxValue = maxValue > [number floatValue] ? maxValue : [number floatValue];
+            minValue = minValue > [number floatValue] ? [number floatValue] : minValue;
         }
     }
     
     NSMutableArray *keyPointsListTemp = [NSMutableArray array];
+    CGFloat allheight = maxValue - minValue;
+    CGFloat onePontWidth = CGRectGetHeight(self.frame)/allheight;
     for (NSArray *keyPoints in self.dataSource) {
         NSMutableArray *points = [NSMutableArray arrayWithCapacity:keyPoints.count];
         for (int i = 0; i < keyPoints.count; i++) {
-            CGFloat y = CGRectGetHeight(self.frame) * (1 - [keyPoints[i] floatValue] / maxValue) + JYViewHeight * 0.1;
-            CGFloat x = (margin * i + JYDefaultMargin * 2) * 0.9; // 按比率缩小x轴，避免标记点显示不全的问题
+//            CGFloat y = CGRectGetHeight(self.frame) * (1 - [keyPoints[i] floatValue] / maxValue) + JYViewHeight * 0.1;
+                CGFloat y =  CGRectGetHeight(self.frame) - (([keyPoints[i] floatValue] - minValue)*onePontWidth);
+                CGFloat x = (margin * i + JYDefaultMargin * 2) * 0.9; // 按比率缩小x轴，避免标记点显示不全的问题
+                CGPoint point = CGPointMake(x, y);
+                    [points addObject:NSStringFromCGPoint(point)];
             
-            CGPoint point = CGPointMake(x, y);
-            [points addObject:NSStringFromCGPoint(point)];
         }
         [keyPointsListTemp addObject:[points copy]];
     }
+    
+    NSMutableArray *points = [NSMutableArray arrayWithCapacity:2];
+    CGPoint zeroPointOne = CGPointMake(-10,  maxValue*onePontWidth);
+    CGPoint zeroPointTwo = CGPointMake(CGRectGetWidth(self.frame), maxValue*onePontWidth);
+    [points addObject:NSStringFromCGPoint(zeroPointOne)];
+    [points addObject:NSStringFromCGPoint(zeroPointTwo)];
+    [keyPointsListTemp addObject:[points copy]];
     
     self.keyPointsList = [keyPointsListTemp copy];
 }
@@ -153,6 +167,7 @@
     }
     return [self.keyPointsList[maxLineIndex] copy];
 }
+
 
 - (void)addLine {
     
@@ -175,7 +190,13 @@
         linelayer.strokeEnd = 1.0;
         linelayer.path = layerPath.CGPath;
         linelayer.fillColor = [UIColor clearColor].CGColor;
+        if(i<self.keyPointsList.count-1){
         linelayer.strokeColor = (self.lineColorList[i] ?: [UIColor whiteColor]).CGColor;
+        }
+        else{
+            linelayer.strokeColor = [UIColor lightGrayColor].CGColor;
+            linelayer.lineWidth = 1;
+        }
         linelayer.lineCap = kCALineCapSquare;
         linelayer.lineJoin = kCALineJoinMiter;
         [self.layer addSublayer:linelayer];
@@ -214,7 +235,7 @@
     }
     
     CGPoint keyPoint = CGPointMake(NSIntegerMax, NSIntegerMax);
-    for (NSInteger i = 0; i < self.keyPointsList.count; i++) {
+    for (NSInteger i = 0; i < self.keyPointsList.count-1; i++) {
         self.flagPointList[i].hidden = NO;
         
         for (int j = 0; j < self.keyPointsList[i].count; j++) {

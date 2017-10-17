@@ -83,6 +83,8 @@
 		3BAC8EB91F284A8A00A01A12 /* libYixinSDK_V2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAC8E891F284A8900A01A12 /* libYixinSDK_V2.2.a */; };
 		3BEBB36F1F2597EE007FB66D /* RefreshTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBB36C1F2597EE007FB66D /* RefreshTool.m */; };
 		3BEBB3701F2597EE007FB66D /* RefreshToolDownPullHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEBB36E1F2597EE007FB66D /* RefreshToolDownPullHeader.m */; };
+		9103F77B1F95AC5F005C68D2 /* MoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9103F77A1F95AC5F005C68D2 /* MoLocation.m */; };
+		9103F77F1F95C0A1005C68D2 /* NSObject+DictModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9103F77E1F95C0A1005C68D2 /* NSObject+DictModel.m */; };
 		911114961F38B7C800E3366E /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 911114951F38B7C800E3366E /* YHPopMenuView.m */; };
 		9111149D1F38CC4100E3366E /* YHArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9111149C1F38CC4100E3366E /* YHArrow.m */; };
 		911123A81F39A5F000A09D83 /* YHMutileveHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 911123A71F39A5F000A09D83 /* YHMutileveHeaderView.m */; };
@@ -865,6 +867,10 @@
 		3BEBB36E1F2597EE007FB66D /* RefreshToolDownPullHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshToolDownPullHeader.m; sourceTree = "<group>"; };
 		6A867606F7216FABE6624278 /* libPods-YH-IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YH-IOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		766890D48B9541057B438511 /* Pods-YH-IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YH-IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YH-IOS/Pods-YH-IOS.debug.xcconfig"; sourceTree = "<group>"; };
+		9103F7791F95AC5F005C68D2 /* MoLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoLocation.h; sourceTree = "<group>"; };
+		9103F77A1F95AC5F005C68D2 /* MoLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoLocation.m; sourceTree = "<group>"; };
+		9103F77D1F95C0A1005C68D2 /* NSObject+DictModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DictModel.h"; sourceTree = "<group>"; };
+		9103F77E1F95C0A1005C68D2 /* NSObject+DictModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DictModel.m"; sourceTree = "<group>"; };
 		911114941F38B7C800E3366E /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YHPopMenuView.h; path = PopView/YHPopMenuView.h; sourceTree = "<group>"; };
 		911114951F38B7C800E3366E /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHPopMenuView.m; path = PopView/YHPopMenuView.m; sourceTree = "<group>"; };
 		9111149B1F38CC4100E3366E /* YHArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHArrow.h; sourceTree = "<group>"; };
@@ -2292,6 +2298,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9103F77C1F95C074005C68D2 /* JsonToDict */ = {
+			isa = PBXGroup;
+			children = (
+				9103F77D1F95C0A1005C68D2 /* NSObject+DictModel.h */,
+				9103F77E1F95C0A1005C68D2 /* NSObject+DictModel.m */,
+			);
+			path = JsonToDict;
+			sourceTree = "<group>";
+		};
 		911114931F38B7A200E3366E /* POView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2501,15 +2516,6 @@
 				9142F2001F3EE88B00DE38A8 /* HeadView.m */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		9142F2041F3F458000DE38A8 /* SCREENUtil */ = {
-			isa = PBXGroup;
-			children = (
-				9142F2071F3F46B900DE38A8 /* Util.h */,
-				9142F2081F3F46B900DE38A8 /* Util.m */,
-			);
-			name = SCREENUtil;
 			sourceTree = "<group>";
 		};
 		914509731F02244800ED82D6 /* SelectView */ = {
@@ -2931,8 +2937,12 @@
 		91E65A061F1737340046B615 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				9142F2071F3F46B900DE38A8 /* Util.h */,
+				9142F2081F3F46B900DE38A8 /* Util.m */,
 				91E65A091F17374E0046B615 /* YHLocation.h */,
 				91E65A0A1F17374E0046B615 /* YHLocation.m */,
+				9103F7791F95AC5F005C68D2 /* MoLocation.h */,
+				9103F77A1F95AC5F005C68D2 /* MoLocation.m */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -3519,7 +3529,7 @@
 		C4DB7DB51C02EE3800DA534E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				9142F2041F3F458000DE38A8 /* SCREENUtil */,
+				9103F77C1F95C074005C68D2 /* JsonToDict */,
 				911114931F38B7A200E3366E /* POView */,
 				3B0D41661F32FD1300E279F9 /* SimpleTableViewController */,
 				3B4868EE1F2AFBAF003AF8D8 /* HudTool */,
@@ -5260,6 +5270,7 @@
 				F62457A51EA5FBE1006834D2 /* UITextView+Placeholder.m in Sources */,
 				3B4868F31F2AFBC7003AF8D8 /* HudToolView.m in Sources */,
 				F62457ED1EA5FD01006834D2 /* PointHudTool.m in Sources */,
+				9103F77B1F95AC5F005C68D2 /* MoLocation.m in Sources */,
 				F62457EE1EA5FD01006834D2 /* TPKeyboardAvoidingTableView.m in Sources */,
 				F624563E1EA5FACD006834D2 /* IQUITextFieldView+Additions.m in Sources */,
 				F62457A21EA5FBE1006834D2 /* UITabBarControllerAdditionals.m in Sources */,
@@ -5397,6 +5408,7 @@
 				B6E7B36D1F29D2E8008B48BF /* SDBaseProgressView.m in Sources */,
 				9118AEA61F26FF4100DD3FD3 /* MineTwoLabelTableViewCell.m in Sources */,
 				913804AC1F3ACCF300FA154C /* WebViewJavascriptBridgeBase.m in Sources */,
+				9103F77F1F95C0A1005C68D2 /* NSObject+DictModel.m in Sources */,
 				911123D01F39B72000A09D83 /* UIWebView+Category.m in Sources */,
 				F68C25D61EC2D4790069C041 /* JYCircleProgressView.m in Sources */,
 				F624579D1EA5FBE1006834D2 /* UILabel+ContentSize.m in Sources */,

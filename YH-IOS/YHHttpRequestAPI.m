@@ -255,6 +255,31 @@
     }];
 }
 
+
++(void)yh_getLocationWithLocation:(NSString *)location Finish:(YHHttpRequestBlock)finish{
+    NSString *apiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_GETUSERLOCATION];
+    NSDictionary *dict = @{
+                           kAPI_TOEKN:ApiToken(YHAPI_GETUSERLOCATION),
+                           @"limit":@"1",
+                           @"distance":@"1",
+                           @"location":location
+                           };
+    [BaseRequest getRequestWithUrl:apiUrl Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        finish(requestSuccess,response,responseJson);
+    }];
+}
+
++(void)yh_getAddressWithLocation:(NSString *)location Finish:(YHHttpRequestBlock)finish {
+    NSString *apiUrl = [NSString stringWithFormat:@"%@%@",kBaseUrl,YHAPI_GETSETTINGLOCATION];
+    NSDictionary *dict = @{
+                           kAPI_TOEKN:ApiToken(YHAPI_GETSETTINGLOCATION),
+                           @"location":location
+                           };
+    [BaseRequest getRequestWithUrl:apiUrl Params:dict needHandle:YES requestBack:^(BOOL requestSuccess, id response, NSString *responseJson) {
+        finish(requestSuccess,response,responseJson);
+    }];
+}
+
 +(void)yh_getDataFrom:(NSString *)url with:(NSDictionary *)dict Finish:(YHHttpRequestBlock)finish{
     NSString *apiurl = [NSString stringWithFormat:@"%@%@",kBaseUrl,url];
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];

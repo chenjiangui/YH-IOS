@@ -15,5 +15,6 @@
 @property (nonatomic,strong)UILabel *rightLabel;
 
 @property (nonatomic, strong) UIView *sepertView;
+@property (nonatomic, strong)UIImageView *rightDetailIamge;
 
 @end

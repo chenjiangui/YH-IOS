@@ -37,6 +37,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong) NSMutableArray *iconNameArray;
 @property (nonatomic, strong) NSMutableArray *itemNameArray;
 @property (nonatomic, strong) UIButton *backBtn;
+@property (nonatomic, strong) NSMutableArray *storeids;
 
 @end
 
@@ -44,7 +45,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-       self.storeID = @"-1";
+    self.storeID = @"-1";
     [WebViewJavascriptBridge enableLogging];
     self.iconNameArray =[ @[@"pop_share",@"筛选",@"pop_flash"]  mutableCopy];
     self.itemNameArray =[ @[@"分享",@"筛选",@"刷新"] mutableCopy];
@@ -500,6 +501,12 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
     
     NSArray *userStoreArray = userDict[kStoreIDsCUName];
+    self.storeids = [[NSMutableArray alloc]init];
+    for (int i = 0;i<userStoreArray.count ; i++) {
+        NSDictionary *dict = userStoreArray[i];
+        NSString *storeId = dict[@"id"];
+        [self.storeids addObject:storeId];
+    }
     if ((cacheDict[@"store"] == nil || cacheDict[@"store"][@"id"] == nil) &&
         userDict[kStoreIDsCUName] != nil && [userDict[kStoreIDsCUName] count] > 0) {
         
@@ -524,9 +531,18 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
     }
     
-   _storeID = SafeText(cacheDict[@"store"][@"id"]);
-   // _storeID = @"9318";
-    self.title = SafeText(cacheDict[@"store"][@"name"]);
+    NSString *storeName =[NSString stringWithFormat:@"%@",SafeText([[NSUserDefaults standardUserDefaults] objectForKey:@"ScanStoreName"])];
+    NSString *storeID = [NSString stringWithFormat:@"%@",SafeText([[NSUserDefaults standardUserDefaults] objectForKey:@"ScanStoreID"])];
+    BOOL storePermission  = [_storeids containsObject:storeID];
+    if (storeName.length > 0 && storeID.length>0 && storePermission) {
+        self.title = storeName;
+        _storeID = storeID;
+    }
+    else {
+        _storeID = SafeText(cacheDict[@"store"][@"id"]);
+        // _storeID = @"9318";
+        self.title = SafeText(cacheDict[@"store"][@"name"]);
+    }
 //      [self showLoading:LoadingLoad];
     
     /*

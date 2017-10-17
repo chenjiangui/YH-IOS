@@ -244,67 +244,13 @@
         [cachedHeaderDict writeToFile:cachedHeaderPath atomically:YES];
         NSArray *array = responseObject;
         [array writeToFile:dataPath atomically:YES];
-//      _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
-
-        // 从应用内部读取数据
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentDirectoir = nil;
-        if ([paths count] != 0 ) {
-            documentDirectoir = [paths objectAtIndex:0];
-        }
-
-        NSString *libName = @"SYPTemplateV2.framework";
-        NSString *destLibPath = [documentDirectoir stringByAppendingPathComponent:libName];
-        NSLog(@"there %@",destLibPath);
-
-        NSFileManager *manager = [NSFileManager defaultManager];
-        if (![manager fileExistsAtPath:destLibPath]) {
-            NSLog(@"there isn't have a file");
-//            testTemplateViewController *testView = [[testTemplateViewController alloc]initWithData:array];
-//            [self.view addSubview:testView.view];
             _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
             [self moduleTwoList];
             [HudToolView hideLoadingInView:self.view];
-            return;
-        }
-
-        NSError *error = nil;
-        NSBundle *frameworkBundle = [NSBundle bundleWithPath:destLibPath];
-        [frameworkBundle load];
-        if (frameworkBundle && [frameworkBundle load]) {
-            NSLog(@"bundle load framwwork success.");
-        }
-        else{
-            NSLog(@"bundle load framework err:%@",error);
-//            testTemplateViewController *testView = [[testTemplateViewController alloc]initWithData:array];
-//            [self.view addSubview:testView.view];
-            _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
-            [self moduleTwoList];
-            [HudToolView hideLoadingInView:self.view];
-            return;
-        }
-
-        Class pacteraClass = NSClassFromString(@"testTemplateViewController");
-        if (!pacteraClass) {
-            NSLog(@"unable to get testDylib class");
-//            testTemplateViewController *testView = [[testTemplateViewController alloc]initWithData:array];
-//            [self.view addSubview:testView.view];
-            _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
-            [self moduleTwoList];
-        }
-        else {
-            UIViewController *pacteraObject = [[pacteraClass alloc]initWithData:array];
-            [self.view addSubview:pacteraObject.view];
-//            testTemplateViewController *testView = [[testTemplateViewController alloc]initWithData:array];
-//                   [self.view addSubview:testView.view];
-        }
-//        [self moduleTwoList];
-        [HudToolView hideLoadingInView:self.view];
-
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"ERROR- %@",error);
-       // NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
-        NSArray *array = [NSArray arrayWithContentsOfFile:dataPath];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+        NSArray *array = [NSArray arrayWithContentsOfFile:path];
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
         NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:NULL];
         [HudToolView hideLoadingInView:self.view];

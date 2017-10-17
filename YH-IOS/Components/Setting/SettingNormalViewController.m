@@ -197,6 +197,8 @@
 //        cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
 //         cell.userInteractionEnabled = NO;
          UILabel *detailLabel=[[UILabel alloc] init];
+         detailLabel.adjustsFontSizeToFitWidth = YES;
+         detailLabel.textAlignment = NSTextAlignmentRight;
          [cell.contentView addSubview:detailLabel];
          detailLabel.textColor=[UIColor colorWithRed:0.21 green:0.25 blue:0.29 alpha:1];
          detailLabel.font=[UIFont systemFontOfSize:15];
@@ -217,6 +219,7 @@
          [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
              make.right.mas_equalTo(cell.contentView.mas_right).offset(-[detailLabelPoint integerValue]);
              make.centerY.mas_equalTo(cell.contentView.mas_centerY);
+             make.width.mas_equalTo(200);
          }];
          
          

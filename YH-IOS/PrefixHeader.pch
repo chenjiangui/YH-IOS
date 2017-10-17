@@ -33,6 +33,7 @@
 #import "YHAPI.h"
 #import "RootViewController.h"
 #import "CodeMD5.h"
+#import "MoLocation.h"
 
 #pragma mark - 分类
 #import "NSString+Category.h"
@@ -53,6 +54,7 @@
 #import "UIWebView+CleanLayerDelegate.h"
 #import "YHHttpRequestAPI.h"
 #import "UILabel+FitWitdhAndHeight.h"
+#import "NSObject+DictModel.h"
 
 #pragma mark - 第三方库
 #import <MJExtension/MJExtension.h>
@@ -95,6 +97,19 @@
 #define JYVCHeight CGRectGetHeight(self.view.bounds)
 #define JYColor_TextColor_Chief ([UIColor colorWithHexString:@"#595b57"]) // co3
 #define JYColor_TextColor_Minor ([UIColor colorWithHexString:@"#bcbcbc"]) // co4
+
+
+// 判断系统版本的宏
+#define SYSTEM_VERSION_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+
+#define SYSTEM_VERSION_GREATER_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
 // 自适应设备宽度
 #define adaptWidth(w) (SCREEN_WIDTH / 375 * (w))
 

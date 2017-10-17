@@ -315,7 +315,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
-
     switch (indexPath.row) {
         case 0:{
             NSString *userRole =[NSString stringWithFormat:@"%@", user.roleName];
@@ -349,8 +348,9 @@
         case 1:{
             Version *version = [[Version alloc]init];
             NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
-              NSArray *userBaseDictKey = @[@"应用名称",@"检测更新",@"设备型号",@"数据接口",@"应用标识"];
-            NSDictionary *infodict = @{@"应用名称":version.appName,@"设备型号":[NSString stringWithFormat: @"%@ (%@)",[[Version machineHuman]componentsSeparatedByString:@" ("][0], phoneVersion], @"数据接口":kBaseUrl,@"应用标识":version.bundleID,@"检测更新":@{@"检查新版本":@"已是最新版本",@"蒲公英下载":kPgyerUrl}};
+              NSArray *userBaseDictKey = @[@"应用名称",@"检测更新",@"设备型号",@"数据接口",@"应用标识",@"当前位置"];
+            NSDictionary *infodict = @{@"应用名称":version.appName,@"设备型号":[NSString stringWithFormat: @"%@ (%@)",[[Version machineHuman]componentsSeparatedByString:@" ("][0], phoneVersion], @"数据接口":kBaseUrl,@"应用标识":version.bundleID,@"检测更新":@{@"检查新版本":@"已是最新版本",@"蒲公英下载":kPgyerUrl},@"当前位置":@""};
+            
             SettingNormalViewController *settingNormalView = [[SettingNormalViewController alloc]init];
             settingNormalView.infodict  = infodict;
             settingNormalView.indictKey = userBaseDictKey;

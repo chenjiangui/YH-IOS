@@ -146,7 +146,7 @@
     _showFlagPoint = showFlagPoint;
     if (showFlagPoint) {
         self.flagPoint.hidden = NO;
-        self.titleLabel.textColor = JYColor_LineColor_LightBlue;
+        self.titleLabel.textColor = [NewAppColor yhapp_15color];
     }
 }
 

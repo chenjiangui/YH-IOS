@@ -338,6 +338,12 @@
     else if (indexPath.section == 1) {
       MineTwoLabelTableViewCell*  Cell = (MineTwoLabelTableViewCell *)[[MineTwoLabelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaltCell"];
         Cell.userInteractionEnabled = YES;
+        if (indexPath.row == 0) {
+            [Cell.rightDetailIamge setHidden:YES];
+        }
+        else {
+            [Cell.rightDetailIamge setHidden:YES];
+        }
         Cell.leftLabel.text = self.userArray[indexPath.section][indexPath.row];
         Cell.leftImageView.image = [[UIImage imageNamed:self.leftImageArray[indexPath.section][indexPath.row]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         Cell.rightLabel.text =secondArray[indexPath.row];

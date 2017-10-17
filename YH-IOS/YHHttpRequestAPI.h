@@ -143,4 +143,17 @@ typedef void(^YHHttpRequestBlock)( BOOL success, id model, NSString* jsonObjc);
  */
 +(void)yh_getWithUrl:(NSString *)url Finish:(YHHttpRequestBlock)finish;
 
+
+/**
+ 获取经纬度数据
+ */
++(void)yh_getLocationWithLocation:(NSString *)location Finish:(YHHttpRequestBlock)finish;
+
+
+/**
+ 获取用户当前位置
+ */
++(void)yh_getAddressWithLocation:(NSString *)location Finish:(YHHttpRequestBlock)finish;
+
+
 @end

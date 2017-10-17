@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIButton* handBtn;
 @property (nonatomic, strong) UIButton* flashBtn;
 @property (nonatomic, strong) UIButton* centerFocusBtn;
+@property (nonatomic,strong) UIButton* locationButton;
 
 
 @end
@@ -69,6 +70,57 @@
         _titleLab.centerX = SCREEN_WIDTH/2.0;
     }
     return _titleLab;
+}
+
+-(UIButton *)locationButton {
+    if (!_locationButton) {
+        _locationButton = [[UIButton alloc]init];
+        [_locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _locationButton.frame = CGRectMake(self.view.frame.size.width/2-50, 80, 100, 30);
+        _locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [_locationButton addTarget:self action:@selector(getAddress) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView *locationIMage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"location"]];
+        locationIMage.frame =CGRectMake(self.view.frame.size.width/2-72, 85, 20, 20);
+        [self.view addSubview:locationIMage];
+    }
+    return _locationButton;
+}
+
+
+-(void)getAddress {
+    [_locationButton setTitle:@"定位当前店" forState:UIControlStateNormal];
+    __block  BOOL isOnece = YES;
+    [MoLocation getMoLocationWithSuccess:^(double lat, double lng){
+        isOnece = NO;
+        //只打印一次经纬度
+        DLog(@"lat lng (%f, %f)", lat, lng);
+        NSString *locationString = [NSString stringWithFormat:@"%.6f,%.6f",lng,lat];
+        [YHHttpRequestAPI yh_getLocationWithLocation:locationString Finish:^(BOOL success, id model, NSString *jsonObjc) {
+            if (success) {
+                NSLog(@"%@",jsonObjc);
+                NSDictionary *dict = [self _yy_dictionaryWithJSON:jsonObjc];
+                if (dict[@"data"] != nil) {
+                    NSDictionary *dataDict = dict[@"data"][0];
+                    NSString *storename = dataDict[@"store_name"];
+                    [[NSUserDefaults standardUserDefaults] setObject:storename forKey:@"ScanStoreName"];
+                    NSString *storecode = dataDict[@"store_code"];
+                    [[NSUserDefaults standardUserDefaults] setObject:storecode forKey:@"ScanStoreID"];
+                    DLog(@"%@",dict);
+                   [_locationButton setTitle:storename forState:UIControlStateNormal];
+                }
+            }
+        }];
+        
+        if (!isOnece) {
+            [MoLocation stop];
+        }
+    } Failure:^(NSError *error){
+        isOnece = NO;
+        DLog(@"error = %@", error);
+        if (!isOnece) {
+            [MoLocation stop];
+        }
+    }];
 }
 
 - (UIButton *)backBtn{
@@ -212,6 +264,9 @@
 //    }
     [self addTopItems];
     [self addBottomItems];
+    _locationButton = [self locationButton];
+    [self.view addSubview:_locationButton];
+    [self getAddress];
 }
 
 // 标题
