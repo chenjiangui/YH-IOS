@@ -76,8 +76,9 @@
     if (!_locationButton) {
         _locationButton = [[UIButton alloc]init];
         [_locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _locationButton.frame = CGRectMake(self.view.frame.size.width/2-50, 80, 100, 30);
-        _locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        _locationButton.frame = CGRectMake(self.view.frame.size.width/2-50,80,200 , 30);
+        _locationButton.titleLabel.adjustsFontSizeToFitWidth=YES;
+        [_locationButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_locationButton addTarget:self action:@selector(getAddress) forControlEvents:UIControlEventTouchUpInside];
         UIImageView *locationIMage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"location"]];
         locationIMage.frame =CGRectMake(self.view.frame.size.width/2-72, 85, 20, 20);
@@ -107,7 +108,30 @@
                     [[NSUserDefaults standardUserDefaults] setObject:storecode forKey:@"ScanStoreID"];
                     DLog(@"%@",dict);
                    [_locationButton setTitle:storename forState:UIControlStateNormal];
+                    
+                    NSString *cacheJsonPath = [FileUtils dirPath:kCachedDirName FileName:kBarCodeResultFileName];
+                    NSMutableDictionary *cacheDict = [FileUtils readConfigFile:cacheJsonPath];
+                    
+                    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+                    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+                    
+                    NSArray *userStoreArray = userDict[kStoreIDsCUName];
+                    NSMutableArray *storeids = [[NSMutableArray alloc]init];
+                    for (int i = 0;i<userStoreArray.count ; i++) {
+                        NSDictionary *dict = userStoreArray[i];
+                        NSString *storeId = dict[@"id"];
+                        [storeids addObject:storeId];
+                    }
+                    BOOL storePermission  = [storeids containsObject:storecode];
+                    if (!storePermission) {
+                        NSString *locationtitleString = [NSString stringWithFormat:@"%@(不在权限范围内)",storename];
+                         [_locationButton setTitle:locationtitleString forState:UIControlStateNormal];
+                    }
+                    
                 }
+            }
+            else {
+                [_locationButton setTitle:@"附近没有定位到门店" forState:UIControlStateNormal];
             }
         }];
         
@@ -120,6 +144,7 @@
         if (!isOnece) {
             [MoLocation stop];
         }
+         [_locationButton setTitle:@"定位失败" forState:UIControlStateNormal];
     }];
 }
 
