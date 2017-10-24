@@ -231,14 +231,16 @@
 
 - (NSArray *)yAxisDataList {
     NSInteger max = [self maxValue];
+    NSInteger min = [self minValue];
     while (max % 4 != 0) {
         max++;
     }
     
-    NSInteger per = max / 4;
-    NSMutableArray *yAxisArr = [NSMutableArray arrayWithCapacity:4];
-    for (int i = 0; i < 4; i++) {
-            [yAxisArr addObject:[NSString stringWithFormat:@"%zi", per * (4 - i)]];
+    NSInteger per = (max-min) / 6;
+    NSMutableArray *yAxisArr = [NSMutableArray arrayWithCapacity:6];
+    for (int i = 0; i < 6; i++) {
+         [yAxisArr addObject:[NSString stringWithFormat:@"%zi", per * (4 - i)]];
+//        [yAxisArr addObject:[NSString stringWithFormat:@"%zi", m]];
     }
 //    [yAxisArr removeLastObject];
 //    [yAxisArr addObject:[NSString stringWithFormat:@"%zi", [self minValue]]];

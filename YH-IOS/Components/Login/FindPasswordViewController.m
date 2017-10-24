@@ -163,13 +163,12 @@
     FindPwdTableview=[[UITableView alloc] init];
     [self.view addSubview:FindPwdTableview];
     FindPwdTableview.scrollEnabled =NO; //设置tableview 不能滚动
-    [FindPwdTableview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
-    }];
+    FindPwdTableview.frame  = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     [FindPwdTableview setBackgroundColor:[UIColor colorWithHexString:@"#f3f3f3"]];
     //    GroupTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStyleGrouped];
     FindPwdTableview.dataSource = self;
     FindPwdTableview.delegate = self;
+    FindPwdTableview.tableFooterView = [[UIView alloc] init];
 }
 
 
@@ -199,10 +198,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
         static NSString *Identifier = @"Cell";
-        NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-        if (cell == nil) {
-            cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"PeopleNumber"];
-        }
+        NewFindPasswordCell *cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"PeopleNumber"];
         FindPwdTableview.separatorColor = [UIColor colorWithHexString:@"#e6e6e6"];
                 //设置 分割线长度
                 [cell setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
@@ -212,11 +208,7 @@
     else if (indexPath.row==1)
     {
         static NSString *Identifier = @"Cell2";
-        NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-        if (cell == nil) {
-          
-            cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"PhoneNumber"];
-        }
+        NewFindPasswordCell *cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"PhoneNumber"];
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -224,22 +216,14 @@
     else if(indexPath.row==2)
     {
         static NSString *Identifier = @"Cell3";
-        NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-        if (cell == nil) {
-
-            cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"textLabel"];
-        }
+        NewFindPasswordCell *cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"textLabel"];
         [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, MAXFLOAT)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else{
         static NSString *Identifier = @"Cell4";
-        NewFindPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-        
-        if (cell == nil) {
-            cell=[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"upDataBtn"];
-        }
+        NewFindPasswordCell *cell =[[NewFindPasswordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier andType:@"upDataBtn"];
         return cell;
     }
 }
@@ -288,16 +272,16 @@
 - (void)backAction{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-// 支持设备自动旋转
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-// 支持竖屏显示
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
+//// 支持设备自动旋转
+//- (BOOL)shouldAutorotate
+//{
+//    return YES;
+//}
+//// 支持竖屏显示
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -307,22 +291,22 @@
 
 #pragma mark - assistant methods
 
-- (void)showLoading:(LoadingType)loadingType {
-    NSString *loadingPath = [FileUtils loadingPath:loadingType];
-    NSString *loadingContent = [NSString stringWithContentsOfFile:loadingPath encoding:NSUTF8StringEncoding error:nil];
-    [self.webView loadHTMLString:loadingContent baseURL:[NSURL fileURLWithPath:loadingPath]];
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
-}
+//- (void)showLoading:(LoadingType)loadingType {
+//    NSString *loadingPath = [FileUtils loadingPath:loadingType];
+//    NSString *loadingContent = [NSString stringWithContentsOfFile:loadingPath encoding:NSUTF8StringEncoding error:nil];
+//    [self.webView loadHTMLString:loadingContent baseURL:[NSURL fileURLWithPath:loadingPath]];
+//    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
+//}
 
-- (void)clearBrowserCache {
-    [self.webView stopLoading];
-   }
-- (void)dismissFindPwd {
-    [self dismissViewControllerAnimated:YES completion:^{
-        self.webView.delegate = nil;
-        self.webView = nil;
-        self.bridge = nil;
-    }];
-}
+//- (void)clearBrowserCache {
+//    [self.webView stopLoading];
+//   }
+//- (void)dismissFindPwd {
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        self.webView.delegate = nil;
+//        self.webView = nil;
+//        self.bridge = nil;
+//    }];
+//}
 
 @end

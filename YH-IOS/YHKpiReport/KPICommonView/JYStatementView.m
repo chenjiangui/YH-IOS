@@ -34,35 +34,6 @@
     return self;
 }
 
-- (NSArray *)viewModelList {
-    if (!_viewModelList) {
-        _viewModelList = ((JYStatementModel *)self.moduleModel).viewModelList;
-    }
-    return _viewModelList;
-}
-
-- (JYModuleTwoCell *)moduleTwoCell {
-    if (!_moduleTwoCell) {
-        _moduleTwoCell = [[JYModuleTwoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JYModuleTwoCell"];
-    }
-    return _moduleTwoCell;
-}
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, JYViewWidth, JYViewHeight - 64) style:UITableViewStylePlain];
-        [_tableView registerClass:[JYModuleTwoCell class] forCellReuseIdentifier:@"JYModuleTwoCell"];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [self addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self);
-        }];
-    }
-    return _tableView;
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.viewModelList.count;
@@ -123,6 +94,36 @@
     //NSLog(@"view %@ data %@", baseView, data);
 }
 
+#pragma 懒加载，加载
+- (NSArray *)viewModelList {
+    if (!_viewModelList) {
+        _viewModelList = ((JYStatementModel *)self.moduleModel).viewModelList;
+    }
+    return _viewModelList;
+}
+
+- (JYModuleTwoCell *)moduleTwoCell {
+    if (!_moduleTwoCell) {
+        _moduleTwoCell = [[JYModuleTwoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JYModuleTwoCell"];
+    }
+    return _moduleTwoCell;
+}
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, JYViewWidth, JYViewHeight - 64) style:UITableViewStylePlain];
+        [_tableView registerClass:[JYModuleTwoCell class] forCellReuseIdentifier:@"JYModuleTwoCell"];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(self);
+        }];
+    }
+    return _tableView;
+}
 
 
 @end

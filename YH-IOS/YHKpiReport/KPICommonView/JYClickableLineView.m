@@ -192,9 +192,10 @@
     UIView *axisYView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.infoView.bounds) / 5, CGRectGetHeight(self.infoView.bounds))];
     //axisYView.backgroundColor = JYColor_ArrowColor_Red;
     [self.infoView addSubview:axisYView];
-    NSMutableArray *yAxisList = [NSMutableArray arrayWithCapacity:4];
-    CGFloat scaleHeight = (CGRectGetHeight(axisYView.bounds) - kAxisXViewHeight- JYDefaultMargin) / 4;
-    for (int i = 0; i < 4; i++) {
+    NSInteger yaxiscount =self.seriesModel.yAxisDataList.count;
+    NSMutableArray *yAxisList = [NSMutableArray arrayWithCapacity:yaxiscount];
+    CGFloat scaleHeight = (CGRectGetHeight(axisYView.bounds) - kAxisXViewHeight- JYDefaultMargin) / self.seriesModel.yAxisDataList.count;
+    for (int i = 0; i < self.seriesModel.yAxisDataList.count; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(JYDefaultMargin, 0, 50, scaleHeight)];
         CGPoint center = label.center;
         center.y = scaleHeight * i + JYDefaultMargin + JYDefaultMargin;

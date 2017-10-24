@@ -122,11 +122,11 @@
                         NSString *storeId = dict[@"id"];
                         [storeids addObject:storeId];
                     }
-                    BOOL storePermission  = [storeids containsObject:storecode];
-                    if (!storePermission) {
-                        NSString *locationtitleString = [NSString stringWithFormat:@"%@(不在权限范围内)",storename];
-                         [_locationButton setTitle:locationtitleString forState:UIControlStateNormal];
-                    }
+//                    BOOL storePermission  = [storeids containsObject:storecode];
+//                    if (!storePermission) {
+//                        NSString *locationtitleString = [NSString stringWithFormat:@"%@(不在权限范围内)",storename];
+//                         [_locationButton setTitle:locationtitleString forState:UIControlStateNormal];
+//                    }
                     
                 }
             }
@@ -263,6 +263,10 @@
     }
 }
 
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -415,6 +419,7 @@
     ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
     scanResultVC.codeInfo = scanResult.strScanned;
     scanResultVC.codeType = scanResult.strBarCodeType;
+     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     UINavigationController *scanresult = [[UINavigationController alloc]initWithRootViewController:scanResultVC];
     [self presentViewController:scanresult animated:YES completion:nil];
 }

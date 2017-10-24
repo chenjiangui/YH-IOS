@@ -41,9 +41,14 @@ typedef enum{
 
 @property (nonatomic, weak) id <JYRootScrollViewDateSource>rootScrollViewDateSource;
 @property (nonatomic, weak) id <JYRootScrollViewDelegate>rootScrollViewDelegate;
+/**
+ rootScrollView 的子视图数组
+ */
 @property (nonatomic, strong) NSMutableArray *pageViews;
 @property (nonatomic, assign) CGFloat margin;
+// rootScroll 的宽度
 @property (nonatomic, assign) CGFloat rootScrollWidth;
+
 @property (nonatomic, assign) CGFloat rootScrollHeight;
 
 - (void)reloadPageViews;

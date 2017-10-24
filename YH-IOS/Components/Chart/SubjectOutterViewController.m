@@ -228,7 +228,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             }
             else if ([itemName isEqualToString:kDropCopyLinkText]){
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = self.link;
+                pasteboard.string = self.urlString;
                 if (![pasteboard.string isEqualToString:@""]) {
                     [ViewUtils showPopupView:self.view Info:@"链接复制成功"];
                 }
@@ -710,21 +710,22 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 #pragma mark 以下为定位得出经纬度
 - (void)locateAction
 {
-    //带逆地理的单次定位
-    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        
-        if (error)
-        {
-            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-            
-            if (error.code == AMapLocationErrorLocateFailed)
-            {
-                return;
-            }
+    __block  BOOL isOnece = YES;
+    [MoLocation getMoLocationWithSuccess:^(double lat, double lng){
+        isOnece = NO;
+        //只打印一次经纬度
+        DLog(@"lat lng (%f, %f)", lat, lng);
+        self.userLongitude = [NSString stringWithFormat:@"%.6f",lng];
+        self.userlatitude = [NSString stringWithFormat:@"%.6f",lat];
+        if (!isOnece) {
+            [MoLocation stop];
         }
-        NSLog(@"旧的经度：%f,旧的纬度：%f",location.coordinate.longitude,location.coordinate.latitude);
-        self.userLongitude=[NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
-        self.userlatitude =[NSString stringWithFormat:@"%f",location.coordinate.latitude];
+    } Failure:^(NSError *error){
+        isOnece = NO;
+        DLog(@"error = %@", error);
+        if (!isOnece) {
+            [MoLocation stop];
+        }
     }];
 }
 
@@ -741,7 +742,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     self.link =  (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.link, (CFStringRef)@"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
     NSString *splitString = [self.urlString containsString:@"?"] ? @"&" : @"?";
-    NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@", SafeText(self.user.userNum), timestamp];
+    NSString *locationString = @"";
+    if (_userLongitude.length > 0) {
+       locationString = [NSString stringWithFormat:@"location=%@,%@",self.userLongitude,self.userlatitude];
+     [[NSUserDefaults standardUserDefaults] setObject:locationString forKey:@"USERLOCATION"];
+    }
+    else{
+        locationString = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
+    }
+    NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@&%@", SafeText(self.user.userNum), timestamp,locationString];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
     
     NSLog(@"%@", self.urlString);

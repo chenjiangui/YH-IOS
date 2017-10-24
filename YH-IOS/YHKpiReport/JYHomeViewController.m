@@ -274,6 +274,7 @@
 //扫描事件
 - (void)scanAction{
     [[PermissionManager shareInstance] verifyCanPhoto:^(BOOL canPhoto) {
+        [[NSUserDefaults standardUserDefaults] setObject:@(0) forKey:@"HASUSERLOCATION"];
         [self presentViewController:[SubLBXScanViewController instance] animated:YES completion:nil];
     }];
 }

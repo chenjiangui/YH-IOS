@@ -106,6 +106,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
      _fromViewController = @"jump";
+     [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

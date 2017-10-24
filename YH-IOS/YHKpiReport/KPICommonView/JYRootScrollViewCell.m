@@ -21,7 +21,6 @@
     if (cell == nil) {
         cell = [[JYRootScrollViewCell alloc] init];
         cell.identifier = cellID;
-        //cell.backgroundColor = [UIColor yellowColor];
     }
     return cell;
 }
@@ -34,7 +33,10 @@
     return self;
 }
 
+
+// 添加 pageView 了
 - (void)setpageViewInCell:(UIView *)pageView{
+    // 将视图上的所有视图全部清除。
     if (self.subviews.count) {
        [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }

@@ -11,10 +11,6 @@
 
 @implementation JYRootScrollViewManager
 
-- (void)setPageViews:(NSMutableArray *)pageViews{
-    _pageViews = pageViews;
-    [self.rootScrollView reloadPageViews];
-}
 
 - (id)initWithRootScrollView:(JYRootScrollView *)rootScrollView{
     self = [super init];
@@ -37,5 +33,11 @@
     UIView *pageView = self.pageViews[index];
     [cell setpageViewInCell:pageView];
     return cell;
+}
+
+// 设置页数
+- (void)setPageViews:(NSMutableArray *)pageViews{
+    _pageViews = pageViews;
+    [self.rootScrollView reloadPageViews];
 }
 @end

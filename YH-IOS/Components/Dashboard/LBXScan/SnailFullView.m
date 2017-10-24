@@ -187,23 +187,23 @@
 -(void)questBtn
 {
     [self setUserInteractionEnabled:NO];
-    
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+      [self endEditing:YES];
     if ([_InputNumString length]==0) {
          [HudToolView showTopWithText:@"输入信息为空" color:[NewAppColor yhapp_11color]];
         [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
-
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
         return;
     }
     [HudToolView showLoadingInView:self];
     [self performSelector:@selector(delayMethod) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     if ([_InputNumString length] != 0) {
         if (!_clickTapBlock) {
             return;
         }
         _clickTapBlock(_InputNumString);
     }
-
+    
 }
 
 //延时执行函数
@@ -211,6 +211,8 @@
 {
     self.userInteractionEnabled=YES;
     [HudToolView hideLoadingInView:self];
+      [self endEditing:YES];
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     
 }
 - (UIButton *)BackBtn{
@@ -310,6 +312,7 @@
 //    WeakSelf;
 //    self.didClickFullView(weakSelf);
     [self hideWithAnimation:YES];
+    [self endEditing:YES];
 }
 
 - (void)closeClicked:(UIButton *)sender {

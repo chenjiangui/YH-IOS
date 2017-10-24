@@ -33,8 +33,11 @@
               _cursor.rootScrollViewHeight = self.frame.size.height;
         }
         else {
+            // 设置 navbar 的高度
             _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 40);
+            // 设置 rootScrollView 中的视图组
             _cursor.pageViews = self.statementView;
+            // 设置 rootScrollView 的高度
             _cursor.rootScrollViewHeight = self.frame.size.height - 40;
         }
         //设置根滚动视图的高度
@@ -43,8 +46,6 @@
         //默认值是白色
         _cursor.titleSelectedColor = [NewAppColor yhapp_10color];
         _cursor.backgroudSelectedColor = [UIColor colorWithHexString:@"#00a4e9"];
-        //是否显示排序按钮
-        //_cursor.showSortbutton = YES;
         //默认的最小值是5，小于默认值的话按默认值设置
         _cursor.minFontSize = 15;
         //默认的最大值是25，小于默认值的话按默认值设置，大于默认值按设置的值处理

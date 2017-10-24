@@ -937,8 +937,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     __weak typeof(*&self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [APIHelper reportData:SafeText(weakSelf.user.groupID) templateID:weakSelf.templateID reportID:weakSelf.reportID];
-        
-        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
+      NSString *loadurlString = [NSString stringWithFormat:@"%@?location=%@,%@",weakSelf.urlString,weakSelf.userLongitude,weakSelf.userlatitude];
+        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:loadurlString assetsPath:weakSelf.assetsPath];
         
         __block NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {

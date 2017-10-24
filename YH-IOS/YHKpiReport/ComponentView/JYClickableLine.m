@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSArray <NSArray <NSNumber *> *> *dataSource; // 多条折线的关键点处理前列表
 @property (nonatomic, strong) NSArray <NSArray <NSString *> *> *keyPointsList; // 关键点处理后列表
 @property (nonatomic, strong) NSArray <UIView *> *flagPointList; // 圆圈⭕️列表
+@property (nonatomic, assign) CGFloat zeroLineHeight;
 
 @end
 
@@ -30,6 +31,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
         self.clipsToBounds = YES;
+        self.zeroLineHeight = self.bounds.size.height;
         [self addGesture];
     }
     return self;
@@ -119,14 +121,16 @@
 - (void)formatterPoints {
     
     NSInteger keyPointCountMax = 0;
+    // 设置有多少个关键点
     for (NSArray *keyPoints in self.dataSource) {
         keyPointCountMax = keyPoints.count > keyPointCountMax ? keyPoints.count : keyPointCountMax;
     }
+    // 获取间隔
     margin = CGRectGetWidth(self.frame) / (keyPointCountMax - 1);
     maxValue = 0.0;
     minValue = 0.0;
     
-    
+    // 获取y轴的最大值和最小值
     for (NSArray *lineData in self.dataSource) {
         for (NSNumber *number in lineData) {
             maxValue = maxValue > [number floatValue] ? maxValue : [number floatValue];
@@ -136,22 +140,29 @@
     
     NSMutableArray *keyPointsListTemp = [NSMutableArray array];
     CGFloat allheight = maxValue - minValue;
+    // 获取在该视图中的每一个数值点的高度
     CGFloat onePontWidth = CGRectGetHeight(self.frame)/allheight;
+    // 遍历整个所有的线图
     for (NSArray *keyPoints in self.dataSource) {
+        // 定义点的数组
         NSMutableArray *points = [NSMutableArray arrayWithCapacity:keyPoints.count];
+        //遍历数组中的每个元素
         for (int i = 0; i < keyPoints.count; i++) {
+            // 获取每个元素在该视图中的点的位置
 //            CGFloat y = CGRectGetHeight(self.frame) * (1 - [keyPoints[i] floatValue] / maxValue) + JYViewHeight * 0.1;
                 CGFloat y =  CGRectGetHeight(self.frame) - (([keyPoints[i] floatValue] - minValue)*onePontWidth);
                 CGFloat x = (margin * i + JYDefaultMargin * 2) * 0.9; // 按比率缩小x轴，避免标记点显示不全的问题
                 CGPoint point = CGPointMake(x, y);
-                    [points addObject:NSStringFromCGPoint(point)];
+                [points addObject:NSStringFromCGPoint(point)];
             
         }
+        // 把每个元素的位置对应的算出来
         [keyPointsListTemp addObject:[points copy]];
     }
     
     NSMutableArray *points = [NSMutableArray arrayWithCapacity:2];
     CGPoint zeroPointOne = CGPointMake(-10,  maxValue*onePontWidth);
+    self.zeroLineHeight = maxValue*onePontWidth;
     CGPoint zeroPointTwo = CGPointMake(CGRectGetWidth(self.frame), maxValue*onePontWidth);
     [points addObject:NSStringFromCGPoint(zeroPointOne)];
     [points addObject:NSStringFromCGPoint(zeroPointTwo)];
@@ -199,7 +210,32 @@
         }
         linelayer.lineCap = kCALineCapSquare;
         linelayer.lineJoin = kCALineJoinMiter;
-        [self.layer addSublayer:linelayer];
+        
+        UIBezierPath *layerPath2 = [UIBezierPath bezierPath];
+        for (int j = 0; j < pointList.count; j++) {
+            CGPoint point = CGPointFromString(pointList[j]);
+            [layerPath2 moveToPoint:CGPointMake(point.x-6*(i-1), point.y)];
+            [layerPath2 addLineToPoint:CGPointMake(point.x-6*(i-1), _zeroLineHeight)];
+        }
+        layerPath2.lineJoinStyle = kCGLineJoinRound;
+        CAShapeLayer *linelayer2 = [CAShapeLayer layer];
+        linelayer2.lineWidth = 6;
+//        linelayer2.strokeEnd = 0.0;
+//        linelayer2.strokeEnd = 1.0;
+        linelayer.backgroundColor = [UIColor clearColor].CGColor;
+        linelayer2.path = layerPath2.CGPath;
+        linelayer2.fillColor = [UIColor clearColor].CGColor;
+        if(i<self.keyPointsList.count-1){
+            linelayer2.strokeColor = (self.lineColorList[i] ?: [UIColor whiteColor]).CGColor;
+        }
+        else{
+            linelayer2.strokeColor = [UIColor lightGrayColor].CGColor;
+            linelayer2.lineWidth = 1;
+        }
+//        linelayer2.lineCap = kCALineCapSquare;
+//        linelayer2.lineJoin = kCALineJoinMiter;
+        [self.layer addSublayer:linelayer2];
+         [self.layer addSublayer:linelayer];
         
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
         animation.fromValue = @0.0;
@@ -235,12 +271,15 @@
     }
     
     CGPoint keyPoint = CGPointMake(NSIntegerMax, NSIntegerMax);
+    // 遍历每一个元素点
     for (NSInteger i = 0; i < self.keyPointsList.count-1; i++) {
         self.flagPointList[i].hidden = NO;
         
         for (int j = 0; j < self.keyPointsList[i].count; j++) {
             NSString *pointStr = self.keyPointsList[i][j];
+            // 使用获取的点来初始化 keyPoint
             keyPoint = CGPointFromString(pointStr);
+            // 算出离那个点比较近
             if (fabs(keyPoint.x - point.x) < margin / 2) {
                 if (self.delegate && [self.delegate respondsToSelector:@selector(clickableLine:didSelected:data:)]) {
                     [self.delegate clickableLine:self didSelected:j data:self.dataSource[i][j]];

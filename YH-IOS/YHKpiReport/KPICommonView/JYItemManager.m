@@ -17,6 +17,8 @@
 @end
 
 @implementation JYItemManager
+
+// 设置 titles 即，上面的一些页签
 - (NSMutableArray *)titles{
     if (!_titles) {
         _titles = [NSMutableArray array];
@@ -24,6 +26,7 @@
     return _titles;
 }
 
+// 单例
 + (id)shareitemManager{
     static JYItemManager *manger = nil;
     if (manger == nil) {
@@ -32,10 +35,10 @@
     return manger;
 }
 
+// 设置scrollTitle
 - (void)setItemTitles:(NSMutableArray *)titles{
     _titles = titles;
     self.scrollNavBar.itemKeys = titles;
-    self.sortItemView.itemKeys = titles;
 }
 
 - (void)removeTitle:(NSString *)title{

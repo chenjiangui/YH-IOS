@@ -201,6 +201,11 @@
     return OpenLabel;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+     [self.view endEditing:YES];
+}
+
 - (UIButton *)OpenLightbtn{
     if (!OpenLight) {
         OpenLight =[[UIButton alloc] init];

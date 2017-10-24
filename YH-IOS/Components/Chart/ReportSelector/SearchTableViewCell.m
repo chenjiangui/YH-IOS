@@ -21,7 +21,7 @@
 #pragma mark 初始化视图
 - (void)initWithSubview {
     self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 50)];
-    self.searchBar.placeholder = @"搜索";
+    self.searchBar.placeholder = @"搜索门店名称或门店编号";
     self.searchBar.searchBarStyle = UISearchBarStyleDefault;
     [self.contentView addSubview:self.searchBar];
 }

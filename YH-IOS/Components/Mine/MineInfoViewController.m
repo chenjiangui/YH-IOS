@@ -33,6 +33,8 @@
 #import "MyFavArticleController.h"
 #import "NewPushTableView.h"
 #import "ChangedUserRoleViewController.h"
+#import "SubjectOutterViewController.h"
+#import "HttpModel.h"
 
 @interface MineInfoViewController ()<UITableViewDelegate,UITableViewDataSource,MineHeadDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate >
 {
@@ -53,6 +55,7 @@
 @property (nonatomic, strong) NSDictionary *userDict;
 @property (nonatomic, strong) CommonSheetView* favSheetView;
 @property (nonatomic, strong)CommonSheetView* userIconSheetView;
+@property (nonatomic, strong) NSString *userBelongsRule;
 
 @end
 
@@ -71,6 +74,7 @@
     secondArray = @[SafeText(user.groupName), SafeText(user.userNum)];
 
     seconImageArray = @[@"list_ic_set"];
+    [self getUserBelongs];
     [self setupTableView];
 }
 
@@ -339,7 +343,7 @@
       MineTwoLabelTableViewCell*  Cell = (MineTwoLabelTableViewCell *)[[MineTwoLabelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaltCell"];
         Cell.userInteractionEnabled = YES;
         if (indexPath.row == 0) {
-            [Cell.rightDetailIamge setHidden:YES];
+                [Cell.rightDetailIamge setHidden:NO];
         }
         else {
             [Cell.rightDetailIamge setHidden:YES];
@@ -433,11 +437,36 @@
         }
     }
     else if (indexPath.section == 1 && indexPath.row == 0){
-        ChangedUserRoleViewController *changRolCtrl = [[ChangedUserRoleViewController alloc]init];
-        changRolCtrl.url = [NSString stringWithFormat:@"%@/websites/yonghuxinxiziweihu/home/apply.html?user_num=%@",kBaseUrl,SafeText(user.userNum)];
-        [RootNavigationController pushViewController:changRolCtrl animated:YES hideBottom:YES];
+        SubjectOutterViewController *changRolCtrl = [[SubjectOutterViewController alloc]init];
+   
+        if (_userBelongsRule.length >0 && _userBelongsRule) {
+            if ([_userBelongsRule hasPrefix:@"http"]) {
+                changRolCtrl.link = _userBelongsRule;
+//                [RootNavigationController pushViewController:changRolCtrl animated:YES hideBottom:YES];
+                [self presentViewController:changRolCtrl animated:YES completion:nil];
+              }
+            else {
+                [HudToolView showTopWithText:_userBelongsRule color:[NewAppColor yhapp_11color]];
+            }
+        }
+        else{
+            [HudToolView showTopWithText:@"跳转失败，请稍后重试" color:[NewAppColor yhapp_11color]];
+        }
+
     }
     [self.minetableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+-(void)getUserBelongs {
+    NSString *urlString = [NSString stringWithFormat:@"%@%@?keyname=sypc_000103&api_token=%@",kBaseUrl,YHAPI_REGISTER,ApiToken(YHAPI_REGISTER)];
+    
+    [YHHttpRequestAPI yh_getWithUrl:urlString Finish:^(BOOL success, id model, NSString *jsonObjc)  {
+        if (success) {
+            HttpModel *httpModel = [HttpModel mj_objectWithKeyValues:model];
+            _userBelongsRule = httpModel.data;
+        }
+    }];
 }
 
 

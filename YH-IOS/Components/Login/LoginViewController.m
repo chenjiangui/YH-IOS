@@ -383,7 +383,7 @@
 // 点击注册按钮
 -(void)clickRegisterBtn {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?keyname=prompt-info-when-register&api_token=%@",kBaseUrl,YHAPI_REGISTER,ApiToken(YHAPI_REGISTER)];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@?keyname=sypc_000005&api_token=%@",kBaseUrl,YHAPI_REGISTER,ApiToken(YHAPI_REGISTER)];
     
     [YHHttpRequestAPI yh_getWithUrl:urlString Finish:^(BOOL success, id model, NSString *jsonObjc)  {
         if (success) {

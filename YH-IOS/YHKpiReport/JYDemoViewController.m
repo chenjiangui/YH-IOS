@@ -19,6 +19,8 @@
 //#import <SYPTemplateV2/JYModuleTwoView.h>
 //#import <SYPTemplateV2/JYModuleTwoModel.h>
 #import <SYPTemplateV2/testTemplateViewController.h>
+#import "ModuleBaseArrayModel.h"
+#import "ModuleTwoExcelBaseModel.h"
 
 
 @interface JYDemoViewController () <RefreshToolDelegate,UMSocialUIDelegate> {
@@ -190,14 +192,18 @@
 //    return _moduleTwoModel;
 //}
 
+
 -(void)getData{
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
-//    NSData *data = [NSData dataWithContentsOfFile:path];
-//    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-//    [HudToolView hideLoadingInView:self.view];
-//    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
-//    [self moduleTwoList];
-//    return;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+    NSArray<ModuleBaseArrayModel *> *model = [ModuleBaseArrayModel mj_objectArrayWithKeyValuesArray:arraySource];
+    id tableModel =  model[0].viewpages[0].parts[3].config;
+    NSArray<ModuleTwoExcelBaseModel *> *model2 = [ModuleTwoExcelBaseModel mj_objectArrayWithKeyValuesArray:tableModel];
+    [HudToolView hideLoadingInView:self.view];
+    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
+    [self moduleTwoList];
+    return;
 
 
     NSArray *templateArray = [self.urlLink componentsSeparatedByString:@"/"];

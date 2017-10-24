@@ -32,6 +32,4 @@
 @property (nonatomic, assign) NSInteger        minFontSize;
 @property (nonatomic, assign) NSInteger        maxFontSize;
 
-- (void)hiddenAllItems;
-- (void)showAllItems;
 @end

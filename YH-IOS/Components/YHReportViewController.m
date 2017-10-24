@@ -579,6 +579,7 @@
 
 -(void)jumpToStoreScan{
     JYDemoViewController *scanStore = [[JYDemoViewController alloc]init];
+     [[NSUserDefaults standardUserDefaults] setObject:@(0) forKey:@"HASUSERLOCATION"];
     [self.navigationController pushViewController:scanStore animated:YES];
 }
 

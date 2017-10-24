@@ -13,7 +13,6 @@
 #import "JYBargraphModel.h"
 #import "JYInfoModel.h"
 #import "JYExcelModel.h"
-#import "JYPieModel.h"
 
 @implementation JYModuleTwoBaseModel
 

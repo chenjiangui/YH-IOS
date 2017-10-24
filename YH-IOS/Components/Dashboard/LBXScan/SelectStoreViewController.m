@@ -119,6 +119,16 @@
         NSMutableArray *array = [NSMutableArray arrayWithArray:self.searchItems];
         [array filterUsingPredicate:sPredicate];
         self.searchArray = [NSArray arrayWithArray:array];
+        if (self.searchArray.count > 0) {
+            NSLog(@"ID 搜索");
+        }
+        else {
+            NSString *predicateStr2 = [NSString stringWithFormat:@"(SELF['id'] CONTAINS \"%@\")", searchText];
+            NSPredicate *sPredicate2 = [NSPredicate predicateWithFormat:predicateStr2];
+            NSMutableArray *array2 = [NSMutableArray arrayWithArray:self.searchItems];
+            [array2 filterUsingPredicate:sPredicate2];
+            self.searchArray = [NSArray arrayWithArray:array2];
+        }
     }
     else {
         self.searchArray = [self.searchItems copy];
@@ -160,6 +170,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIndentifier];
             }
             cell.textLabel.text = self.searchArray[indexPath.row][@"name"];
+            cell.detailTextLabel.text = self.searchArray[indexPath.row][@"id"];
             return cell;
         }
     }
@@ -181,7 +192,9 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIndentifier];
             }
             NSString *currentItem = self.searchItems[indexPath.row][@"name"];
+            NSString *currentID = self.searchItems[indexPath.row][@"id"];
             cell.textLabel.text = currentItem;
+            cell.detailTextLabel.text = currentID;
             return cell;
         }
     }

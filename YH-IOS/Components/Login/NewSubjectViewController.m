@@ -989,7 +989,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
             }
         }];
         */
-        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:weakSelf.urlString assetsPath:weakSelf.assetsPath];
+        NSString *loadurlString = [NSString stringWithFormat:@"%@?location=%@,%@",self.urlString,self.userLongitude,self.userlatitude];
+        HttpResponse *httpResponse = [HttpUtils checkResponseHeader:loadurlString assetsPath:weakSelf.assetsPath];
         
          NSString *htmlPath;
         if([httpResponse.statusCode isEqualToNumber:@(200)]) {

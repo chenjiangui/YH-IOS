@@ -38,6 +38,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 @property (nonatomic, strong) NSMutableArray *itemNameArray;
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) NSMutableArray *storeids;
+@property (nonatomic,assign) BOOL isShowLocationtitle;
 
 @end
 
@@ -45,6 +46,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isShowLocationtitle = YES;
     self.storeID = @"-1";
     [WebViewJavascriptBridge enableLogging];
     self.iconNameArray =[ @[@"pop_share",@"筛选",@"pop_flash"]  mutableCopy];
@@ -417,57 +419,57 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         [self loadInnerLink];
 }
 
-- (void)_loadHtml {
-    [self clearBrowserCache];
-//    [self showLoading:LoadingLoad];
-    
-    NSString *cacheJsonPath = [FileUtils dirPath:kCachedDirName FileName:kBarCodeResultFileName];
-    NSMutableDictionary *cacheDict = [FileUtils readConfigFile:cacheJsonPath];
-    
-    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
-    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
-    
-    if ((!cacheDict[@"store"] || !cacheDict[@"store"][@"id"]) &&
-        userDict[kStoreIDsCUName] && [userDict[kStoreIDsCUName] count] > 0) {
-        
-        cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
-        [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
-    }
-    else {
-        // 缓存的门店信息可能过期，判断是否在用户权限门店列表中（user.plist）
-        BOOL isExpired = YES;
-        NSDictionary *storeDict = [NSDictionary dictionary];
-        for(NSInteger i = 0, len = [userDict[kStoreIDsCUName] count]; i < len; i++) {
-            storeDict = userDict[kStoreIDsCUName][i];
-            if(storeDict[@"name"] && storeDict[@"id"] && ([storeDict[@"id"] integerValue] == [cacheDict[@"store"][@"id"] integerValue])) {
-                isExpired = NO;
-                break;
-            }
-        }
-        
-        if(isExpired) {
-            cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
-            [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
-        }
-    }
-    
-    _storeID = cacheDict[@"store"][@"id"];
-    self.title = cacheDict[@"store"][@"name"];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      BOOL jsonFormateRight = [APIHelper barCodeScan:SafeText(self.user.userNum) group:SafeText(self.user.groupID) role:SafeText(self.user.roleID) store:_storeID code:self.codeInfo type:self.codeType];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self clearBrowserCache];
-            if (jsonFormateRight) {
-                [self.browser loadHTMLString:[self htmlContentWithTimestamp] baseURL:[NSURL fileURLWithPath:self.htmlPath]];
-            }
-            else {
-                [self showLoading:LoadingRefresh];
-            }
-        });
-    });
-}
+//- (void)_loadHtml {
+//    [self clearBrowserCache];
+////    [self showLoading:LoadingLoad];
+//
+//    NSString *cacheJsonPath = [FileUtils dirPath:kCachedDirName FileName:kBarCodeResultFileName];
+//    NSMutableDictionary *cacheDict = [FileUtils readConfigFile:cacheJsonPath];
+//
+//    NSString *userConfigPath = [[FileUtils basePath] stringByAppendingPathComponent:kUserConfigFileName];
+//    NSMutableDictionary *userDict = [FileUtils readConfigFile:userConfigPath];
+//
+//    if ((!cacheDict[@"store"] || !cacheDict[@"store"][@"id"]) &&
+//        userDict[kStoreIDsCUName] && [userDict[kStoreIDsCUName] count] > 0) {
+//
+//        cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
+//        [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
+//    }
+//    else {
+//        // 缓存的门店信息可能过期，判断是否在用户权限门店列表中（user.plist）
+//        BOOL isExpired = YES;
+//        NSDictionary *storeDict = [NSDictionary dictionary];
+//        for(NSInteger i = 0, len = [userDict[kStoreIDsCUName] count]; i < len; i++) {
+//            storeDict = userDict[kStoreIDsCUName][i];
+//            if(storeDict[@"name"] && storeDict[@"id"] && ([storeDict[@"id"] integerValue] == [cacheDict[@"store"][@"id"] integerValue])) {
+//                isExpired = NO;
+//                break;
+//            }
+//        }
+//
+//        if(isExpired) {
+//            cacheDict[@"store"] = userDict[kStoreIDsCUName][0];
+//            [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
+//        }
+//    }
+//
+//    _storeID = cacheDict[@"store"][@"id"];
+//    self.title = cacheDict[@"store"][@"name"];
+//
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//      BOOL jsonFormateRight = [APIHelper barCodeScan:SafeText(self.user.userNum) group:SafeText(self.user.groupID) role:SafeText(self.user.roleID) store:_storeID code:self.codeInfo type:self.codeType];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self clearBrowserCache];
+//            if (jsonFormateRight) {
+//                [self.browser loadHTMLString:[self htmlContentWithTimestamp] baseURL:[NSURL fileURLWithPath:self.htmlPath]];
+//            }
+//            else {
+//                [self showLoading:LoadingRefresh];
+//            }
+//        });
+//    });
+//}
 
 
 // 新版扫一扫加载的代码
@@ -533,10 +535,15 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     
     NSString *storeName =[NSString stringWithFormat:@"%@",SafeText([[NSUserDefaults standardUserDefaults] objectForKey:@"ScanStoreName"])];
     NSString *storeID = [NSString stringWithFormat:@"%@",SafeText([[NSUserDefaults standardUserDefaults] objectForKey:@"ScanStoreID"])];
-    BOOL storePermission  = [_storeids containsObject:storeID];
-    if (storeName.length > 0 && storeID.length>0 && storePermission) {
+    BOOL isUseLocation = [[[NSUserDefaults standardUserDefaults] objectForKey:@"HASUSERLOCATION"] boolValue];
+    if (storeName.length > 0 && storeID.length>0 && self.isShowLocationtitle && !isUseLocation) {
         self.title = storeName;
+        [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:@"HASUSERLOCATION"];
         _storeID = storeID;
+        self.isShowLocationtitle = false;
+        cacheDict[@"store"][@"id"] = storeID;
+        cacheDict[@"store"][@"name"] = storeName;
+        [FileUtils writeJSON:cacheDict Into:cacheJsonPath];
     }
     else {
         _storeID = SafeText(cacheDict[@"store"][@"id"]);
