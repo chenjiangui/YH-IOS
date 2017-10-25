@@ -63,6 +63,58 @@
     }
 }
 
+
+#pragma todo: pass assetsPath as parameter
++ (NSString *)getOriginreportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID {
+    NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+    NSString *assetsPath = [FileUtils dirPath:kHTMLDirName];
+     NSString *urlString = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/jzip",kBaseUrl,SafeText(groupID),reportID];
+    NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
+    NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
+    NSString *urlCleanedString = [self urlCleaner:urlString];
+    NSMutableString *etagString = [[NSMutableString alloc]init];
+    NSMutableString *lastModfiled = [[NSMutableString alloc]init];
+    if(cachedHeaderDict[urlCleanedString]) {
+        if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
+            etagString = cachedHeaderDict[urlCleanedString][@"Etag"];
+        }
+        
+        if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
+            lastModfiled = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
+        }
+    }
+    
+    
+    HttpResponse *httpResponse = [HttpUtils httpGet:urlString];
+    if ([httpResponse.statusCode isEqualToNumber:@(200)]) {
+        NSDictionary *httpHeader = [httpResponse.response allHeaderFields];
+        NSString *disposition = httpHeader[@"Content-Disposition"];
+        NSArray *array = [disposition componentsSeparatedByString:@"\""];
+        NSString *cacheFilePath = array[1];
+        NSString *reportFileName = [cacheFilePath stringByReplacingOccurrencesOfString:@".json.zip" withString:@".json"];
+        NSString *cachePath = [FileUtils dirPath:kCachedDirName];
+        NSString *fullFileCachePath = [cachePath stringByAppendingPathComponent:cacheFilePath];
+        [httpResponse.received writeToFile:fullFileCachePath atomically:YES];
+        [SSZipArchive unzipFileAtPath:fullFileCachePath toDestination: cachePath];
+        [FileUtils removeFile:fullFileCachePath];
+        if ([FileUtils checkFileExist:javascriptPath isDir:NO]) {
+            if (reportFileName.length > 0) {
+                javascriptPath = [javascriptPath stringByAppendingPathComponent:reportFileName];
+                [FileUtils removeFile:javascriptPath];
+            }
+        }
+        NSString *cacheFileStorePath = [cachePath stringByAppendingPathComponent:reportFileName];
+        [[NSFileManager defaultManager] copyItemAtPath:cacheFileStorePath toPath:javascriptPath error:nil];
+        [FileUtils removeFile:[cachePath stringByAppendingPathComponent:reportFileName]];
+    }
+    else{
+      NSString *nowifiDataName =[NSString stringWithFormat: @"group_%@_template_%@_report_%@",groupID,@"1",reportID];
+        javascriptPath = [javascriptPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.json",nowifiDataName]];
+    }
+    return javascriptPath;
+}
+
+
 + (NSString *)urlCleaner:(NSString *)urlString {
     return [urlString componentsSeparatedByString:@"?"][0];
 }

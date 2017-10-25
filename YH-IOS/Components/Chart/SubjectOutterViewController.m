@@ -130,7 +130,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * 主题页面,允许横屏
      */
     [self setAppAllowRotation:YES];
-    
+    sor
     /**
      *  横屏时，隐藏标题栏，增大可视区范围
      */
@@ -147,7 +147,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 -(void)addNavigationView{
-    self.navigationBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.navigationBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 10, kScreenWidth, 64)];
    // [MRProgressOverlayView showOverlayAddedTo:self.browser title:@"加载中" mode:MRProgressOverlayViewModeIndeterminateSmall animated:YES];
     [self.navigationController setNavigationBarHidden:false];
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
@@ -576,7 +576,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
         }
         else {
             [weakSelf.navigationBar setHidden:YES];
-            weakSelf.browser.frame = CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-20);
+            weakSelf.browser.frame = CGRectMake(0, 30, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen]bounds].size.height-30);
         }
     }];
     
@@ -748,7 +748,7 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      [[NSUserDefaults standardUserDefaults] setObject:locationString forKey:@"USERLOCATION"];
     }
     else{
-        locationString = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"];
+        locationString = [NSString stringWithFormat:@"location=%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"USERLOCATION"]];
     }
     NSString *appendParams = [NSString stringWithFormat:@"user_num=%@&timestamp=%@&%@", SafeText(self.user.userNum), timestamp,locationString];
     self.urlString = [NSString stringWithFormat:@"%@%@%@", self.urlString, splitString, appendParams];
@@ -757,6 +757,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     [self.browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
     self.isLoadFinish = !self.browser.isLoading;
 }
+
+
 
 - (void)loadInnerLink {
     /**

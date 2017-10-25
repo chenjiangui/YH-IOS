@@ -49,7 +49,11 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithHexString:@"#eeeff1"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"btn_add"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onRightBtn:)];
-    [self getData:true];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+     [self getData:true];
 }
 
 
@@ -194,75 +198,123 @@
 
 
 -(void)getData{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-    NSArray<ModuleBaseArrayModel *> *model = [ModuleBaseArrayModel mj_objectArrayWithKeyValuesArray:arraySource];
-    id tableModel =  model[0].viewpages[0].parts[3].config;
-    NSArray<ModuleTwoExcelBaseModel *> *model2 = [ModuleTwoExcelBaseModel mj_objectArrayWithKeyValuesArray:tableModel];
-    [HudToolView hideLoadingInView:self.view];
-    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
-    [self moduleTwoList];
-    return;
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+//    NSData *data = [NSData dataWithContentsOfFile:path];
+//    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+//    NSArray<ModuleBaseArrayModel *> *model = [ModuleBaseArrayModel mj_objectArrayWithKeyValuesArray:arraySource];
+//    id tableModel =  model[0].viewpages[0].parts[3].config;
+//    NSArray<ModuleTwoExcelBaseModel *> *model2 = [ModuleTwoExcelBaseModel mj_objectArrayWithKeyValuesArray:tableModel];
+//    [HudToolView hideLoadingInView:self.view];
+//    _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
+//    [self moduleTwoList];
+//    return;
 
-
+    
+    
+ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSArray *templateArray = [self.urlLink componentsSeparatedByString:@"/"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/json",kBaseUrl,SafeText(user.groupID),templateArray[8]];
-    //
-    NSString *fileNameString = [NSString stringWithFormat:@"/api/v1/group/%@/template/1/report/%@/json",SafeText(user.groupID),templateArray[8]];
-    NSString *dataPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
-    if (![FileUtils checkFileExist:dataPath isDir:YES]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:YES attributes:nil error:nil];
+    if (templateArray.count<8) {
+        [HudToolView showText:@"链接错误"];
+        return;
     }
-    NSString *fileName = [HttpUtils urlTofilename:fileNameString suffix:@".json"][0];
-    NSString *assetsPath =  [FileUtils dirPath:kHTMLDirName];
-    NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
-   __block NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
-    if (cachedHeaderDict == nil) {
-        cachedHeaderDict = [[NSMutableDictionary alloc]init];
-    }
-    dataPath = [dataPath stringByAppendingPathComponent:fileName];
-    NSString *urlCleanedString = [self urlCleaner:fileName];
-    NSMutableDictionary *header = [[NSMutableDictionary alloc]init];
-    if(cachedHeaderDict[urlCleanedString]) {
-        if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
-            header[@"IF-None-Match"] = cachedHeaderDict[urlCleanedString][@"Etag"];
-        }
-
-        if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
-            header[@"If-Modified-Since"] = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
-        }
-    }
-
-    [manager GET:kpiUrl parameters:header success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"用户信息 %@",responseObject);
-        NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
-        if (cachedHeaderDict == nil) {
-            cachedHeaderDict = [[NSMutableDictionary alloc]init];
-        }
-        NSLog(@"头信息%@",operation.response.allHeaderFields);
-        NSDictionary *headDict = operation.response.allHeaderFields;
-        cachedHeaderDict[urlCleanedString] = headDict;
-        if (![FileUtils checkFileExist:cachedHeaderPath isDir:NO]) {
-            [[NSFileManager defaultManager] createFileAtPath:cachedHeaderPath contents:nil attributes:nil];
-        }
-        [cachedHeaderDict writeToFile:cachedHeaderPath atomically:YES];
-        NSArray *array = responseObject;
-        [array writeToFile:dataPath atomically:YES];
-            _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
-            [self moduleTwoList];
-            [HudToolView hideLoadingInView:self.view];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"ERROR- %@",error);
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
-        NSArray *array = [NSArray arrayWithContentsOfFile:path];
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
-        NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:NULL];
-        [HudToolView hideLoadingInView:self.view];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSString *kpiUrl = [NSString stringWithFormat:@"%@/api/v1/group/%@/template/1/report/%@/json",kBaseUrl,SafeText(user.groupID),templateArray[8]];
+//    //
+   NSString *dataPath =  [APIHelper getOriginreportData:SafeText(user.groupID) templateID:@"1.1" reportID:templateArray[8]];
+     NSMutableString *dataStringPath = [dataPath mutableCopy];
+//     if (![dataStringPath hasSuffix:@".json"]) {
+//          NSString *nowifiDataName =[NSString stringWithFormat: @"group_%@_template_%@_report_%@",SafeText(user.groupID),@"1",templateArray[8]];
+//           NSString *javascriptPath = [[FileUtils sharedPath] stringByAppendingPathComponent:@"assets/javascripts"];
+//             [javascriptPath stringByAppendingPathComponent:nowifiDataName];
+//         dataStringPath = [javascriptPath mutableCopy];
+//     }
+     if (![FileUtils checkFileExist:dataStringPath isDir:NO]) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [HudToolView hideLoadingInView:self.view];
+             [HudToolView showTopWithText:@"数据加载失败" color:[NewAppColor yhapp_11color]];
+         });
+         return;
+     }
+    NSString *stringData = [NSString stringWithContentsOfFile:dataStringPath encoding:NSUTF8StringEncoding error:nil];
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:stringData options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *jsonDatatwo = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+     if (!jsonDatatwo) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+         [HudToolView hideLoadingInView:self.view];
+         [HudToolView showTopWithText:@"数据加载失败" color:[NewAppColor yhapp_11color]];
+          });
+         return;
+     }
+    NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:jsonDatatwo options:0 error:NULL];
+     if (arraySource.count > 0) {
         _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
-        [self moduleTwoList];
-    }];
+     }
+     else{
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [HudToolView hideLoadingInView:self.view];
+             [HudToolView showTopWithText:@"数据加载失败" color:[NewAppColor yhapp_11color]];
+         });
+         return;
+     }
+      dispatch_async(dispatch_get_main_queue(), ^{
+             [HudToolView hideLoadingInView:self.view];
+             [self moduleTwoList];
+      });
+     });
+    
+//    NSString *fileNameString = [NSString stringWithFormat:@"/api/v1/group/%@/template/1/report/%@/json",SafeText(user.groupID),templateArray[8]];
+//    NSString *dataPath = [[FileUtils userspace] stringByAppendingPathComponent:@"HTML"];
+//    if (![FileUtils checkFileExist:dataPath isDir:YES]) {
+//        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    NSString *fileName = [HttpUtils urlTofilename:fileNameString suffix:@".json"][0];
+//    NSString *assetsPath =  [FileUtils dirPath:kHTMLDirName];
+//    NSString *cachedHeaderPath = [assetsPath stringByAppendingPathComponent:kCachedHeaderConfigFileName];
+//   __block NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
+//    if (cachedHeaderDict == nil) {
+//        cachedHeaderDict = [[NSMutableDictionary alloc]init];
+//    }
+//    dataPath = [dataPath stringByAppendingPathComponent:fileName];
+//    NSString *urlCleanedString = [self urlCleaner:fileName];
+//    NSMutableDictionary *header = [[NSMutableDictionary alloc]init];
+//    if(cachedHeaderDict[urlCleanedString]) {
+//        if(cachedHeaderDict[urlCleanedString][@"Etag"]) {
+//            header[@"IF-None-Match"] = cachedHeaderDict[urlCleanedString][@"Etag"];
+//        }
+//
+//        if(cachedHeaderDict[urlCleanedString][@"Last-Modified"]) {
+//            header[@"If-Modified-Since"] = cachedHeaderDict[urlCleanedString][@"Last-Modified"];
+//        }
+//    }
+//
+//    [manager GET:kpiUrl parameters:header success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"用户信息 %@",responseObject);
+//        NSMutableDictionary *cachedHeaderDict = [NSMutableDictionary dictionaryWithContentsOfFile:cachedHeaderPath];
+//        if (cachedHeaderDict == nil) {
+//            cachedHeaderDict = [[NSMutableDictionary alloc]init];
+//        }
+//        NSLog(@"头信息%@",operation.response.allHeaderFields);
+//        NSDictionary *headDict = operation.response.allHeaderFields;
+//        cachedHeaderDict[urlCleanedString] = headDict;
+//        if (![FileUtils checkFileExist:cachedHeaderPath isDir:NO]) {
+//            [[NSFileManager defaultManager] createFileAtPath:cachedHeaderPath contents:nil attributes:nil];
+//        }
+//        [cachedHeaderDict writeToFile:cachedHeaderPath atomically:YES];
+//        NSArray *array = responseObject;
+//        [array writeToFile:dataPath atomically:YES];
+//            _moduleTwoModel = [JYModuleTwoModel modelWithParams:array[0]];
+//            [self moduleTwoList];
+//            [HudToolView hideLoadingInView:self.view];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"ERROR- %@",error);
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"report_v24" ofType:@"json"];
+//        NSArray *array = [NSArray arrayWithContentsOfFile:path];
+//        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
+//        NSArray *arraySource = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:NULL];
+//        [HudToolView hideLoadingInView:self.view];
+//        _moduleTwoModel = [JYModuleTwoModel modelWithParams:arraySource[0]];
+//        [self moduleTwoList];
+//    }];
 }
 
 - (NSString *)urlCleaner:(NSString *)urlString {

@@ -15,6 +15,7 @@
 + (NSString *)reportDataUrlString:(
 NSString*)groupID templateID:(NSString *)tempalteID reportID:(NSString *)reportID ;
 + (void)reportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
++ (NSString *)getOriginreportData:(NSString *)groupID templateID:(NSString *)templateID reportID:(NSString *)reportID;
 
 /**
  *  登录验证
