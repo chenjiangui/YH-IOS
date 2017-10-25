@@ -130,7 +130,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * 主题页面,允许横屏
      */
     [self setAppAllowRotation:YES];
-    sor
     /**
      *  横屏时，隐藏标题栏，增大可视区范围
      */
