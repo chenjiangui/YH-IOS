@@ -5830,7 +5830,7 @@
 					"-framework",
 					"\"WebP\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.YongHuiChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5968,7 +5968,7 @@
 					"-framework",
 					"\"WebP\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.yonghuitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intfocus.YongHuiChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
