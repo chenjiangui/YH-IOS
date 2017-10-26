@@ -130,7 +130,6 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
      * 主题页面,允许横屏
      */
     [self setAppAllowRotation:YES];
-    sor
     /**
      *  横屏时，隐藏标题栏，增大可视区范围
      */
@@ -731,13 +730,13 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 #pragma mark - assistant methods
-- (void)loadHtml {
-    
-        self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
- 
+- (void)loadHtml
+{
+    self.isInnerLink ? [self loadInnerLink] : [self loadOuterLink];
 }
 
-- (void)loadOuterLink {
+- (void)loadOuterLink
+{
     
     NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     self.link =  (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.link, (CFStringRef)@"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
@@ -760,7 +759,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 
 
-- (void)loadInnerLink {
+- (void)loadInnerLink
+{
     /**
      *  only inner link clean browser cache
      */

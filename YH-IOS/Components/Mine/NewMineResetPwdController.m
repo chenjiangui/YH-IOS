@@ -70,12 +70,11 @@
     ResetPwdTableView=[[UITableView alloc] init];
     [self.view addSubview:ResetPwdTableView];
     ResetPwdTableView.scrollEnabled =NO; //设置tableview 不能滚动
-    [ResetPwdTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height));
-    }];
+   ResetPwdTableView.frame  = CGRectMake(0, 14, self.view.frame.size.width, self.view.frame.size.height-14);
     [ResetPwdTableView setBackgroundColor:[NewAppColor yhapp_8color]];
     ResetPwdTableView.dataSource = self;
     ResetPwdTableView.delegate = self;
+    ResetPwdTableView.tableFooterView = [[UIView alloc] init];
 }
 
 #pragma  get GroupArray count  to set number of section
