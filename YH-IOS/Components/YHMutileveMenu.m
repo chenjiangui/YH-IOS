@@ -115,7 +115,7 @@ static NSString *mutileresuedLeftCell = @"mutilresuedLeftCell";
 -(void)reloadData {
      [self.leftTable reloadData];
      NSIndexPath *ip=[NSIndexPath indexPathForRow:_selectIndex inSection:0];
-        [self.leftTable selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom];
+    [self.leftTable selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom];
     [self.rightCollection reloadData];
 }
 

@@ -1173,58 +1173,58 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 }
 
 - (void)actionWebviewScreenShot{
-
-            UIImage *image;
-            NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
-            betaDict = [FileUtils readConfigFile:settingsConfigPath];
-            if (betaDict[@"image_within_screen"] && [betaDict[@"image_within_screen"] boolValue]) {
-               image = [self saveWebViewAsImage];
-               // image = [self createViewImage:self.navigationController.view];
-            }
-            else {
-                image = [self createViewImage:self.navigationController.view];
-            }
-            dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
-            dispatch_after(time, dispatch_get_main_queue(), ^{
-                [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeImage;
-                [UMSocialData defaultData].extConfig.title = kWeiXinShareText;
-                [UMSocialData defaultData].extConfig.qqData.url = kBaseUrl;
-                [UMSocialSnsService presentSnsIconSheetView:self
-                                                     appKey:kUMAppId
-                                                  shareText:self.bannerName
-                                                 shareImage:image
-                                            shareToSnsNames:@[UMShareToWechatSession]
-                                                   delegate:self];
-            });
-}
-
-- (UIImage *)createViewImage:(UIView *)shareView {
-    UIGraphicsBeginImageContextWithOptions(shareView.bounds.size, NO, [UIScreen mainScreen].scale);
-    [shareView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-
-- (UIImage *)saveWebViewAsImage {
-    UIScrollView *scrollview = self.browser.scrollView;
-    UIImage *image = nil;
-    CGSize boundsSize = self.browser.scrollView.contentSize;
-    if (boundsSize.height > kScreenHeight * 3) {
-        boundsSize.height = kScreenHeight * 3;
+    [_popView hideWithAnimation:NO];
+    UIImage *image;
+    NSString *settingsConfigPath = [FileUtils dirPath:kConfigDirName FileName:kSettingConfigFileName];
+    betaDict = [FileUtils readConfigFile:settingsConfigPath];
+    if (betaDict[@"image_within_screen"] && [betaDict[@"image_within_screen"] boolValue]) {
+        //image = [self captureView:self.browser frame:CGRectMake(0, 0, kScreenWidth, kScreenHeight*3)];
+        
+        image =  [self captureView:CurAppDelegate.window frame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     }
-    UIGraphicsBeginImageContextWithOptions(boundsSize ,NO, 0.0);
-    CGPoint savedContentOffset = scrollview.contentOffset;
-    CGRect savedFrame = scrollview.frame;
-    scrollview.contentOffset = CGPointZero;
-    scrollview.frame = CGRectMake(0,0, boundsSize.width, boundsSize.height);
-    [scrollview.layer renderInContext: UIGraphicsGetCurrentContext()];
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    scrollview.contentOffset = savedContentOffset;
-    scrollview.frame = savedFrame;
+    else {
+        // image = [self captureView:self.browser frame:self.view.frame];
+        image =  [self captureView:CurAppDelegate.window frame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+    }
+    dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, 1ull *NSEC_PER_SEC);
+    dispatch_after(time, dispatch_get_main_queue(), ^{
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeImage;
+        [UMSocialData defaultData].extConfig.title = kWeiXinShareText;
+        [UMSocialData defaultData].extConfig.qqData.url = kBaseUrl;
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:kUMAppId
+                                          shareText:self.bannerName
+                                         shareImage:image
+                                    shareToSnsNames:@[UMShareToWechatSession]
+                                           delegate:self];
+    });
+}
+
+- (UIImage*)captureView:(UIView *)theView frame:(CGRect)frame
+{
+    UIGraphicsBeginImageContext(self.browser.scrollView.contentSize);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIImage *img;
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)
+    {
+        for(UIView *subview in theView.subviews)
+        {
+            [subview drawViewHierarchyInRect:subview.bounds afterScreenUpdates:YES];
+        }
+        img = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    else
+    {
+        CGContextSaveGState(context);
+        [theView.layer renderInContext:context];
+        img = UIGraphicsGetImageFromCurrentImageContext();
+    }
     UIGraphicsEndImageContext();
-    return image;
+    CGImageRef ref = CGImageCreateWithImageInRect(img.CGImage, self.browser.scrollView.frame);
+    UIImage *CGImg = [UIImage imageWithCGImage:ref];
+    CGImageRelease(ref);
+    return CGImg;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

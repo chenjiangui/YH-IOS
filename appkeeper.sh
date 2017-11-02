@@ -51,7 +51,6 @@ case "$1" in
         bundle exec ruby config/app_keeper.rb --app="$1" --plist --assets --constant
     ;;
     assets:check)
-        check_assets "BarCodeScan"
         check_assets "advertisement"
         check_assets "assets"
         check_assets "fonts"

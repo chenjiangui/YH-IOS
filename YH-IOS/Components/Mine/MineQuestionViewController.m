@@ -47,21 +47,18 @@ static NSString *const reUse = @"reUse";
     self.imageArrayorigin = [NSMutableArray new];
     user = [[User alloc]init];
     self.version = [[Version alloc] init];
-     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-     [self.navigationController.navigationBar setHidden:NO];
-   // [self.tabBarController.tabBar setHidden:YES];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [self.navigationController.navigationBar setHidden:NO];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fbfcf5"];
     [self setUI];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:nil];
     self.navigationItem.backBarButtonItem = backItem;
-    // Do any additional setup after loading the view.
 }
 
 
 -(void)setUI{
     
     self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
-    
     UIView *bgView = [[UIView alloc]init];
     bgView.backgroundColor = [UIColor whiteColor];
     bgView.layer.borderWidth = 1;
@@ -75,14 +72,12 @@ static NSString *const reUse = @"reUse";
     // 描述头
     UILabel *titleLable = [[UILabel alloc]init];
     titleLable.backgroundColor = [UIColor clearColor];
-//    titleLable.text = @"生意人反馈收集";
     titleLable.text=@"问题反馈";
     titleLable.textColor = [UIColor colorWithHexString:@"#000"];
     titleLable.font = [UIFont systemFontOfSize:16];
     [bgView addSubview:titleLable];
     
     // 描述细节
-    
     UILabel *detialLable = [[UILabel alloc]init];
     detialLable.backgroundColor = [UIColor clearColor];
     detialLable.textColor = [UIColor colorWithHexString:@"#000"];
@@ -115,16 +110,12 @@ static NSString *const reUse = @"reUse";
     [bgView addSubview:submitButton];
     
     // 描述文字
-    
     self.questionTextField = [[UITextView alloc]init];
-   // self.questionTextField.placeholder = @"问题描述请直戳要点~ 如能附上具体操作步骤更佳，万分感谢!";
-  //  self.questionTextField.layer.borderColor = [UIColor colorWithHexString:@"#959595"].CGColor;
     self.questionTextField.font = [UIFont systemFontOfSize:9];
     self.questionTextField.clipsToBounds = YES;
     self.questionTextField.layer.borderColor = [UIColor colorWithHexString:@"#959595"].CGColor;
     self.questionTextField.layer.borderWidth = 1;
     self.questionTextField.delegate = self;
-   // self.questionTextField.borderStyle = UITextBorderStyleLine;
     [bgView addSubview:_questionTextField];
     
     self.questionPalceHolderView = [[UILabel alloc]init];
@@ -134,50 +125,37 @@ static NSString *const reUse = @"reUse";
     self.questionPalceHolderView.text = @"问题描述请直戳要点~ 如能附上具体操作步骤更佳，万分感谢!";
     self.questionPalceHolderView.font = [UIFont systemFontOfSize:9];
     self.questionPalceHolderView.textColor = [UIColor colorWithHexString:@"#959595"];
-    // 问题截图头
     
+    // 问题截图头
     UILabel *imageTitle = [[UILabel alloc]init];
     imageTitle.text = @"问题截图";
     imageTitle.font = [UIFont systemFontOfSize:14];
     imageTitle.textColor = [UIColor colorWithHexString:@"#000"];
     [bgView addSubview:imageTitle];
     
-    
     // 上传问题截图框
-    
-    
     UIView *imageViews = [[UIView alloc]initWithFrame:CGRectMake(30, 300+64+19+17, SCREEN_WIDTH - 90, 59.5)];
-    
-   // imageViews.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    //imageViews.layer.borderWidth = 1.5;
     [bgView addSubview:imageViews];
-   // [UIView drawDashLine:imageViews lineLength:2 lineSpacing:2 lineColor:[UIColor lightGrayColor]];
-    
     
     CAShapeLayer *borderLayer = [CAShapeLayer layer];
     borderLayer.bounds = CGRectMake(0, 0, SCREEN_WIDTH - 90, 59.5);
     borderLayer.position = CGPointMake(CGRectGetMidX(imageViews.bounds), CGRectGetMidY(imageViews.bounds));
     
-    //    borderLayer.path = [UIBezierPath bezierPathWithRect:borderLayer.bounds].CGPath;
     borderLayer.path = [UIBezierPath bezierPathWithRoundedRect:borderLayer.bounds cornerRadius:0].CGPath;
     borderLayer.lineWidth = 4. / [[UIScreen mainScreen] scale];
     //虚线边框
     borderLayer.lineDashPattern = @[@3, @2];
+    
     //实线边框
-    //    borderLayer.lineDashPattern = nil;
     borderLayer.fillColor = [UIColor clearColor].CGColor;
     borderLayer.strokeColor = [UIColor colorWithHexString:@"#959595"].CGColor;
     [imageViews.layer addSublayer:borderLayer];
     
     //添加图片提示
-    
     self.imageNotelabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 4, SCREEN_WIDTH - 90, 20)];
     _imageNotelabel.font = [UIFont systemFontOfSize:9];
     _imageNotelabel.textColor = [UIColor colorWithHexString:@"#7e7e7e"];
     _imageNotelabel.text = @"请将你遇到问题的页面截图上传，最多三张哦!";
-    
-    
-   // [UIView drawDashLine:dropView lineLength:1 lineSpacing:1 lineColor:[UIColor redColor]];
     
     // 上传完成后展示用
     self.collectionView.frame = CGRectMake(0, 0,SCREEN_WIDTH-90,59.5);
@@ -187,13 +165,10 @@ static NSString *const reUse = @"reUse";
     [self.collectionView registerClass:[PhotoRevealCell class] forCellWithReuseIdentifier:reUse];
     
     // 点击上传按钮
-    
     UIButton *imagePicButton = [[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-90)/2  - 15,20 , 30, 30)];
     [imageViews addSubview:imagePicButton];
     [imagePicButton setImage:[UIImage imageNamed:@"btn_add_biack"] forState:UIControlStateNormal];
     [imagePicButton addTarget:self action:@selector(handleSelectPhotosAction:) forControlEvents:UIControlEventTouchUpInside];
-
-    
     
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.top).mas_offset(15);
@@ -236,7 +211,6 @@ static NSString *const reUse = @"reUse";
         make.right.mas_equalTo(self.view.right).mas_offset(-30);
         make.height.mas_equalTo(111.5);
     }];
-    
     
     [imageTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.top).mas_offset(270+64+19+15);

@@ -1076,59 +1076,59 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     return CGImg;
 }
 
-- (UIImage*)captureView:(UIView *)theView
-{
-    UIGraphicsBeginImageContext(theView.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    UIImage *img;
-    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)
-    {
-        for(UIView *subview in theView.subviews)
-        {
-            [subview drawViewHierarchyInRect:subview.bounds afterScreenUpdates:YES];
-        }
-        img = UIGraphicsGetImageFromCurrentImageContext();
-    }
-    else
-    {
-        CGContextSaveGState(context);
-        [theView.layer renderInContext:context];
-        img = UIGraphicsGetImageFromCurrentImageContext();
-    }
-    UIGraphicsEndImageContext();
-    CGImageRef ref = CGImageCreateWithImageInRect(img.CGImage, theView.frame);
-    UIImage *CGImg = [UIImage imageWithCGImage:ref];
-    CGImageRelease(ref);
-    return CGImg;
-}
-
-- (UIImage *)createViewImage:(UIView *)shareView {
-    UIGraphicsBeginImageContextWithOptions(shareView.bounds.size, NO, [UIScreen mainScreen].scale);
-    [shareView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-- (UIImage *)saveWebViewAsImage {
-    UIScrollView *scrollview = self.browser.scrollView;
-    UIImage *image = nil;
-    CGSize boundsSize = self.browser.scrollView.contentSize;
-    if (boundsSize.height > kScreenHeight * 3) {
-        boundsSize.height = kScreenHeight * 3;
-    }
-    UIGraphicsBeginImageContextWithOptions(boundsSize ,NO, 0.0);
-    CGPoint savedContentOffset = scrollview.contentOffset;
-    CGRect savedFrame = scrollview.frame;
-    scrollview.contentOffset = CGPointZero;
-    scrollview.frame = CGRectMake(0,0, boundsSize.width, boundsSize.height);
-    [scrollview.layer renderInContext: UIGraphicsGetCurrentContext()];
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    scrollview.contentOffset = savedContentOffset;
-    scrollview.frame = savedFrame;
-    UIGraphicsEndImageContext();
-    return image;
-}
+//- (UIImage*)captureView:(UIView *)theView
+//{
+//    UIGraphicsBeginImageContext(theView.frame.size);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    UIImage *img;
+//    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0)
+//    {
+//        for(UIView *subview in theView.subviews)
+//        {
+//            [subview drawViewHierarchyInRect:subview.bounds afterScreenUpdates:YES];
+//        }
+//        img = UIGraphicsGetImageFromCurrentImageContext();
+//    }
+//    else
+//    {
+//        CGContextSaveGState(context);
+//        [theView.layer renderInContext:context];
+//        img = UIGraphicsGetImageFromCurrentImageContext();
+//    }
+//    UIGraphicsEndImageContext();
+//    CGImageRef ref = CGImageCreateWithImageInRect(img.CGImage, theView.frame);
+//    UIImage *CGImg = [UIImage imageWithCGImage:ref];
+//    CGImageRelease(ref);
+//    return CGImg;
+//}
+//
+//- (UIImage *)createViewImage:(UIView *)shareView {
+//    UIGraphicsBeginImageContextWithOptions(shareView.bounds.size, NO, [UIScreen mainScreen].scale);
+//    [shareView.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return image;
+//}
+//
+//- (UIImage *)saveWebViewAsImage {
+//    UIScrollView *scrollview = self.browser.scrollView;
+//    UIImage *image = nil;
+//    CGSize boundsSize = self.browser.scrollView.contentSize;
+//    if (boundsSize.height > kScreenHeight * 3) {
+//        boundsSize.height = kScreenHeight * 3;
+//    }
+//    UIGraphicsBeginImageContextWithOptions(boundsSize ,NO, 0.0);
+//    CGPoint savedContentOffset = scrollview.contentOffset;
+//    CGRect savedFrame = scrollview.frame;
+//    scrollview.contentOffset = CGPointZero;
+//    scrollview.frame = CGRectMake(0,0, boundsSize.width, boundsSize.height);
+//    [scrollview.layer renderInContext: UIGraphicsGetCurrentContext()];
+//    image = UIGraphicsGetImageFromCurrentImageContext();
+//    scrollview.contentOffset = savedContentOffset;
+//    scrollview.frame = savedFrame;
+//    UIGraphicsEndImageContext();
+//    return image;
+//}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -1204,8 +1204,8 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
         if (![[url scheme] hasPrefix:@";file"] && ![[url relativeString] hasPrefix:@"http://222.76.27.51"]) {
-            [[UIApplication sharedApplication] openURL:url];
-            return NO;
+           // [[UIApplication sharedApplication] openURL:url];
+           // return NO;
         }
     }
     
