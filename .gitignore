@@ -2,6 +2,8 @@
 #
 #
 YH-IOS/Shared/PrivateConstants.h
+Pods/
+Podfile.lock
 .DS_Store
 .current-app
 *.lock
