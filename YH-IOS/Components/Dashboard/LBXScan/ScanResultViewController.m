@@ -416,8 +416,26 @@ static NSString *const kReportSelectorSegueIdentifier = @"ToReportSelectorSegueI
 
 #pragma mark - assistant methods
 - (void)loadHtml {
+    if (self.toolModel.obj_link) {
+        [self loadOuterLink];
+    }
+    else{
         [self loadInnerLink];
+    }
 }
+
+- (void)loadOuterLink
+{
+    
+    NSString *timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
+    self.toolModel.obj_link =  (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.toolModel.obj_link, (CFStringRef)@"!NULL,'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingUTF8));
+    NSString *appendParams = [NSString stringWithFormat:@"option_user_num=%@&timestamp=%@&barcode=%@&bartype=%@", SafeText(self.user.userNum), timestamp,SafeText(self.codeInfo),SafeText(self.codeInfo)];
+    self.urlString = [NSString stringWithFormat:@"%@?%@", self.toolModel.obj_link,appendParams];
+    
+    NSLog(@"%@", self.urlString);
+    [self.browser loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.self.toolModel.obj_link]]];
+}
+
 
 //- (void)_loadHtml {
 //    [self clearBrowserCache];

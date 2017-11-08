@@ -32,6 +32,7 @@
 
 @implementation SubLBXScanViewController
 
+
 + (instancetype)instance{
     LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
     //矩形区域中心上移，默认中心点为屏幕中心点
@@ -419,6 +420,7 @@
     ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
     scanResultVC.codeInfo = scanResult.strScanned;
     scanResultVC.codeType = scanResult.strBarCodeType;
+    scanResultVC.toolModel = self.model;
      [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     UINavigationController *scanresult = [[UINavigationController alloc]initWithRootViewController:scanResultVC];
     [self presentViewController:scanresult animated:YES completion:nil];
@@ -511,6 +513,7 @@
         ScanResultViewController *scanResultVC = (ScanResultViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ScanResultViewController"];
         scanResultVC.codeInfo = InputNumString;
         scanResultVC.codeType = @"input";
+        scanResultVC.toolModel = self.model;
         UINavigationController *scanresult = [[UINavigationController alloc]initWithRootViewController:scanResultVC];
         [self presentViewController:scanresult animated:YES completion:nil];
     };

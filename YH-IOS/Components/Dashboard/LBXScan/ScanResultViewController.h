@@ -7,8 +7,10 @@
 //
 
 #import "BaseWebViewController.h"
+#import "ToolModel.h"
 
 @interface ScanResultViewController: BaseWebViewController
 @property (strong, nonatomic) NSString *codeInfo;
 @property (strong, nonatomic) NSString *codeType;
+@property (strong, nonatomic) ToolModel *toolModel;
 @end

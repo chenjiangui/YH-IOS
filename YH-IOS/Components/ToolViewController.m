@@ -19,6 +19,9 @@
 #import "YHScreenController.h"
 #import "NewSubjectViewController.h"
 #import "TemplateSixViewController.h"
+#import "SubLBXScanViewController.h"
+#import <LBXScan/LBXScanView.h>
+#import <LBXScan/LBXScanResult.h>
 
 @interface ToolViewController () <UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>
 
@@ -32,6 +35,8 @@
 
 @implementation ToolViewController
 
+
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"工具箱";
@@ -39,6 +44,37 @@
     [self getData:true];
     [self showBottomTip:YES title:@"年轻不留白" image:@"pic_4".imageFromSelf];
 }
+
+#pragma mark - RefreshToolDelegate
+
+- (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
+    [self getData:false];
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    OneImageAndLabCell* cell = [OneImageAndLabCell cellWithCollctionView:collectionView needXib:YES IndexPath:indexPath];
+    ToolModel* model = _dataList[indexPath.row];
+    [cell.imageV sd_setImageWithURL:model.icon_link.mj_url placeholderImage:DEFAULT_IMAGE];
+    cell.contentLab.text = model.name;
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.dataList.count;
+}
+
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ToolModel* model = _dataList[indexPath.row];
+    [self toolClickAction:model];
+}
+
+#pragma mark - even response
+
+// 获取数据
 - (void)getData:(BOOL)loading{
     if (loading) {
         [HudToolView showLoadingInView:self.view];
@@ -58,7 +94,7 @@
     }];
 }
 
-#pragma mark - 点击事件
+// 点击事件
 - (void)toolClickAction:(ToolModel*)model{
    /* YHScreenController* vc = [[YHScreenController alloc] init];
     [self p8/ushViewController:vc animation:YES hideBottom:YES];
@@ -66,58 +102,8 @@
     [self jumpToDetailView:model];
 }
 
-- (void)refreshToolBeginDownRefreshWithScrollView:(UIScrollView *)scrollView tool:(RefreshTool *)tool{
-    [self getData:false];
-}
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    OneImageAndLabCell* cell = [OneImageAndLabCell cellWithCollctionView:collectionView needXib:YES IndexPath:indexPath];
-    ToolModel* model = _dataList[indexPath.row];
-    [cell.imageV sd_setImageWithURL:model.icon_link.mj_url placeholderImage:DEFAULT_IMAGE];
-    cell.contentLab.text = model.name;
-    return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    ToolModel* model = _dataList[indexPath.row];
-    [self toolClickAction:model];
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.dataList.count;
-}
-
-
-#pragma mark - lazy and ui
-- (void)setupUI{
-    [self.view sd_addSubviews:@[self.collection]];
-    [self.collection mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
-    }];
-}
-
-- (RefreshTool *)reTool{
-    if (!_reTool) {
-        _reTool = [[RefreshTool alloc] initWithScrollView:self.collection delegate:self down:YES top:NO];
-    }
-    return _reTool;
-}
-
-- (UICollectionView *)collection{
-    if (!_collection) {
-        UICollectionViewFlowLayout* layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.itemSize = CGSizeMake((SCREEN_WIDTH-1)/3.0, SCREEN_WIDTH/3.0);
-        layout.sectionInset = UIEdgeInsetsZero;
-        layout.minimumLineSpacing = 0.5;
-        layout.minimumInteritemSpacing = 0.5;
-        _collection = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-        _collection.backgroundColor =[NewAppColor yhapp_clearcolor];
-        _collection.delegate = self;
-        _collection.dataSource = self;
-    }
-    return _collection;
-}
-
+#pragma mark - private event
 
 -(void)jumpToDetailView:(ToolModel*)model{
     NSString *templateType = model.template_id;
@@ -151,6 +137,10 @@
             NSLog(@"模版6");
             [self jumpToTemplateSixView:model];
             break;
+        case -2:
+            NSLog(@"睿商的新增功能");
+            [self jumpToScanView:model];
+            break;
             
         default:
             NSLog(@"不再模版中");
@@ -159,6 +149,48 @@
     
 }
 
+// 跳转到扫码页面
+-(void)jumpToScanView:(ToolModel *)model{
+    if ([model.name isEqualToString:@"帮助"]) {
+        [self jumptoOutterView:model];
+    }
+    else if ([model.name isEqualToString:@"券核销"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:model.obj_link forKey:@"SCANTOOLMODEL"];
+        [self jumpToScanView:model];
+    }
+}
+
+- (void)actionBarCodeScanView:(ToolModel *)model {
+    if(![self cameraPemission]) {
+        [[[UIAlertView alloc] initWithTitle:kWarningTitleText message:kWarningNoCaremaText delegate:nil cancelButtonTitle:kSureBtnText otherButtonTitles:nil] show];
+        return;
+    }
+    SubLBXScanViewController *SubLBXScanViewCtrl = [SubLBXScanViewController instance];
+    SubLBXScanViewCtrl.model = model;
+    [self presentViewController:SubLBXScanViewCtrl animated:YES completion:nil];
+}
+
+- (BOOL)cameraPemission {
+    BOOL isHavePemission = NO;
+    if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)]) {
+        AVAuthorizationStatus permission =
+        [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        switch (permission) {
+            case AVAuthorizationStatusAuthorized:
+                isHavePemission = YES;
+                break;
+            case AVAuthorizationStatusDenied:
+            case AVAuthorizationStatusRestricted:
+                break;
+            case AVAuthorizationStatusNotDetermined:
+                isHavePemission = YES;
+                break;
+        }
+    }
+    
+    return isHavePemission;
+}
 
 
 // 跳到外部链接原生模版
@@ -343,7 +375,7 @@
         }
     });
     
-
+    
 }
 
 #pragma mark - jump to reportView
@@ -375,7 +407,7 @@
             logParams[kActionALCName]   = @"点击/专题/报表";
             //logParams[kObjIDALCName]    = @(item.itemID);
             //logParams[kObjTypeALCName]  = @(ObjectTypeApp);
-           // logParams[kObjTitleALCName] =  item.listName;
+            // logParams[kObjTitleALCName] =  item.listName;
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
              */
@@ -394,13 +426,13 @@
             SuperChartVc *superChaerCtrl = [[SuperChartVc alloc]init];
             superChaerCtrl.bannerTitle = item.report_title;
             superChaerCtrl.dataLink = targeturl;
-           // superChaerCtrl.objectID =@(item.);
+            // superChaerCtrl.objectID =@(item.);
             superChaerCtrl.commentObjectType = ObjectTypeAnalyse;
             UINavigationController *superChartNavCtrl = [[UINavigationController alloc]initWithRootViewController:superChaerCtrl];
-           /* logParams[kActionALCName]   = @"点击/专题/报表";
-            logParams[kObjIDALCName]    = @(item.itemID);
-            logParams[kObjTypeALCName]  = @(ObjectTypeApp);
-            logParams[kObjTitleALCName] =  item.listName;*/
+            /* logParams[kActionALCName]   = @"点击/专题/报表";
+             logParams[kObjIDALCName]    = @(item.itemID);
+             logParams[kObjTypeALCName]  = @(ObjectTypeApp);
+             logParams[kObjTitleALCName] =  item.listName;*/
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
              */
@@ -461,7 +493,7 @@
             /*
              * 用户行为记录, 单独异常处理，不可影响用户体验
              */
-   
+            
             [APIHelper actionLog:logParams];
             if (isInnerLink) {
                 logParams[kActionALCName]   = @"点击/专题/报表";
@@ -479,7 +511,7 @@
                         NSLog(@"%@", exception);
                     }
                 });
-
+                
                 if (YHAPPVERSION >= 9.0) {
                     NewSubjectViewController *subjectView =[[NewSubjectViewController alloc] init];
                     if (item.report_title != nil) {
@@ -494,24 +526,24 @@
                     [RootTabbarViewConTroller presentViewController:subCtrl animated:YES completion:nil];
                 }
                 else {
-                UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                
-                SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-                if (item.report_title != nil) {
-                    subjectView.bannerName = item.report_title;
-                }
-                else{
-                    subjectView.bannerName = item.name;
-                }
-                subjectView.link = targeturl;
-                subjectView.commentObjectType = ObjectTypeApp;
-               // subjectView.objectID = @(item.itemID);
-                UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
-                [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
+                    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    
+                    SubjectViewController *subjectView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+                    if (item.report_title != nil) {
+                        subjectView.bannerName = item.report_title;
+                    }
+                    else{
+                        subjectView.bannerName = item.name;
+                    }
+                    subjectView.link = targeturl;
+                    subjectView.commentObjectType = ObjectTypeApp;
+                    // subjectView.objectID = @(item.itemID);
+                    UINavigationController *subCtrl = [[UINavigationController alloc]initWithRootViewController:subjectView];
+                    [self.navigationController presentViewController:subCtrl animated:YES completion:nil];
                 }
             }
             else{
-
+                
                 logParams[kActionALCName]   = @"点击/专题/链接";
                 //logParams[kObjIDALCName]    = @(item.itemID);
                 //logParams[kObjTypeALCName]  = @(ObjectTypeApp);
@@ -527,19 +559,52 @@
                         NSLog(@"%@", exception);
                     }
                 });
-
+                
                 SubjectOutterViewController *subjectView = [[SubjectOutterViewController alloc]init];
                 subjectView.bannerName = item.report_title;
                 subjectView.link = targeturl;
                 subjectView.commentObjectType = ObjectTypeApp;
-             //   subjectView.objectID = @(item.itemID);
-
+                //   subjectView.objectID = @(item.itemID);
+                
                 
                 [self.navigationController presentViewController:subjectView animated:YES completion:nil];
             }
         }
     }
 }
+
+#pragma mark - getter & setter
+
+- (void)setupUI{
+    [self.view sd_addSubviews:@[self.collection]];
+    [self.collection mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
+}
+
+- (RefreshTool *)reTool{
+    if (!_reTool) {
+        _reTool = [[RefreshTool alloc] initWithScrollView:self.collection delegate:self down:YES top:NO];
+    }
+    return _reTool;
+}
+
+- (UICollectionView *)collection{
+    if (!_collection) {
+        UICollectionViewFlowLayout* layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.itemSize = CGSizeMake((SCREEN_WIDTH-1)/3.0, SCREEN_WIDTH/3.0);
+        layout.sectionInset = UIEdgeInsetsZero;
+        layout.minimumLineSpacing = 0.5;
+        layout.minimumInteritemSpacing = 0.5;
+        _collection = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+        _collection.backgroundColor =[NewAppColor yhapp_clearcolor];
+        _collection.delegate = self;
+        _collection.dataSource = self;
+    }
+    return _collection;
+}
+
+
 
 
 @end

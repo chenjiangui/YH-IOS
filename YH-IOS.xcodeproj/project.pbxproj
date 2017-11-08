@@ -5036,7 +5036,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-YH-IOS/Pods-YH-IOS-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/DMPasscode/DMPasscode.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/DMPasscode/DMPasscode.bundle,
 				"${PODS_ROOT}/LTHPasscodeViewController/Localizations/LTHPasscodeViewController.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
